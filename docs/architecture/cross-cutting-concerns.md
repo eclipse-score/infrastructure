@@ -1,53 +1,53 @@
 # Cross-Cutting Concerns
 
-These concerns apply across all platform areas.
+These concerns apply across multiple S-CORE infrastructure areas and should be considered when defining work packages and implementation choices.
 
 ## Traceability
 
-Infrastructure decisions and automation behavior should remain reviewable across repositories, workflows, and published outputs.
+Infrastructure behavior, policy decisions, and workflow outcomes should be reviewable across repositories and automation steps.
 
-Related pages:
+Related areas:
 
-- [Source Platform](../source/overview.md)
-- [Artifact Platform](../artifacts/overview.md)
-- [Security & Compliance Platform](../security/overview.md)
+- [Source Code Infrastructure](../areas/source-code-infrastructure/index.md)
+- [Artifact Infrastructure](../areas/artifact-infrastructure/index.md)
+- [Security & Compliance Infrastructure](../areas/security-and-compliance-infrastructure/index.md)
 
 ## Reproducibility
 
-Build, test, and publication workflows should behave predictably across local and CI execution.
+Build, test, and integration workflows should behave predictably across local and automated execution contexts.
 
-Related pages:
+Related areas:
 
-- [Build Platform](../build/overview.md)
-- [Testing Platform](../testing/overview.md)
-- [CI/CD Platform](../cicd/overview.md)
+- [Build Infrastructure](../areas/build-infrastructure/index.md)
+- [Integration Infrastructure](../areas/integration-infrastructure/index.md)
+- [Testing Infrastructure](../areas/testing-infrastructure/index.md)
 
 ## Controlled Automation
 
-Automation should reduce manual work while keeping controls visible and maintainable.
+Automation should reduce manual effort while preserving explicit ownership, reviewability, and safe change behavior.
 
-Related pages:
+Related areas:
 
-- [Source Platform](../source/overview.md)
-- [CI/CD Platform](../cicd/overview.md)
-- [Platform Operations](../operations/overview.md)
+- [Source Code Infrastructure](../areas/source-code-infrastructure/index.md)
+- [Integration Infrastructure](../areas/integration-infrastructure/index.md)
+- [Infrastructure Operations](../areas/infrastructure-operations/index.md)
+
+## Transparency
+
+Status, decisions, and unresolved gaps should be visible to contributors, managers, and safety/compliance stakeholders.
+
+Related areas:
+
+- [Documentation Infrastructure](../areas/documentation-infrastructure/index.md)
+- [Infrastructure Operations](../areas/infrastructure-operations/index.md)
+- [Security & Compliance Infrastructure](../areas/security-and-compliance-infrastructure/index.md)
 
 ## Compliance Integration
 
-License scanning, vulnerability management, and SBOM workflows should be integrated into normal engineering processes.
+License, vulnerability, and SBOM workflows should be integrated into normal engineering and integration workflows rather than treated as isolated add-ons.
 
-Related pages:
+Related areas:
 
-- [Security & Compliance Platform](../security/overview.md)
-- [Build Platform](../build/overview.md)
-- [Artifact Platform](../artifacts/overview.md)
-
-## Documentation As Infrastructure
-
-Documentation should be treated as operational platform guidance with review, validation, and publishing workflows.
-
-Related pages:
-
-- [Documentation Platform](../documentation/overview.md)
-- [Documentation publishing guide](../guides/documentation-publishing.md)
-- [Work Breakdown Structure](../work-ahead/work-breakdown-structure.md)
+- [Security & Compliance Infrastructure](../areas/security-and-compliance-infrastructure/index.md)
+- [Build Infrastructure](../areas/build-infrastructure/index.md)
+- [Artifact Infrastructure](../areas/artifact-infrastructure/index.md)

@@ -1,40 +1,52 @@
 # S-CORE Infrastructure Documentation
 
-This repository documents how S-CORE infrastructure is organized and operated across source management, build, CI/CD, artifacts, testing, security and compliance, documentation, and operations.
+This repository documents the technical infrastructure that supports the S-CORE project.
 
-The documentation is maintained as a living engineering resource. Some sections are still being expanded, but the structure and cross-links are intended to be stable enough for daily use.
+It covers how infrastructure is currently organized, where maturity is still low, what work is underway, and where contributors can help.
+
+The infrastructure is evolving. Several foundations are in place, but rollout and standardization are still ongoing in multiple areas.
 
 ## What This Repository Is For
 
-- help developers complete common infrastructure-related tasks
-- help contributors find work areas and work packages
-- help managers and safety/compliance-oriented readers understand platform scope and progress
-- provide a capability-based map that stays useful as implementation details evolve
+This documentation is used to:
 
-## Navigate By Intent
+- understand the S-CORE infrastructure landscape
+- track current state and remaining infrastructure work
+- identify concrete contribution opportunities
+- provide practical guidance for recurring infrastructure tasks
+- explain architecture and cross-cutting concerns for technical and stakeholder audiences
 
-Use one of these three entry points:
+## How To Navigate This Site
 
-- [Start Here](start-here/platform-overview.md): onboarding entry for platform structure, capability map, and repository working model
-- [Work Ahead](work-ahead/work-breakdown-structure.md): practical work map of packages, current focus areas, and contribution opportunities
-- [Platform Areas](source/overview.md): stable capability structure when you work primarily by area
+Use these five top-level sections:
 
-## Where Should I Start?
+- **Overview**: purpose, scope, and entry points
+- **Infrastructure Development Map**: current state, roadmap themes, and work packages
+- **Infrastructure Areas**: the primary backbone of the documentation
+- **Guides**: practical, task-oriented instructions
+- **Architecture**: supporting conceptual pages and cross-cutting concerns
 
-### New developers
+## Start Here If You Are...
 
-1. Read [Where to start](overview/where-to-start.md).
-2. Open [Guides Overview](guides/overview.md).
-3. Follow the guide for your current task.
+### A new contributor
 
-### Infrastructure contributors
+- Read the [Infrastructure Development Map](infrastructure-development-map.md) to understand where work is needed.
+- Start with [Repository onboarding](guides/repository-onboarding.md).
+- Pick an area overview in [Infrastructure Areas](areas/source-code-infrastructure/index.md).
 
-1. Start at [Work Breakdown Structure](work-ahead/work-breakdown-structure.md).
-2. Check [Contribution Areas](work-ahead/contribution-areas.md).
-3. Pick a related guide and platform area overview.
+### A developer using the infrastructure
 
-### Managers and stakeholders
+- Open the relevant [Infrastructure Area](areas/build-infrastructure/index.md).
+- Use the related task guide from [Guides](guides/index.md).
+- Check current priorities in the [Infrastructure Development Map](infrastructure-development-map.md).
 
-1. Read [Platform Overview](start-here/platform-overview.md).
-2. Use [Capability Map](start-here/capability-map.md) for stable structure.
-3. Use [Current focus areas](work-ahead/current-focus-areas.md) and [Work Breakdown Structure](work-ahead/work-breakdown-structure.md) for progress and remaining work.
+### A manager or stakeholder
+
+- Start with the [Infrastructure Development Map](infrastructure-development-map.md) for status and work package overview.
+- Use [Architecture Overview](architecture/index.md) for structure and rationale.
+
+### A safety/compliance-oriented reader
+
+- Start with [Security & Compliance Infrastructure](areas/security-and-compliance-infrastructure/index.md).
+- Continue with [License compliance and SBOM](guides/license-compliance-and-sbom.md).
+- Review [Cross-cutting concerns](architecture/cross-cutting-concerns.md) for traceability and controlled automation context.

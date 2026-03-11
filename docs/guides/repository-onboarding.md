@@ -11,7 +11,7 @@ Make a repository ready for consistent collaboration, automation, and governance
 1. Confirm repository purpose and naming conventions.
 2. Apply baseline repository files and contribution guidance.
 3. Align repository metadata, labels, and topics.
-4. Connect the repository to shared CI/CD workflows where applicable.
+4. Connect the repository to shared integration workflows where applicable.
 5. Document repository-specific exceptions from default standards.
 
 ## Minimum Checks
@@ -19,11 +19,18 @@ Make a repository ready for consistent collaboration, automation, and governance
 - repository has clear ownership and contribution entry points
 - baseline standards are visible and documented
 - policy expectations are clear for pull requests and merges
-- onboarding and CI behavior are understandable for new contributors
+- onboarding and integration behavior are understandable for new contributors
 
-## Related Pages
+## Related Infrastructure Areas
 
-- [Source Platform](../source/overview.md)
+- [Source Code Infrastructure](../areas/source-code-infrastructure/index.md)
+- [Integration Infrastructure](../areas/integration-infrastructure/index.md)
+
+## Related Planning Pages
+
+- [Infrastructure Development Map](../infrastructure-development-map.md)
+- [Work Breakdown Structure](../work-breakdown-structure.md)
+
+## Related Guides
+
 - [Repository policies](repository-policies.md)
-- [Source Platform work packages](../work-ahead/work-breakdown-structure.md#wbs-source)
-- Background detail: [Repository management](../source/repository-management.md) and [Repository standards](../source/repository-standards.md)

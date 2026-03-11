@@ -4,11 +4,11 @@ Use this guide when changing test execution, framework integration, or reporting
 
 ## Goal
 
-Keep test feedback reliable and actionable in local and CI workflows.
+Keep test feedback reliable and actionable in local and integration workflows.
 
 ## Steps
 
-1. Define which tests are expected locally and in CI.
+1. Define which tests are expected locally and in integration workflows.
 2. Align framework integration with build and workflow conventions.
 3. Ensure failures are clear and diagnosable.
 4. Capture reporting outputs needed by contributors and maintainers.
@@ -17,13 +17,22 @@ Keep test feedback reliable and actionable in local and CI workflows.
 ## Practical Checks
 
 - test entry points are clear
-- CI and local expectations are aligned
+- automated and local expectations are aligned
 - reporting makes failures actionable
 - expensive or unstable tests have explicit handling
 
-## Related Pages
+## Related Infrastructure Areas
 
-- [Testing Platform](../testing/overview.md)
-- [CI/CD workflows](cicd-workflows.md)
-- [Testing Platform work packages](../work-ahead/work-breakdown-structure.md#wbs-testing)
-- Background detail: [Test execution](../testing/test-execution.md), [Test framework integration](../testing/test-framework-integration.md), and [Test reporting](../testing/test-reporting.md)
+- [Testing Infrastructure](../areas/testing-infrastructure/index.md)
+- [Integration Infrastructure](../areas/integration-infrastructure/index.md)
+
+## Related Planning Pages
+
+- [Infrastructure Development Map](../infrastructure-development-map.md)
+- [Work Breakdown Structure](../work-breakdown-structure.md)
+
+## Background Detail
+
+- [Test execution](../testing/test-execution.md)
+- [Test framework integration](../testing/test-framework-integration.md)
+- [Test reporting](../testing/test-reporting.md)

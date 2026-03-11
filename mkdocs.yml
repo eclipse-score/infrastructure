@@ -1,5 +1,5 @@
 site_name: S-CORE Infrastructure Documentation
-site_description: Technical infrastructure documentation for the S-CORE project
+site_description: Documentation for the development, structure, and operation of S-CORE project infrastructure
 site_url: https://eclipse-score.github.io/infrastructure/
 repo_name: eclipse-score/infrastructure
 repo_url: https://github.com/eclipse-score/infrastructure
@@ -18,40 +18,32 @@ markdown_extensions:
       permalink: true
 
 nav:
-  - Home: index.md
-  - Overview:
-      - Overview: overview/overview.md
-      - How to use this documentation: overview/how-to-use-this-documentation.md
-      - Where to start: overview/where-to-start.md
-  - Start Here:
-      - Platform Overview: start-here/platform-overview.md
-      - Capability Map: start-here/capability-map.md
-      - Working with this repository: start-here/working-with-this-repository.md
-  - Work Ahead:
-      - Work Breakdown Structure: work-ahead/work-breakdown-structure.md
-      - Contribution Areas: work-ahead/contribution-areas.md
-      - Current focus areas: work-ahead/current-focus-areas.md
-  - Platform Areas:
-      - Source Platform: source/overview.md
-      - Build Platform: build/overview.md
-      - CI/CD Platform: cicd/overview.md
-      - Artifact Platform: artifacts/overview.md
-      - Testing Platform: testing/overview.md
-      - Security & Compliance Platform: security/overview.md
-      - Documentation Platform: documentation/overview.md
-      - Platform Operations: operations/overview.md
+  - Overview: index.md
+  - Infrastructure Development Map:
+      - Development Map: infrastructure-development-map.md
+      - Work Breakdown Structure: work-breakdown-structure.md
+  - Infrastructure Areas:
+      - Source Code Infrastructure: areas/source-code-infrastructure/index.md
+      - Build Infrastructure: areas/build-infrastructure/index.md
+      - Integration Infrastructure: areas/integration-infrastructure/index.md
+      - Artifact Infrastructure: areas/artifact-infrastructure/index.md
+      - Testing Infrastructure: areas/testing-infrastructure/index.md
+      - Security & Compliance Infrastructure: areas/security-and-compliance-infrastructure/index.md
+      - Documentation Infrastructure: areas/documentation-infrastructure/index.md
+      - Infrastructure Operations: areas/infrastructure-operations/index.md
   - Guides:
-      - Overview: guides/overview.md
+      - Overview: guides/index.md
       - Repository onboarding: guides/repository-onboarding.md
       - Repository policies: guides/repository-policies.md
       - Bazel and dependencies: guides/bazel-and-dependencies.md
-      - CI/CD workflows: guides/cicd-workflows.md
+      - CI workflows: guides/cicd-workflows.md
       - Artifact publishing: guides/artifact-publishing.md
       - Testing and reporting: guides/testing-and-reporting.md
       - License compliance and SBOM: guides/license-compliance-and-sbom.md
       - Documentation publishing: guides/documentation-publishing.md
-      - Operations and maintenance: guides/operations-and-maintenance.md
+      - Infrastructure maintenance: guides/operations-and-maintenance.md
   - Architecture:
-      - Platform model: architecture/platform-model.md
+      - Overview: architecture/index.md
+      - Infrastructure model: architecture/infrastructure-model.md
       - Tool landscape: architecture/tool-landscape.md
       - Cross-cutting concerns: architecture/cross-cutting-concerns.md

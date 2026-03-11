@@ -22,9 +22,15 @@ Keep collaboration controls predictable across repositories while allowing justi
 - ownership and approval routing
 - policy automation through organization tooling
 
-## Related Pages
+## Related Infrastructure Areas
 
-- [Source Platform](../source/overview.md)
+- [Source Code Infrastructure](../areas/source-code-infrastructure/index.md)
+
+## Related Planning Pages
+
+- [Infrastructure Development Map](../infrastructure-development-map.md)
+- [Work Breakdown Structure](../work-breakdown-structure.md)
+
+## Related Guides
+
 - [Repository onboarding](repository-onboarding.md)
-- [Source Platform work packages](../work-ahead/work-breakdown-structure.md#wbs-source)
-- Background detail: [Repository policies](../source/repository-policies.md)

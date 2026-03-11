@@ -1,10 +1,10 @@
-# CI/CD Workflows
+# CI Workflows
 
-Use this guide when adding or changing CI/CD workflows.
+Use this guide when adding or changing integration workflows.
 
 ## Goal
 
-Use reusable workflows and runner choices consistently so validation is predictable across repositories.
+Use reusable workflows and runner choices consistently so pull request validation is predictable across repositories.
 
 ## Steps
 
@@ -21,9 +21,18 @@ Use reusable workflows and runner choices consistently so validation is predicta
 - failure output is actionable
 - pipeline behavior is documented for contributors
 
-## Related Pages
+## Related Infrastructure Areas
 
-- [CI/CD Platform](../cicd/overview.md)
-- [Testing and reporting](testing-and-reporting.md)
-- [CI/CD Platform work packages](../work-ahead/work-breakdown-structure.md#wbs-cicd)
-- Background detail: [Pipeline architecture](../cicd/pipeline-architecture.md), [Execution infrastructure](../cicd/execution-infrastructure.md), and [Pipeline optimization](../cicd/pipeline-optimization.md)
+- [Integration Infrastructure](../areas/integration-infrastructure/index.md)
+- [Testing Infrastructure](../areas/testing-infrastructure/index.md)
+
+## Related Planning Pages
+
+- [Infrastructure Development Map](../infrastructure-development-map.md)
+- [Work Breakdown Structure](../work-breakdown-structure.md)
+
+## Background Detail
+
+- [Pipeline architecture](../cicd/pipeline-architecture.md)
+- [Execution infrastructure](../cicd/execution-infrastructure.md)
+- [Pipeline optimization](../cicd/pipeline-optimization.md)

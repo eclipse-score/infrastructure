@@ -1,6 +1,6 @@
-# Operations And Maintenance
+# Infrastructure Maintenance
 
-Use this guide when working on platform monitoring, maintenance, or incident handling.
+Use this guide when working on monitoring, maintenance, or incident handling.
 
 ## Goal
 
@@ -11,7 +11,7 @@ Keep infrastructure operations predictable and reduce recovery time when issues 
 1. Identify the operational concern: monitoring, maintenance, or incident response.
 2. Confirm baseline expectations and current known gaps.
 3. Update or create runbook-style guidance.
-4. Link operational steps to affected platform areas.
+4. Link operational steps to affected infrastructure areas.
 5. Capture follow-up work in work packages.
 
 ## Practical Checks
@@ -21,9 +21,18 @@ Keep infrastructure operations predictable and reduce recovery time when issues 
 - incident ownership and communication path are documented
 - post-incident follow-up links to work packages
 
-## Related Pages
+## Related Infrastructure Areas
 
-- [Platform Operations](../operations/overview.md)
-- [CI/CD workflows](cicd-workflows.md)
-- [Platform Operations work packages](../work-ahead/work-breakdown-structure.md#wbs-operations)
-- Background detail: [Monitoring](../operations/monitoring.md), [Maintenance](../operations/maintenance.md), and [Incident handling](../operations/incident-handling.md)
+- [Infrastructure Operations](../areas/infrastructure-operations/index.md)
+- [Integration Infrastructure](../areas/integration-infrastructure/index.md)
+
+## Related Planning Pages
+
+- [Infrastructure Development Map](../infrastructure-development-map.md)
+- [Work Breakdown Structure](../work-breakdown-structure.md)
+
+## Background Detail
+
+- [Monitoring](../operations/monitoring.md)
+- [Maintenance](../operations/maintenance.md)
+- [Incident handling](../operations/incident-handling.md)

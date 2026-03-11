@@ -1,66 +1,61 @@
 # S-CORE Infrastructure Documentation
 
-This repository contains the infrastructure documentation for S-CORE.
+This repository contains the MkDocs-based documentation for the technical infrastructure that supports the S-CORE project.
 
-It is a docs-as-code site built with Markdown and MkDocs. The goal is to provide practical guidance for engineers, contributors, managers, and compliance-oriented stakeholders.
+The focus is not only end-user documentation. This site is also used as:
 
-## Documentation Structure
+- an infrastructure overview for technical and non-technical stakeholders
+- a development map for current state and remaining work
+- a contribution map for infrastructure contributors
+- a reference for architecture and cross-cutting infrastructure concerns
 
-The documentation is organized around five navigation sections:
+The infrastructure is still evolving. Some areas have strong foundations, while others are partially established or still being defined.
 
-- `Start Here`: onboarding path and capability map
-- `Work Ahead`: work breakdown structure, contribution map, and current focus areas
-- `Platform Areas`: stable capability model used across the documentation
-- `Guides`: task-oriented pages for common infrastructure work
-- `Architecture`: platform model, tool landscape, and cross-cutting concerns
+## What This Repository Documents
 
-The platform areas are:
+The documentation is organized around eight infrastructure areas:
 
-- Source Platform
-- Build Platform
-- CI/CD Platform
-- Artifact Platform
-- Testing Platform
-- Security & Compliance Platform
-- Documentation Platform
-- Platform Operations
+- Source Code Infrastructure
+- Build Infrastructure
+- Integration Infrastructure
+- Artifact Infrastructure
+- Testing Infrastructure
+- Security & Compliance Infrastructure
+- Documentation Infrastructure
+- Infrastructure Operations
+
+## How The Site Is Structured
+
+Top-level navigation is intentionally compact:
+
+- Overview
+- Infrastructure Development Map
+- Infrastructure Areas
+- Guides
+- Architecture
+
+The primary backbone is Infrastructure Areas. Development status, work packages, guides, and architecture pages are aligned to these areas.
 
 ## Run MkDocs Locally
 
-This repository uses `uv` to manage the MkDocs toolchain.
+This repository uses `uv` for local toolchain management.
 
-Install dependencies and start a local preview:
+Install dependencies and start a live preview:
 
 ```bash
 uv sync
 uv run mkdocs serve
 ```
 
-The local site will usually be available at `http://127.0.0.1:8000`.
-
-To build the static site:
+Build the site with strict checks:
 
 ```bash
 uv run mkdocs build --strict
 ```
 
-## How To Contribute
+## Where To Start Reading
 
-- Keep changes practical and directly useful.
-- Prefer task-oriented wording over abstract conceptual text.
-- Add or update cross-links between platform areas, guides, and work packages.
-- Mark evolving or incomplete details clearly; do not guess.
-- Keep the capability model stable while allowing implementation details to evolve.
-
-## Publishing
-
-The site is published with GitHub Pages in workflow mode using the repository CI/CD setup.
-
-## Reading Entry Points
-
-- [Documentation Home](docs/index.md)
-- [Start Here](docs/start-here/platform-overview.md)
-- [Work Ahead](docs/work-ahead/work-breakdown-structure.md)
-- [Guides Overview](docs/guides/overview.md)
-
-If you work by area, start in the relevant overview page under `docs/<area>/overview.md`.
+- Start at `docs/index.md` for audience-specific entry points.
+- Use `docs/infrastructure-development-map.md` for progress and work package overview.
+- Open `docs/areas/<area>/index.md` when you work by infrastructure area.
+- Use `docs/guides/index.md` for practical task-oriented instructions.

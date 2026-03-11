@@ -21,9 +21,19 @@ Integrate compliance-related controls into normal engineering workflows.
 - dependency and artifact links are traceable
 - SBOM usage expectations are documented
 
-## Related Pages
+## Related Infrastructure Areas
 
-- [Security & Compliance Platform](../security/overview.md)
-- [Artifact publishing](artifact-publishing.md)
-- [Security & Compliance work packages](../work-ahead/work-breakdown-structure.md#wbs-security)
-- Background detail: [License compliance](../security/license-compliance.md), [SBOM](../security/sbom.md), and [Vulnerability management](../security/vulnerability-management.md)
+- [Security & Compliance Infrastructure](../areas/security-and-compliance-infrastructure/index.md)
+- [Artifact Infrastructure](../areas/artifact-infrastructure/index.md)
+- [Build Infrastructure](../areas/build-infrastructure/index.md)
+
+## Related Planning Pages
+
+- [Infrastructure Development Map](../infrastructure-development-map.md)
+- [Work Breakdown Structure](../work-breakdown-structure.md)
+
+## Background Detail
+
+- [License compliance](../security/license-compliance.md)
+- [SBOM](../security/sbom.md)
+- [Vulnerability management](../security/vulnerability-management.md)

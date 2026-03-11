@@ -8,11 +8,11 @@ Make artifact storage, versioning, and distribution clear and traceable.
 
 ## Steps
 
-1. Classify outputs as temporary CI artifacts or reusable published artifacts.
+1. Classify outputs as temporary integration artifacts or reusable published artifacts.
 2. Define versioning and metadata expectations.
-3. Select supported distribution channel.
+3. Select a supported distribution channel.
 4. Document retention and deprecation expectations.
-5. Link publication flow to build and CI workflows.
+5. Link publication flow to build and integration workflows.
 
 ## Practical Checks
 
@@ -21,9 +21,19 @@ Make artifact storage, versioning, and distribution clear and traceable.
 - versioning expectations are visible
 - lifecycle behavior is clear
 
-## Related Pages
+## Related Infrastructure Areas
 
-- [Artifact Platform](../artifacts/overview.md)
-- [Bazel and dependencies](bazel-and-dependencies.md)
-- [Artifact Platform work packages](../work-ahead/work-breakdown-structure.md#wbs-artifacts)
-- Background detail: [Artifact storage](../artifacts/artifact-storage.md), [Artifact lifecycle](../artifacts/artifact-lifecycle.md), and [Artifact distribution](../artifacts/artifact-distribution.md)
+- [Artifact Infrastructure](../areas/artifact-infrastructure/index.md)
+- [Build Infrastructure](../areas/build-infrastructure/index.md)
+- [Integration Infrastructure](../areas/integration-infrastructure/index.md)
+
+## Related Planning Pages
+
+- [Infrastructure Development Map](../infrastructure-development-map.md)
+- [Work Breakdown Structure](../work-breakdown-structure.md)
+
+## Background Detail
+
+- [Artifact storage](../artifacts/artifact-storage.md)
+- [Artifact lifecycle](../artifacts/artifact-lifecycle.md)
+- [Artifact distribution](../artifacts/artifact-distribution.md)
