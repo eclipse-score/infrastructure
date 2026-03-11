@@ -1,38 +1,51 @@
-# Security And Compliance Platform Overview
-
-The Security and Compliance Platform covers the infrastructure capabilities that help the project understand licensing, vulnerabilities, software composition, and related governance concerns.
+# Security & Compliance Platform
 
 ## Purpose
 
-This capability provides visibility and control around software supply chain risks and compliance-related obligations. It supports engineering work, but it also provides information needed by reviewers, maintainers, and safety or compliance-oriented stakeholders.
+Provide practical controls and visibility for license, vulnerability, and software composition concerns.
 
 ## Why It Matters In S-CORE
 
-The S-CORE infrastructure context includes license scanning, SBOM-related tooling, vulnerability management, and relevant GitHub-native features such as Dependabot where applicable. These concerns should be integrated into normal engineering workflows rather than treated as separate paperwork.
+Compliance-related topics are part of normal engineering workflows in S-CORE. License scanning, vulnerability management, and SBOM workflows support traceability and safer delivery decisions.
 
-This area supports:
+## Main Tools
 
-- transparency of dependencies and third-party content
-- traceability of compliance-relevant information
-- controlled automation around scanning and review
-- practical support for open-source and regulated delivery contexts
+- license scanning workflows
+- vulnerability scanning and triage workflows
+- SBOM generation and processing tooling
+- GitHub-native security features where enabled
 
-## Main Tools And Technologies
+## Scope
 
-- Eclipse Dash license tooling
-- SBOM generation or processing tooling
-- vulnerability scanning and dependency update support
-- GitHub-native security features where relevant
+- license and dependency compliance workflows
+- vulnerability triage and follow-up handling
+- SBOM generation and usage expectations
+- reporting inputs for governance and oversight
 
-## Typical Responsibilities
+## Boundaries
 
-- making scan results understandable and actionable
-- defining review and remediation workflows
-- connecting build and artifact metadata with compliance activities
-- documenting what is automated, what is manual, and what is still evolving
+- does not make formal compliance claims beyond documented implementation
+- does not replace repository-level code security reviews
+- depends on build, CI/CD, and artifact metadata quality
 
-## Related Pages
+## Common Work Topics
 
-- [License Compliance](license-compliance.md)
-- [Vulnerability Management](vulnerability-management.md)
-- [SBOM](sbom.md)
+- improving scan visibility and triage clarity
+- linking findings to dependency and artifact workflows
+- documenting exception and escalation handling
+- clarifying SBOM generation and consumption paths
+
+## Related Guides
+
+- [License compliance and SBOM](../guides/license-compliance-and-sbom.md)
+- [Artifact publishing](../guides/artifact-publishing.md)
+
+## Related Work Packages
+
+- [Security & Compliance work packages](../work-ahead/work-breakdown-structure.md#wbs-security)
+
+## Related Platform Areas
+
+- [Build Platform](../build/overview.md)
+- [Artifact Platform](../artifacts/overview.md)
+- [Platform Operations](../operations/overview.md)

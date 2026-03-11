@@ -1,37 +1,50 @@
-# Artifact Platform Overview
-
-The Artifact Platform covers how build outputs and reusable deliverables are stored, versioned, retained, and distributed.
+# Artifact Platform
 
 ## Purpose
 
-Artifacts are the outputs that move between stages of the delivery system. They may be consumed by developers, CI pipelines, downstream repositories, release processes, or compliance-related workflows.
+Define how reusable outputs are stored, versioned, and distributed across the platform.
 
 ## Why It Matters In S-CORE
 
-The S-CORE infrastructure landscape includes a Bazel registry and may also use repository-level release mechanisms where appropriate. In a multi-repository environment, artifact handling needs to balance usability with traceability and controlled publication.
+The artifact landscape includes Bazel registry usage and workflow-driven publication paths. Clear artifact handling is required for reproducibility, traceability, and reliable downstream consumption.
 
-This capability supports:
-
-- reproducible consumption of shared outputs
-- traceable promotion from build result to reusable artifact
-- controlled distribution to downstream consumers
-- retention and visibility decisions that matter for auditability
-
-## Main Tools And Technologies
+## Main Tools
 
 - Bazel registry
-- GitHub Releases where repository-level release artifacts are appropriate
-- CI/CD workflows that prepare, publish, or retain outputs
+- workflow-managed artifact publication
+- repository release channels where applicable
 
-## Typical Responsibilities
+## Scope
 
-- defining what counts as a reusable artifact
-- documenting storage and publication paths
-- clarifying lifecycle stages such as creation, retention, and deprecation
-- making artifact consumers and distribution boundaries understandable
+- artifact storage and retention expectations
+- artifact lifecycle and promotion stages
+- distribution channels and consumer guidance
+- metadata and versioning visibility
 
-## Related Pages
+## Boundaries
 
-- [Artifact Storage](artifact-storage.md)
-- [Artifact Lifecycle](artifact-lifecycle.md)
-- [Artifact Distribution](artifact-distribution.md)
+- does not define build graph behavior
+- does not define security triage workflows by itself
+- does not replace repository-level release policy decisions
+
+## Common Work Topics
+
+- clarifying publication paths
+- defining versioning and retention rules
+- making distribution channels explicit
+- documenting consumer expectations
+
+## Related Guides
+
+- [Artifact publishing](../guides/artifact-publishing.md)
+- [Bazel and dependencies](../guides/bazel-and-dependencies.md)
+
+## Related Work Packages
+
+- [Artifact Platform work packages](../work-ahead/work-breakdown-structure.md#wbs-artifacts)
+
+## Related Platform Areas
+
+- [Build Platform](../build/overview.md)
+- [CI/CD Platform](../cicd/overview.md)
+- [Security & Compliance Platform](../security/overview.md)

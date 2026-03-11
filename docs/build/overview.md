@@ -1,37 +1,50 @@
-# Build Platform Overview
-
-The Build Platform covers how software is built, how dependencies are resolved, and how reproducible build behavior is achieved across S-CORE repositories.
+# Build Platform
 
 ## Purpose
 
-The build platform provides a consistent way to turn source code into validated outputs. It is responsible for correctness, repeatability, and developer usability.
+Provide reproducible build behavior and dependency handling across S-CORE repositories.
 
 ## Why It Matters In S-CORE
 
-Bazel is an important build technology in S-CORE, and the infrastructure landscape includes a Bazel registry and Bzlmod-related concerns. In a multi-repository environment, build consistency directly affects CI/CD, testing, dependency updates, and release confidence.
+Bazel, Bzlmod, and the Bazel registry are key parts of the build landscape. Build consistency directly affects CI/CD reliability, artifact quality, and downstream compliance activities.
 
-This capability is also central to:
+## Main Tools
 
-- reproducibility of builds
-- traceability of dependencies and build inputs
-- controlled automation in CI/CD
-- support for compliance-related activities that depend on trustworthy build metadata
+- Bazel
+- Bzlmod
+- Bazel registry
 
-## Main Tools And Technologies
+## Scope
 
-- Bazel as a core build system
-- Bzlmod for dependency modeling and module composition
-- a Bazel registry that exists or is being built as part of the infrastructure landscape
+- shared build conventions and baseline behavior
+- dependency and module management
+- reproducibility and diagnosability of builds
+- build performance topics with cross-repository impact
 
-## Typical Responsibilities
+## Boundaries
 
-- defining shared build patterns and rules
-- managing dependencies and module versioning
-- improving build performance and consistency
-- documenting where build behavior is standardized versus repository-specific
+- does not define repository-specific application build details
+- does not replace CI workflow orchestration guidance
+- does not define release governance on its own
 
-## Related Pages
+## Common Work Topics
 
-- [Build System](build-system.md)
-- [Dependency Management](dependency-management.md)
-- [Build Performance](build-performance.md)
+- Bazel baseline alignment
+- Bzlmod dependency updates and governance
+- registry integration for reusable modules
+- build diagnostics and performance improvements
+
+## Related Guides
+
+- [Bazel and dependencies](../guides/bazel-and-dependencies.md)
+- [Artifact publishing](../guides/artifact-publishing.md)
+
+## Related Work Packages
+
+- [Build Platform work packages](../work-ahead/work-breakdown-structure.md#wbs-build)
+
+## Related Platform Areas
+
+- [CI/CD Platform](../cicd/overview.md)
+- [Artifact Platform](../artifacts/overview.md)
+- [Security & Compliance Platform](../security/overview.md)

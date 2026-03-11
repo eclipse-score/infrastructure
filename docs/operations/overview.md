@@ -1,31 +1,50 @@
-# Platform Operations Overview
-
-Platform Operations covers the day-to-day care needed to keep the infrastructure usable, reliable, and understandable.
+# Platform Operations
 
 ## Purpose
 
-Even well-designed infrastructure degrades without active operation. Platform operations turns infrastructure from a collection of tools into a dependable service for developers and maintainers.
+Keep infrastructure services reliable through monitoring, maintenance, and incident handling.
 
 ## Why It Matters In S-CORE
 
-The S-CORE infrastructure includes shared CI/CD workflows, runner concerns, build and registry components, compliance-related tooling, and documentation pipelines. These capabilities need monitoring, maintenance, upgrades, and incident handling to remain effective.
+Infrastructure spans multiple repositories and shared automation. Operational quality directly affects developer throughput, platform trust, and risk management.
 
-## Main Areas
+## Main Tools
 
-- monitoring of platform health and signal quality
-- routine maintenance and upgrades
-- incident response and recovery
-- operational visibility for maintainers and stakeholders
+- GitHub Actions operational signals
+- runner and execution environment operations
+- maintenance and incident procedures
 
-## Typical Responsibilities
+## Scope
 
-- detect operational problems early
-- keep key tools and automation current
-- document maintenance and recovery procedures
-- reduce repeated manual intervention where automation can be made safer
+- monitoring baseline platform health
+- maintenance and upgrade workflows
+- incident detection, response, and follow-up
+- operational documentation and runbook quality
 
-## Related Pages
+## Boundaries
 
-- [Monitoring](monitoring.md)
-- [Maintenance](maintenance.md)
-- [Incident Handling](incident-handling.md)
+- does not replace area-specific engineering ownership
+- does not define project management process
+- depends on accurate signals from CI/CD, build, and security workflows
+
+## Common Work Topics
+
+- defining actionable health signals
+- improving repeatable maintenance tasks
+- documenting response and recovery steps
+- reducing recurring operational failure modes
+
+## Related Guides
+
+- [Operations and maintenance](../guides/operations-and-maintenance.md)
+- [CI/CD workflows](../guides/cicd-workflows.md)
+
+## Related Work Packages
+
+- [Platform Operations work packages](../work-ahead/work-breakdown-structure.md#wbs-operations)
+
+## Related Platform Areas
+
+- [CI/CD Platform](../cicd/overview.md)
+- [Security & Compliance Platform](../security/overview.md)
+- [Documentation Platform](../documentation/overview.md)

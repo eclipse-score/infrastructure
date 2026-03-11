@@ -19,48 +19,39 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Platform:
-      - Capability Map: platform/capability-map.md
-      - Work Breakdown Structure: platform/work-breakdown-structure.md
-      - Contribution Areas: platform/contribution-areas.md
-      - Working Model: platform/working-model.md
-  - Source Platform:
-      - Overview: source/overview.md
-      - Repository Management: source/repository-management.md
-      - Repository Policies: source/repository-policies.md
-      - Repository Standards: source/repository-standards.md
-  - Build Platform:
-      - Overview: build/overview.md
-      - Build System: build/build-system.md
-      - Dependency Management: build/dependency-management.md
-      - Build Performance: build/build-performance.md
-  - CI/CD Platform:
-      - Overview: cicd/overview.md
-      - Pipeline Architecture: cicd/pipeline-architecture.md
-      - Execution Infrastructure: cicd/execution-infrastructure.md
-      - Pipeline Optimization: cicd/pipeline-optimization.md
-  - Artifact Platform:
-      - Overview: artifacts/overview.md
-      - Artifact Storage: artifacts/artifact-storage.md
-      - Artifact Lifecycle: artifacts/artifact-lifecycle.md
-      - Artifact Distribution: artifacts/artifact-distribution.md
-  - Testing Platform:
-      - Overview: testing/overview.md
-      - Test Execution: testing/test-execution.md
-      - Test Framework Integration: testing/test-framework-integration.md
-      - Test Reporting: testing/test-reporting.md
-  - Security & Compliance Platform:
-      - Overview: security/overview.md
-      - License Compliance: security/license-compliance.md
-      - Vulnerability Management: security/vulnerability-management.md
-      - SBOM: security/sbom.md
-  - Documentation Platform:
-      - Overview: documentation/overview.md
-      - Tooling: documentation/tooling.md
-      - Pipelines: documentation/pipelines.md
-      - Publishing: documentation/publishing.md
-  - Platform Operations:
-      - Overview: operations/overview.md
-      - Monitoring: operations/monitoring.md
-      - Maintenance: operations/maintenance.md
-      - Incident Handling: operations/incident-handling.md
+  - Overview:
+      - Overview: overview/overview.md
+      - How to use this documentation: overview/how-to-use-this-documentation.md
+      - Where to start: overview/where-to-start.md
+  - Start Here:
+      - Platform Overview: start-here/platform-overview.md
+      - Capability Map: start-here/capability-map.md
+      - Working with this repository: start-here/working-with-this-repository.md
+  - Work Ahead:
+      - Work Breakdown Structure: work-ahead/work-breakdown-structure.md
+      - Contribution Areas: work-ahead/contribution-areas.md
+      - Current focus areas: work-ahead/current-focus-areas.md
+  - Platform Areas:
+      - Source Platform: source/overview.md
+      - Build Platform: build/overview.md
+      - CI/CD Platform: cicd/overview.md
+      - Artifact Platform: artifacts/overview.md
+      - Testing Platform: testing/overview.md
+      - Security & Compliance Platform: security/overview.md
+      - Documentation Platform: documentation/overview.md
+      - Platform Operations: operations/overview.md
+  - Guides:
+      - Overview: guides/overview.md
+      - Repository onboarding: guides/repository-onboarding.md
+      - Repository policies: guides/repository-policies.md
+      - Bazel and dependencies: guides/bazel-and-dependencies.md
+      - CI/CD workflows: guides/cicd-workflows.md
+      - Artifact publishing: guides/artifact-publishing.md
+      - Testing and reporting: guides/testing-and-reporting.md
+      - License compliance and SBOM: guides/license-compliance-and-sbom.md
+      - Documentation publishing: guides/documentation-publishing.md
+      - Operations and maintenance: guides/operations-and-maintenance.md
+  - Architecture:
+      - Platform model: architecture/platform-model.md
+      - Tool landscape: architecture/tool-landscape.md
+      - Cross-cutting concerns: architecture/cross-cutting-concerns.md

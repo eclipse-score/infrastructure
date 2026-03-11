@@ -1,37 +1,50 @@
-# Testing Platform Overview
-
-The Testing Platform covers how validation is executed, integrated into build and CI workflows, and reported back to contributors.
+# Testing Platform
 
 ## Purpose
 
-Testing provides confidence that changes behave as expected before they are merged or released. In infrastructure terms, the testing platform includes both the test tools themselves and the execution model around them.
+Provide reliable test execution and reporting across local and CI workflows.
 
 ## Why It Matters In S-CORE
 
-The current S-CORE infrastructure context includes Bazel-based builds, `bazel test`, `pytest`, and CI-driven test execution. In a multi-repository setup, the testing platform must provide reliable feedback while keeping execution understandable and maintainable.
+Testing integrates Bazel-based workflows, framework-specific test execution, and CI feedback loops. Predictable testing is necessary for safe integration and delivery in a multi-repository environment.
 
-This capability also supports:
+## Main Tools
 
-- reproducible validation paths
-- visibility into whether changes are safe to integrate
-- traceable links between source changes, build outputs, and test results
-- compliance-related needs for transparent verification evidence
+- Bazel test
+- pytest and related framework tooling
+- GitHub Actions test execution workflows
 
-## Main Tools And Technologies
+## Scope
 
-- Bazel test execution
-- pytest where appropriate
-- GitHub Actions workflows for automated test execution
+- local and CI test execution expectations
+- framework integration into shared workflows
+- reporting quality and failure diagnostics
+- handling of expensive or unstable tests
 
-## Typical Responsibilities
+## Boundaries
 
-- defining how tests run locally and in CI
-- integrating language- or framework-specific tests into the build system
-- reporting results in a way that supports fast debugging
-- improving reliability when tests are flaky or expensive
+- does not define application-specific test case design
+- does not replace CI/CD workflow architecture ownership
+- does not replace security/compliance verification requirements
 
-## Related Pages
+## Common Work Topics
 
-- [Test Execution](test-execution.md)
-- [Test Framework Integration](test-framework-integration.md)
-- [Test Reporting](test-reporting.md)
+- aligning local and CI validation expectations
+- improving framework integration consistency
+- making test failures actionable
+- improving reporting coverage and quality
+
+## Related Guides
+
+- [Testing and reporting](../guides/testing-and-reporting.md)
+- [CI/CD workflows](../guides/cicd-workflows.md)
+
+## Related Work Packages
+
+- [Testing Platform work packages](../work-ahead/work-breakdown-structure.md#wbs-testing)
+
+## Related Platform Areas
+
+- [Build Platform](../build/overview.md)
+- [CI/CD Platform](../cicd/overview.md)
+- [Platform Operations](../operations/overview.md)

@@ -1,33 +1,50 @@
-# CI/CD Platform Overview
-
-The CI/CD Platform covers how S-CORE validates changes, composes shared workflows, and runs automation across repositories.
+# CI/CD Platform
 
 ## Purpose
 
-CI/CD turns repository changes into repeatable validation and delivery steps. It connects source management, builds, tests, artifacts, documentation, and compliance-related checks.
+Provide shared automation for validation, integration, and delivery workflows across repositories.
 
 ## Why It Matters In S-CORE
 
-S-CORE uses GitHub Actions for CI/CD, and reusable workflows are an explicit part of the infrastructure landscape. In a multi-repository setup, shared workflow architecture is essential for consistency and maintainability.
+S-CORE uses GitHub Actions with reusable workflows and relevant runner models, including larger runners where needed. CI/CD consistency is central to platform reliability in a multi-repository setup.
 
-This capability is also where controlled automation becomes visible in day-to-day engineering work.
-
-## Main Tools And Technologies
+## Main Tools
 
 - GitHub Actions
 - reusable workflows
 - GitHub runners and larger runners
-- repository-specific workflow composition on top of shared patterns
 
-## Typical Responsibilities
+## Scope
 
-- defining shared pipeline structure
-- selecting and operating suitable execution environments
-- improving pipeline reliability, speed, and feedback quality
-- documenting which checks are expected at which stage
+- workflow architecture and reusable pipeline composition
+- execution environment and runner strategy
+- validation stage consistency across repositories
+- pipeline diagnostics and feedback quality
 
-## Related Pages
+## Boundaries
 
-- [Pipeline Architecture](pipeline-architecture.md)
-- [Execution Infrastructure](execution-infrastructure.md)
-- [Pipeline Optimization](pipeline-optimization.md)
+- does not replace repository-specific functional test design
+- does not define artifact policy without artifact platform alignment
+- does not replace source policy governance
+
+## Common Work Topics
+
+- expanding reusable workflow coverage
+- improving pull request validation clarity
+- tuning runner selection and execution behavior
+- improving diagnostics and pipeline performance
+
+## Related Guides
+
+- [CI/CD workflows](../guides/cicd-workflows.md)
+- [Testing and reporting](../guides/testing-and-reporting.md)
+
+## Related Work Packages
+
+- [CI/CD Platform work packages](../work-ahead/work-breakdown-structure.md#wbs-cicd)
+
+## Related Platform Areas
+
+- [Build Platform](../build/overview.md)
+- [Testing Platform](../testing/overview.md)
+- [Platform Operations](../operations/overview.md)

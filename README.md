@@ -1,12 +1,20 @@
 # S-CORE Infrastructure Documentation
 
-This repository documents the technical infrastructure of the S-CORE project.
+This repository contains the infrastructure documentation for S-CORE.
 
-It is a docs-as-code repository built with Markdown and MkDocs. The goal is to provide a practical, maintainable reference for people who use, operate, and improve the infrastructure around source control, builds, CI/CD, testing, artifacts, security, compliance, and platform operations.
+It is a docs-as-code site built with Markdown and MkDocs. The goal is to provide practical guidance for engineers, contributors, managers, and compliance-oriented stakeholders.
 
-## What This Repository Covers
+## Documentation Structure
 
-The documentation is organized as a platform capability map. Each major capability area has an overview page and supporting guides:
+The documentation is organized around five navigation sections:
+
+- `Start Here`: onboarding path and capability map
+- `Work Ahead`: work breakdown structure, contribution map, and current focus areas
+- `Platform Areas`: stable capability model used across the documentation
+- `Guides`: task-oriented pages for common infrastructure work
+- `Architecture`: platform model, tool landscape, and cross-cutting concerns
+
+The platform areas are:
 
 - Source Platform
 - Build Platform
@@ -16,12 +24,6 @@ The documentation is organized as a platform capability map. Each major capabili
 - Security & Compliance Platform
 - Documentation Platform
 - Platform Operations
-
-This structure is intended to help three audiences:
-
-- Developers who need to understand how to work with the infrastructure
-- Contributors who want to improve automation, tooling, and standards
-- Managers and stakeholders who need an understandable overview of the platform landscape
 
 ## Run MkDocs Locally
 
@@ -42,38 +44,23 @@ To build the static site:
 uv run mkdocs build --strict
 ```
 
-## Publishing
-
-The site is intended to be published with GitHub Pages in workflow mode.
-
-The repository contains a GitHub Actions workflow that:
-
-- builds the site with MkDocs
-- uploads the generated `site/` directory as the GitHub Pages artifact
-- deploys the site from the `main` branch
-
 ## How To Contribute
 
-- Keep changes focused and practical.
-- Prefer short, readable Markdown over formal document language.
-- Update existing pages when improving a capability area instead of creating parallel documentation.
-- Mark uncertain or evolving topics clearly instead of guessing.
-- Treat the documentation as a living operational resource, not a one-time deliverable.
+- Keep changes practical and directly useful.
+- Prefer task-oriented wording over abstract conceptual text.
+- Add or update cross-links between platform areas, guides, and work packages.
+- Mark evolving or incomplete details clearly; do not guess.
+- Keep the capability model stable while allowing implementation details to evolve.
 
-When contributing:
+## Publishing
 
-1. Make the smallest documentation change that improves clarity.
-2. Add or update links so related pages stay connected.
-3. Use neutral wording when a process or tool is still evolving.
-4. Keep examples realistic and directly useful for onboarding or operational work.
+The site is published with GitHub Pages in workflow mode using the repository CI/CD setup.
 
-## Where To Start Reading
-
-Start with the main landing page and the platform model:
+## Reading Entry Points
 
 - [Documentation Home](docs/index.md)
-- [Capability Map](docs/platform/capability-map.md)
-- [Contribution Areas](docs/platform/contribution-areas.md)
-- [Working Model](docs/platform/working-model.md)
+- [Start Here](docs/start-here/platform-overview.md)
+- [Work Ahead](docs/work-ahead/work-breakdown-structure.md)
+- [Guides Overview](docs/guides/overview.md)
 
-If you are looking for a specific area, use the overview page for that capability first and then continue into the related guide pages.
+If you work by area, start in the relevant overview page under `docs/<area>/overview.md`.

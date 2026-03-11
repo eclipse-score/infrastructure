@@ -1,38 +1,51 @@
-# Documentation Platform Overview
-
-The Documentation Platform covers how infrastructure knowledge is written, reviewed, validated, and published.
+# Documentation Platform
 
 ## Purpose
 
-Documentation is part of the platform because infrastructure only works well when contributors can understand and operate it. A workflow that exists only in code or in maintainers' heads does not scale.
+Maintain infrastructure documentation as a reliable, versioned, and publishable engineering resource.
 
 ## Why It Matters In S-CORE
 
-S-CORE treats documentation as docs-as-code. This repository uses Markdown and MkDocs, while the wider project may also use other documentation tooling where that is more suitable. The important point is not one tool everywhere, but a consistent approach to versioned, reviewable, maintainable documentation.
+Docs-as-code is an important part of infrastructure quality. Clear documentation improves onboarding, reduces rework, and provides transparent references for managers and stakeholders.
 
-This capability supports:
-
-- onboarding and contributor self-service
-- transparency for managers and stakeholders
-- traceable documentation updates alongside infrastructure changes
-- controlled automation for validation and publishing
-
-## Main Tools And Technologies
+## Main Tools
 
 - Markdown
-- MkDocs for this repository
-- docs-as-code workflows
-- CI pipelines that validate and publish documentation
+- MkDocs
+- `uv`-managed documentation toolchain
+- CI validation and publishing workflows
 
-## Typical Responsibilities
+## Scope
 
-- keeping structure and navigation maintainable
-- defining documentation contribution practices
-- validating documentation changes in CI
-- publishing documentation in a predictable way
+- documentation structure and navigation
+- authoring and review practices
+- build validation and publication workflow
+- cross-link quality across platform areas and guides
 
-## Related Pages
+## Boundaries
 
-- [Tooling](tooling.md)
-- [Pipelines](pipelines.md)
-- [Publishing](publishing.md)
+- does not replace area-specific operational decisions
+- does not define every project documentation format outside this repository
+- depends on area maintainers to keep technical details current
+
+## Common Work Topics
+
+- navigation refactoring for faster discovery
+- practical guide improvements
+- pipeline validation reliability
+- publication workflow maintenance
+
+## Related Guides
+
+- [Documentation publishing](../guides/documentation-publishing.md)
+- [Repository onboarding](../guides/repository-onboarding.md)
+
+## Related Work Packages
+
+- [Documentation Platform work packages](../work-ahead/work-breakdown-structure.md#wbs-documentation)
+
+## Related Platform Areas
+
+- [Source Platform](../source/overview.md)
+- [CI/CD Platform](../cicd/overview.md)
+- [Platform Operations](../operations/overview.md)
