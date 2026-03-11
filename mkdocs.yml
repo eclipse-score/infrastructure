@@ -1,0 +1,66 @@
+site_name: S-CORE Infrastructure Documentation
+site_description: Technical infrastructure documentation for the S-CORE project
+site_url: https://eclipse-score.github.io/infrastructure/
+repo_name: eclipse-score/infrastructure
+repo_url: https://github.com/eclipse-score/infrastructure
+docs_dir: docs
+strict: true
+
+theme:
+  name: mkdocs
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Platform:
+      - Capability Map: platform/capability-map.md
+      - Work Breakdown Structure: platform/work-breakdown-structure.md
+      - Contribution Areas: platform/contribution-areas.md
+      - Working Model: platform/working-model.md
+  - Source Platform:
+      - Overview: source/overview.md
+      - Repository Management: source/repository-management.md
+      - Repository Policies: source/repository-policies.md
+      - Repository Standards: source/repository-standards.md
+  - Build Platform:
+      - Overview: build/overview.md
+      - Build System: build/build-system.md
+      - Dependency Management: build/dependency-management.md
+      - Build Performance: build/build-performance.md
+  - CI/CD Platform:
+      - Overview: cicd/overview.md
+      - Pipeline Architecture: cicd/pipeline-architecture.md
+      - Execution Infrastructure: cicd/execution-infrastructure.md
+      - Pipeline Optimization: cicd/pipeline-optimization.md
+  - Artifact Platform:
+      - Overview: artifacts/overview.md
+      - Artifact Storage: artifacts/artifact-storage.md
+      - Artifact Lifecycle: artifacts/artifact-lifecycle.md
+      - Artifact Distribution: artifacts/artifact-distribution.md
+  - Testing Platform:
+      - Overview: testing/overview.md
+      - Test Execution: testing/test-execution.md
+      - Test Framework Integration: testing/test-framework-integration.md
+      - Test Reporting: testing/test-reporting.md
+  - Security & Compliance Platform:
+      - Overview: security/overview.md
+      - License Compliance: security/license-compliance.md
+      - Vulnerability Management: security/vulnerability-management.md
+      - SBOM: security/sbom.md
+  - Documentation Platform:
+      - Overview: documentation/overview.md
+      - Tooling: documentation/tooling.md
+      - Pipelines: documentation/pipelines.md
+      - Publishing: documentation/publishing.md
+  - Platform Operations:
+      - Overview: operations/overview.md
+      - Monitoring: operations/monitoring.md
+      - Maintenance: operations/maintenance.md
+      - Incident Handling: operations/incident-handling.md
