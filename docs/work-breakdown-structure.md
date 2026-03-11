@@ -1,8 +1,15 @@
 # Work Breakdown Structure
 
-This page provides a more detailed work package view than the Infrastructure Development Map.
+This page is the canonical register of infrastructure work packages.
 
-Use it when you need a structured list of infrastructure work by area.
+Use this page when you need package-level detail, including:
+
+- stable IDs for tracking and discussion
+- current status
+- dependency context
+- expected delivery outcome
+
+For high-level status and priorities, use the [Infrastructure Development Map](infrastructure-development-map.md).
 
 Status legend:
 
@@ -11,74 +18,45 @@ Status legend:
 - 🔴 not started
 - ⚪ planned / not yet defined
 
-## Source Code Infrastructure
+## Work Package Register
 
-| Work Package | Status | Notes |
-| --- | --- | --- |
-| Organization and repository structure baseline | 🟡 in progress | Shared structure exists and still needs tighter standardization. |
-| Repository baseline standards | 🟡 in progress | Baseline conventions are documented but not uniformly applied. |
-| Repository policy automation with Otterdog | 🟡 in progress | Automation is active in parts of the organization. |
-| Repository lifecycle guidance | ⚪ planned / not yet defined | Lifecycle expectations are not fully documented. |
+| ID | Area | Work Package | Status | Expected Outcome | Dependencies |
+| --- | --- | --- | --- | --- | --- |
+| SCI-01 | Source Code Infrastructure | Organization and repository structure baseline | 🟡 | Shared baseline structure is documented and repeatable across repositories. | - |
+| SCI-02 | Source Code Infrastructure | Repository baseline standards | 🟡 | Baseline conventions are consistently applied with documented exceptions. | SCI-01 |
+| SCI-03 | Source Code Infrastructure | Repository policy automation with Otterdog | 🟡 | Policy baseline is codified and easier to roll out consistently. | SCI-02 |
+| SCI-04 | Source Code Infrastructure | Repository lifecycle guidance | ⚪ | Lifecycle from onboarding to archival is clearly documented. | SCI-01 |
+| BLD-01 | Build Infrastructure | Bazel build baseline alignment | 🟡 | Core Bazel conventions are aligned across active repositories. | SCI-02 |
+| BLD-02 | Build Infrastructure | Bzlmod dependency governance | 🟡 | Dependency decisions are more consistent and reviewable. | BLD-01 |
+| BLD-03 | Build Infrastructure | Bazel registry integration baseline | 🟡 | Registry usage is clearer for producers and consumers. | BLD-01, ART-04 |
+| BLD-04 | Build Infrastructure | Build diagnostics and performance reporting | ⚪ | Build diagnostics are easier to use for troubleshooting and optimization. | BLD-01, INT-04 |
+| INT-01 | Integration Infrastructure | Reusable workflow library | 🟡 | Shared workflow coverage reduces duplicated pipeline logic. | SCI-02 |
+| INT-02 | Integration Infrastructure | Pull request validation model | 🟡 | Validation stages are more consistent across repositories. | INT-01, TST-01 |
+| INT-03 | Integration Infrastructure | Runner strategy and execution model | 🟡 | Runner usage is more predictable and better documented. | OPS-01 |
+| INT-04 | Integration Infrastructure | Pipeline diagnostics and optimization | ⚪ | Integration failures are easier to triage and optimize. | INT-01, INT-03 |
+| ART-01 | Artifact Infrastructure | Artifact storage and retention model | ⚪ | Retention expectations are explicit and easier to apply. | SCI-04 |
+| ART-02 | Artifact Infrastructure | Artifact lifecycle and promotion model | 🔴 | Promotion stages are defined and traceable. | ART-01 |
+| ART-03 | Artifact Infrastructure | Artifact versioning baseline | ⚪ | Versioning expectations are consistent across artifact types. | ART-02, BLD-02 |
+| ART-04 | Artifact Infrastructure | Bazel registry distribution model | 🟡 | Registry distribution path is clearer and easier to maintain. | BLD-03 |
+| TST-01 | Testing Infrastructure | CI test execution consistency | 🟡 | Test execution expectations are clearer between repositories. | INT-01, BLD-01 |
+| TST-02 | Testing Infrastructure | Test framework integration patterns | 🟡 | Framework integration becomes more predictable and reusable. | TST-01 |
+| TST-03 | Testing Infrastructure | Test reporting and diagnostics quality | ⚪ | Reporting signals are more actionable for contributors. | TST-01, INT-04 |
+| TST-04 | Testing Infrastructure | Cross-repository test strategy | ⚪ | Shared strategy exists for cross-repository validation scenarios. | TST-01, TST-02 |
+| SEC-01 | Security & Compliance Infrastructure | License scanning integration baseline | 🟡 | License checks are integrated more consistently in workflows. | INT-01, BLD-02 |
+| SEC-02 | Security & Compliance Infrastructure | Vulnerability scanning and triage workflow | 🟡 | Triage ownership and escalation path are clearer. | SEC-01 |
+| SEC-03 | Security & Compliance Infrastructure | SBOM generation and consumption model | 🟡 | SBOM data is generated and consumed with clearer expectations. | BLD-02, ART-03 |
+| SEC-04 | Security & Compliance Infrastructure | Compliance reporting model | ⚪ | Compliance reporting is clearer for managers and stakeholders. | SEC-01, SEC-02, SEC-03 |
+| DOC-01 | Documentation Infrastructure | Documentation structure and navigation | 🟡 | Information architecture stays consistent and easier to navigate. | - |
+| DOC-02 | Documentation Infrastructure | Documentation build and validation baseline | 🟢 | Strict documentation validation remains stable and reliable. | DOC-01 |
+| DOC-03 | Documentation Infrastructure | Documentation publishing workflow | 🟢 | Publishing remains reliable for documentation changes. | DOC-02 |
+| DOC-04 | Documentation Infrastructure | Contributor guidance quality improvements | 🟡 | Practical guidance quality improves across key workflows. | DOC-01 |
+| OPS-01 | Infrastructure Operations | Runner and execution environment maintenance | 🟡 | Runner operations are better documented and more predictable. | INT-03 |
+| OPS-02 | Infrastructure Operations | Monitoring baseline and signal ownership | ⚪ | Key operational signals and ownership become explicit. | OPS-01 |
+| OPS-03 | Infrastructure Operations | Incident handling model and runbooks | ⚪ | Incident response is more consistent and less ad hoc. | OPS-02 |
+| OPS-04 | Infrastructure Operations | Upgrade and dependency operations baseline | ⚪ | Upgrade operations become more repeatable and transparent. | OPS-01, OPS-02 |
 
-## Build Infrastructure
+## Usage Notes
 
-| Work Package | Status | Notes |
-| --- | --- | --- |
-| Bazel build baseline alignment | 🟡 in progress | Build conventions are established but still diverge between repositories. |
-| Bzlmod dependency governance | 🟡 in progress | Module and dependency handling is under active refinement. |
-| Bazel registry integration baseline | 🟡 in progress | Registry usage is relevant and still being consolidated. |
-| Build diagnostics and performance reporting | ⚪ planned / not yet defined | Shared diagnostics and metrics need stronger baseline practices. |
-
-## Integration Infrastructure
-
-| Work Package | Status | Notes |
-| --- | --- | --- |
-| Reusable workflow library | 🟡 in progress | Reusable workflows are central and still expanding. |
-| Pull request validation model | 🟡 in progress | Validation behavior is not yet fully harmonized. |
-| Runner strategy and execution model | 🟡 in progress | Runner usage guidance is still maturing. |
-| Pipeline diagnostics and optimization | ⚪ planned / not yet defined | Better diagnostics and optimization routines are needed. |
-
-## Artifact Infrastructure
-
-| Work Package | Status | Notes |
-| --- | --- | --- |
-| Artifact storage and retention model | ⚪ planned / not yet defined | Shared retention boundaries are not yet clearly defined. |
-| Artifact lifecycle and promotion model | 🔴 not started | Promotion stage model has not been standardized. |
-| Artifact versioning baseline | ⚪ planned / not yet defined | Versioning expectations are documented only in parts. |
-| Bazel registry distribution model | 🟡 in progress | Distribution model exists and requires further operational clarity. |
-
-## Testing Infrastructure
-
-| Work Package | Status | Notes |
-| --- | --- | --- |
-| CI test execution consistency | 🟡 in progress | Baseline execution exists; consistency is still improving. |
-| Test framework integration patterns | 🟡 in progress | Integration patterns are not yet uniformly documented. |
-| Test reporting and diagnostics quality | ⚪ planned / not yet defined | Reporting quality and signal consistency need improvement. |
-| Cross-repository test strategy | ⚪ planned / not yet defined | Shared strategy is still being defined. |
-
-## Security & Compliance Infrastructure
-
-| Work Package | Status | Notes |
-| --- | --- | --- |
-| License scanning integration baseline | 🟡 in progress | License scanning workflows are in place in parts of the infrastructure. |
-| Vulnerability scanning and triage workflow | 🟡 in progress | Triage ownership and escalation are still evolving. |
-| SBOM generation and consumption model | 🟡 in progress | SBOM generation exists; consumption and reporting are not fully aligned. |
-| Compliance reporting model | ⚪ planned / not yet defined | Shared reporting model is not yet complete. |
-
-## Documentation Infrastructure
-
-| Work Package | Status | Notes |
-| --- | --- | --- |
-| Documentation structure and navigation | 🟡 in progress | Information architecture is being aligned around infrastructure areas. |
-| Documentation build and validation baseline | 🟢 done | Strict MkDocs build baseline is established. |
-| Documentation publishing workflow | 🟢 done | Publishing workflow is in place and regularly used. |
-| Contributor guidance quality improvements | 🟡 in progress | Practical guidance is being expanded across guides and area pages. |
-
-## Infrastructure Operations
-
-| Work Package | Status | Notes |
-| --- | --- | --- |
-| Runner and execution environment maintenance | 🟡 in progress | Operational work exists with partial automation. |
-| Monitoring baseline and signal ownership | ⚪ planned / not yet defined | Metrics and alert ownership are still being formalized. |
-| Incident handling model and runbooks | ⚪ planned / not yet defined | Shared response process remains under definition. |
-| Upgrade and dependency operations baseline | ⚪ planned / not yet defined | Repeatable upgrade workflows need stronger codification. |
+- Update this register when work package scope or dependency assumptions change.
+- Keep IDs stable once introduced.
+- Reflect status changes first here, then summarize them in the [Infrastructure Development Map](infrastructure-development-map.md).
