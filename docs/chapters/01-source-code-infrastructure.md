@@ -1,4 +1,4 @@
-# 1 Source Code Infrastructure 🟠
+# 1 Source Code Infrastructure 🟡
 
 *Infrastructure for hosting and organizing source code consistently across the S-CORE repository landscape.*
 
@@ -45,9 +45,9 @@
 
 ---
 
-## 1.2 Repository Standards ⚪
+## 1.2 Repository Standards 🟡
 
-*Infrastructure defining standard elements expected across repositories and reducing unnecessary variation.*
+*Define standard elements expected across repositories to reduce unnecessary variation.*
 
 **S-CORE**
 
@@ -55,9 +55,9 @@
 - Repositories adopt standards directly or through synchronized templates/configuration.
 - **Biggest gap**: consistency of adoption and conformance visibility remains limited.
 
-### 1.2.1 Repository Metadata
+### 1.2.1 Repository Metadata 🟡
 
-*Infrastructure for maintaining standard project metadata such as LICENSE, README, and governance files.*
+*Define standard project metadata such as LICENSE, README, and governance files.*
 
 **S-CORE**
 
@@ -65,9 +65,9 @@
 - Automated cross-repository conformance reporting is not yet in place.
 - **Biggest gap**: no continuous cross-repository visibility of metadata conformance.
 
-### 1.2.2 Tooling Configuration Standards
+### 1.2.2 Tooling Configuration Standards 🟠
 
-*Infrastructure for maintaining shared configuration for linters and development tools.*
+*Define shared configuration for linters and development tools.*
 
 **S-CORE**
 
@@ -79,7 +79,7 @@
 
 ## 1.3 Synchronization of Standards 🔴
 
-*Infrastructure for keeping repositories aligned with evolving standards through shared templates and configuration synchronization.*
+*Keep repositories aligned with evolving standards through shared templates and configuration synchronization.*
 
 **S-CORE**
 
