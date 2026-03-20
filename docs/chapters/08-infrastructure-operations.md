@@ -1,61 +1,126 @@
 # 8 Infrastructure Operations ⚪
 
-*Infrastructure for operating and maintaining infrastructure components.*
+*Infrastructure for operating and maintaining the S-CORE engineering infrastructure.*
 
-:warning: **Chapter 8 is written by ChatGPT** :warning:
+⚠️ This chapter is written by ChatGPT and was not yet reviewed
 
-## 8.1 CI Runner Operations - Out of scope for public S-CORE ⚪
+**S-CORE**
 
-*Infrastructure operating CI execution environments.*
+- Infrastructure operations covers runner operations, monitoring, dependency maintenance, and governance.
+- Dependabot automates dependency updates for infrastructure tooling across repositories.
+- **Biggest gap**: systematic monitoring, incident handling, and proactive maintenance processes are not yet consistently defined across S-CORE infrastructure.
+
+## 8.1 CI Runner Operations ⚪
+
+*Operating CI execution environments for S-CORE pipelines — out of scope for public S-CORE.*
+
+**S-CORE**
+
+- Self-hosted runner infrastructure is operated by ETAS and is not part of the public S-CORE project.
+- Public S-CORE CI relies on GitHub-hosted runners; no runner operations work is expected from S-CORE contributors.
+- **Biggest gap**: dependency on external runner operations creates a gap in public contributor autonomy.
 
 ### 8.1.1 GitHub Public Runners
 
-*Infrastructure using GitHub-hosted runners for CI execution.*
+*GitHub-hosted runners used by S-CORE CI pipelines.*
+
+**S-CORE**
+
+- GitHub-hosted runners are the default execution environment for public S-CORE CI.
+- **Biggest gap**: GitHub-hosted runner capacity and feature availability are outside S-CORE control.
 
 ### 8.1.2 Runner Configuration
 
-*Infrastructure managing runner environment configuration.*
+*Managing runner environment configuration.*
+
+**S-CORE**
+
+- Runner configuration is managed through workflow YAML files and, for self-hosted runners, by the ETAS INFRA team.
+- **Biggest gap**: runner environment consistency and configuration documentation are not maintained in a central, public location.
 
 ---
 
 ## 8.2 Infrastructure Monitoring ⚪
 
-*Infrastructure monitoring usage and failures.*
+*Monitoring CI usage, failures, and infrastructure health across S-CORE.*
+
+**S-CORE**
+
+- CI pipeline failures are visible via GitHub Actions; no proactive monitoring or alerting spans S-CORE repositories.
+- **Biggest gap**: no cross-repository infrastructure health dashboard or alert channel exists for S-CORE.
 
 ### 8.2.1 CI Usage Monitoring
 
-*Infrastructure monitoring CI usage and capacity.*
+*Monitoring CI usage patterns and capacity across S-CORE pipelines.*
+
+**S-CORE**
+
+- GitHub Actions provides per-repository usage metrics; no aggregated cross-repository view exists.
+- **Biggest gap**: S-CORE-wide CI usage visibility and capacity planning are not operationalized.
 
 ### 8.2.2 Failure Monitoring
 
-*Infrastructure monitoring failures across infrastructure systems.*
+*Monitoring failures across S-CORE infrastructure systems.*
+
+**S-CORE**
+
+- Pipeline failures are surfaced per repository via GitHub; no S-CORE-wide failure tracking dashboard exists.
+- **Biggest gap**: recurring failure patterns across S-CORE pipelines are not systematically detected.
 
 ---
 
 ## 8.3 Infrastructure Maintenance ⚪
 
-*Infrastructure maintaining infrastructure tooling.*
+*Keeping S-CORE infrastructure tooling and dependencies up to date.*
+
+**S-CORE**
+
+- Dependabot automates version and SHA updates for infrastructure dependencies across S-CORE repositories.
+- **Biggest gap**: proactive maintenance beyond Dependabot (e.g., major tool upgrades, deprecation handling) is not yet structured.
 
 ### 8.3.1 Tool Updates
 
-*Infrastructure updating infrastructure tools.*
+*Updating shared infrastructure tools across S-CORE repositories.*
+
+**S-CORE**
+
+- Tool upgrades (e.g., MkDocs, Bazel, runner images) are performed reactively on a per-repository basis.
+- **Biggest gap**: no coordinated tool update process or shared upgrade playbook exists across S-CORE.
 
 ### 8.3.2 Dependency Updates
 
-*Infrastructure updating infrastructure dependencies.*
+*Updating infrastructure dependencies across S-CORE repositories.*
 
-[dependabot](https://github.com/dependabot) bumps versions / SHA hashes of our dependencies.
+**S-CORE**
+
+- [Dependabot](https://github.com/dependabot) automatically opens pull requests to bump dependency versions and SHA hashes.
+- **Biggest gap**: Dependabot coverage is limited to supported dependency file types; non-standard lockfiles are not auto-updated.
 
 ---
 
 ## 8.4 Infrastructure Governance ⚪
 
-*Infrastructure guiding infrastructure evolution.*
+*Guiding and recording the evolution of S-CORE infrastructure.*
+
+**S-CORE**
+
+- Infrastructure decisions and policies are expected to be documented and version-controlled.
+- **Biggest gap**: a structured decision record process and central policy repository are not yet operational across S-CORE.
 
 ### 8.4.1 Infrastructure Policies
 
-*Infrastructure defining policies governing infrastructure usage.*
+*Defining policies governing S-CORE infrastructure usage.*
+
+**S-CORE**
+
+- Infrastructure usage policies (runner selection, dependency constraints, tooling standards) are not yet formally documented.
+- **Biggest gap**: no central, versioned policy document set governs S-CORE infrastructure choices.
 
 ### 8.4.2 Infrastructure Decision Records
 
-*Infrastructure documenting infrastructure decisions.*
+*Documenting major S-CORE infrastructure decisions.*
+
+**S-CORE**
+
+- Architecture Decision Records (ADRs) are a target practice for documenting significant infrastructure decisions.
+- **Biggest gap**: no ADR process or repository is established for S-CORE infrastructure decisions.

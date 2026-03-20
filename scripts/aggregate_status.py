@@ -17,14 +17,6 @@ STATUS_RANK: dict[str, int] = {
 }
 STATUS_BY_RANK = {rank: status for status, rank in STATUS_RANK.items()}
 STATUS_MARKERS = UNKNOWN_STATUS + "".join(STATUS_RANK)
-INDEX_STATUS_HEADING = "## Chapter Status"
-INDEX_STATUS_START = "<!-- auto-generated chapter status table -->"
-INDEX_STATUS_END = "<!-- end of auto-generated chapter status table -->"
-
-OVERVIEW_BLOCK_RE = re.compile(
-    r"\n*## Overview\n\n<!-- auto-generated overview table -->.*?<!-- end of auto-generated overview table -->\n*",
-    re.DOTALL,
-)
 
 CHAPTER_HEADER_RE = re.compile(
     rf"^#\s+(?P<title>.+?)(?:\s+(?P<status>[{re.escape(STATUS_MARKERS)}]))?$",
@@ -43,16 +35,6 @@ TRAILING_STATUS_RE = re.compile(rf"\s+(?:[{re.escape(STATUS_MARKERS)}])$")
 def clean_title(title: str) -> str:
     """Return a heading title without a trailing status marker."""
     return TRAILING_STATUS_RE.sub("", title).strip()
-
-
-def remove_overview(content: str) -> str:
-    """Remove the auto-generated chapter overview block if present."""
-    updated_content = OVERVIEW_BLOCK_RE.sub("\n\n", content, count=1)
-    if updated_content == content:
-        return content
-
-    updated_content = re.sub(r"\n{3,}", "\n\n", updated_content)
-    return f"{updated_content.rstrip()}\n"
 
 
 def get_average_status(statuses: list[str]) -> str:
@@ -134,74 +116,10 @@ def update_chapter_status(content: str, section_statuses: dict[str, str]) -> str
     return CHAPTER_HEADER_RE.sub(replace_chapter, content, count=1)
 
 
-def extract_chapter_heading(file_path: Path) -> tuple[str, str] | None:
-    """Return the chapter title and status from the first level-1 heading."""
-    content = file_path.read_text(encoding="utf-8")
-    match = CHAPTER_HEADER_RE.search(content)
-    if match is None:
-        return None
-    title = clean_title(match.group("title"))
-    status = match.group("status") or DEFAULT_STATUS
-    return title, status
-
-
-def build_index_status_block(chapter_files: list[Path]) -> str:
-    """Build the auto-generated chapter status block for the index page."""
-    rows = [
-        "| Chapter | Status |",
-        "| --- | --- |",
-    ]
-
-    for file_path in chapter_files:
-        heading = extract_chapter_heading(file_path)
-        if heading is None:
-            continue
-        title, status = heading
-        rows.append(f"| [{title}](chapters/{file_path.name}) | {status} |")
-
-    return "\n".join(
-        [
-            INDEX_STATUS_HEADING,
-            "",
-            INDEX_STATUS_START,
-            *rows,
-            INDEX_STATUS_END,
-        ]
-    )
-
-
-def update_index(chapter_files: list[Path]) -> bool:
-    """Update docs/index.md with an auto-generated chapter status table."""
-    index_path = Path(__file__).resolve().parent.parent / "docs" / "index.md"
-    original_content = index_path.read_text(encoding="utf-8")
-    status_block = build_index_status_block(chapter_files)
-    block_pattern = re.compile(
-        rf"{re.escape(INDEX_STATUS_HEADING)}\n\n{re.escape(INDEX_STATUS_START)}.*?{re.escape(INDEX_STATUS_END)}",
-        re.DOTALL,
-    )
-
-    if block_pattern.search(original_content):
-        updated_content = block_pattern.sub(status_block, original_content, count=1)
-    else:
-        marker = "## Why here? Why markdown?"
-        if marker in original_content:
-            updated_content = original_content.replace(marker, f"{status_block}\n\n{marker}", 1)
-        else:
-            updated_content = f"{original_content.rstrip()}\n\n{status_block}\n"
-
-    if updated_content == original_content:
-        print("  ℹ️  No changes needed for index.md")
-        return False
-
-    _ = index_path.write_text(updated_content, encoding="utf-8")
-    print("  ✅ Updated index.md")
-    return True
-
-
 def process_chapter(file_path: Path) -> bool:
     """Update a single chapter file and report whether it changed."""
     original_content = file_path.read_text(encoding="utf-8")
-    updated_content = remove_overview(original_content)
+    updated_content = original_content
     section_statuses = extract_section_statuses(updated_content)
 
     if not section_statuses:
@@ -239,7 +157,6 @@ def main() -> int:
     """Process chapter files and return a shell-friendly exit code."""
     target = Path(sys.argv[1]) if len(sys.argv) > 1 else None
     target = resolve_target_path(target)
-    all_chapter_files = iter_chapter_files(resolve_target_path(None))
 
     try:
         chapter_files = iter_chapter_files(target)
@@ -256,8 +173,6 @@ def main() -> int:
     modified_count = 0
     for file_path in chapter_files:
         modified_count += int(process_chapter(file_path))
-
-    modified_count += int(update_index(all_chapter_files))
 
     print(f"\n📊 Summary: {modified_count} files modified")
     return 0

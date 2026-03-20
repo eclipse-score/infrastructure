@@ -1,34 +1,51 @@
 # 9 Developer Environment 🟠
 
-*Environment supporting developer productivity.*
+*Environment infrastructure supporting developer productivity and consistency across S-CORE contributors.*
+
+⚠️ This chapter is written by ChatGPT and was not yet reviewed
+
+**S-CORE**
+
+- A shared devcontainer image at [eclipse-score/devcontainer](https://github.com/eclipse-score/devcontainer) standardizes development environments across contributors and CI.
+- Pre-commit hooks provide fast local validation before code submission.
+- **Biggest gap**: local tooling standardization beyond the devcontainer and pre-commit is not yet complete.
 
 ## 9.1 Devcontainer 🟠
 
-*Infrastructure providing standardized development environments.*
+*Standardized, containerized development environment for S-CORE contributors and CI.*
 
-> Note on Implementation:
-> [devcontainer images](https://github.com/eclipse-score/devcontainer/) can be used by CI and every developer.
-> This achieves standardization among a great range of tools and versions.
+**S-CORE**
+
+- Devcontainer images are provided at [eclipse-score/devcontainer](https://github.com/eclipse-score/devcontainer) for use by both CI pipelines and local developer environments.
+- The devcontainer standardizes tool versions and configurations across a wide range of compilers, build tools, and runtimes.
+- **Biggest gap**: devcontainer adoption across all S-CORE repositories and contributors is not yet complete.
 
 ## 9.2 IDE Integration 🟠
 
-*Infrastructure supporting integration with development environments and IDEs.*
+*Integration with development environments and IDEs for S-CORE contributors.*
 
-> Note on Implementation:
-> [The devcontainer](https://github.com/eclipse-score/devcontainer/) comes with Visual Studio Code extensions and configuration.
+**S-CORE**
+
+- The [eclipse-score/devcontainer](https://github.com/eclipse-score/devcontainer) includes pre-configured VS Code extensions and workspace settings.
+- IDE configuration via the devcontainer ensures consistent editor tooling (formatting, linting, debugging) across contributors.
+- **Biggest gap**: IDE support beyond VS Code is not covered by the current devcontainer setup.
 
 ## 9.3 Local Tooling 🟠
 
-*Infrastructure providing local development tooling.*
+*Local development tooling provided for S-CORE contributors outside of CI.*
+
+**S-CORE**
+
+- Local tooling (build, test, lint, format) is accessible via the devcontainer without manual host configuration.
+- **Biggest gap**: local tooling outside the devcontainer is not standardized; contributors running natively face an inconsistent setup.
 
 ## 9.4 Pre-commit Validation 🟠
 
-*Infrastructure validating code locally before submission.*
+*Local validation hooks that check code quality before submission.*
 
-> Note on Implementation:
-> [pre-commit hooks](https://pre-commit.com/) check for fast to detect issues like missing copyright headers or wrong formatting.
-> 
-> There are already pre-existing pre-commit hooks, which we use if suitable.
-> If we need custom S-CORE hooks they are provided by tooling](https://github.com/eclipse-score/tooling/blob/main/.pre-commit-hooks.yaml)
-> 
-> We do not mirror publicly available pre-commit hooks, because they are considered developer convenience (alternative would be expensive CI jobs) and are not needed for reproducible binaries.
+**S-CORE**
+
+- [pre-commit](https://pre-commit.com/) hooks validate code locally before push, catching issues such as missing copyright headers or wrong formatting without a CI round-trip.
+- Custom S-CORE pre-commit hooks are provided via [eclipse-score/tooling](https://github.com/eclipse-score/tooling/blob/main/.pre-commit-hooks.yaml).
+- Existing ecosystem pre-commit hooks are used where available; no proprietary mirrors of public hooks are maintained.
+- **Biggest gap**: pre-commit adoption and hook coverage are not uniformly enforced across all S-CORE repositories.

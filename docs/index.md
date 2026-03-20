@@ -26,32 +26,45 @@ This includes topics such as:
 flowchart LR
 
 subgraph FLOW["Core Engineering Flow"]
-    DEV["1 Developer Infrastructure"]
-    SRC["2 Source Code Infrastructure"]
-    BUILD["3 Build Infrastructure"]
-    TEST["4 Testing Infrastructure"]
-    INT["5 Integration & Automation Infrastructure"]
-    ART["6 Artifact & Distribution Infrastructure"]
+    C1["1 Source Code Infrastructure 🟠"]
+    C2["2 Build Infrastructure (Bazel) ⚪"]
+    C3["3 Testing Infrastructure ⚪"]
+    C4["4 Automation & CI/CD ⚪"]
+    C5["5 Artifact & Distribution Infrastructure ⚪"]
 
-    DEV --> SRC --> BUILD --> TEST --> INT --> ART
+    C1 --> C2 --> C3 --> C4 --> C5
 end
 
 subgraph SUPPORT["Cross-Cutting Supporting Layers"]
-    DOC["7 Documentation Infrastructure"]
-    SEC["8 Security Infrastructure"]
-    COMP["9 Compliance & Assurance Infrastructure"]
-    OPS["10 Infrastructure Operations & Governance"]
+    C6["6 Compliance Infrastructure ⚪"]
+    C7["7 Documentation Infrastructure ⚪"]
+    C8["8 Infrastructure Operations ⚪"]
+    C9["9 Developer Environment 🟠"]
+    C10["10 Security Infrastructure ⚪"]
 end
 
-%% Hidden edge to force layout:
+%% Hidden edges to force layout:
 FLOW --- SUPPORT
-DOC --- SEC
-SEC --- COMP
-COMP --- OPS
+C6 --- C7
+C7 --- C8
+C8 --- C9
+C9 --- C10
+linkStyle 4 stroke-width:0px
 linkStyle 5 stroke-width:0px
 linkStyle 6 stroke-width:0px
 linkStyle 7 stroke-width:0px
 linkStyle 8 stroke-width:0px
+
+click C1 href "chapters/01-source-code-infrastructure/" "Open chapter 1"
+click C2 href "chapters/02-build-infrastructure/" "Open chapter 2"
+click C3 href "chapters/03-testing-infrastructure/" "Open chapter 3"
+click C4 href "chapters/04-automation-integration/" "Open chapter 4"
+click C5 href "chapters/05-artifact-distribution/" "Open chapter 5"
+click C6 href "chapters/06-compliance-infrastructure/" "Open chapter 6"
+click C7 href "chapters/07-documentation-infrastructure/" "Open chapter 7"
+click C8 href "chapters/08-infrastructure-operations/" "Open chapter 8"
+click C9 href "chapters/09-developer-environment/" "Open chapter 9"
+click C10 href "chapters/10-security-infrastructure/" "Open chapter 10"
 ```
 
 Each chapter describes the purpose of the infrastructure domain and lists the individual infrastructure capabilities required to support it. Using that infrastructure to achieve results is typically **out of scope**.
@@ -65,23 +78,6 @@ Legend:
 - 🟠 Implemented but problematic or insufficient
 - 🔴 Not started
 - ⚪ Unknown / not yet assessed
-
-## Chapter Status
-
-<!-- auto-generated chapter status table -->
-| Chapter | Status |
-| --- | --- |
-| [1 Source Code Infrastructure](chapters/01-source-code-infrastructure.md) | 🟠 |
-| [2 Build Infrastructure (Bazel)](chapters/02-build-infrastructure.md) | ⚪ |
-| [3 Testing Infrastructure](chapters/03-testing-infrastructure.md) | ⚪ |
-| [4 Automation Infrastructure & Continuous Integration (CI/CD)](chapters/04-automation-integration.md) | ⚪ |
-| [5 Artifact & Distribution Infrastructure](chapters/05-artifact-distribution.md) | ⚪ |
-| [6 Compliance Infrastructure](chapters/06-compliance-infrastructure.md) | ⚪ |
-| [7 Documentation Infrastructure](chapters/07-documentation-infrastructure.md) | ⚪ |
-| [8 Infrastructure Operations](chapters/08-infrastructure-operations.md) | ⚪ |
-| [9 Developer Environment](chapters/09-developer-environment.md) | 🟠 |
-| [10 Security Infrastructure](chapters/10-security-infrastructure.md) | ⚪ |
-<!-- end of auto-generated chapter status table -->
 
 ## Why here? Why markdown?
 
