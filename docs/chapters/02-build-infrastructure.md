@@ -5,18 +5,6 @@
 :warning: **Chapter 2 is written by ChatGPT** :warning:
 :warning: Please restructure in a meaningful way -> @Nikola
 
-## Overview
-
-<!-- auto-generated overview table -->
-| Capability | Description | Status |
-| --- | --- | --- |
-| 2.1 Build System | Infrastructure providing core build tooling used across the project. | ⚪ |
-| 2.2 Dependency Management | Infrastructure for managing internal and external dependencies. | ⚪ |
-| 2.3 Toolchain Management | Infrastructure for managing compilers and toolchains. | ⚪ |
-| 2.4 Build Reproducibility | Infrastructure ensuring builds are deterministic and reproducible. | ⚪ |
-| 2.5 Build Execution Infrastructure | Infrastructure for executing builds in distributed or remote environments. | ⚪ |
-<!-- end of auto-generated overview table -->
-
 ## 2.1 Build System ⚪
 
 *Infrastructure providing core build tooling used across the project.*

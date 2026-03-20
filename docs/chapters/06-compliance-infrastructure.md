@@ -2,16 +2,6 @@
 
 *Infrastructure supporting legal and regulatory compliance.*
 
-## Overview
-
-<!-- auto-generated overview table -->
-| Capability | Description | Status |
-| --- | --- | --- |
-| 6.1 SBOM Infrastructure | Infrastructure generating and managing software bill of materials. | ⚪ |
-| 6.2 License Compliance | Infrastructure ensuring open source license obligations of dependencies are fulfilled. | 🟠 |
-| 6.3 Dependency Vulnerability Management | Infrastructure tracking and mitigating security vulnerabilities in dependencies. | ⚪ |
-<!-- end of auto-generated overview table -->
-
 ## 6.1 SBOM Infrastructure ⚪
 
 *Infrastructure generating and managing software bill of materials.*

@@ -20,9 +20,11 @@ STATUS_MARKERS = UNKNOWN_STATUS + "".join(STATUS_RANK)
 INDEX_STATUS_HEADING = "## Chapter Status"
 INDEX_STATUS_START = "<!-- auto-generated chapter status table -->"
 INDEX_STATUS_END = "<!-- end of auto-generated chapter status table -->"
-OVERVIEW_HEADING = "## Overview"
-OVERVIEW_START = "<!-- auto-generated overview table -->"
-OVERVIEW_END = "<!-- end of auto-generated overview table -->"
+
+OVERVIEW_BLOCK_RE = re.compile(
+    r"\n*## Overview\n\n<!-- auto-generated overview table -->.*?<!-- end of auto-generated overview table -->\n*",
+    re.DOTALL,
+)
 
 CHAPTER_HEADER_RE = re.compile(
     rf"^#\s+(?P<title>.+?)(?:\s+(?P<status>[{re.escape(STATUS_MARKERS)}]))?$",
@@ -43,12 +45,14 @@ def clean_title(title: str) -> str:
     return TRAILING_STATUS_RE.sub("", title).strip()
 
 
-def clean_description(line: str) -> str:
-    """Normalize a section description line for overview tables."""
-    description = line.strip()
-    if description.startswith("*") and description.endswith("*") and len(description) > 1:
-        description = description[1:-1].strip()
-    return description
+def remove_overview(content: str) -> str:
+    """Remove the auto-generated chapter overview block if present."""
+    updated_content = OVERVIEW_BLOCK_RE.sub("\n\n", content, count=1)
+    if updated_content == content:
+        return content
+
+    updated_content = re.sub(r"\n{3,}", "\n\n", updated_content)
+    return f"{updated_content.rstrip()}\n"
 
 
 def get_average_status(statuses: list[str]) -> str:
@@ -103,89 +107,6 @@ def extract_section_statuses(content: str) -> dict[str, str]:
 
     flush_current_section()
     return section_statuses
-
-
-def extract_overview_rows(content: str) -> list[tuple[str, str, str]]:
-    """Extract section title, description, and status for the chapter overview table."""
-    rows: list[tuple[str, str, str]] = []
-    current_section: str | None = None
-    current_status = DEFAULT_STATUS
-    current_lines: list[str] = []
-
-    def flush_current_section() -> None:
-        nonlocal current_section, current_status, current_lines
-        if current_section and current_section != "Overview":
-            description = "-"
-            for line in current_lines:
-                stripped = line.strip()
-                if not stripped or stripped == "---" or stripped.startswith("<!--"):
-                    continue
-                if stripped.startswith("### "):
-                    break
-                if stripped.startswith(">"):
-                    continue
-                description = clean_description(stripped)
-                break
-
-            rows.append((current_section, description, current_status))
-
-        current_status = DEFAULT_STATUS
-        current_lines = []
-
-    for line in content.splitlines():
-        if section_match := SECTION_HEADER_RE.match(line):
-            flush_current_section()
-            current_section = clean_title(section_match.group("title"))
-            current_status = section_match.group("status") or DEFAULT_STATUS
-            continue
-
-        if current_section is not None:
-            current_lines.append(line)
-
-    flush_current_section()
-    return rows
-
-
-def build_overview_block(content: str) -> str:
-    """Build the auto-generated overview block for a chapter."""
-    rows = [
-        "| Capability | Description | Status |",
-        "| --- | --- | --- |",
-    ]
-
-    for title, description, status in extract_overview_rows(content):
-        rows.append(f"| {title} | {description} | {status} |")
-
-    return "\n".join(
-        [
-            OVERVIEW_HEADING,
-            "",
-            OVERVIEW_START,
-            *rows,
-            OVERVIEW_END,
-        ]
-    )
-
-
-def update_overview(content: str) -> str:
-    """Insert or replace the auto-generated chapter overview table."""
-    overview_block = build_overview_block(content)
-    block_pattern = re.compile(
-        rf"{re.escape(OVERVIEW_HEADING)}\n\n{re.escape(OVERVIEW_START)}.*?{re.escape(OVERVIEW_END)}",
-        re.DOTALL,
-    )
-
-    if block_pattern.search(content):
-        return block_pattern.sub(overview_block, content, count=1)
-
-    first_section_match = SECTION_HEADER_RE.search(content)
-    if first_section_match is None:
-        return f"{content.rstrip()}\n\n{overview_block}\n"
-
-    insert_at = first_section_match.start()
-    prefix = content[:insert_at].rstrip()
-    suffix = content[insert_at:]
-    return f"{prefix}\n\n{overview_block}\n\n{suffix}"
 
 
 def update_section_headers(content: str, section_statuses: dict[str, str]) -> str:
@@ -280,15 +201,14 @@ def update_index(chapter_files: list[Path]) -> bool:
 def process_chapter(file_path: Path) -> bool:
     """Update a single chapter file and report whether it changed."""
     original_content = file_path.read_text(encoding="utf-8")
-    section_statuses = extract_section_statuses(original_content)
+    updated_content = remove_overview(original_content)
+    section_statuses = extract_section_statuses(updated_content)
 
     if not section_statuses:
         print(f"  ℹ️  No subsection headings found in {file_path.name}")
-        return False
-
-    updated_content = update_section_headers(original_content, section_statuses)
-    updated_content = update_chapter_status(updated_content, section_statuses)
-    updated_content = update_overview(updated_content)
+    else:
+        updated_content = update_section_headers(updated_content, section_statuses)
+        updated_content = update_chapter_status(updated_content, section_statuses)
 
     if updated_content == original_content:
         print(f"  ℹ️  No changes needed for {file_path.name}")

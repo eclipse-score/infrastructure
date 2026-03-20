@@ -5,17 +5,6 @@
 :warning: **Chapter 3 is written by ChatGPT** :warning:
 :warning: to be aligned with test team
 
-## Overview
-
-<!-- auto-generated overview table -->
-| Capability | Description | Status |
-| --- | --- | --- |
-| 3.1 Test Execution | Infrastructure for executing automated tests. | ⚪ |
-| 3.2 Test Framework Integration | Infrastructure integrating test frameworks with the build system. | ⚪ |
-| 3.3 System Integration Testing | Infrastructure supporting testing of interactions between middleware components. | ⚪ |
-| 3.4 Test Reporting | Infrastructure for collecting and presenting test results. | ⚪ |
-<!-- end of auto-generated overview table -->
-
 ## 3.1 Test Execution ⚪
 
 *Infrastructure for executing automated tests.*

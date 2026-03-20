@@ -4,17 +4,6 @@
 
 :warning: **Chapter 8 is written by ChatGPT** :warning:
 
-## Overview
-
-<!-- auto-generated overview table -->
-| Capability | Description | Status |
-| --- | --- | --- |
-| 8.1 CI Runner Operations - Out of scope for public S-CORE | Infrastructure operating CI execution environments. | ⚪ |
-| 8.2 Infrastructure Monitoring | Infrastructure monitoring usage and failures. | ⚪ |
-| 8.3 Infrastructure Maintenance | Infrastructure maintaining infrastructure tooling. | ⚪ |
-| 8.4 Infrastructure Governance | Infrastructure guiding infrastructure evolution. | ⚪ |
-<!-- end of auto-generated overview table -->
-
 ## 8.1 CI Runner Operations - Out of scope for public S-CORE ⚪
 
 *Infrastructure operating CI execution environments.*

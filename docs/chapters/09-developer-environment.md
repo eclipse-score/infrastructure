@@ -2,17 +2,6 @@
 
 *Environment supporting developer productivity.*
 
-## Overview
-
-<!-- auto-generated overview table -->
-| Capability | Description | Status |
-| --- | --- | --- |
-| 9.1 Devcontainer | Infrastructure providing standardized development environments. | 🟠 |
-| 9.2 IDE Integration | Infrastructure supporting integration with development environments and IDEs. | 🟠 |
-| 9.3 Local Tooling | Infrastructure providing local development tooling. | 🟠 |
-| 9.4 Pre-commit Validation | Infrastructure validating code locally before submission. | 🟠 |
-<!-- end of auto-generated overview table -->
-
 ## 9.1 Devcontainer 🟠
 
 *Infrastructure providing standardized development environments.*

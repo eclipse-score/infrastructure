@@ -2,18 +2,6 @@
 
 *Infrastructure for hosting and organizing project source code.*
 
-## Overview
-
-<!-- auto-generated overview table -->
-| Capability | Description | Status |
-| --- | --- | --- |
-| 1.0 Hosting | Repo hosting on GitHub | 🟢 |
-| 1.1 Repository Lifecycle Management | Infrastructure for managing repositories and repository configuration. | 🟠 |
-| 1.2 Repository Standards | Infrastructure defining standard elements expected across repositories. | ⚪ |
-| 1.3 Synchronization of Standards | Infrastructure for keeping repositories aligned with evolving standards through shared templates and configuration synchronization. | 🔴 |
-<!-- end of auto-generated overview table -->
-
-
 ## 1.0 Hosting 🟢
 
 Repo hosting on GitHub

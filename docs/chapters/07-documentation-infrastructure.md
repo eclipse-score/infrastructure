@@ -4,18 +4,6 @@
 
 :warning: **Chapter 7 is written by ChatGPT** :warning:
 
-## Overview
-
-<!-- auto-generated overview table -->
-| Capability | Description | Status |
-| --- | --- | --- |
-| 7.1 Documentation Tooling | Infrastructure providing tools for writing and publishing documentation. | ⚪ |
-| 7.2 Documentation Pipelines | Infrastructure automating documentation builds and validation. | ⚪ |
-| 7.3 Engineering Documentation | Infrastructure supporting engineering documentation processes. | ⚪ |
-| 7.4 Contributor Documentation | Infrastructure supporting project contributors. | ⚪ |
-| 7.5 Traceability Infrastructure | Infrastructure supporting engineering traceability. | ⚪ |
-<!-- end of auto-generated overview table -->
-
 ## 7.1 Documentation Tooling ⚪
 
 *Infrastructure providing tools for writing and publishing documentation.*

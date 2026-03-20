@@ -4,16 +4,6 @@
 
 :warning: **Chapter 4 is written by ChatGPT** :warning:
 
-## Overview
-
-<!-- auto-generated overview table -->
-| Capability | Description | Status |
-| --- | --- | --- |
-| 4.1 CI Workflow Architecture | Infrastructure defining the structure and reuse of CI workflows. | ⚪ |
-| 4.2 Pipeline Execution | Infrastructure executing integration pipelines. | 🟠 |
-| 4.3 Quality Gates | Infrastructure providing automated validation before code integration. | ⚪ |
-<!-- end of auto-generated overview table -->
-
 ## 4.1 CI Workflow Architecture ⚪
 
 *Infrastructure defining the structure and reuse of CI workflows.*
