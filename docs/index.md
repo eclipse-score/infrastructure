@@ -1,54 +1,20 @@
 # S-CORE Infrastructure Landscape
 
-:information_source: Early work in progress. Some chapters are currently generated drafts and will be refined iteratively.
+:information_source: Work in progress. Some chapters are generated drafts and still under review.
 
 ---
 
-## Purpose
+## What This Is
 
-This document maps the engineering infrastructure required to develop, build, test, integrate, secure, and distribute the S-CORE middleware.
+A concise map of S-CORE engineering infrastructure: what exists, what is missing, and what needs priority.
 
-It is intended as decision support, not only as an inventory. It helps teams answer:
+## How To Read It
 
-- What infrastructure exists today?
-- What is reliable, risky, or still missing?
-- What should be prioritized next?
+- Start with the chapter matching your topic.
+- Use the status icon to judge maturity.
+- Read "Biggest gap" to understand the next improvement focus.
 
-## Stakeholder Perspectives
-
-### Project manager / product lead
-
-Needs cross-domain visibility, ownership clarity, risk transparency, and prioritization input for roadmap planning.
-
-### Infrastructure team member
-
-Needs clear domain boundaries, required capabilities, operational expectations, and interfaces to adjacent domains.
-
-### Project developer using infrastructure
-
-Needs discoverable self-service workflows, clear entry points, and predictable tooling quality for daily development.
-
-### Contributor / newcomer
-
-Needs fast orientation, shared terminology, and simple navigation to chapter-level details.
-
-## Scope
-
-The document focuses on **engineering infrastructure**, meaning systems and tooling used to support development and integration of the middleware.
-
-In scope:
-
-- Engineering infrastructure systems and tooling
-- Automation, policies, and operational practices across the development lifecycle
-- Capability-level status and gaps per infrastructure domain
-
-Out of scope:
-
-- Feature-level product behavior
-- General team process details that are not infrastructure-specific
-- Full tool tutorials and runbooks (maintained in dedicated documents)
-
-This includes domains such as:
+## Chapter Map
 
 ```mermaid
 flowchart LR
@@ -95,42 +61,10 @@ click C9 href "chapters/09-developer-environment/" "Open chapter 9"
 click C10 href "chapters/10-security-infrastructure/" "Open chapter 10"
 ```
 
-Each chapter should describe:
+## Status Legend
 
-- Domain purpose and boundaries
-- Required capabilities
-- Current state with evidence where available
-- Known gaps, risks, and next improvements
-- Ownership (team or role), if known
-
-## How To Use This Landscape
-
-- For planning and governance: use status and gaps to prioritize work and define roadmap items.
-- For implementation: use capability lists as baseline contracts for infrastructure domains.
-- For day-to-day development: use chapter links as entry points to tooling and process references.
-
-## Infrastructure Status Model
-
-Legend:
-
-- 🟢 Implemented and effective in regular use
-- 🟡 Partially implemented, inconsistent, or missing key quality attributes
-- 🟠 Implemented but currently problematic or insufficient for project needs
+- 🟢 Implemented and effective
+- 🟡 Partially implemented / needs improvement
+- 🟠 Implemented but problematic or insufficient
 - 🔴 Not started
 - ⚪ Unknown / not yet assessed
-
-Assessment guidance:
-
-- Prefer evidence over opinion (pipeline usage, metrics, incidents, user feedback)
-- State assumptions explicitly when evidence is not yet available
-- Reassess statuses periodically to keep planning decisions current
-
-## Documentation Approach
-
-This landscape is maintained as Markdown in a docs-as-code workflow because it:
-
-- Keeps review and change history transparent
-- Supports collaborative editing through pull requests
-- Can be published as a website while remaining repository-native
-
-The final delivery form can evolve (website, issue views, or other formats), while this source remains the canonical baseline.
