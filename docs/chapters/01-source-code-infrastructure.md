@@ -1,29 +1,14 @@
 # 1 Source Code Infrastructure 🟠
 
-**Chapter Goal**
+*Infrastructure for hosting and organizing source code consistently across the S-CORE repository landscape.*
 
-Define how S-CORE repositories are hosted, governed, and kept consistent over time across a large multi-repository landscape.
+**S-CORE**
 
-**S-CORE Model and State**
-
-- Model: GitHub is the canonical source-code hosting platform for S-CORE repositories.
-- Model: Lifecycle and policy management are intended to be centrally defined and automation-driven.
-- Model: Standards should be versioned, measurable, and continuously synchronized across repositories.
-- Current state: Hosting is established and operational.
-- Current state: Lifecycle management is partially automated.
-- Current state: Standards and synchronization capabilities are still evolving.
-
-**Ownership and Interfaces**
-
-- S-CORE infrastructure ownership defines the repository governance model and automation behavior.
-- Repository maintainers consume the service by proposing and validating repository-specific intent.
-- Policy and standards changes are expected to flow through reviewed configuration updates.
-
-**References**
-
-- S-CORE organization: https://github.com/eclipse-score
-- Otterdog: https://github.com/eclipse-score/otterdog
-- S-CORE org configuration example: https://github.com/eclipse-score/.eclipsefdn/blob/main/eclipse-score.jsonnet
+- GitHub is the canonical source-code hosting platform for S-CORE repositories.
+- Lifecycle and policy management are intended to be centrally defined and automation-driven.
+- Standards should be versioned, measurable, and continuously synchronized across repositories.
+- Hosting is established and operational; lifecycle and standards synchronization are only partially mature.
+- **Biggest gap**: cross-repository consistency of policy and standards is not yet reliably enforced and measured.
 
 ## 1.0 Hosting 🟢
 
