@@ -6,168 +6,126 @@
 
 **S-CORE**
 
-- MkDocs is the standard documentation framework for S-CORE repositories that publish documentation sites.
-- Documentation is published to GitHub Pages via CI pipelines.
-- Engineering traceability (requirements, architecture, design) is a target capability for functional safety compliance.
-- **Biggest gap**: traceability infrastructure and cross-repository documentation standards are not yet in place.
+- Documentation infrastructure in S-CORE currently spans repository documentation sites and engineering-focused docs-as-code capabilities.
+- Documentation is published through CI-driven static site generation and hosting.
+- The docs-as-code capability model (Input Format, Build, Configuration, Cross-Repository Linking, Previews & Feedback, IDE & Developer Experience, Architecture Visualization, Code Integration) is used as a reference for this chapter.
+- Engineering traceability (requirements, architecture, design, implementation, tests) is a target capability for functional safety compliance.
+- **Biggest gap**: no shared capability baseline and rollout path is yet defined across S-CORE repositories.
 
-## 7.1 Documentation Tooling ⚪
+## 7.1 Authoring & Tooling ⚪
 
-*Tools and frameworks for writing and publishing S-CORE documentation.*
-
-**S-CORE**
-
-- MkDocs with the ReadTheDocs theme is the standard documentation framework.
-- **Biggest gap**: tooling standardization is informal; not all repositories adopt the same documentation stack.
-
-### 7.1.1 Documentation Framework
-
-*Frameworks for generating documentation sites across S-CORE repositories.*
+*Capabilities for writing, structuring, and maintaining documentation in repositories.*
 
 **S-CORE**
 
-- MkDocs generates static documentation sites deployed to GitHub Pages.
-- **Biggest gap**: MkDocs configuration standards and shared plugin sets are not uniformly defined.
+- Documentation is authored in version-controlled repositories alongside source code.
+- Markdown is the primary input format in MkDocs repositories, while docs-as-code capabilities also cover reStructuredText-based workflows.
+- **Biggest gap**: authoring conventions, templates, and quality profiles are not consistently defined across repositories.
 
-### 7.1.2 Documentation Authoring
+### 7.1.1 Documentation Stacks and Input Formats
 
-*Infrastructure supporting contributors in writing and reviewing documentation.*
+*Defining common source formats and authoring rules for consistent output.*
 
 **S-CORE**
 
-- Documentation is authored as Markdown in version-controlled repositories alongside code.
-- **Biggest gap**: authoring conventions, templates, and contributor guidance are not consistently available across S-CORE.
+- MkDocs is widely used for repository documentation, while Sphinx/sphinx-needs capabilities are relevant for requirement-centric engineering documentation.
+- **Biggest gap**: stack selection criteria and shared metadata conventions are not yet standardized.
+
+### 7.1.2 IDE & Developer Experience
+
+*Providing fast feedback while authoring documentation locally and in CI.*
+
+**S-CORE**
+
+- Local preview and linting workflows are available in some repositories (for example via `mkdocs serve` and CI checks).
+- **Biggest gap**: no common baseline for editor integration, linting, and author feedback loops exist across S-CORE.
 
 ---
 
-## 7.2 Documentation Pipelines ⚪
+## 7.2 Build, Validation & Publishing ⚪
 
-*Automating documentation builds, validation, and publishing in CI.*
-
-**S-CORE**
-
-- Documentation CI pipelines build and publish MkDocs sites on merge to the default branch.
-- **Biggest gap**: strict mode builds and link validation are not uniformly enforced across S-CORE documentation pipelines.
-
-### 7.2.1 Documentation Build
-
-*Building documentation sites in CI pipelines.*
+*Infrastructure for deterministic builds, quality checks, and publication of documentation sites.*
 
 **S-CORE**
 
-- MkDocs `build --strict` is the recommended build command, used in this and some other S-CORE repositories.
-- **Biggest gap**: documentation build pipelines and strict mode are not consistently configured across repositories.
+- Documentation CI pipelines build and publish documentation sites on merge to the default branch.
+- Strict mode and link checks are the preferred validation baseline.
+- **Biggest gap**: deterministic build configuration and validation strictness are not yet standardized across all repositories.
 
-### 7.2.2 Documentation Validation
+### 7.2.1 Deterministic Build and Configuration
 
-*Validating documentation quality in CI pipelines.*
+*Ensuring reproducible documentation output across local and CI environments.*
 
 **S-CORE**
 
-- Broken link checking and strict mode catch documentation issues before publication.
-- **Biggest gap**: automated quality validation is missing from most S-CORE documentation pipelines.
+- Reproducible builds with version-controlled configuration are the target baseline across local and CI environments.
+- MkDocs `build --strict` is the recommended command in repositories using MkDocs.
+- **Biggest gap**: pinned toolchain and shared configuration patterns are not consistently enforced.
+
+### 7.2.2 Validation, Previews, and Publishing
+
+*Providing contributor feedback before merge through fast preview and validation workflows.*
+
+**S-CORE**
+
+- Pull-request previews and early validation are target capabilities for documentation repositories.
+- **Biggest gap**: preview generation, broken-link scanning, and release publishing checks are not consistently implemented across S-CORE.
 
 ---
 
-## 7.3 Engineering Documentation ⚪
+## 7.3 Cross-Repository Documentation Integration ⚪
 
-*Infrastructure supporting functional safety engineering documentation: requirements, architecture, and design.*
+*Connecting documentation across repositories with stable linking and navigation patterns.*
+
+**S-CORE**
+
+- Cross-repository linking for latest and versioned documentation is a key capability for platform-scale documentation.
+- **Biggest gap**: no shared cross-repository linking, validation, and discovery standard is applied across S-CORE documentation sites.
+
+### 7.3.1 Cross-Repository Linking
+
+*Establishing reliable links across repository boundaries and release versions.*
+
+**S-CORE**
+
+- Links between repositories are mostly ad hoc and not centrally governed.
+- **Biggest gap**: no shared mechanism verifies latest and versioned cross-repository links at scale.
+
+### 7.3.2 Shared Navigation and Discovery
+
+*Making documentation content easier to discover across repository-specific sites.*
+
+**S-CORE**
+
+- Repository sites are published independently, which supports ownership but fragments discovery.
+- **Biggest gap**: no common cross-repository navigation, search, and information architecture exists.
+
+---
+
+## 7.4 Engineering Documentation & Traceability ⚪
+
+*Infrastructure supporting requirements, architecture, design, and links to implementation and tests.*
 
 **S-CORE**
 
 - Engineering documentation (requirements, architecture, detailed design) is required for ISO 26262 / ASPICE compliance.
-- **Biggest gap**: no shared tooling or process for engineering documentation exists across S-CORE; this is a significant open area.
+- Architecture visualization and code integration are target capabilities to connect documentation with implementation artifacts.
+- **Biggest gap**: no shared tooling and process baseline for engineering documentation and traceability exists across S-CORE.
 
-### 7.3.1 Requirements Documentation
+### 7.4.1 Engineering Artifact Baseline
 
-*Infrastructure supporting requirement documentation for S-CORE components.*
-
-**S-CORE**
-
-- Requirements documentation tooling and processes are not yet standardized across S-CORE.
-- **Biggest gap**: no shared requirements format, tooling, or cross-repository requirements database exists.
-
-### 7.3.2 Architecture Documentation
-
-*Infrastructure supporting architecture documentation for S-CORE components.*
+*Standardizing core engineering documentation artifacts needed for compliance and collaboration.*
 
 **S-CORE**
 
-- Architecture documentation is published as MkDocs-based sites in individual repositories.
-- **Biggest gap**: no shared architecture documentation template or cross-repository architecture view exists.
+- Engineering documentation artifacts exist in repositories but vary significantly in structure and level of detail.
+- **Biggest gap**: no shared templates or governance model defines a minimum artifact baseline.
 
-### 7.3.3 Detailed Design Documentation
+### 7.4.2 Traceability, Code Integration, and Impact Analysis
 
-*Infrastructure supporting detailed design documentation for S-CORE components.*
-
-**S-CORE**
-
-- Detailed design documentation tooling and conventions are not yet standardized.
-- **Biggest gap**: no shared format or tooling for detailed design documentation is defined across S-CORE.
-
----
-
-## 7.4 Contributor Documentation ⚪
-
-*Infrastructure supporting project contributors across S-CORE repositories.*
-
-**S-CORE**
-
-- Contributor documentation covering development setup, workflows, and contribution processes is expected in all S-CORE repositories.
-- **Biggest gap**: contributor documentation quality and completeness vary significantly across S-CORE repositories.
-
-### 7.4.1 Development Setup
-
-*Documenting how to set up the development environment for S-CORE repositories.*
-
-**S-CORE**
-
-- Development setup documentation refers contributors to the devcontainer and relevant tooling.
-- **Biggest gap**: consistent, tested development setup guides are missing from many S-CORE repositories.
-
-### 7.4.2 Contribution Guides
-
-*Documenting contribution processes and standards.*
-
-**S-CORE**
-
-- Contribution guides cover pull request workflows, coding standards, and review expectations.
-- **Biggest gap**: contribution guide completeness and cross-repository consistency are not monitored.
-
----
-
-## 7.5 Traceability Infrastructure ⚪
-
-*Infrastructure supporting engineering traceability across requirements, design, implementation, and tests.*
+*Linking requirements, design, code, and verification artifacts to support impact analysis.*
 
 **S-CORE**
 
 - Traceability from requirements through implementation and tests is a compliance requirement for functional safety certification.
-- **Biggest gap**: no S-CORE-wide traceability tooling or cross-repository traceability infrastructure exists.
-
-### 7.5.1 Requirement Traceability
-
-*Linking requirements with implementation and verification artifacts.*
-
-**S-CORE**
-
-- Requirement-to-implementation and requirement-to-test traceability tooling is not yet operational in S-CORE.
-- **Biggest gap**: no shared traceability toolchain is available or mandated.
-
-### 7.5.2 Change Impact Analysis
-
-*Analyzing the impact of changes across engineering artifacts.*
-
-**S-CORE**
-
-- Change impact analysis is performed manually; no automated cross-artifact impact tooling exists.
-- **Biggest gap**: automated change-to-requirement and change-to-test impact analysis is absent.
-
-### 7.5.3 Traceability Visualization
-
-*Visualizing traceability relationships across S-CORE engineering artifacts.*
-
-**S-CORE**
-
-- No traceability visualization infrastructure exists across S-CORE.
-- **Biggest gap**: no dashboard or tooling renders cross-artifact traceability relationships.
+- **Biggest gap**: traceability is largely manual; no shared toolchain supports automated code linkage, impact analysis, and visualization across repositories.
