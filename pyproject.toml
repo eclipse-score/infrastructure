@@ -10,3 +10,30 @@ dependencies = [
 
 [tool.uv]
 package = false
+
+[tool.ruff.lint]
+select = [
+  "E",    # pycodestyle errors
+  "W",    # pycodestyle warnings
+  "F",    # pyflakes
+  "I",    # isort
+  "N",    # pep8-naming
+  "UP",   # pyupgrade
+  "B",    # flake8-bugbear
+  "C4",   # flake8-comprehensions
+  "C90",  # mccabe (complexity checks)
+  "SIM",  # flake8-simplify
+  "TCH",  # flake8-type-checking
+  "TID",  # flake8-tidy-imports
+  "RUF",  # ruff-specific rules
+  "PT",   # flake8-pytest-style
+  "PIE",  # flake8-pie
+  "T20",  # flake8-print
+  "RSE",  # flake8-raise
+  "RET",  # flake8-return
+]
+ignore = [
+  "E501",   # line too long (handled by formatter)
+  "T201",   # allow print() globally for CLI friendliness
+  "RET505", # opinionated decision: allow else after if-return for readability
+]

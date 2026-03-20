@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: aggregate-status
+        name: Aggregate chapter statuses
+        entry: python scripts/aggregate_status.py
+        language: python
+        pass_filenames: false
+        files: ^(docs/chapters/.*\.md|docs/index\.md|scripts/aggregate_status\.py)$

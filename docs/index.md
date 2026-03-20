@@ -1,52 +1,91 @@
-# S-CORE Infrastructure Documentation
+# S-CORE Infrastructure Landscape
 
-This repository documents the technical infrastructure that supports the S-CORE project.
+:information_source: early work in progress - multiple chapters are generated (marked as such)
 
-It covers how infrastructure is currently organized, where maturity is still low, what work is underway, and where contributors can help.
+---
 
-The infrastructure is evolving. Several foundations are in place, but rollout and standardization are still ongoing in multiple areas.
+## Purpose
 
-## What This Repository Is For
+This document describes the infrastructure landscape required to develop, build, test, integrate, and distribute the S-CORE middleware.
 
-This documentation is used to:
+Its goal is to provide a structured overview of the technical infrastructure that supports the project. This includes tooling, automation, policies, and operational processes used across the development lifecycle.
 
-- understand the S-CORE infrastructure landscape
-- track current state and remaining infrastructure work
-- identify concrete contribution opportunities
-- provide practical guidance for recurring infrastructure tasks
-- explain architecture and cross-cutting concerns for technical and stakeholder audiences
+The document serves multiple purposes:
 
-## How To Navigate This Site
+- **Transparency** – making infrastructure components and responsibilities visible to the community
+- **Orientation** – helping contributors understand how the project is built and operated
+- **Planning** – identifying infrastructure areas that exist, are evolving, or still need implementation
 
-Use these five top-level sections:
+## Scope
 
-- **Overview**: purpose, scope, and entry points
-- **Infrastructure Development Map**: current state, roadmap themes, and work packages
-- **Infrastructure Areas**: the primary backbone of the documentation
-- **Guides**: practical, task-oriented instructions
-- **Architecture**: supporting conceptual pages and cross-cutting concerns
+The document focuses on **engineering infrastructure**, meaning systems and tooling used to support development and integration of the middleware.
 
-## Start Here If You Are...
+This includes topics such as:
 
-### A new contributor
+```mermaid
+flowchart LR
 
-- Read the [Infrastructure Development Map](infrastructure-development-map.md) to understand where work is needed.
-- Start with [Repository onboarding](guides/repository-onboarding.md).
-- Pick an area overview in [Infrastructure Areas](areas/source-code-infrastructure/index.md).
+subgraph FLOW["Core Engineering Flow"]
+    DEV["1 Developer Infrastructure"]
+    SRC["2 Source Code Infrastructure"]
+    BUILD["3 Build Infrastructure"]
+    TEST["4 Testing Infrastructure"]
+    INT["5 Integration & Automation Infrastructure"]
+    ART["6 Artifact & Distribution Infrastructure"]
 
-### A developer using the infrastructure
+    DEV --> SRC --> BUILD --> TEST --> INT --> ART
+end
 
-- Open the relevant [Infrastructure Area](areas/build-infrastructure/index.md).
-- Use the related task guide from [Guides](guides/index.md).
-- Check current priorities in the [Infrastructure Development Map](infrastructure-development-map.md).
+subgraph SUPPORT["Cross-Cutting Supporting Layers"]
+    DOC["7 Documentation Infrastructure"]
+    SEC["8 Security Infrastructure"]
+    COMP["9 Compliance & Assurance Infrastructure"]
+    OPS["10 Infrastructure Operations & Governance"]
+end
 
-### A manager or stakeholder
+%% Hidden edge to force layout:
+FLOW --- SUPPORT
+DOC --- SEC
+SEC --- COMP
+COMP --- OPS
+linkStyle 5 stroke-width:0px
+linkStyle 6 stroke-width:0px
+linkStyle 7 stroke-width:0px
+linkStyle 8 stroke-width:0px
+```
 
-- Start with the [Infrastructure Development Map](infrastructure-development-map.md) for status and work package overview.
-- Use [Architecture Overview](architecture/index.md) for structure and rationale.
+Each chapter describes the purpose of the infrastructure domain and lists the individual infrastructure capabilities required to support it. Using that infrastructure to achieve results is typically **out of scope**.
 
-### A safety/compliance-oriented reader
+## Infrastructure Status
 
-- Start with [Security & Compliance Infrastructure](areas/security-and-compliance-infrastructure/index.md).
-- Continue with [License compliance and SBOM](guides/license-compliance-and-sbom.md).
-- Review [Cross-cutting concerns](architecture/cross-cutting-concerns.md) for traceability and controlled automation context.
+Legend:
+
+- 🟢 Implemented and working well
+- 🟡 Partially implemented or needs improvement
+- 🟠 Implemented but problematic or insufficient
+- 🔴 Not started
+- ⚪ Unknown / not yet assessed
+
+## Chapter Status
+
+<!-- auto-generated chapter status table -->
+| Chapter | Status |
+| --- | --- |
+| [1 Source Code Infrastructure](chapters/01-source-code-infrastructure.md) | 🟠 |
+| [2 Build Infrastructure (Bazel)](chapters/02-build-infrastructure.md) | ⚪ |
+| [3 Testing Infrastructure](chapters/03-testing-infrastructure.md) | ⚪ |
+| [4 Automation Infrastructure & Continuous Integration (CI/CD)](chapters/04-automation-integration.md) | ⚪ |
+| [5 Artifact & Distribution Infrastructure](chapters/05-artifact-distribution.md) | ⚪ |
+| [6 Compliance Infrastructure](chapters/06-compliance-infrastructure.md) | ⚪ |
+| [7 Documentation Infrastructure](chapters/07-documentation-infrastructure.md) | ⚪ |
+| [8 Infrastructure Operations](chapters/08-infrastructure-operations.md) | ⚪ |
+| [9 Developer Environment](chapters/09-developer-environment.md) | 🟠 |
+| [10 Security Infrastructure](chapters/10-security-infrastructure.md) | ⚪ |
+<!-- end of auto-generated chapter status table -->
+
+## Why here? Why markdown?
+
+This website offers very good usability for collaborative editing.
+The final form is not known yet.
+Maybe a website.
+Maybe GitHub issues.

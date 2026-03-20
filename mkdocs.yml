@@ -19,31 +19,14 @@ markdown_extensions:
 
 nav:
   - Overview: index.md
-  - Infrastructure Development Map:
-      - Development Map: infrastructure-development-map.md
-      - Work Breakdown Structure: work-breakdown-structure.md
-  - Infrastructure Areas:
-      - Source Code Infrastructure: areas/source-code-infrastructure/index.md
-      - Build Infrastructure: areas/build-infrastructure/index.md
-      - Integration Infrastructure: areas/integration-infrastructure/index.md
-      - Artifact Infrastructure: areas/artifact-infrastructure/index.md
-      - Testing Infrastructure: areas/testing-infrastructure/index.md
-      - Security & Compliance Infrastructure: areas/security-and-compliance-infrastructure/index.md
-      - Documentation Infrastructure: areas/documentation-infrastructure/index.md
-      - Infrastructure Operations: areas/infrastructure-operations/index.md
-  - Guides:
-      - Overview: guides/index.md
-      - Repository onboarding: guides/repository-onboarding.md
-      - Repository policies: guides/repository-policies.md
-      - Bazel and dependencies: guides/bazel-and-dependencies.md
-      - CI workflows: guides/cicd-workflows.md
-      - Artifact publishing: guides/artifact-publishing.md
-      - Testing and reporting: guides/testing-and-reporting.md
-      - License compliance and SBOM: guides/license-compliance-and-sbom.md
-      - Documentation publishing: guides/documentation-publishing.md
-      - Infrastructure maintenance: guides/operations-and-maintenance.md
-  - Architecture:
-      - Overview: architecture/index.md
-      - Infrastructure model: architecture/infrastructure-model.md
-      - Tool landscape: architecture/tool-landscape.md
-      - Cross-cutting concerns: architecture/cross-cutting-concerns.md
+  - Chapters:
+      - 1. Source Code Infrastructure: chapters/01-source-code-infrastructure.md
+      - 2. Build Infrastructure: chapters/02-build-infrastructure.md
+      - 3. Testing Infrastructure: chapters/03-testing-infrastructure.md
+      - 4. Automation & CI/CD: chapters/04-automation-integration.md
+      - 5. Artifact & Distribution: chapters/05-artifact-distribution.md
+      - 6. Compliance Infrastructure: chapters/06-compliance-infrastructure.md
+      - 7. Documentation Infrastructure: chapters/07-documentation-infrastructure.md
+      - 8. Infrastructure Operations: chapters/08-infrastructure-operations.md
+      - 9. Developer Environment: chapters/09-developer-environment.md
+      - 10. Security Infrastructure: chapters/10-security-infrastructure.md
