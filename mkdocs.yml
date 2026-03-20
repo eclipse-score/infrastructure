@@ -8,6 +8,10 @@ strict: true
 
 theme:
   name: readthedocs
+  logo: img/score-logo.svg
+
+extra_css:
+  - css/score-theme.css
 
 plugins:
   - search
