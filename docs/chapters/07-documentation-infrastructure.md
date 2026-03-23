@@ -8,9 +8,7 @@
 
 - Documentation infrastructure in S-CORE currently spans repository documentation sites and engineering-focused docs-as-code capabilities.
 - Documentation is published through CI-driven static site generation and hosting.
-- The docs-as-code capability model (Input Format, Build, Configuration, Cross-Repository Linking, Previews & Feedback, IDE & Developer Experience, Architecture Visualization, Code Integration) is used as a reference for this chapter.
 - Engineering traceability (requirements, architecture, design, implementation, tests) is a target capability for functional safety compliance.
-- **Biggest gap**: no shared capability baseline and rollout path is yet defined across S-CORE repositories.
 
 ## 7.1 Authoring & Tooling ⚪
 
