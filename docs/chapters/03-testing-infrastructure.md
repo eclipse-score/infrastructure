@@ -2,11 +2,11 @@
 
 *Infrastructure supporting automated testing across S-CORE repositories, excluding CI/CD execution.*
 
-⚠️ This chapter is written by ChatGPT and was not yet reviewed
+⚠️ This chapter is partially written by ChatGPT and was not yet reviewed
 
 **S-CORE**
 
-- Tests are executed via Bazel test rules, providing isolation and incremental caching across builds.
+- Tests are executed via Bazel test rules, providing isolation and incremental caching of build targets.
 - Multi-language test framework support (C++, Rust, Python) is configured per repository.
 - **Biggest gap**: cross-repository test result aggregation, shared test dashboards, and system integration testing are not yet in place.
 
@@ -17,6 +17,8 @@
 **S-CORE**
 
 - Tests are defined as Bazel targets and executed via `bazel test`, enabling incremental and cached re-execution.
+- Tests re-execution can be forced by adding `--nocache_test_results` flag.
+- Code coverage analysis always executes tests and do not use cache for correct instrumentation.
 - **Biggest gap**: test execution standards (target naming, timeout policy, sharding) are not uniformly defined across repositories.
 
 ### 3.1.1 Unit Tests
@@ -26,16 +28,28 @@
 **S-CORE**
 
 - Unit tests are expressed as Bazel `*_test` targets per language.
+- UTs implementation is located in either dedicated `/tests` directories or directly next to implementation depending on language best practices.
+- Rust tests targets are currently treated as single test no matter how many tests they are gathering.
 - **Biggest gap**: no shared baseline for unit test target conventions across S-CORE repositories.
 
-### 3.1.2 Integration Tests
+### 3.1.2 Component Integration Tests
+
+*Infrastructure supporting tests across components modules.*
+
+**S-CORE**
+
+- Component integration test execution is handled within individual repositories via Bazel.
+- **Biggest gap**: cross-repository integration test execution is not yet standardized.
+
+### 3.1.3 Feature Integration Tests
 
 *Infrastructure supporting tests across multiple modules.*
 
 **S-CORE**
 
-- Integration test execution is handled within individual repositories via Bazel.
-- **Biggest gap**: cross-repository integration test execution is not yet standardized.
+- Feature integration test execution is handled within `reference_integration` repository via Bazel.
+- All features are loaded as external modules and used during testing.
+- **Biggest gap**: 
 
 ---
 
@@ -75,6 +89,27 @@
 - Python tests use frameworks such as pytest integrated via Bazel Python rules.
 - **Biggest gap**: no shared Python test framework configuration is standardized across repositories.
 
+### 3.2.4 Scenario Test Framework
+
+*Infrastructure supporting scenario based testing for C++ and Rust.*
+
+**S-CORE**
+
+- Provides backend for Rust and C++ which can be used to implement common test scenario.
+- Single Python test case implementation allows parametrized interaction with multi-language features.
+- **Biggest gap**: Splitted test execution and verification logic makes it hard to track issues.
+
+### 3.2.5 ITF Framework
+
+*Infrastructure supporting scenario based testing for C++ and Rust.*
+
+**S-CORE**
+
+- ITF is pytest-based testing framework designed for ECU (Electronic Control Unit) testing
+- Provides a flexible, plugin-based architecture that enables testing on multiple target environments including Docker,
+QEMU virtual machines, and real hardware.
+- **Biggest gap**: ITF Bazel targets do not allow adding test properties for traceability.
+
 ---
 
 ## 3.3 System Integration Testing ⚪
@@ -112,7 +147,8 @@
 
 **S-CORE**
 
-- Test results are surfaced per pipeline run via GitHub Actions; no cross-repository aggregation exists.
+- Test results are surfaced per pipeline run via GitHub Actions.
+- For S-CORE releases all test reports are agregated and attached to S-CORE release assets.
 - **Biggest gap**: no centralized test result dashboard or trend tracking spans S-CORE repositories.
 
 ### 3.4.1 Result Aggregation
@@ -130,5 +166,19 @@
 
 **S-CORE**
 
+- Single repositories have dashboards displaying traceability.
 - No shared test dashboard infrastructure currently exists across S-CORE.
 - **Biggest gap**: test health visibility across S-CORE repositories is absent.
+
+---
+
+## 3.5 Test Traceability ⚪
+
+*Infrastructure for tracking traceability between tests and requirements.*
+
+**S-CORE**
+
+- Test implementation adds properties about tested requirements to the test report.
+- Docs-as-code consumes all available reports at the build time and creates testlinks in requirements.
+- Tests have their `virtual needs objects` which can be querried and referenced but they do not have their implementation as requirements have.
+- **Biggest gap**: Rust test targets currently do not support adding properties to test reports.
