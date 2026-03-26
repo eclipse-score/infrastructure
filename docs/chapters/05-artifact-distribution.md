@@ -1,4 +1,4 @@
-# 5 Artifact & Distribution Infrastructure ⚪
+# 6 Artifact & Distribution Infrastructure ⚪
 
 *Infrastructure managing build outputs, versioning, and distribution of S-CORE releases.*
 
@@ -11,7 +11,7 @@
 - SBOM and provenance data should accompany released artifacts for compliance.
 - **Biggest gap**: artifact distribution infrastructure is largely unstructured; no unified artifact storage, retention, or mirroring strategy exists across S-CORE.
 
-## 5.1 Artifact Storage ⚪
+## 6.1 Artifact Storage ⚪
 
 *Infrastructure storing build artifacts produced by S-CORE repositories.*
 
@@ -20,7 +20,7 @@
 - Build artifacts are stored as GitHub Actions artifacts during CI runs; long-term storage relies on GitHub Releases.
 - **Biggest gap**: no shared artifact repository (e.g., OCI registry, package index) is operated for S-CORE.
 
-### 5.1.1 Artifact Repositories
+### 6.1.1 Artifact Repositories
 
 *Storage locations for generated build artifacts across S-CORE.*
 
@@ -29,7 +29,7 @@
 - GitHub Releases hosts published artifacts; GitHub Actions artifact storage is ephemeral (CI-scope only).
 - **Biggest gap**: no persistent, queryable artifact repository with metadata and dependency resolution exists.
 
-### 5.1.2 Artifact Retention
+### 6.1.2 Artifact Retention
 
 *Policies controlling how long artifacts are stored.*
 
@@ -40,7 +40,7 @@
 
 ---
 
-## 5.2 Artifact Versioning ⚪
+## 6.2 Artifact Versioning ⚪
 
 *Defining and enforcing consistent version numbering for S-CORE releases.*
 
@@ -49,7 +49,7 @@
 - Semantic versioning aligned with git tags is the expected standard across S-CORE repositories.
 - **Biggest gap**: versioning conventions are not uniformly enforced or validated across repositories.
 
-### 5.2.1 Versioning Strategy
+### 6.2.1 Versioning Strategy
 
 *Rules for artifact version numbering across S-CORE.*
 
@@ -58,7 +58,7 @@
 - Semantic versioning (semver) is the expected convention; automation of version increments is not yet standardized.
 - **Biggest gap**: no shared tooling or policy enforces consistent versioning across S-CORE repositories.
 
-### 5.2.2 Release Tagging
+### 6.2.2 Release Tagging
 
 *Tagging of releases in version control to mark published artifacts.*
 
@@ -69,7 +69,7 @@
 
 ---
 
-## 5.3 Artifact Distribution ⚪
+## 6.3 Artifact Distribution ⚪
 
 *Infrastructure publishing S-CORE artifacts to downstream consumers.*
 
@@ -78,7 +78,7 @@
 - Artifacts are primarily distributed via GitHub Releases as downloadable binaries and archives.
 - **Biggest gap**: no mirroring, CDN distribution, or consumer-facing artifact registry is in place.
 
-### 5.3.1 Release Publishing
+### 6.3.1 Release Publishing
 
 *Publishing artifacts as GitHub Releases.*
 
@@ -87,7 +87,7 @@
 - Release publishing pipelines create GitHub Releases and attach artifacts, SBOMs, and checksums.
 - **Biggest gap**: release pipeline standardization across S-CORE repositories is incomplete.
 
-### 5.3.2 Artifact Mirroring
+### 6.3.2 Artifact Mirroring
 
 *Replicating artifacts into downstream or partner environments.*
 

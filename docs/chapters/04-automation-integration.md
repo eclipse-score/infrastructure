@@ -1,4 +1,4 @@
-# 4 Automation Infrastructure & Continuous Integration (CI/CD) ⚪
+# 5 Automation Infrastructure & Continuous Integration (CI/CD) ⚪
 
 *Infrastructure integrating code changes safely across S-CORE repositories through automated workflows and quality gates.*
 
@@ -11,7 +11,7 @@
 - Pipeline execution relies on both GitHub-hosted cloud runners and hardware test runners.
 - **Biggest gap**: reusable workflow coverage and quality gate consistency across S-CORE repositories are incomplete.
 
-## 4.1 Runners 🟠
+## 5.1 Runners 🟠
 
 *Execution infrastructure used by S-CORE CI pipelines.*
 
@@ -20,7 +20,7 @@
 - Pipeline execution relies on GitHub-hosted cloud runners and dedicated hardware test runners.
 - **Biggest gap**: hardware runner availability and reliability remain a bottleneck for integration pipelines.
 
-### 4.1.1 SW Test Runners 🟡
+### 5.1.1 SW Test Runners 🟡
 
 *GitHub-hosted runners providing execution environments for CI pipelines.*
 
@@ -29,7 +29,7 @@
 - Cloud runners cover ARM, x86, and QEMU (with KVM) architectures with autoscaling to match pipeline demand.
 - **Biggest gap**: runner capacity constraints under peak load are not yet fully mitigated.
 
-### 4.1.2 Hardware Test Runners 🔴
+### 5.1.2 Hardware Test Runners 🔴
 
 *Execution environments for hardware-based testing in S-CORE CI pipelines.*
 
@@ -39,7 +39,7 @@
 
 ---
 
-## 4.2 Reusable Workflows ⚪
+## 5.2 Reusable Workflows ⚪
 
 *Shared GitHub Actions workflows reused across S-CORE repositories.*
 
@@ -50,7 +50,7 @@
 - Required status checks are configured centrally via [otterdog](https://otterdog.readthedocs.io/en/latest/userguide/) in the [S-CORE configuration](https://github.com/eclipse-score/.eclipsefdn/blob/main/otterdog/eclipse-score.jsonnet).
 - **Biggest gap**: reusable workflow coverage is partial and quality gate definitions are not yet consistently enforced via shared workflows.
 
-### 4.2.1 Workflow Library Coverage
+### 5.2.1 Workflow Library Coverage
 
 *Completeness of centrally maintained reusable workflows for common CI patterns.*
 
@@ -59,7 +59,7 @@
 - A shared reusable workflow library exists but does not yet cover all standard S-CORE pipeline scenarios.
 - **Biggest gap**: a complete baseline library for standard build, test, and compliance patterns is not yet fully defined.
 
-### 4.2.2 Build Validation
+### 5.2.2 Build Validation
 
 *Ensuring builds succeed before code is merged, using standardized workflow building blocks.*
 
@@ -68,7 +68,7 @@
 - Build success is a required check for merges in S-CORE repositories via branch protection configuration.
 - **Biggest gap**: build validation implementation details still vary by repository maturity.
 
-### 4.2.3 Test Validation
+### 5.2.3 Test Validation
 
 *Ensuring tests pass before code is merged, with reusable test workflow patterns.*
 
@@ -77,18 +77,19 @@
 - Test results gate merges in repositories where test pipelines are set up.
 - **Biggest gap**: test gate coverage remains incomplete across S-CORE repositories.
 
-### 4.2.4 Static Analysis
+### 5.2.4 Static Analysis Enforcement
 
-*Automated linting and static analysis embedded into reusable CI workflow templates.*
+*Executing shared static-analysis checks as reusable CI workflow steps and merge gates.*
 
 **S-CORE**
 
-- Static analysis tools are integrated into CI pipelines in some repositories; standardization is incomplete.
-- **Biggest gap**: no shared static analysis baseline is uniformly enforced across repositories.
+- CI consumes the shared static-analysis capability described in [chapter 4](04-static-analysis-infrastructure.md) and turns it into workflow runs, status checks, and review-visible results.
+- Reusable workflows should encapsulate execution and reporting so repositories do not reimplement the same enforcement mechanics.
+- **Biggest gap**: reusable workflow coverage and required-check policy for static-analysis gates are not yet consistently applied across repositories.
 
 ---
 
-## 4.3 Cross-Repository Integration ⚪
+## 5.3 Cross-Repository Integration ⚪
 
 *Validating integration scenarios across S-CORE components in CI beyond single-repository scope.*
 
@@ -97,7 +98,7 @@
 - Cross-repository integration validation is a target capability; most repositories currently validate in isolation.
 - **Biggest gap**: no shared integration validation pipeline spans multiple S-CORE middleware components.
 
-### 4.3.1 Integration Validation Scope
+### 5.3.1 Integration Validation Scope
 
 *Defining which component combinations and dependency chains are validated together.*
 
@@ -106,7 +107,7 @@
 - Integration coverage is currently limited and often project-specific instead of platform-wide.
 - **Biggest gap**: no agreed minimum integration matrix is defined for S-CORE.
 
-### 4.3.2 Integration Pipeline Orchestration
+### 5.3.2 Integration Pipeline Orchestration
 
 *Coordinating multi-repository builds and tests as one automated CI flow.*
 
@@ -117,7 +118,7 @@
 
 ---
 
-## 4.4 Secrets Management ⚪
+## 5.4 Secrets Management ⚪
 
 *Protecting credentials and establishing least-privilege access for CI workflows and runners.*
 
@@ -127,7 +128,7 @@
 - OIDC-based short-lived credentials are the preferred pattern where supported, reducing long-lived static secrets.
 - **Biggest gap**: centralized secret inventory, rotation policy enforcement, and usage audits are not yet consistently implemented.
 
-### 4.4.1 Secret Scope and Rotation
+### 5.4.1 Secret Scope and Rotation
 
 *Managing where secrets are stored and how frequently they are rotated.*
 
@@ -136,7 +137,7 @@
 - Secret scoping follows GitHub constructs (repository, organization, environment), but conventions differ between repositories.
 - **Biggest gap**: no uniform rotation cadence and ownership model is enforced across all CI secrets.
 
-### 4.4.2 Federated Identity (OIDC)
+### 5.4.2 Federated Identity (OIDC)
 
 *Replacing static credentials with short-lived identity federation for CI jobs.*
 
@@ -147,7 +148,7 @@
 
 ---
 
-## 4.5 CI Observability ⚪
+## 5.5 CI Observability ⚪
 
 *Monitoring CI health, performance, and reliability to improve developer feedback loops.*
 
@@ -157,7 +158,7 @@
 - Key indicators include queue times, job durations, failure rate, and flaky test behavior.
 - **Biggest gap**: no shared observability baseline or dashboard is used consistently across S-CORE repositories.
 
-### 4.5.1 Pipeline Health Metrics
+### 5.5.1 Pipeline Health Metrics
 
 *Tracking execution and quality signals to detect bottlenecks and reliability issues early.*
 
@@ -166,7 +167,7 @@
 - Pipeline metrics exist in native tooling but are not yet normalized into common S-CORE KPIs.
 - **Biggest gap**: threshold definitions and trend tracking are not centrally aligned.
 
-### 4.5.2 Alerting and Incident Response
+### 5.5.2 Alerting and Incident Response
 
 *Reacting quickly to CI outages, widespread failures, or degraded feedback latency.*
 

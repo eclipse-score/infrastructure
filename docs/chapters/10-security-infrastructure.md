@@ -1,4 +1,4 @@
-# 10 Security Infrastructure ⚪
+# 11 Security Infrastructure ⚪
 
 *Infrastructure for managing security aspects of the S-CORE development and release process.*
 
@@ -10,7 +10,7 @@
 - GitHub's native security features (secret scanning, Dependabot, code scanning) provide a baseline.
 - **Biggest gap**: a coherent, cross-repository security infrastructure strategy is not yet defined for S-CORE.
 
-## 10.1 Secret Management ⚪
+## 11.1 Secret Management ⚪
 
 *Infrastructure for managing credentials and secrets used in S-CORE pipelines.*
 
@@ -21,7 +21,7 @@
 
 ---
 
-## 10.2 Security Scanning ⚪
+## 11.2 Security Scanning ⚪
 
 *Infrastructure for detecting security vulnerabilities in S-CORE code and dependencies.*
 
@@ -30,16 +30,18 @@
 - GitHub's built-in code scanning (CodeQL) and secret scanning are available to S-CORE repositories.
 - **Biggest gap**: security scanning adoption and configuration are inconsistent across S-CORE repositories.
 
-### 10.2.1 SAST
+### 11.2.1 SAST
 
 *Static application security testing for S-CORE code.*
 
 **S-CORE**
 
 - CodeQL and similar SAST tools are available via GitHub Actions for S-CORE repositories.
-- **Biggest gap**: SAST configuration and required gate policies are not yet standardized across repositories.
+- Shared analyzer delivery, execution patterns, and rule-baseline governance overlap with the broader static-analysis capability described in [chapter 4](04-static-analysis-infrastructure.md).
+- Security-specific ownership remains here: SAST policy, risk handling, triage expectations, and required security gates.
+- **Biggest gap**: SAST-specific configuration and required security gate policies are not yet standardized across repositories.
 
-### 10.2.2 Secret Scanning
+### 11.2.2 Secret Scanning
 
 *Detecting secrets inadvertently committed to S-CORE repositories.*
 
@@ -48,7 +50,7 @@
 - GitHub's secret scanning detects common credential patterns in S-CORE repository code automatically.
 - **Biggest gap**: custom secret patterns and push protection configuration are not uniformly enabled.
 
-### 10.2.3 Supply Chain Security
+### 11.2.3 Supply Chain Security
 
 *Infrastructure addressing software supply chain threats in S-CORE.*
 
@@ -59,7 +61,7 @@
 
 ---
 
-## 10.3 Artifact Verification ⚪
+## 11.3 Artifact Verification ⚪
 
 *Infrastructure for verifying the authenticity and integrity of S-CORE release artifacts.*
 

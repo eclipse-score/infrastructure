@@ -71,7 +71,7 @@
 
 **S-CORE**
 
-- Shared conventions are emerging, but not yet uniformly synchronized.
+- Shared conventions are emerging, but not yet uniformly synchronized; [chapter 4](04-static-analysis-infrastructure.md) is the canonical home for static-analysis tooling and rule-baseline details.
 - Baseline/override handling is not yet consistently defined across repository types.
 - **Biggest gap**: no clearly enforced baseline/override model across repository classes.
 
