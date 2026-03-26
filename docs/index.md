@@ -6,7 +6,7 @@
 
 <div class="landing-hero">
   <p class="landing-kicker">Overview, development map, contribution map, and reference</p>
-  <h2>Understand the S-CORE infrastructure landscape without reading everything first.</h2>
+  <h2>Get oriented in the S-CORE infrastructure landscape.</h2>
   <p class="landing-lead">
     This site explains what S-CORE infrastructure is, which building blocks already exist, how mature they are,
     what is still missing, and how a concrete issue or pull request fits into the bigger picture.
