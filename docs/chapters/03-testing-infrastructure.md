@@ -10,16 +10,15 @@
 - Multi-language test framework support (C++, Rust, Python) is configured per repository.
 - **Biggest gap**: cross-repository test result aggregation, shared test dashboards, and system integration testing are not yet in place.
 
-## 3.1 Test Execution ⚪
+## 3.1 Test Levels ⚪
 
-*Infrastructure for executing automated tests via the build system.*
+*Test levels covered by S-CORE testing infrastructure, from unit scope to system-wide scenarios.*
 
 **S-CORE**
 
-- Tests are defined as Bazel targets and executed via `bazel test`, enabling incremental and cached re-execution.
-- Tests re-execution can be forced by adding `--nocache_test_results` flag.
-- Code coverage analysis always executes tests and do not use cache for correct instrumentation.
-- **Biggest gap**: test execution standards (target naming, timeout policy, sharding) are not uniformly defined across repositories.
+- S-CORE covers multiple test levels, from unit tests within repositories up to feature and system-oriented integration scenarios.
+- Lower-level tests are established within repositories, while broader integration levels are still evolving.
+- **Biggest gap**: test level definitions and platform-wide coverage boundaries are not yet uniformly standardized across repositories.
 
 ### 3.1.1 Unit Tests
 
@@ -50,6 +49,33 @@
 - Feature integration test execution is handled within `reference_integration` repository via Bazel.
 - All features are loaded as external modules and used during testing.
 - **Biggest gap**: 
+
+### 3.1.4 System Integration Testing ⚪
+
+*Infrastructure for testing interactions between middleware components across S-CORE repositories.*
+
+**S-CORE**
+
+- System integration testing across repository boundaries is a target capability.
+- **Biggest gap**: no shared infrastructure for cross-repository scenario or system-level testing exists.
+
+#### 3.1.4.1 Cross-Repository Testing
+
+*Infrastructure supporting tests that span multiple S-CORE repositories.*
+
+**S-CORE**
+
+- Cross-repository test execution is not yet supported by shared S-CORE infrastructure.
+- **Biggest gap**: no mechanism for triggering or aggregating tests across repository boundaries.
+
+#### 3.1.4.2 Scenario Testing
+
+*Infrastructure supporting end-to-end usage scenarios across the middleware.*
+
+**S-CORE**
+
+- End-to-end scenario testing at the S-CORE platform level is not yet operationalized.
+- **Biggest gap**: no scenario test harness or shared execution infrastructure exists.
 
 ---
 
@@ -112,36 +138,33 @@ QEMU virtual machines, and real hardware.
 
 ---
 
-## 3.3 System Integration Testing ⚪
+## 3.3 Test Traceability ⚪
 
-*Infrastructure for testing interactions between middleware components across S-CORE repositories.*
-
-**S-CORE**
-
-- System integration testing across repository boundaries is a target capability.
-- **Biggest gap**: no shared infrastructure for cross-repository scenario or system-level testing exists.
-
-### 3.3.1 Cross-Repository Testing
-
-*Infrastructure supporting tests that span multiple S-CORE repositories.*
+*Infrastructure for tracking traceability between tests and requirements.*
 
 **S-CORE**
 
-- Cross-repository test execution is not yet supported by shared S-CORE infrastructure.
-- **Biggest gap**: no mechanism for triggering or aggregating tests across repository boundaries.
-
-### 3.3.2 Scenario Testing
-
-*Infrastructure supporting end-to-end usage scenarios across the middleware.*
-
-**S-CORE**
-
-- End-to-end scenario testing at the S-CORE platform level is not yet operationalized.
-- **Biggest gap**: no scenario test harness or shared execution infrastructure exists.
+- Test implementation adds properties about tested requirements to the test report.
+- Docs-as-code consumes all available reports at the build time and creates testlinks in requirements.
+- Tests have their `virtual needs objects` which can be querried and referenced but they do not have their implementation as requirements have.
+- **Biggest gap**: Rust test targets currently do not support adding properties to test reports.
 
 ---
 
-## 3.4 Test Reporting ⚪
+## 3.4 Test Execution ⚪
+
+*Infrastructure for executing automated tests via the build system.*
+
+**S-CORE**
+
+- Tests are defined as Bazel targets and executed via `bazel test`, enabling incremental and cached re-execution.
+- Tests re-execution can be forced by adding `--nocache_test_results` flag.
+- Code coverage analysis always executes tests and do not use cache for correct instrumentation.
+- **Biggest gap**: test execution standards (target naming, timeout policy, sharding) are not uniformly defined across repositories.
+
+---
+
+## 3.5 Test Reporting ⚪
 
 *Infrastructure for collecting, aggregating, and presenting test results across S-CORE.*
 
@@ -151,7 +174,7 @@ QEMU virtual machines, and real hardware.
 - For S-CORE releases all test reports are agregated and attached to S-CORE release assets.
 - **Biggest gap**: no centralized test result dashboard or trend tracking spans S-CORE repositories.
 
-### 3.4.1 Result Aggregation
+### 3.5.1 Result Aggregation
 
 *Infrastructure aggregating test results across CI pipeline runs.*
 
@@ -160,7 +183,7 @@ QEMU virtual machines, and real hardware.
 - Test result artifacts are generated per CI run; no shared aggregation pipeline spans repositories.
 - **Biggest gap**: aggregating results across repository boundaries requires a dedicated pipeline not yet built.
 
-### 3.4.2 Test Dashboards
+### 3.5.2 Test Dashboards
 
 *Infrastructure providing dashboards for monitoring test results and trends.*
 
@@ -171,14 +194,3 @@ QEMU virtual machines, and real hardware.
 - **Biggest gap**: test health visibility across S-CORE repositories is absent.
 
 ---
-
-## 3.5 Test Traceability ⚪
-
-*Infrastructure for tracking traceability between tests and requirements.*
-
-**S-CORE**
-
-- Test implementation adds properties about tested requirements to the test report.
-- Docs-as-code consumes all available reports at the build time and creates testlinks in requirements.
-- Tests have their `virtual needs objects` which can be querried and referenced but they do not have their implementation as requirements have.
-- **Biggest gap**: Rust test targets currently do not support adding properties to test reports.
