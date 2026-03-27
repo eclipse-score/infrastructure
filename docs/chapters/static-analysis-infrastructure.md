@@ -92,7 +92,7 @@
 **S-CORE**
 
 - Contributors should be able to run the shared analyzer baseline early enough to catch common issues before opening or updating a pull request.
-- Local execution should favor fast feedback and alignment with the centrally defined ruleset, while the delivery details belong in [chapter 10](09-developer-environment.md).
+- Local execution should favor fast feedback and alignment with the centrally defined ruleset, while the delivery details belong in [chapter 10](developer-environment.md).
 - **Biggest gap**: local execution expectations are not yet defined independently of specific tools such as devcontainers, IDEs, or pre-commit hooks.
 
 ### 4.3.2 CI Execution Expectations
@@ -102,7 +102,7 @@
 **S-CORE**
 
 - CI should execute the agreed shared analyzer baseline in a consistent, review-visible way and use its outcomes for merge decisions where appropriate.
-- The workflow, reporting, and branch-protection mechanics belong in [chapter 5](04-automation-integration.md), not in the static-analysis capability definition itself.
+- The workflow, reporting, and branch-protection mechanics belong in [chapter 5](automation-integration.md), not in the static-analysis capability definition itself.
 - **Biggest gap**: CI enforcement expectations are not yet clearly separated from workflow implementation details.
 
 ---
@@ -113,7 +113,7 @@
 
 **S-CORE**
 
-- Static analysis includes both general code-quality checks and security-relevant inspection, but the security program and its policies remain part of [chapter 11](10-security-infrastructure.md).
+- Static analysis includes both general code-quality checks and security-relevant inspection, but the security program and its policies remain part of [chapter 11](security-infrastructure.md).
 - This chapter is the canonical home for shared tooling, rule configuration, and ownership boundaries that are common across analyzer types.
 - **Biggest gap**: the boundary between quality-oriented analyzers and security scanning is not yet described clearly enough to avoid duplication and ownership gaps.
 
@@ -133,7 +133,7 @@
 
 **S-CORE**
 
-- Security-specific topics such as vulnerability triage, security ownership, risk acceptance, and required security gates belong in [chapter 11](10-security-infrastructure.md).
+- Security-specific topics such as vulnerability triage, security ownership, risk acceptance, and required security gates belong in [chapter 11](security-infrastructure.md).
 - This separation keeps the static-analysis chapter focused on shared engineering infrastructure rather than security governance detail.
 - **Biggest gap**: ownership boundaries for SAST configuration versus broader static-analysis infrastructure are not yet explicit.
 

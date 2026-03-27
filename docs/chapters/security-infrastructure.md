@@ -37,7 +37,7 @@
 **S-CORE**
 
 - CodeQL and similar SAST tools are available via GitHub Actions for S-CORE repositories.
-- Shared analyzer delivery, execution patterns, and rule-baseline governance overlap with the broader static-analysis capability described in [chapter 4](04-static-analysis-infrastructure.md).
+- Shared analyzer delivery, execution patterns, and rule-baseline governance overlap with the broader static-analysis capability described in [chapter 4](static-analysis-infrastructure.md).
 - Security-specific ownership remains here: SAST policy, risk handling, triage expectations, and required security gates.
 - **Biggest gap**: SAST-specific configuration and required security gate policies are not yet standardized across repositories.
 

@@ -37,7 +37,7 @@
 **S-CORE**
 
 - Local tooling (build, test, lint, format) is accessible via the devcontainer without manual host configuration.
-- Shared static-analysis tooling and rule-baseline concerns are covered centrally in [chapter 4](04-static-analysis-infrastructure.md); this chapter focuses only on how contributors access that tooling locally.
+- Shared static-analysis tooling and rule-baseline concerns are covered centrally in [chapter 4](static-analysis-infrastructure.md); this chapter focuses only on how contributors access that tooling locally.
 - **Biggest gap**: local tooling outside the devcontainer is not standardized; contributors running natively face an inconsistent setup.
 
 ## 10.4 Pre-commit Validation 🟠
@@ -49,5 +49,5 @@
 - [pre-commit](https://pre-commit.com/) hooks validate code locally before push, catching issues such as missing copyright headers or wrong formatting without a CI round-trip.
 - Custom S-CORE pre-commit hooks are provided via [eclipse-score/tooling](https://github.com/eclipse-score/tooling/blob/main/.pre-commit-hooks.yaml).
 - Existing ecosystem pre-commit hooks are used where available; no proprietary mirrors of public hooks are maintained.
-- Pre-commit is one local entry point for shared checks; the policy for which static-analysis checks belong there is defined in [chapter 4](04-static-analysis-infrastructure.md).
+- Pre-commit is one local entry point for shared checks; the policy for which static-analysis checks belong there is defined in [chapter 4](static-analysis-infrastructure.md).
 - **Biggest gap**: pre-commit adoption and hook coverage are not uniformly enforced across all S-CORE repositories.

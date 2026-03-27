@@ -33,14 +33,14 @@ markdown_extensions:
 nav:
   - Overview: index.md
   - Chapters:
-      - 1. Source Code Infrastructure: chapters/01-source-code-infrastructure.md
-      - 2. Build Infrastructure: chapters/02-build-infrastructure.md
-      - 3. Testing Infrastructure: chapters/03-testing-infrastructure.md
-      - 4. Static Analysis Infrastructure: chapters/04-static-analysis-infrastructure.md
-      - 5. Automation & CI/CD: chapters/04-automation-integration.md
-      - 6. Artifact & Distribution: chapters/05-artifact-distribution.md
-      - 7. Compliance Infrastructure: chapters/06-compliance-infrastructure.md
-      - 8. Documentation Infrastructure: chapters/07-documentation-infrastructure.md
-      - 9. Infrastructure Operations: chapters/08-infrastructure-operations.md
-      - 10. Developer Environment: chapters/09-developer-environment.md
-      - 11. Security Infrastructure: chapters/10-security-infrastructure.md
+      - 1. Source Code Infrastructure: chapters/source-code-infrastructure.md
+      - 2. Build Infrastructure: chapters/build-infrastructure.md
+      - 3. Testing Infrastructure: chapters/testing-infrastructure.md
+      - 4. Static Analysis Infrastructure: chapters/static-analysis-infrastructure.md
+      - 5. Automation & CI/CD: chapters/automation-integration.md
+      - 6. Artifact & Distribution: chapters/artifact-distribution.md
+      - 7. Compliance Infrastructure: chapters/compliance-infrastructure.md
+      - 8. Documentation Infrastructure: chapters/documentation-infrastructure.md
+      - 9. Infrastructure Operations: chapters/infrastructure-operations.md
+      - 10. Developer Environment: chapters/developer-environment.md
+      - 11. Security Infrastructure: chapters/security-infrastructure.md

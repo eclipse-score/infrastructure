@@ -83,7 +83,7 @@
 
 **S-CORE**
 
-- CI consumes the shared static-analysis capability described in [chapter 4](04-static-analysis-infrastructure.md) and turns it into workflow runs, status checks, and review-visible results.
+- CI consumes the shared static-analysis capability described in [chapter 4](static-analysis-infrastructure.md) and turns it into workflow runs, status checks, and review-visible results.
 - Reusable workflows should encapsulate execution and reporting so repositories do not reimplement the same enforcement mechanics.
 - **Biggest gap**: reusable workflow coverage and required-check policy for static-analysis gates are not yet consistently applied across repositories.
 

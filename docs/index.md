@@ -104,17 +104,17 @@ linkStyle 7 stroke-width:0px
 linkStyle 8 stroke-width:0px
 linkStyle 9 stroke-width:0px
 
-click C1 href "chapters/01-source-code-infrastructure/" "Open chapter 1"
-click C2 href "chapters/02-build-infrastructure/" "Open chapter 2"
-click C3 href "chapters/03-testing-infrastructure/" "Open chapter 3"
-click C4 href "chapters/04-static-analysis-infrastructure/" "Open chapter 4"
-click C5 href "chapters/04-automation-integration/" "Open chapter 5"
-click C6 href "chapters/05-artifact-distribution/" "Open chapter 6"
-click C7 href "chapters/06-compliance-infrastructure/" "Open chapter 7"
-click C8 href "chapters/07-documentation-infrastructure/" "Open chapter 8"
-click C9 href "chapters/08-infrastructure-operations/" "Open chapter 9"
-click C10 href "chapters/09-developer-environment/" "Open chapter 10"
-click C11 href "chapters/10-security-infrastructure/" "Open chapter 11"
+click C1 href "chapters/source-code-infrastructure/" "Open chapter 1"
+click C2 href "chapters/build-infrastructure/" "Open chapter 2"
+click C3 href "chapters/testing-infrastructure/" "Open chapter 3"
+click C4 href "chapters/static-analysis-infrastructure/" "Open chapter 4"
+click C5 href "chapters/automation-integration/" "Open chapter 5"
+click C6 href "chapters/artifact-distribution/" "Open chapter 6"
+click C7 href "chapters/compliance-infrastructure/" "Open chapter 7"
+click C8 href "chapters/documentation-infrastructure/" "Open chapter 8"
+click C9 href "chapters/infrastructure-operations/" "Open chapter 9"
+click C10 href "chapters/developer-environment/" "Open chapter 10"
+click C11 href "chapters/security-infrastructure/" "Open chapter 11"
 ```
 
 ## How To Use A Chapter
