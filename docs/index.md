@@ -1,7 +1,7 @@
 # S-CORE Infrastructure Landscape
 
 <div class="landing-hero">
-  <p class="landing-kicker">Overview, development map, contribution map, and reference</p>
+  <p class="landing-kicker">Overview, roadmap, contribution guide, and reference</p>
   <h2>Get oriented in the S-CORE infrastructure landscape.</h2>
   <p class="landing-lead">
     This site explains what S-CORE infrastructure is, which building blocks already exist, how mature they are,
@@ -11,14 +11,20 @@
 
 <div class="landing-grid landing-grid-3">
   <div class="landing-card">
-    <h3>Who this is for</h3>
+    <h3>Who should read this</h3>
     <p>
       Technical and non-technical stakeholders who need an overview, plus infrastructure contributors
       who need to understand the current state, gaps, and direction of the platform.
     </p>
+    <p>Typical reader questions:</p>
+    <ul>
+      <li>What do we mean by S-CORE infrastructure?</li>
+      <li>Which infrastructure building blocks already exist?</li>
+      <li>How far along is each area?</li>
+    </ul>
   </div>
   <div class="landing-card">
-    <h3>What this repository documents</h3>
+    <h3>What it covers</h3>
     <p>
       The technical capabilities that make engineering work possible and scalable across S-CORE:
       source code management, builds, testing, static analysis, automation, compliance,
@@ -32,6 +38,12 @@
       a contribution map for infrastructure contributors, and a reference for architecture
       and cross-cutting concerns.
     </p>
+    <p>Typical contributor questions:</p>
+    <ul>
+      <li>How do we do a specific thing?</li>
+      <li>Where should I look for a topic or responsibility?</li>
+      <li>How does this issue or PR belong to the big picture?</li>
+    </ul>
   </div>
 </div>
 
@@ -39,40 +51,19 @@
 
 <div class="landing-grid landing-grid-2">
   <div class="landing-card">
-    <h3>I need an overview</h3>
+    <h3>For a quick overview</h3>
     <ul>
-      <li>Start with the chapter map below.</li>
-      <li>Use the status icon to judge maturity.</li>
-      <li>Open the chapter that matches the area you want to understand.</li>
+      <li>Scan the chapter map below.</li>
+      <li>Use the status icon to judge maturity at a glance.</li>
+      <li>Open the chapter that matches the area you want to understand better.</li>
     </ul>
   </div>
   <div class="landing-card">
-    <h3>I am working on infrastructure</h3>
+    <h3>For contribution work</h3>
     <ul>
       <li>Find the most relevant infrastructure chapter.</li>
-      <li>Read the chapter summary and the "Biggest gap".</li>
-      <li>Use that context to place your issue, PR, or initiative in the wider development picture.</li>
-    </ul>
-  </div>
-</div>
-
-## Questions This Page Helps Answer
-
-<div class="landing-grid landing-grid-2">
-  <div class="landing-card">
-    <h3>Overview questions</h3>
-    <ul>
-      <li>What do we mean by S-CORE infrastructure?</li>
-      <li>Which infrastructure building blocks already exist?</li>
-      <li>How far along is each area?</li>
-    </ul>
-  </div>
-  <div class="landing-card">
-    <h3>Contribution questions</h3>
-    <ul>
-      <li>How do we do a specific thing?</li>
-      <li>Where should I look for a topic or responsibility?</li>
-      <li>How does this issue or PR belong to the big picture?</li>
+      <li>Read the summary, maturity, and "Biggest gap".</li>
+      <li>Use that context to place an issue, PR, or initiative in the wider development picture.</li>
     </ul>
   </div>
 </div>
@@ -126,7 +117,7 @@ click C10 href "chapters/09-developer-environment/" "Open chapter 10"
 click C11 href "chapters/10-security-infrastructure/" "Open chapter 11"
 ```
 
-## How To Read The Chapters
+## How To Use A Chapter
 
 <div class="landing-grid landing-grid-3">
   <div class="landing-card landing-card-compact">
