@@ -1,4 +1,4 @@
-# 7 Documentation Infrastructure ⚪
+# 7 Documentation Infrastructure 🟡
 
 *Infrastructure supporting engineering documentation across S-CORE repositories.*
 
@@ -32,7 +32,7 @@
 
 ---
 
-## 7.2 Build, Validation & Publishing 🟠
+## 7.2 Build, Validation & Publishing 🟡
 
 *Infrastructure for builds, quality checks, and publication of documentation sites.*
 
@@ -54,7 +54,7 @@
 
 ---
 
-## 7.3 Cross-Repository Documentation Integration ⚪
+## 7.3 Cross-Repository Documentation Integration 🟢
 
 *Connecting documentation across repositories with stable linking and navigation patterns.*
 

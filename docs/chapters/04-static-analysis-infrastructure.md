@@ -43,7 +43,7 @@
 
 ---
 
-## 4.2 Shared Rule Configuration 🟠
+## 4.2 Shared Rule Configuration ⚪
 
 *Managing analyzer rules, severities, suppressions, and versioning as shared infrastructure instead of ad-hoc repository detail.*
 
@@ -75,7 +75,7 @@
 
 ---
 
-## 4.3 Execution Model 🟠
+## 4.3 Execution Model ⚪
 
 *Defining where and how the shared static-analysis capability should be executed across the engineering flow.*
 
