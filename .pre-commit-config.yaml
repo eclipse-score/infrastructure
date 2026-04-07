@@ -6,4 +6,5 @@ repos:
         entry: python scripts/aggregate_status.py
         language: python
         pass_filenames: false
-        files: ^(docs/chapters/.*\.md|docs/index\.md|scripts/aggregate_status\.py)$
+        files: ^(docs/.*\.md|scripts/aggregate_status\.py)$
+        exclude: ^docs/index\.md$

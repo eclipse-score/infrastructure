@@ -1,133 +1,167 @@
-# 7 Compliance Infrastructure ⚪
+# 6 Dependency Analysis Infrastructure ⚪
 
-*Infrastructure supporting legal and regulatory compliance for S-CORE software.*
+*Infrastructure for analyzing S-CORE dependencies and generated dependency evidence to detect vulnerability, supply-chain, and compliance risk over time.*
 
 ⚠️ This chapter is written by ChatGPT and was not yet reviewed
 
 **S-CORE**
 
-- SBOM generation, license compliance, and vulnerability tracking are core compliance requirements for S-CORE releases.
-- License scanning and policy enforcement are partially operational; SBOM publication is a target capability.
-- **Biggest gap**: compliance coverage is uneven across the dependency graph; automation from build through to published release artifacts is incomplete.
+- Dependency analysis complements the dependency-governance work in [chapter 3](build-infrastructure.md) by evaluating current dependency state and generated dependency evidence.
+- This chapter covers both development-time dependency alerts and continuous monitoring of generated SBOMs for distributed artifacts.
+- It applies to product artifacts, self-developed tooling, and environment artifacts such as devcontainer images when S-CORE builds and distributes them.
+- Publication and consumer delivery of those artifacts remain the responsibility of [chapter 8](artifact-distribution.md).
+- **Biggest gap**: dependency analysis is not yet defined as one cross-repository capability spanning current dependency scanning, generated SBOM monitoring, and the resulting governance loop.
 
-## 7.1 SBOM Infrastructure ⚪
+## 6.1 Analysis Scope & Inputs ⚪
 
-*Infrastructure generating and managing software bill of materials for S-CORE repositories.*
-
-**S-CORE**
-
-- SBOMs document the full dependency graph of released S-CORE artifacts for supply chain transparency.
-- **Biggest gap**: SBOM generation coverage across all repositories and publication alongside releases is incomplete.
-
-### 7.1.1 SBOM Generation for Product 🟠
-
-*Generating SBOMs during the build process for released product artifacts.*
+*Defining which dependency-related inputs are analyzed and which artifact classes are in scope.*
 
 **S-CORE**
 
-- SBOM generation from Bazel build graphs is operational in some S-CORE repositories.
-- **Biggest gap**: SBOM generation is not yet uniformly integrated into release pipelines across all repositories.
+- Dependency analysis starts from current repository dependency state, but it should also consume build-generated inventories and SBOMs once those exist.
+- The same infrastructure should work across product code, tooling artifacts, and environment artifacts rather than treating those as special cases.
+- **Biggest gap**: there is no clearly documented scope for which dependency inputs and artifact classes must be covered by the shared analysis model.
 
-### 7.1.2 SBOM Generation for Development Environment
+### 6.1.1 Current Dependency State
 
-*Generating SBOMs for the build toolchain and development environment dependencies.*
-
-**S-CORE**
-
-- Development environment SBOMs (toolchain, devcontainer) are not yet generated.
-- **Biggest gap**: toolchain and devcontainer dependency inventories are undocumented from a compliance perspective.
-
-### 7.1.3 SBOM Publication
-
-*Publishing SBOMs alongside released artifacts.*
+*Analyzing the dependencies currently declared and consumed during engineering work.*
 
 **S-CORE**
 
-- SBOM publication as a release artifact is a target capability.
-- **Biggest gap**: no automated SBOM publication step is integrated into current S-CORE release pipelines.
+- Current dependency state includes the dependency graph as repositories know it during development and CI.
+- **Biggest gap**: not all repositories expose their current dependency state in a way that shared analysis tooling can consume consistently.
+
+### 6.1.2 Generated SBOMs and Inventories
+
+*Using build-generated SBOMs and dependency inventories as analyzable inputs rather than static paperwork.*
+
+**S-CORE**
+
+- SBOMs and inventories generated in [chapter 3](build-infrastructure.md) should become normal inputs to later security and compliance analysis.
+- **Biggest gap**: generated dependency evidence is not yet consumed systematically by downstream analysis workflows.
+
+### 6.1.3 Tooling & Environment Artifact Scope
+
+*Including S-CORE-developed tooling and environment artifacts in the dependency-analysis model.*
+
+**S-CORE**
+
+- Tooling packages and dev environment images also package dependencies, licenses, and supply-chain choices that deserve the same visibility as product artifacts.
+- **Biggest gap**: tooling and environment artifacts are not yet treated as first-class targets for dependency analysis.
 
 ---
 
-## 7.2 License Compliance 🟠
+## 6.2 Development-Time Dependency Analysis ⚪
 
-*Infrastructure ensuring open source license obligations for S-CORE dependencies are fulfilled.*
-
-**S-CORE**
-
-- License scanning is in place in some S-CORE repositories and is integrated into CI pipelines.
-- Known license-incompatible dependencies are blocked from merging via policy enforcement tooling.
-- **Biggest gap**: license compliance coverage is not yet consistent across all S-CORE repositories and dependency types.
-
-### 7.2.1 License Scanning 🟠
-
-*Scanning dependencies to detect license information.*
+*Detecting dependency and supply-chain risk during normal engineering work before artifacts are published.*
 
 **S-CORE**
 
-- License scanners run as part of CI pipelines in active S-CORE repositories.
-- **Biggest gap**: scan coverage across transitive dependencies and all repository types is not yet complete.
+- Development-time dependency analysis should be part of normal repository and CI feedback loops.
+- This work complements code analysis in [chapter 5](static-analysis-infrastructure.md) but focuses on dependency state rather than source structure.
+- **Biggest gap**: development-time dependency scanning is not yet configured consistently across repositories and artifact classes.
 
-### 7.2.2 License Documentation
+### 6.2.1 Dependency Alerts
 
-*Maintaining documentation of dependency licenses.*
-
-**S-CORE**
-
-- License information is captured as part of SBOM artifacts; no independently maintained license registry exists.
-- **Biggest gap**: no centralized, continuously updated license registry spans all S-CORE dependencies.
-
-### 7.2.3 License Policy Enforcement 🟠
-
-*Enforcing project license policies for dependencies.*
+*Detecting known vulnerabilities in the dependencies currently used by repositories.*
 
 **S-CORE**
 
-- License policy checks block non-compliant dependencies in CI pipelines where configured.
-- **Biggest gap**: policy enforcement is not yet consistently deployed across all S-CORE repositories.
+- Dependency alerts should make it obvious when a repository is consuming a vulnerable version before that problem reaches later release flows.
+- **Biggest gap**: dependency-vulnerability detection is not yet consistently configured across repositories.
+
+### 6.2.2 Supply Chain & Source Analysis
+
+*Evaluating dependency sources, integrity, and other supply-chain characteristics during engineering work.*
+
+**S-CORE**
+
+- This includes analysis of where dependencies come from, how they are pinned, and whether supply-chain controls are being followed in practice.
+- **Biggest gap**: supply-chain analysis of repository dependency inputs is not yet described as one shared capability.
+
+### 6.2.3 CI and Local Expectations
+
+*Defining where dependency analysis should run and how strongly it should influence normal engineering decisions.*
+
+**S-CORE**
+
+- Dependency analysis may run primarily in CI, but repositories still need a clear model for what is expected locally and what is enforced automatically.
+- **Biggest gap**: there is no shared execution and gate model for dependency analysis across local and CI contexts.
 
 ---
 
-## 7.3 Dependency Vulnerability Management ⚪
+## 6.3 Continuous Artifact Monitoring ⚪
 
-*Infrastructure tracking and mitigating security vulnerabilities in S-CORE dependencies.*
-
-**S-CORE**
-
-- Vulnerability monitoring for development dependencies relies on Dependabot and GitHub security advisories.
-- **Biggest gap**: systematic vulnerability tracking and remediation across the full S-CORE dependency graph is not operationalized.
-
-### 7.3.1 Development Vulnerability Monitoring
-
-*Detecting vulnerabilities in dependencies during active development.*
+*Monitoring generated SBOMs and distributed artifacts over time after they have been built.*
 
 **S-CORE**
 
-- GitHub Dependabot provides automated vulnerability alerts for S-CORE repositories with supported dependency files.
-- **Biggest gap**: Dependabot coverage is inconsistent; not all dependency types and lock files are supported.
+- Once artifacts and their SBOMs exist, the analysis problem changes from "what are we using right now?" to "which distributed artifacts have become risky over time?"
+- This is where continuous SBOM-based monitoring belongs, distinct from both code analysis and simple release publication.
+- **Biggest gap**: no automated process continuously evaluates generated SBOMs for newly disclosed risk across S-CORE artifact types.
 
-### 7.3.2 Release Vulnerability Monitoring
+### 6.3.1 Continuous SBOM Monitoring
 
-*Tracking vulnerabilities that affect already published S-CORE artifacts.*
-
-**S-CORE**
-
-- Post-release vulnerability tracking against published SBOMs is a target capability.
-- **Biggest gap**: no automated process monitors and alerts on vulnerabilities affecting released S-CORE artifacts.
-
-### 7.3.3 Vulnerability Impact Analysis
-
-*Determining which S-CORE artifacts or modules are affected by a vulnerability.*
+*Continuously evaluating generated SBOMs to detect newly relevant vulnerabilities or supply-chain concerns.*
 
 **S-CORE**
 
-- Impact analysis relies on manual investigation; no cross-repository automated impact triage exists.
-- **Biggest gap**: no tooling supports automated vulnerability-to-artifact impact mapping across S-CORE.
+- Continuous SBOM monitoring should work for released artifacts, internally distributed tooling, and environment images alike.
+- **Biggest gap**: no automated process monitors and alerts on vulnerabilities affecting distributed S-CORE artifacts via their SBOMs.
 
-### 7.3.4 Vulnerability Remediation
+### 6.3.2 Vulnerability Impact Analysis
 
-*Updating, replacing, or patching vulnerable dependencies.*
+*Determining which artifact versions are affected once a dependency issue is discovered.*
 
 **S-CORE**
 
-- Dependabot opens automated pull requests for version updates in configured repositories.
-- **Biggest gap**: remediation coverage is limited to Dependabot-supported dependency types; coordinated cross-repository remediation is manual.
+- Impact analysis depends on good SBOMs, inventories, and version metadata so the project can quickly identify which distributed artifacts are affected.
+- **Biggest gap**: no tooling supports automated dependency-issue-to-artifact impact mapping across S-CORE.
+
+### 6.3.3 Monitoring Cadence & Data Freshness
+
+*Defining how often artifact evidence should be re-evaluated and how long that evidence remains useful.*
+
+**S-CORE**
+
+- Continuous monitoring only works when SBOMs, inventories, and vulnerability data are fresh enough to support real decisions.
+- **Biggest gap**: there is no shared cadence or freshness model for dependency evidence and its monitoring lifecycle.
+
+---
+
+## 6.4 Findings & Governance ⚪
+
+*Handling dependency-analysis findings and making their status visible across repositories and artifact types.*
+
+**S-CORE**
+
+- Dependency analysis needs a governance loop for triage, ownership, exceptions, and cross-repository reporting just as much as code analysis does.
+- The project needs to see not only individual alerts, but also where dependency-analysis coverage is still missing.
+- **Biggest gap**: no shared governance loop currently connects dependency findings, ownership, and coverage visibility across S-CORE.
+
+### 6.4.1 Findings Ownership
+
+*Clarifying who is expected to fix, triage, or escalate dependency-analysis findings.*
+
+**S-CORE**
+
+- Dependency findings may involve repository maintainers, tooling owners, and infrastructure maintainers depending on where the affected artifact originates.
+- **Biggest gap**: there is no documented ownership model for handling dependency-analysis results across artifact classes.
+
+### 6.4.2 Baselines and Risk Acceptance
+
+*Handling existing dependency debt and justified exceptions without losing visibility.*
+
+**S-CORE**
+
+- Some dependency risks may need temporary acceptance or migration baselines while repositories catch up.
+- **Biggest gap**: there is no shared policy for how dependency-analysis exceptions are justified, tracked, and revisited.
+
+### 6.4.3 Cross-Repository Visibility
+
+*Measuring analysis coverage and findings across repositories and distributed artifacts.*
+
+**S-CORE**
+
+- Cross-repository visibility should show where dependency analysis is configured, which artifact classes are covered, and where unresolved issues remain.
+- **Biggest gap**: no common dashboard or conformance report currently summarizes dependency-analysis coverage across S-CORE.

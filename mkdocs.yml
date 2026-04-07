@@ -1,5 +1,5 @@
 site_name: S-CORE Infrastructure Documentation
-site_description: Documentation for the development, structure, and operation of S-CORE project infrastructure
+site_description: Documentation for the structure, operation, and evolution of S-CORE project infrastructure
 site_url: https://eclipse-score.github.io/infrastructure/
 repo_name: eclipse-score/infrastructure
 repo_url: https://github.com/eclipse-score/infrastructure
@@ -34,13 +34,12 @@ nav:
   - Overview: index.md
   - Chapters:
       - 1. Source Code Infrastructure: source-code-infrastructure.md
-      - 2. Build Infrastructure: build-infrastructure.md
-      - 3. Testing Infrastructure: testing-infrastructure.md
-      - 4. Static Analysis Infrastructure: static-analysis-infrastructure.md
-      - 5. Automation & CI/CD: automation-integration.md
-      - 6. Artifact & Distribution: artifact-distribution.md
-      - 7. Compliance Infrastructure: compliance-infrastructure.md
-      - 8. Documentation Infrastructure: documentation-infrastructure.md
-      - 9. Infrastructure Operations: infrastructure-operations.md
-      - 10. Developer Environment: developer-environment.md
-      - 11. Security Infrastructure: security-infrastructure.md
+      - 2. Developer Environment: developer-environment.md
+      - 3. Build & Dependencies: build-infrastructure.md
+      - 4. Testing: testing-infrastructure.md
+      - 5. Code Analysis Infrastructure: static-analysis-infrastructure.md
+      - 6. Dependency Analysis Infrastructure: compliance-infrastructure.md
+      - 7. Automation & CI: automation-integration.md
+      - 8. Release & Distribution: artifact-distribution.md
+      - 9. Documentation & Traceability: documentation-infrastructure.md
+      - 10. Infrastructure Operations: infrastructure-operations.md

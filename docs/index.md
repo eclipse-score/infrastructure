@@ -14,7 +14,7 @@
     <h3>Who should read this</h3>
     <p>
       Technical and non-technical stakeholders who need an overview, plus infrastructure contributors
-      who need to understand the current state, gaps, and direction of the platform.
+      who need to understand the current state, gaps, and direction of the project infrastructure.
     </p>
     <p>Typical reader questions:</p>
     <ul>
@@ -27,8 +27,13 @@
     <h3>What it covers</h3>
     <p>
       The technical capabilities that make engineering work possible and scalable across S-CORE:
-      source code management, builds, testing, static analysis, automation, compliance,
-      documentation, operations, developer environments, and security.
+      source code infrastructure, developer environment, builds and dependencies, testing,
+      code analysis, dependency analysis, automation, release distribution, documentation,
+      traceability, and operations.
+    </p>
+    <p>
+      Cross-cutting concerns such as security and compliance are described inside the chapters
+      where the work actually happens rather than as standalone silos.
     </p>
   </div>
   <div class="landing-card">
@@ -63,7 +68,7 @@
     <ul>
       <li>Find the most relevant infrastructure chapter.</li>
       <li>Read the summary, maturity, and "Biggest gap".</li>
-      <li>Use that context to place an issue, PR, or initiative in the wider development picture.</li>
+      <li>Use that context to place an issue, PR, or initiative in the wider infrastructure picture.</li>
     </ul>
   </div>
 </div>
@@ -73,48 +78,40 @@
 ```mermaid
 flowchart LR
 
-subgraph FLOW["Core Engineering Flow"]
-    C1["1 Source Code Infrastructure 🟠"]
-    C2["2 Build Infrastructure (Bazel) ⚪"]
-    C3["3 Testing Infrastructure ⚪"]
-    C4["4 Static Analysis Infrastructure ⚪"]
-    C5["5 Automation & CI/CD ⚪"]
-    C6["6 Artifact & Distribution Infrastructure ⚪"]
+subgraph FLOW["Engineering Infrastructure Flow"]
+    C1["1 Source Code Infrastructure 🟡"]
+    C2["2 Developer Environment 🟠"]
+    C3["3 Build & Dependencies ⚪"]
+    C4["4 Testing ⚪"]
+    C5["5 Code Analysis Infrastructure ⚪"]
+    C6["6 Dependency Analysis Infrastructure ⚪"]
+    C7["7 Automation & CI ⚪"]
+    C8["8 Release & Distribution ⚪"]
 
-    C1 --> C2 --> C3 --> C4 --> C5 --> C6
+    C1 --> C2 --> C3 --> C4 --> C5 --> C6 --> C7 --> C8
 end
 
-subgraph SUPPORT["Cross-Cutting Supporting Layers"]
-    C7["7 Compliance Infrastructure ⚪"]
-    C8["8 Documentation Infrastructure ⚪"]
-    C9["9 Infrastructure Operations ⚪"]
-    C10["10 Developer Environment 🟠"]
-    C11["11 Security Infrastructure ⚪"]
+subgraph SUPPORT["Supporting Layers"]
+    C9["9 Documentation & Traceability ⚪"]
+    C10["10 Infrastructure Operations ⚪"]
 end
 
 %% Hidden edges to force layout:
 FLOW --- SUPPORT
-C7 --- C8
-C8 --- C9
 C9 --- C10
-C10 --- C11
-linkStyle 5 stroke-width:0px
-linkStyle 6 stroke-width:0px
 linkStyle 7 stroke-width:0px
 linkStyle 8 stroke-width:0px
-linkStyle 9 stroke-width:0px
 
 click C1 href "source-code-infrastructure/" "Open chapter 1"
-click C2 href "build-infrastructure/" "Open chapter 2"
-click C3 href "testing-infrastructure/" "Open chapter 3"
-click C4 href "static-analysis-infrastructure/" "Open chapter 4"
-click C5 href "automation-integration/" "Open chapter 5"
-click C6 href "artifact-distribution/" "Open chapter 6"
-click C7 href "compliance-infrastructure/" "Open chapter 7"
-click C8 href "documentation-infrastructure/" "Open chapter 8"
-click C9 href "infrastructure-operations/" "Open chapter 9"
-click C10 href "developer-environment/" "Open chapter 10"
-click C11 href "security-infrastructure/" "Open chapter 11"
+click C2 href "developer-environment/" "Open chapter 2"
+click C3 href "build-infrastructure/" "Open chapter 3"
+click C4 href "testing-infrastructure/" "Open chapter 4"
+click C5 href "static-analysis-infrastructure/" "Open chapter 5"
+click C6 href "compliance-infrastructure/" "Open chapter 6"
+click C7 href "automation-integration/" "Open chapter 7"
+click C8 href "artifact-distribution/" "Open chapter 8"
+click C9 href "documentation-infrastructure/" "Open chapter 9"
+click C10 href "infrastructure-operations/" "Open chapter 10"
 ```
 
 ## How To Use A Chapter

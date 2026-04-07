@@ -30,11 +30,25 @@ SUBSECTION_HEADER_RE = re.compile(
     rf"^###\s+(?P<title>.+?)(?:\s+(?P<status>[{re.escape(STATUS_MARKERS)}]))?$",
 )
 TRAILING_STATUS_RE = re.compile(rf"\s+(?:[{re.escape(STATUS_MARKERS)}])$")
+NUMBERED_CHAPTER_TITLE_RE = re.compile(r"^\d+\s+")
 
 
 def clean_title(title: str) -> str:
     """Return a heading title without a trailing status marker."""
     return TRAILING_STATUS_RE.sub("", title).strip()
+
+
+def is_chapter_document(file_path: Path, content: str) -> bool:
+    """Return whether the markdown file is a numbered chapter document."""
+    if file_path.name == "index.md":
+        return False
+
+    chapter_match = CHAPTER_HEADER_RE.search(content)
+    if chapter_match is None:
+        return False
+
+    title = clean_title(chapter_match.group("title"))
+    return NUMBERED_CHAPTER_TITLE_RE.match(title) is not None
 
 
 def get_average_status(statuses: list[str]) -> str:
@@ -119,6 +133,10 @@ def update_chapter_status(content: str, section_statuses: dict[str, str]) -> str
 def process_chapter(file_path: Path) -> bool:
     """Update a single chapter file and report whether it changed."""
     original_content = file_path.read_text(encoding="utf-8")
+    if not is_chapter_document(file_path, original_content):
+        print(f"  ℹ️  Skipping non-chapter document {file_path.name}")
+        return False
+
     updated_content = original_content
     section_statuses = extract_section_statuses(updated_content)
 
@@ -141,7 +159,7 @@ def resolve_target_path(target: Path | None) -> Path:
     """Return the file or directory to process."""
     if target is not None:
         return target
-    return Path(__file__).resolve().parent.parent / "docs" / "chapters"
+    return Path(__file__).resolve().parent.parent / "docs"
 
 
 def iter_chapter_files(target: Path) -> list[Path]:
