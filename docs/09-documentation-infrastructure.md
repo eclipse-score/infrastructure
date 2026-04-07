@@ -100,7 +100,7 @@
 
 - Engineering documentation (requirements, architecture, detailed design) is required for process compliance (e.g. ISO 26262, ASPICE).
 - Architecture visualization and code integration are target capabilities to connect documentation with implementation artifacts.
-- Test evidence itself is produced in [chapter 4](testing-infrastructure.md); this chapter focuses on the documentation and traceability structures that should consume that evidence.
+- Test evidence itself is produced in [chapter 4](04-testing-infrastructure.md); this chapter focuses on the documentation and traceability structures that should consume that evidence.
 - **Biggest gap**: traceability and engineering evidence exist in parts, but the supporting model and tooling are not yet standardized across repositories and verification flows.
 
 ### 9.4.1 Traceability, Code Integration, and Impact Analysis

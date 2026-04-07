@@ -81,16 +81,16 @@ C9 --- C10
 linkStyle 7 stroke-width:0px
 linkStyle 8 stroke-width:0px
 
-click C1 href "source-code-infrastructure/" "Open chapter 1"
-click C2 href "developer-environment/" "Open chapter 2"
-click C3 href "build-infrastructure/" "Open chapter 3"
-click C4 href "testing-infrastructure/" "Open chapter 4"
-click C5 href "static-analysis-infrastructure/" "Open chapter 5"
-click C6 href "compliance-infrastructure/" "Open chapter 6"
-click C7 href "automation-integration/" "Open chapter 7"
-click C8 href "artifact-distribution/" "Open chapter 8"
-click C9 href "documentation-infrastructure/" "Open chapter 9"
-click C10 href "infrastructure-operations/" "Open chapter 10"
+click C1 href "01-source-code-infrastructure/" "Open chapter 1"
+click C2 href "02-developer-environment/" "Open chapter 2"
+click C3 href "03-build-infrastructure/" "Open chapter 3"
+click C4 href "04-testing-infrastructure/" "Open chapter 4"
+click C5 href "05-static-analysis-infrastructure/" "Open chapter 5"
+click C6 href "06-compliance-infrastructure/" "Open chapter 6"
+click C7 href "07-automation-integration/" "Open chapter 7"
+click C8 href "08-artifact-distribution/" "Open chapter 8"
+click C9 href "09-documentation-infrastructure/" "Open chapter 9"
+click C10 href "10-infrastructure-operations/" "Open chapter 10"
 ```
 
 ## Status Legend

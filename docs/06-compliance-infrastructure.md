@@ -6,10 +6,10 @@
 
 **S-CORE**
 
-- Dependency analysis complements the dependency-governance work in [chapter 3](build-infrastructure.md) by evaluating current dependency state and generated dependency evidence.
+- Dependency analysis complements the dependency-governance work in [chapter 3](03-build-infrastructure.md) by evaluating current dependency state and generated dependency evidence.
 - This chapter covers both development-time dependency alerts and continuous monitoring of generated SBOMs for distributed artifacts.
 - It applies to product artifacts, self-developed tooling, and environment artifacts such as devcontainer images when S-CORE builds and distributes them.
-- Publication and consumer delivery of those artifacts remain the responsibility of [chapter 8](artifact-distribution.md).
+- Publication and consumer delivery of those artifacts remain the responsibility of [chapter 8](08-artifact-distribution.md).
 - **Biggest gap**: dependency analysis is not yet defined as one cross-repository capability spanning current dependency scanning, generated SBOM monitoring, and the resulting governance loop.
 
 ## 6.1 Analysis Scope & Inputs ⚪
@@ -37,7 +37,7 @@
 
 **S-CORE**
 
-- SBOMs and inventories generated in [chapter 3](build-infrastructure.md) should become normal inputs to later security and compliance analysis.
+- SBOMs and inventories generated in [chapter 3](03-build-infrastructure.md) should become normal inputs to later security and compliance analysis.
 - **Biggest gap**: generated dependency evidence is not yet consumed systematically by downstream analysis workflows.
 
 ### 6.1.3 Tooling & Environment Artifact Scope
@@ -58,7 +58,7 @@
 **S-CORE**
 
 - Development-time dependency analysis should be part of normal repository and CI feedback loops.
-- This work complements code analysis in [chapter 5](static-analysis-infrastructure.md) but focuses on dependency state rather than source structure.
+- This work complements code analysis in [chapter 5](05-static-analysis-infrastructure.md) but focuses on dependency state rather than source structure.
 - **Biggest gap**: development-time dependency scanning is not yet configured consistently across repositories and artifact classes.
 
 ### 6.2.1 Dependency Alerts

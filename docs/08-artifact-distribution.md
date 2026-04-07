@@ -10,7 +10,7 @@
 - S-CORE delivery can include source releases, prebuilt artifacts, container images, and associated release metadata.
 - Artifact versioning follows semantic versioning aligned with Git tagging.
 - SBOM and provenance data should be generated during builds and accompany released deliverables.
-- Continuous security monitoring of distributed artifact SBOMs belongs in [chapter 6](compliance-infrastructure.md) once those artifacts exist.
+- Continuous security monitoring of distributed artifact SBOMs belongs in [chapter 6](06-compliance-infrastructure.md) once those artifacts exist.
 
 ## 8.1 Deliverable Types ⚪
 
@@ -165,7 +165,7 @@
 
 **S-CORE**
 
-- Dependency analysis and continuous SBOM monitoring belong in [chapter 6](compliance-infrastructure.md).
+- Dependency analysis and continuous SBOM monitoring belong in [chapter 6](06-compliance-infrastructure.md).
 - This chapter focuses on what happens on the consumer-facing release side once those issues are known.
 - **Biggest gap**: no shared advisory and remediation communication model is defined for S-CORE deliverables.
 

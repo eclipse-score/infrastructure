@@ -34,13 +34,13 @@ markdown_extensions:
 nav:
   - Overview: index.md
   - Chapters:
-      - 1. Source Code Infrastructure: source-code-infrastructure.md
-      - 2. Developer Environment: developer-environment.md
-      - 3. Build & Dependencies: build-infrastructure.md
-      - 4. Testing: testing-infrastructure.md
-      - 5. Code Analysis Infrastructure: static-analysis-infrastructure.md
-      - 6. Dependency Analysis Infrastructure: compliance-infrastructure.md
-      - 7. Automation & CI: automation-integration.md
-      - 8. Release & Distribution: artifact-distribution.md
-      - 9. Documentation & Traceability: documentation-infrastructure.md
-      - 10. Infrastructure Operations: infrastructure-operations.md
+      - 1. Source Code Infrastructure: 01-source-code-infrastructure.md
+      - 2. Developer Environment: 02-developer-environment.md
+      - 3. Build & Dependencies: 03-build-infrastructure.md
+      - 4. Testing: 04-testing-infrastructure.md
+      - 5. Code Analysis Infrastructure: 05-static-analysis-infrastructure.md
+      - 6. Dependency Analysis Infrastructure: 06-compliance-infrastructure.md
+      - 7. Automation & CI: 07-automation-integration.md
+      - 8. Release & Distribution: 08-artifact-distribution.md
+      - 9. Documentation & Traceability: 09-documentation-infrastructure.md
+      - 10. Infrastructure Operations: 10-infrastructure-operations.md

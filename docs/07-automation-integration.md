@@ -9,7 +9,7 @@
 - GitHub Actions is the CI/CD platform for S-CORE; workflows are triggered on pull requests, merges, schedules, and releases.
 - Reusable workflows shared across repositories reduce duplication and enforce consistent pipeline structure.
 - Pipeline execution relies on both GitHub-hosted cloud runners and hardware-oriented execution environments.
-- This chapter owns workflow orchestration and gate delivery, not the technical baselines defined in [chapter 3](build-infrastructure.md), [chapter 4](testing-infrastructure.md), [chapter 5](static-analysis-infrastructure.md), and [chapter 6](compliance-infrastructure.md).
+- This chapter owns workflow orchestration and gate delivery, not the technical baselines defined in [chapter 3](03-build-infrastructure.md), [chapter 4](04-testing-infrastructure.md), [chapter 5](05-static-analysis-infrastructure.md), and [chapter 6](06-compliance-infrastructure.md).
 - **Biggest gap**: reusable workflow coverage and quality gate consistency across S-CORE repositories are incomplete.
 
 ## 7.1 Runners 🟠
@@ -91,7 +91,7 @@
 
 **S-CORE**
 
-- CI consumes the shared analysis capabilities described in [chapter 5](static-analysis-infrastructure.md) and [chapter 6](compliance-infrastructure.md) and turns them into workflow runs, status checks, and review-visible results.
+- CI consumes the shared analysis capabilities described in [chapter 5](05-static-analysis-infrastructure.md) and [chapter 6](06-compliance-infrastructure.md) and turns them into workflow runs, status checks, and review-visible results.
 - Reusable workflows should encapsulate execution and reporting so repositories do not reimplement the same enforcement mechanics.
 - **Biggest gap**: reusable workflow coverage and required-check policy for analysis gates are not yet consistently applied across repositories.
 

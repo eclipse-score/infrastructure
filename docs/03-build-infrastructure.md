@@ -10,7 +10,7 @@
 - Shared build rules and toolchain definitions are intended to reduce per-repository configuration duplication.
 - Remote caching is available to reduce repeated build work across CI pipelines.
 - Dependency governance, SBOMs, and provenance belong here because they should be derived from normal builds rather than added only at release time.
-- Continuous security monitoring of generated SBOMs belongs in [chapter 6](compliance-infrastructure.md), not in the build chapter itself.
+- Continuous security monitoring of generated SBOMs belongs in [chapter 6](06-compliance-infrastructure.md), not in the build chapter itself.
 - This scope includes not only middleware outputs, but also self-developed tooling and environment artifacts such as Python tooling packages and devcontainer images when they are built and published by S-CORE.
 - **Biggest gap**: shared build rule libraries, toolchain baselines, dependency policy, and build evidence are not yet consistently available across all S-CORE repositories.
 
@@ -115,7 +115,7 @@
 **S-CORE**
 
 - Toolchains are provisioned via the devcontainer for both local and CI builds.
-- Shared toolchain baselines are the main link between [chapter 2](developer-environment.md) and automated build execution.
+- Shared toolchain baselines are the main link between [chapter 2](02-developer-environment.md) and automated build execution.
 - **Biggest gap**: toolchain versions diverge across repositories without a shared baseline definition.
 
 ### 3.3.1 C++ Toolchains
@@ -161,8 +161,8 @@
 **S-CORE**
 
 - Bazel's hermetic execution model is the foundation for reproducibility across S-CORE.
-- SBOMs and provenance should be normal build outputs, while publication of that evidence belongs in [chapter 8](artifact-distribution.md).
-- Continuous monitoring of distributed artifact SBOMs after they have been generated here belongs in [chapter 6](compliance-infrastructure.md).
+- SBOMs and provenance should be normal build outputs, while publication of that evidence belongs in [chapter 8](08-artifact-distribution.md).
+- Continuous monitoring of distributed artifact SBOMs after they have been generated here belongs in [chapter 6](06-compliance-infrastructure.md).
 - The same expectation should hold for self-developed tooling and dev environment artifacts where S-CORE builds and distributes them.
 - **Biggest gap**: hermetic build compliance, reproducibility verification, and build-derived evidence are not yet generated or enforced uniformly across repositories.
 

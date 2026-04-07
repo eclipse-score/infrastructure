@@ -9,8 +9,8 @@
 - Static analysis complements testing by finding issues through code and configuration inspection instead of runtime verification.
 - This chapter defines the shared code-analysis capability: analyzer scope, baseline expectations, rule governance, and ownership boundaries across repositories.
 - Local execution and CI gating consume this capability in their own chapters rather than defining separate analyzer baselines.
-- Runtime-driven techniques such as coverage, sanitizers, fuzzing, and profiling belong in [chapter 4](testing-infrastructure.md), not here.
-- Dependency alerts, supply-chain analysis of dependency sets, and continuous SBOM monitoring belong in [chapter 6](compliance-infrastructure.md), not here.
+- Runtime-driven techniques such as coverage, sanitizers, fuzzing, and profiling belong in [chapter 4](04-testing-infrastructure.md), not here.
+- Dependency alerts, supply-chain analysis of dependency sets, and continuous SBOM monitoring belong in [chapter 6](06-compliance-infrastructure.md), not here.
 - **Biggest gap**: code analysis is not yet defined and governed as one cross-repository capability with shared tooling, rule baselines, and ownership expectations.
 
 ## 5.1 Tooling Baseline ⚪
@@ -103,7 +103,7 @@
 **S-CORE**
 
 - Contributors should be able to run the shared analyzer baseline early enough to catch common issues before opening or updating a pull request.
-- Local execution should favor fast feedback and alignment with the centrally defined ruleset, while the delivery details belong in [chapter 2](developer-environment.md).
+- Local execution should favor fast feedback and alignment with the centrally defined ruleset, while the delivery details belong in [chapter 2](02-developer-environment.md).
 - **Biggest gap**: local execution expectations are not yet defined independently of specific tools such as devcontainers, IDEs, or pre-commit hooks.
 
 ### 5.3.2 CI Execution Expectations
@@ -113,7 +113,7 @@
 **S-CORE**
 
 - CI should execute the agreed shared analyzer baseline in a consistent, review-visible way and use its outcomes for merge decisions where appropriate.
-- The workflow, reporting, and branch-protection mechanics belong in [chapter 7](automation-integration.md), not in the code-analysis capability definition itself.
+- The workflow, reporting, and branch-protection mechanics belong in [chapter 7](07-automation-integration.md), not in the code-analysis capability definition itself.
 - **Biggest gap**: CI enforcement expectations are not yet clearly separated from workflow implementation details.
 
 ### 5.3.3 Incremental Adoption
