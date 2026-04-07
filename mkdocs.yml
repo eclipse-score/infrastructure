@@ -3,6 +3,7 @@ site_description: Documentation for the structure, operation, and evolution of S
 site_url: https://eclipse-score.github.io/infrastructure/
 repo_name: eclipse-score/infrastructure
 repo_url: https://github.com/eclipse-score/infrastructure
+edit_uri: edit/dev/docs/
 docs_dir: docs
 strict: true
 

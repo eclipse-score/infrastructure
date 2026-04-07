@@ -52,27 +52,6 @@
   </div>
 </div>
 
-## Start Here
-
-<div class="landing-grid landing-grid-2">
-  <div class="landing-card">
-    <h3>For a quick overview</h3>
-    <ul>
-      <li>Scan the chapter map below.</li>
-      <li>Use the status icon to judge maturity at a glance.</li>
-      <li>Open the chapter that matches the area you want to understand better.</li>
-    </ul>
-  </div>
-  <div class="landing-card">
-    <h3>For contribution work</h3>
-    <ul>
-      <li>Find the most relevant infrastructure chapter.</li>
-      <li>Read the summary, maturity, and "Biggest gap".</li>
-      <li>Use that context to place an issue, PR, or initiative in the wider infrastructure picture.</li>
-    </ul>
-  </div>
-</div>
-
 ## Chapter Map
 
 ```mermaid
@@ -113,23 +92,6 @@ click C8 href "artifact-distribution/" "Open chapter 8"
 click C9 href "documentation-infrastructure/" "Open chapter 9"
 click C10 href "infrastructure-operations/" "Open chapter 10"
 ```
-
-## How To Use A Chapter
-
-<div class="landing-grid landing-grid-3">
-  <div class="landing-card landing-card-compact">
-    <h3>1. Pick a topic</h3>
-    <p>Open the area closest to your question, task, or architectural concern.</p>
-  </div>
-  <div class="landing-card landing-card-compact">
-    <h3>2. Check maturity</h3>
-    <p>Use the status icon to understand whether the area is established, partial, weak, or still unclear.</p>
-  </div>
-  <div class="landing-card landing-card-compact">
-    <h3>3. Look at the gap</h3>
-    <p>Read "Biggest gap" to see what is missing, what remains to be improved, and why the area still matters.</p>
-  </div>
-</div>
 
 ## Status Legend
 
