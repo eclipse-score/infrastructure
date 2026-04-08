@@ -23,12 +23,11 @@
 
 **S-CORE**
 
-- Lifecycle and policy management are intended to be centrally defined and automation-driven.
-- Repository lifecycle infrastructure includes provisioning, archival, branch protection, required checks, and other durable settings that shape repository behavior.
-- The point is to make repository state intentional and reviewable instead of a collection of manual one-off admin actions.
-- Desired repository state is defined centrally via the infrastructure-as-code tool [otterdog](https://otterdog.readthedocs.io/en/latest/userguide/) in the [S-CORE configuration file](https://github.com/eclipse-score/.eclipsefdn/blob/main/otterdog/eclipse-score.jsonnet)
-- Lifecycle transitions are configuration changes instead of manual one-off actions.
-- **Biggest gap**: approval of changes is rather random and undefined.
+Repository provisioning in S-CORE starts with creating the repository itself and attaching it to the shared organizational governance model. The infrastructure concern here is the durable repository state around creation, ownership, protection, archival, and other lifecycle transitions, not the detailed engineering baseline inside the repository.
+
+Organization-level repository state is still managed centrally. Desired settings such as applications, branch protection, and required checks are defined through the infrastructure-as-code tool [otterdog](https://otterdog.readthedocs.io/en/latest/userguide/) in the [S-CORE configuration file](https://github.com/eclipse-score/.eclipsefdn/blob/main/otterdog/eclipse-score.jsonnet), and lifecycle transitions are configuration changes instead of one-off admin actions.
+
+**Biggest gap**: ownership and approval of repository lifecycle changes are still not clearly defined end to end.
 
 ---
 
@@ -62,9 +61,11 @@
 
 **S-CORE**
 
-- Metadata expectations exist, but rollout is not yet complete across repositories.
-- Discoverability and governance depend on consistent metadata being present and kept current.
-- **Biggest gap**: metadata standards exist only partially in enforceable, continuously synchronized form.
+Metadata expectations exist, but rollout is not yet complete across repositories. Discoverability and governance depend on consistent metadata being present and kept current.
+
+For Bazel modules, [eclipse-score/module_template](https://github.com/eclipse-score/module_template) partially addresses this by giving new repositories a common starting set of metadata and governance files instead of requiring each maintainer to assemble them from scratch. That is useful as a bootstrap baseline, but it only covers repositories that fit the template and it does not by itself keep existing repositories aligned over time.
+
+**Biggest gap**: metadata standards exist only partially in enforceable form, and the current bootstrap support is limited to Bazel-module-style repositories.
 
 ### 1.4.2 Tooling Configuration Standards 🟠
 
@@ -72,9 +73,11 @@
 
 **S-CORE**
 
-- Shared conventions are emerging, but not yet uniformly synchronized; [chapter 5](05-static-analysis-infrastructure.md) is the canonical home for code-analysis tooling and rule-baseline details.
-- Baseline/override handling is not yet consistently defined across repository types.
-- **Biggest gap**: no clearly enforced baseline/override model across repository classes.
+Shared conventions are starting to emerge, but not yet synchronized.
+
+The same template also gives Bazel modules a partial starter baseline for repository-local tooling configuration, such as the initial Bazel wiring, editor settings, and starter workflow files. That helps new Bazel-based repositories begin from a more consistent shape, but it is still only a bootstrap aid for one repository class rather than a cross-project standardization mechanism.
+
+**Biggest gap**: no clearly enforced baseline/override model exists across repository classes, and the current template-based help is limited to Bazel modules.
 
 ### 1.4.3 Synchronization Mechanisms 🔴
 
@@ -82,10 +85,11 @@
 
 **S-CORE**
 
-- Synchronization can be driven by central configuration, reusable templates, generated repository settings, or other automation rather than manual copying.
-- The infrastructure concern is not a single mandated mechanism, but that changes can be propagated predictably, reviewed, and rolled out at scale.
-- Migration support matters alongside synchronization, because existing repositories will not all converge at the same speed.
-- **Biggest gap**: the supported synchronization and migration mechanisms are not yet documented as one coherent strategy.
+Synchronization can be driven by central configuration, reusable templates, generated repository settings, or other automation rather than manual copying. The infrastructure concern is not a single mandated mechanism, but that shared standards can be propagated predictably, reviewed, and rolled out at scale.
+
+Migration support matters alongside synchronization, because existing repositories will not all converge at the same speed. New-repository templates can help with bootstrap, but they are not the same thing as synchronization once repositories already exist and start to drift.
+
+**Biggest gap**: no alignment on a synchronization mechanism.
 
 ### 1.4.4 Conformance Reporting 🔴
 
