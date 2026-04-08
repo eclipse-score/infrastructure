@@ -10,6 +10,10 @@ The published documentation is available at:
 
 The README intentionally stays short to avoid duplicating the actual documentation. Use the published site for content and this repository for source files, local preview, and contribution work.
 
+## Contributing
+
+Contribution guidance, documentation style, and detailed instructions for AI agents live in [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Run MkDocs Locally
 
 This repository uses `uv` for local toolchain management.
