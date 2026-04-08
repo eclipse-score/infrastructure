@@ -12,6 +12,7 @@
 - Multi-language test support exists across C++, Rust, and Python, but repository-level conventions still vary.
 - S-CORE distinguishes test levels such as unit tests, component integration tests, feature integration tests, and platform tests.
 - `reference_integration` already provides shared integration-oriented execution and release-level aggregation for parts of the project.
+- It is best understood as higher-level testing infrastructure that consumes integrated modules, not as the primary module-distribution mechanism itself.
 - Dynamic analysis belongs here because coverage, sanitizers, fuzzing, and profiling depend on executing software.
 - **Biggest gap**: testing infrastructure exists in several strong islands, but project-wide standardization for aggregation, dashboards, reusable conventions, and runtime-analysis coverage is still incomplete.
 
@@ -55,6 +56,7 @@
 
 - Feature integration tests verify feature-level requirements and architecture across module boundaries.
 - FIT execution is centered in `reference_integration`, where features are integrated as external modules and exercised through shared scenarios.
+- In the intended flow, module-producing repositories publish consumable modules and `reference_integration` assembles them into higher-level feature scenarios.
 - FIT traceability is already being established in `reference_integration`.
 - **Biggest gap**: FIT infrastructure exists, but traceability, language support, and reusable documentation around scenario composition are still evolving.
 
@@ -76,6 +78,7 @@
 **S-CORE**
 
 - Cross-repository testing already exists in practice through `reference_integration`, where multiple repositories are integrated and tested together.
+- `reference_integration` is therefore the primary shared environment for validating how separately developed S-CORE modules behave in combination.
 - Scenario-based testing is used as an execution style for higher integration levels, especially in `reference_integration` and ITF-based environments.
 - **Biggest gap**: cross-repository execution is available, but it is not yet generalized into a uniformly reusable mechanism for all repositories and all test levels.
 
@@ -211,7 +214,7 @@
 **S-CORE**
 
 - Test result artifacts are generated per CI run, and release-oriented aggregation already exists for selected shared outputs.
-- `reference_integration` plays an important role in collecting and combining higher-level evidence.
+- `reference_integration` plays an important role in collecting and combining higher-level evidence after cross-repository integration and scenario execution.
 - **Biggest gap**: aggregation works for some release flows, but continuous project-wide aggregation across repositories and levels is still incomplete.
 
 ### 4.5.2 Test Dashboards

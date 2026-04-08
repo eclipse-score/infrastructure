@@ -8,6 +8,7 @@
 
 - Bazel is the standard build system direction for S-CORE middleware repositories.
 - Shared build rules and toolchain definitions are intended to reduce per-repository configuration duplication.
+- Internal Bazel modules are expected to be distributed through the shared S-CORE registry at [eclipse-score/bazel_registry](https://github.com/eclipse-score/bazel_registry/).
 - Remote caching is available to reduce repeated build work across CI pipelines.
 - Dependency governance, SBOMs, and provenance belong here because they should be derived from normal builds rather than added only at release time.
 - Continuous security monitoring of generated SBOMs belongs in [chapter 6](06-compliance-infrastructure.md), not in the build chapter itself.
@@ -58,6 +59,7 @@
 **S-CORE**
 
 - External dependencies are declared per repository in Bazel workspace files; pinning strategies vary.
+- Internal S-CORE Bazel modules should be consumed through the shared registry instead of ad hoc repository wiring.
 - Build-generated dependency inventories are needed to support licensing, SBOM generation, and later vulnerability analysis.
 - The same dependency-governance expectations should apply to product code, self-developed tooling, and environment artifacts.
 - **Biggest gap**: no unified dependency policy or cross-repository version alignment standard exists.
@@ -68,7 +70,7 @@
 
 **S-CORE**
 
-- External libraries are imported via Bazel's `http_archive` or Bzlmod; no shared registry or approved source list exists.
+- External libraries are imported via Bazel Central Registry; apart from the shared internal S-CORE registry for first-party modules, no shared third-party registry or approved source list exists.
 - **Biggest gap**: duplicate declarations and version drift across repositories are unmitigated.
 
 ### 3.2.2 Internal Module Dependencies
@@ -77,8 +79,17 @@
 
 **S-CORE**
 
-- Cross-repository artifact consumption relies on pre-built releases or per-repository Bazel rules.
-- **Biggest gap**: no consistent cross-repository dependency resolution model is defined.
+S-CORE repositories are expected to exchange Bazel modules through the shared registry at [eclipse-score/bazel_registry](https://github.com/eclipse-score/bazel_registry/). From the build perspective, this section is only about consumption: a repository should resolve first-party modules through the registry rather than through ad hoc repository overrides or manual source wiring. The full publication flow, including the coupling between registry entries and GitHub Releases, is described in [chapter 8](08-artifact-distribution.md#822-registry-based-distribution).
+
+For consumers, the practical step is to tell Bazel where to look for modules. The same registry configuration described in [chapter 8](08-artifact-distribution.md#843-consumer-guidance) applies here:
+
+```bazelrc
+common --registry=https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/
+common --registry=https://bcr.bazel.build
+```
+
+Once that is in place, dependencies are declared in `MODULE.bazel` with Bazel's normal module mechanism such as `bazel_dep(...)`. That is enough for the build side. Module discovery, release mechanics, and service ownership are intentionally documented in [chapter 8](08-artifact-distribution.md#822-registry-based-distribution) and [chapter 10](10-infrastructure-operations.md#1034-shared-registry-services) instead of being repeated here.
+
 
 ### 3.2.3 Dependency Policies
 

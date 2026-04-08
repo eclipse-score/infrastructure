@@ -113,6 +113,7 @@
 **S-CORE**
 
 - Cross-repository integration validation is a target capability; most repositories currently validate in isolation.
+- The integration environment itself belongs primarily to [chapter 4](04-testing-infrastructure.md); this chapter covers how CI orchestrates and gates it.
 - **Biggest gap**: no shared integration validation pipeline spans multiple S-CORE middleware components.
 
 ### 7.3.1 Integration Validation Scope
@@ -131,6 +132,7 @@
 **S-CORE**
 
 - Multi-repository orchestration is a target capability and not yet standardized.
+- CI should be able to trigger shared environments such as `reference_integration`, pass the relevant module versions or revisions into them, and collect the resulting evidence.
 - **Biggest gap**: trigger, artifact handover, and result aggregation patterns are not yet unified.
 
 ### 7.3.3 Artifact & Evidence Handover
@@ -140,6 +142,7 @@
 **S-CORE**
 
 - Cross-repository automation needs more than triggers; it also needs a repeatable way to hand off artifacts, SBOMs, and verification evidence between jobs or repositories.
+- That handover may include module references resolved through `bazel_registry`, release assets, and the test outputs produced by `reference_integration`.
 - **Biggest gap**: no shared artifact handover model exists for multi-repository automation scenarios.
 
 ## 7.4 Secrets Management ⚪

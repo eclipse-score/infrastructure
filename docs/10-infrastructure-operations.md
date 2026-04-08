@@ -6,7 +6,7 @@
 
 **S-CORE**
 
-- Infrastructure operations covers runner operations, monitoring, dependency maintenance, and governance.
+- Infrastructure operations covers runner operations, monitoring, dependency maintenance, governance, and upkeep of shared services such as the Bazel registry and its UI.
 - Some of the shared services used by S-CORE are operated by external providers or teams, especially in the runner space.
 - Dependabot automates dependency updates for infrastructure tooling across repositories.
 - **Biggest gap**: systematic monitoring, incident handling, and proactive maintenance processes are not yet consistently defined across S-CORE infrastructure.
@@ -56,6 +56,7 @@
 **S-CORE**
 
 - CI pipeline failures are visible via GitHub Actions; no proactive monitoring or alerting spans S-CORE repositories.
+- Shared service monitoring should eventually include the Bazel registry publication path and the registry UI, not only CI pipelines.
 - **Biggest gap**: no cross-repository infrastructure health dashboard or alert channel exists for S-CORE.
 
 ### 10.2.1 CI Usage Monitoring
@@ -74,7 +75,8 @@
 **S-CORE**
 
 - Pipeline failures are surfaced per repository via GitHub; no S-CORE-wide failure tracking dashboard exists.
-- **Biggest gap**: recurring failure patterns across S-CORE pipelines are not systematically detected.
+- Failures affecting the shared Bazel registry, its validation workflows, or the registry UI would block module publication or discovery across repositories.
+- **Biggest gap**: recurring failure patterns across S-CORE pipelines and shared distribution services are not systematically detected.
 
 ### 10.2.3 Incident Coordination
 
@@ -122,6 +124,18 @@
 
 - Operational maintenance includes responding to upstream deprecations before they create outages.
 - **Biggest gap**: there is no shared deprecation tracking and migration planning process for infrastructure components.
+
+### 10.3.4 Shared Registry Services
+
+*Maintaining the shared Bazel module registry and its consumer UI as part of S-CORE infrastructure.*
+
+**S-CORE**
+
+The shared Bazel registry at [eclipse-score/bazel_registry](https://github.com/eclipse-score/bazel_registry/) and the registry UI at [eclipse-score.github.io/bazel_registry_ui](https://eclipse-score.github.io/bazel_registry_ui/) are part of the live infrastructure surface for cross-repository dependency management. The full publication and consumption flow is described in [chapter 8](08-artifact-distribution.md#822-registry-based-distribution); this section is only about operating that service reliably.
+
+Infrastructure maintainers therefore need to keep the registry repository, the automation that validates and publishes registry updates, the raw GitHub-hosted content that Bazel reads, and the GitHub Pages deployment of the companion [eclipse-score/bazel_registry_ui](https://github.com/eclipse-score/bazel_registry_ui) project working together. If the registry data is wrong, if validation breaks, or if the UI deployment is stale, module publication and discovery degrade across the project.
+
+The [registry README](https://github.com/eclipse-score/bazel_registry/blob/main/README.md) should remain the canonical contributor guide for adding or updating module versions. Operations documentation should complement it with service ownership, monitoring, incident handling, and recovery guidance rather than copying the contributor workflow.
 
 ---
 

@@ -6,8 +6,9 @@
 
 **S-CORE**
 
-- GitHub Releases is the primary mechanism for publishing S-CORE deliverables.
+- GitHub Releases is the primary mechanism for publishing archive-style S-CORE deliverables, while Bazel modules are published through the shared registry at [eclipse-score/bazel_registry](https://github.com/eclipse-score/bazel_registry/).
 - S-CORE delivery can include source releases, prebuilt artifacts, container images, and associated release metadata.
+- The registry UI at [eclipse-score.github.io/bazel_registry_ui](https://eclipse-score.github.io/bazel_registry_ui/) is the intended discovery surface for published Bazel modules.
 - Artifact versioning follows semantic versioning aligned with Git tagging.
 - SBOM and provenance data should be generated during builds and accompany released deliverables.
 - Continuous security monitoring of distributed artifact SBOMs belongs in [chapter 6](06-compliance-infrastructure.md) once those artifacts exist.
@@ -58,7 +59,8 @@
 
 **S-CORE**
 
-- GitHub Releases is currently the primary public distribution channel for S-CORE deliverables.
+- GitHub Releases is currently the primary public distribution channel for archive-style S-CORE deliverables.
+- The shared Bazel registry is the public distribution channel for S-CORE Bazel modules.
 - Different deliverable types may require different channels, such as release assets, registries, or mirrored repositories.
 - **Biggest gap**: no shared distribution model maps deliverable types to supported publication channels and consumer access patterns.
 
@@ -78,9 +80,26 @@
 
 **S-CORE**
 
-- Registry-based distribution would be the natural channel for package-oriented or image-oriented deliverables.
-- No shared package repository or OCI registry strategy is currently documented for S-CORE.
-- **Biggest gap**: there is no common registry-backed distribution capability for deliverables that are not well served by GitHub Releases alone.
+This subsection is the main description of how S-CORE publishes and consumes Bazel modules. Other chapters reference it from their own perspective, but the end-to-end registry flow belongs here.
+
+For S-CORE Bazel modules, the custom registry is the release channel that matters. GitHub Releases are still useful for archives, binaries, checksums, and release notes, but Bazel itself consumes module metadata from the shared registry at [eclipse-score/bazel_registry](https://github.com/eclipse-score/bazel_registry/). In other words, if a module version should be usable as a dependency by another S-CORE repository, it needs to be present in the registry.
+
+In S-CORE, the registry and GitHub Releases are deliberately coupled. The useful mental model is that the registry is Bazel's view of a released module version. A maintainer creates a GitHub release in the module repository, the registry imports that release as described in the [registry README](https://github.com/eclipse-score/bazel_registry/blob/main/README.md), and downstream repositories then resolve that version through Bazel. That coupling is why the split between "release" and "dependency resolution" can feel artificial: conceptually it is one publication pipeline, even though different infrastructure chapters look at it from different angles.
+
+This also means module maintainers publish their modules by making a proper repository release and then adding the corresponding version to the registry, rather than inventing a repository-specific distribution pattern. The exact mechanics belong in the [registry README](https://github.com/eclipse-score/bazel_registry/blob/main/README.md), which should remain the maintained source of truth. This infrastructure guide explains the role of the registry and the end-to-end flow, but it deliberately avoids copying the details so that the workflow stays defined in one place.
+
+For module users, the easiest entry point is the registry UI at [eclipse-score.github.io/bazel_registry_ui](https://eclipse-score.github.io/bazel_registry_ui/). It provides a browseable view of the modules and versions published in the registry and is backed by the data in [eclipse-score/bazel_registry_ui](https://github.com/eclipse-score/bazel_registry_ui). If there is ever any doubt, the registry repository itself remains authoritative because it is the actual input to Bazel.
+
+The end-to-end flow is therefore simple. A module maintainer cuts a GitHub release in the module repository. The registry records that released version and the metadata Bazel needs to fetch it. Module users discover the version through the registry UI or the registry repository itself. Consumer repositories then resolve that version through `MODULE.bazel` and the registry configuration described in [chapter 3](03-build-infrastructure.md). Infrastructure maintainers, finally, operate the registry, its validation, and the UI as described in [chapter 10](10-infrastructure-operations.md).
+
+This chapter is the best place to understand that overall publication flow. [Chapter 3](03-build-infrastructure.md) covers how consumers point Bazel at the registry, while [chapter 10](10-infrastructure-operations.md) covers how the registry and UI are run as shared services.
+
+Helpful links:
+
+- [S-CORE Bazel registry](https://github.com/eclipse-score/bazel_registry/)
+- [Registry README](https://github.com/eclipse-score/bazel_registry/blob/main/README.md)
+- [Registry UI](https://eclipse-score.github.io/bazel_registry_ui/)
+- [Registry UI repository](https://github.com/eclipse-score/bazel_registry_ui)
 
 ---
 ### 8.2.3 Mirrors & Replication
@@ -127,6 +146,7 @@
 **S-CORE**
 
 - Consumers need a clear path to discover available deliverables, understand their intended use, and retrieve the correct format.
+- For Bazel modules, consumer access is centered on the shared registry metadata and the registry UI.
 - Consumer access includes naming, discoverability, documentation, and availability of public download or pull mechanisms.
 - **Biggest gap**: no shared consumer-facing model explains where deliverables live, which consumers each format serves, or how access should work across S-CORE.
 
@@ -136,9 +156,11 @@
 
 **S-CORE**
 
-- GitHub Releases offers basic discoverability for release assets and notes.
-- Deliverable discoverability should also include documentation that explains what is published and how it is meant to be consumed.
-- **Biggest gap**: no consistent discoverability pattern helps consumers understand which release assets exist and which are relevant for their use case.
+GitHub Releases provide basic discoverability for release assets and release notes, but they are not the right starting point for Bazel modules. For modules, users should begin with the [registry UI](https://eclipse-score.github.io/bazel_registry_ui/), which presents the published contents of the shared registry in a way that is easier to browse than the raw repository. The underlying source of truth is still the registry data in [eclipse-score/bazel_registry](https://github.com/eclipse-score/bazel_registry/).
+
+Good discoverability also requires light explanation. Users need to know that the registry answers the question "which module versions exist?" while the owning repository answers "how do I use this module once I depend on it?" Those two layers complement each other and should stay linked.
+
+**Biggest gap**: no consistent discoverability pattern yet spans both GitHub release assets and registry-published modules in one coherent consumer story.
 
 ### 8.4.2 Retention & Availability
 
@@ -156,8 +178,22 @@
 
 **S-CORE**
 
-- Good delivery infrastructure includes documentation that explains intended audiences, supported use, and expected integration paths for each deliverable.
-- **Biggest gap**: there is no shared pattern for communicating deliverable purpose and consumption guidance to downstream users.
+For Bazel modules, the normal consumer workflow is straightforward. First, browse the [registry UI](https://eclipse-score.github.io/bazel_registry_ui/) to find the module and version you need. Next, configure your repository to use the S-CORE registry as described in [section 3.2.2](03-build-infrastructure.md#322-internal-module-dependencies). Finally, declare the dependency in `MODULE.bazel` and use the module according to the documentation in its owning repository.
+
+Because registry entries are coupled to GitHub Releases, users can usually think of a registry version as the Bazel-consumable form of a repository release. The registry tells you which versions exist and how Bazel should fetch them. The owning repository tells you what the release contains and how to use the module once you depend on it.
+
+To make this concrete, consumer repositories need the registry configuration in `.bazelrc`:
+
+```bazelrc
+common --registry=https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/
+common --registry=https://bcr.bazel.build
+```
+
+With that in place, `MODULE.bazel` can declare dependencies with Bazel's normal module mechanism such as `bazel_dep(...)`. The S-CORE registry is then used for first-party modules, while the Bazel Central Registry remains available for public dependencies. The official [Bazel modules documentation](https://bazel.build/external/module) is the best reference for the `MODULE.bazel` syntax itself.
+
+That split is important for keeping the documentation maintainable. This infrastructure guide explains where modules are published, how consumers discover them, and how Bazel is pointed at the registry. The mechanics for adding or updating module versions stay in the [registry README](https://github.com/eclipse-score/bazel_registry/blob/main/README.md), while module-specific API and usage details stay with the module's own source repository.
+
+**Biggest gap**: there is no short, shared pattern for explaining how to consume registry-published S-CORE modules across repositories.
 
 ## 8.5 Post-Release Communication & Response ⚪
 
