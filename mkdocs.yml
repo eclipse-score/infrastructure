@@ -15,7 +15,7 @@ extra_css:
   - css/score-theme.css
 
 extra_javascript:
-  - https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs
+  - https://unpkg.com/mermaid@11.12.2/dist/mermaid.min.js
 
 plugins:
   - search

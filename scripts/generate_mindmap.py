@@ -12,7 +12,6 @@ import textwrap
 
 HEADING_RE = re.compile(r"^(#{1,3})\s+(?P<title>.+?)\s*$")
 LINK_RE = re.compile(r"\[([^\]]+)\]\([^)]+\)")
-CHAPTER_TITLE_RE = re.compile(r"^(?P<number>\d+)\s+")
 
 
 @dataclass
@@ -86,14 +85,6 @@ def parse_chapter(path: Path) -> Section:
         stack.append(section)
 
     return root
-
-
-def chapter_number(section: Section) -> int:
-    """Return the leading chapter number from a top-level chapter title."""
-    match = CHAPTER_TITLE_RE.match(section.title)
-    if match is None:
-        raise ValueError(f"Chapter title does not start with a number: {section.title}")
-    return int(match.group("number"))
 
 
 def mermaid_label(text: str) -> str:
