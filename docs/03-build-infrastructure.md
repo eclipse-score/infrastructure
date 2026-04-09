@@ -13,6 +13,7 @@
 - Dependency governance, SBOMs, and provenance belong here because they should be derived from normal builds rather than added only at release time.
 - Continuous security monitoring of generated SBOMs belongs in [chapter 6](06-compliance-infrastructure.md), not in the build chapter itself.
 - This scope includes not only middleware outputs, but also self-developed tooling and environment artifacts such as Python tooling packages and devcontainer images when they are built and published by S-CORE.
+- Contributor onboarding, IDE support, and surrounding local tooling guidance for those environments belongs in [chapter 2](02-developer-environment.md); this chapter owns the build-time model behind them.
 - **Biggest gap**: shared build rule libraries, toolchain baselines, dependency policy, and build evidence are not yet consistently available across all S-CORE repositories.
 
 ## 3.1 Build System ⚪
@@ -125,8 +126,8 @@ Once that is in place, dependencies are declared in `MODULE.bazel` with Bazel's 
 
 **S-CORE**
 
-- Toolchains are provisioned via the devcontainer for both local and CI builds.
-- Shared toolchain baselines are the main link between [chapter 2](02-developer-environment.md) and automated build execution.
+- Toolchain versions and build-time configuration are owned here, even when contributors access the surrounding local tooling through the shared environment described in [chapter 2](02-developer-environment.md).
+- Shared toolchain baselines are the main link between the Bazel build model and automated build execution.
 - **Biggest gap**: toolchain versions diverge across repositories without a shared baseline definition.
 
 ### 3.3.1 C++ Toolchains
@@ -175,6 +176,7 @@ Once that is in place, dependencies are declared in `MODULE.bazel` with Bazel's 
 - SBOMs and provenance should be normal build outputs, while publication of that evidence belongs in [chapter 8](08-artifact-distribution.md).
 - Continuous monitoring of distributed artifact SBOMs after they have been generated here belongs in [chapter 6](06-compliance-infrastructure.md).
 - The same expectation should hold for self-developed tooling and dev environment artifacts where S-CORE builds and distributes them.
+- This evidence model belongs here because it is about built artifacts, not the contributor workflow described in [chapter 2](02-developer-environment.md).
 - **Biggest gap**: hermetic build compliance, reproducibility verification, and build-derived evidence are not yet generated or enforced uniformly across repositories.
 
 ### 3.4.1 Hermetic Builds
@@ -212,6 +214,7 @@ Once that is in place, dependencies are declared in `MODULE.bazel` with Bazel's 
 
 - Internally developed tools and dev environment artifacts also need SBOMs and license visibility, not only the main product build outputs.
 - For contributors and CI, a devcontainer image is effectively a distributed engineering artifact and should therefore carry the same evidence expectations around dependencies and license compliance.
+- The fact that contributors enter that environment through the workflow described in [chapter 2](02-developer-environment.md) does not change that its evidence model belongs with the other build outputs here.
 - **Biggest gap**: SBOM and license-compliance treatment for tooling artifacts and environment images is not yet described as part of the normal build-evidence flow.
 
 ### 3.4.5 Rebuild Verification

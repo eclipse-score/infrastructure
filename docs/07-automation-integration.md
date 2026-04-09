@@ -9,7 +9,7 @@
 - GitHub Actions is the CI/CD platform for S-CORE; workflows are triggered on pull requests, merges, schedules, and releases.
 - Reusable workflows shared across repositories reduce duplication and enforce consistent pipeline structure.
 - Pipeline execution relies on both GitHub-hosted cloud runners and hardware-oriented execution environments.
-- This chapter owns workflow orchestration and gate delivery, not the technical baselines defined in [chapter 3](03-build-infrastructure.md), [chapter 4](04-testing-infrastructure.md), [chapter 5](05-static-analysis-infrastructure.md), and [chapter 6](06-compliance-infrastructure.md).
+- This chapter owns workflow orchestration and gate delivery, including cases where CI reuses the shared contributor environment from [chapter 2](02-developer-environment.md), not the technical baselines defined in [chapter 3](03-build-infrastructure.md), [chapter 4](04-testing-infrastructure.md), [chapter 5](05-static-analysis-infrastructure.md), and [chapter 6](06-compliance-infrastructure.md).
 - **Biggest gap**: reusable workflow coverage and quality gate consistency across S-CORE repositories are incomplete.
 
 ## 7.1 Runners 🟠
@@ -55,6 +55,7 @@
 
 - Workflows are defined in `.github/workflows/` per repository; reusable workflows are hosted centrally for cross-repository use.
 - Reusable workflows are intended to standardize build, test, analysis, documentation, and release steps across repositories.
+- When workflow consistency benefits from reusing the shared local environment described in [chapter 2](02-developer-environment.md), the workflow layer is still responsible for how that environment is invoked and gated.
 - Required status checks are configured centrally via [otterdog](https://otterdog.readthedocs.io/en/latest/userguide/) in the [S-CORE configuration](https://github.com/eclipse-score/.eclipsefdn/blob/main/otterdog/eclipse-score.jsonnet).
 - **Biggest gap**: reusable workflow coverage is partial and quality gate definitions are not yet consistently enforced via shared workflows.
 

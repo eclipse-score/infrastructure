@@ -9,6 +9,7 @@
 - Static analysis complements testing by finding issues through code and configuration inspection instead of runtime verification.
 - This chapter defines the shared code-analysis capability: analyzer scope, baseline expectations, rule governance, and ownership boundaries across repositories.
 - Local execution and CI gating consume this capability in their own chapters rather than defining separate analyzer baselines.
+- In other words, [chapter 2](02-developer-environment.md) explains how contributors run checks locally, while this chapter explains which analyzers and rules those commands should carry.
 - Runtime-driven techniques such as coverage, sanitizers, fuzzing, and profiling belong in [chapter 4](04-testing-infrastructure.md), not here.
 - Dependency alerts, supply-chain analysis of dependency sets, and continuous SBOM monitoring belong in [chapter 6](06-compliance-infrastructure.md), not here.
 - **Biggest gap**: code analysis is not yet defined and governed as one cross-repository capability with shared tooling, rule baselines, and ownership expectations.
@@ -103,7 +104,7 @@
 **S-CORE**
 
 - Contributors should be able to run the shared analyzer baseline early enough to catch common issues before opening or updating a pull request.
-- Local execution should favor fast feedback and alignment with the centrally defined ruleset, while the delivery details belong in [chapter 2](02-developer-environment.md).
+- Local execution should favor fast feedback and alignment with the centrally defined ruleset, while the delivery details for shared environments, editor usage, and pre-commit belong in [chapter 2](02-developer-environment.md).
 - **Biggest gap**: local execution expectations are not yet defined independently of specific tools such as devcontainers, IDEs, or pre-commit hooks.
 
 ### 5.3.2 CI Execution Expectations

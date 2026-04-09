@@ -4,8 +4,8 @@
   <p class="landing-kicker">Overview, roadmap, contribution guide, and reference</p>
   <h2>Get oriented in the S-CORE infrastructure landscape.</h2>
   <p class="landing-lead">
-    This site explains what S-CORE infrastructure is, which building blocks already exist, how mature they are,
-    what is still missing, and how a concrete issue or pull request fits into the bigger picture.
+    This site explains what S-CORE infrastructure is, which shared capabilities and repositories already exist,
+    how mature they are, what is still missing, and how a concrete issue or pull request fits into the bigger picture.
   </p>
 </div>
 
@@ -30,6 +30,10 @@
       source code infrastructure, developer environment, builds and dependencies, testing,
       code analysis, dependency analysis, automation, release distribution, documentation,
       traceability, and operations.
+    </p>
+    <p>
+      The chapters are capability-oriented, but they are grounded in the actual repositories
+      that implement the infrastructure across the Eclipse S-CORE GitHub organization.
     </p>
     <p>
       Cross-cutting concerns such as security and compliance are described inside the chapters

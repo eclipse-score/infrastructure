@@ -44,6 +44,13 @@ The current reference example for this pattern is the Bazel registry writeup:
 - [docs/03-build-infrastructure.md](docs/03-build-infrastructure.md) keeps only the build-consumer perspective.
 - [docs/10-infrastructure-operations.md](docs/10-infrastructure-operations.md) keeps only the operations perspective.
 
+The developer-tooling and devcontainer story follows the same rule:
+
+- [docs/02-developer-environment.md](docs/02-developer-environment.md) is the canonical explanation of how contributors obtain and use the shared environment locally.
+- [docs/03-build-infrastructure.md](docs/03-build-infrastructure.md) keeps the toolchain, reproducibility, and build-evidence perspective.
+- [docs/05-static-analysis-infrastructure.md](docs/05-static-analysis-infrastructure.md) keeps the policy and rule-baseline perspective.
+- [docs/07-automation-integration.md](docs/07-automation-integration.md) keeps the CI-delivery and gating perspective.
+
 ## Review Checklist
 
 Before opening or merging a change, check the following:

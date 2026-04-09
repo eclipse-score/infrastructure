@@ -1,93 +1,63 @@
-# 2 Developer Environment ⚪
+# 2 Developer Environment 🟡
 
-*Environment infrastructure supporting developer productivity and consistency across S-CORE contributors.*
+*Infrastructure that provides the local development layer across S-CORE repositories.*
 
-⚠️ This chapter is written by ChatGPT and was not yet reviewed
+S-CORE needs local infrastructure beyond its main software build flows. IDE integration, language servers, formatters, YAML and workflow linters, documentation helpers, and lightweight validation before CI all need a shared home or they drift from repository to repository.
 
-**S-CORE**
+In S-CORE, Bazel is the central build system for the actual software stack, but many repositories do not use Bazel as their primary local execution model. This chapter therefore documents the shared local layer that spans both repository types, centered on the common [eclipse-score/devcontainer](https://github.com/eclipse-score/devcontainer). [Chapter 3](03-build-infrastructure.md) owns Bazel toolchains and build evidence, [chapter 5](05-static-analysis-infrastructure.md) owns analyzer baselines, and [chapter 7](07-automation-integration.md) owns CI execution and gating. The central devcontainer gives S-CORE a clear anchor for this area, but the repository-facing conventions around it are not yet fully standardized.
 
-- A shared devcontainer image at [eclipse-score/devcontainer](https://github.com/eclipse-score/devcontainer) standardizes development environments across contributors and CI.
-- Pre-commit hooks provide fast local validation before code submission.
-- Toolchain baselines are owned in [chapter 3](03-build-infrastructure.md), code-analysis policy in [chapter 5](05-static-analysis-infrastructure.md), and dependency-analysis policy in [chapter 6](06-compliance-infrastructure.md); this chapter focuses on how contributors consume those capabilities locally.
-- The development environment is not only a convenience setup; when S-CORE builds and distributes it, it is also an engineering artifact with dependency, SBOM, and license-compliance implications.
-- **Biggest gap**: local tooling standardization beyond the devcontainer and pre-commit is not yet complete.
+## 2.1 Central Devcontainer 🟠
 
-## 2.1 Devcontainer ⚪
+*Common local environment for shared development tooling across repository types.*
 
-*Standardized, containerized development environment for S-CORE contributors and CI.*
+Multi-repository development needs one repeatable local environment for the tools that are not naturally delivered by each repository's own build or test flow. Without that, editor support, formatting, documentation tooling, YAML or workflow linting, and similar surrounding capabilities become repository-specific setup problems instead of shared infrastructure.
 
-**S-CORE**
+S-CORE solves this primarily through the central [eclipse-score/devcontainer](https://github.com/eclipse-score/devcontainer) repository. It builds, tests, and publishes pre-built development-container images, with pinned and preconfigured tools, so repositories can consume one shared local environment instead of maintaining their own setup stacks. 
 
-- Devcontainer images are provided at [eclipse-score/devcontainer](https://github.com/eclipse-score/devcontainer) for use by both CI pipelines and local developer environments.
-- The devcontainer standardizes tool versions and configurations across a wide range of compilers, build tools, and runtimes.
-- Because the devcontainer is itself a distributed artifact, it also needs visible dependency governance and license-compliance treatment, even though the owning evidence model belongs in [chapter 3](03-build-infrastructure.md).
-- **Biggest gap**: devcontainer adoption across all S-CORE repositories and contributors is not yet complete.
+### 2.1.1 Shared Tool Baseline 🟠
 
-### 2.1.1 Reproducible Local Setup
+*Defining which surrounding tools are present by default.*
 
-*Making contributor onboarding and machine setup as repeatable as possible.*
+The shared base should contain the local-only and supporting tools that recur across the S-CORE repository landscape. Typical examples are language servers, formatters, YAML and Markdown validators, workflow checks, documentation helpers, and other tools that improve development ergonomics but do not belong to the primary build toolchain model.
 
-**S-CORE**
+In S-CORE, that baseline is currently expressed through the published `ghcr.io/eclipse-score/devcontainer` image family. The central devcontainer repository defines the included tools, pins their versions, and preconfigures them for Eclipse S-CORE development.
 
-- Contributors should be able to reach a working setup with minimal host-specific preparation.
-- **Biggest gap**: onboarding steps and fallback guidance outside the containerized path are not yet consistently documented.
+### 2.1.2 Repository Consumption 🟡
 
-### 2.1.2 Environment SBOM & License Visibility
+*Connecting individual repositories to the common environment.*
 
-*Treating the development environment as an artifact whose contents and licenses should be visible.*
+A central environment only helps if repositories consume it in a predictable way. The infrastructure concern here is not only that an image exists, but that repositories expose the same basic entry path and do not each reinvent how contributors attach to it.
 
-**S-CORE**
+In S-CORE, the concrete mechanism is a checked-in `.devcontainer/devcontainer.json` that points to a versioned image from the central devcontainer. That gives repositories a practical way to consume the shared environment today, but adoption is still uneven across repository classes. Repository integration of the central devcontainer is still inconsistent enough that contributors cannot always assume the same entry path everywhere.
 
-- The development environment pulls in compilers, runtimes, CLI tools, Python packages, and other dependencies that matter for compliance and supply-chain visibility.
-- Contributors benefit when the environment artifact can be inspected and traced just like other distributed build outputs.
-- **Biggest gap**: SBOM and license visibility for the devcontainer and related environment artifacts are not yet part of the standard developer-environment story.
+### 2.1.3 IDE And Shell Integration 🟠
 
-## 2.2 IDE Integration ⚪
+*Making the environment usable from editors and terminals.*
 
-*Integration with development environments and IDEs for S-CORE contributors.*
+The environment is only useful if editors and shells can consume its tools directly. This matters especially for language servers, formatters, and non-build linters, because these integrations often expect real executables and preconfigured settings rather than wrappers around deeper build commands.
 
-**S-CORE**
+In S-CORE, the clearest supported path today is the devcontainer-based workflow in VS Code, and the central devcontainer is explicitly documented for Dev Containers usage. The same containerized environment is also the intended terminal path, so local work does not depend on a separate host setup. Other devcontainer-capable IDEs are possible, but the support story is less explicitly defined. The supported baseline for editor-visible tools and shell entry points is still clearer in practice than it is in project-wide documentation.
 
-- The [eclipse-score/devcontainer](https://github.com/eclipse-score/devcontainer) includes pre-configured VS Code extensions and workspace settings.
-- IDE configuration via the devcontainer ensures consistent editor tooling (formatting, linting, debugging) across contributors.
-- **Biggest gap**: IDE support beyond VS Code is not covered by the current devcontainer setup.
+## 2.2 Local Auxiliary Tooling 🟡
 
-### 2.2.1 Other IDEs & Terminal Use
+*Lightweight local checks and helpers that complement repository-specific build flows and CI.*
 
-*Supporting contributors who do not use the primary editor workflow.*
+Not every useful local check should be expressed as part of the main build. Fast repository hygiene checks, text and YAML validation, formatting checks, and similar surrounding tasks benefit from lightweight local delivery instead of waiting for a full build or CI round trip. That is true both for Bazel-based software repositories and for repositories that use different local workflows.
 
-**S-CORE**
+In S-CORE, this auxiliary tooling is currently delivered through a combination of tools present in the central devcontainer and shared hook-based validation. That gives the project a local feedback layer around repository work in general rather than forcing all such checks into Bazel. This local auxiliary layer exists, but it is not yet described and standardized as one coherent cross-repository capability.
 
-- Non-VS-Code workflows are possible, but the supported expectations and tradeoffs are not yet made explicit.
-- **Biggest gap**: the supported boundary between the shared toolchain and editor-specific experience is still unclear.
+### 2.2.1 Pre-commit And Fast Checks 🟠
 
-## 2.3 Local Tooling ⚪
+*Providing quick validation for repository hygiene and non-build assets.*
 
-*Local development tooling provided for S-CORE contributors outside of CI.*
+[pre-commit](https://pre-commit.com/) is a good fit for checks that should fail quickly and early: formatting, text hygiene, YAML validation, workflow checks, and similar lightweight tasks. This is important because such checks are often the first things to drift when repositories have no shared local enforcement path.
 
-**S-CORE**
+In S-CORE, custom hooks are published through [eclipse-score/tooling](https://github.com/eclipse-score/tooling/blob/main/.pre-commit-hooks.yaml) and combined with standard ecosystem hooks. Together with the central devcontainer, that gives repositories a shared mechanism for lightweight local validation before CI. Adoption, hook coverage, and enforcement expectations for these fast checks are still inconsistent across the repository landscape.
 
-- Local tooling (build, test, lint, format) is accessible via the devcontainer without manual host configuration.
-- Shared code-analysis tooling and rule-baseline concerns are covered centrally in [chapter 5](05-static-analysis-infrastructure.md); this chapter focuses only on how contributors access that tooling locally.
-- **Biggest gap**: local tooling outside the devcontainer is not standardized; contributors running natively face an inconsistent setup.
+### 2.2.2 Boundary To Bazel And CI 🟡
 
-### 2.3.1 Common Commands & Entry Points
+*Clarifying what stays local, what belongs in Bazel, and what remains CI-only.*
 
-*Giving contributors consistent ways to invoke build, test, documentation, and analysis workflows locally.*
+The local auxiliary layer needs a clear boundary or repositories will duplicate checks, force unsuitable tasks through lightweight hooks, or blur the line between convenience and authoritative enforcement. The infrastructure question here is not to make every check identical, but to define the right delivery layer for each kind of check.
 
-**S-CORE**
-
-- Shared invocation patterns are especially valuable when infrastructure changes span multiple repositories.
-- **Biggest gap**: there is no clearly documented project-wide convention for which local commands every repository should expose.
-
-## 2.4 Pre-commit Validation 🟠
-
-*Local validation hooks that check code quality before submission.*
-
-**S-CORE**
-
-- [pre-commit](https://pre-commit.com/) hooks validate code locally before push, catching issues such as missing copyright headers or wrong formatting without a CI round-trip.
-- Custom S-CORE pre-commit hooks are provided via [eclipse-score/tooling](https://github.com/eclipse-score/tooling/blob/main/.pre-commit-hooks.yaml).
-- Existing ecosystem pre-commit hooks are used where available; no proprietary mirrors of public hooks are maintained.
-- Pre-commit is one local entry point for shared checks; the policy for which code-analysis checks belong there is defined in [chapter 5](05-static-analysis-infrastructure.md).
-- **Biggest gap**: pre-commit adoption and hook coverage are not uniformly enforced across all S-CORE repositories.
+In S-CORE, the current practical split is that surrounding-tool checks run directly in the shared devcontainer or via pre-commit, while deeper repository-native validation stays with the repository's main build or test flow and final enforcement stays in CI. For "dependable element" repositories that usually means Bazel, but other repositories may use different local execution paths.
