@@ -68,11 +68,5 @@ mindmap
         node_051[&quot;10.2 Infrastructure Monitoring ⚪&quot;]
         node_052[&quot;10.3 Infrastructure Maintenance ⚪&quot;]
         node_053[&quot;10.4 Infrastructure Governance ⚪&quot;]
-    legend[&quot;Status Legend&quot;]
-      status_green[&quot;🟢 Implemented and effective&quot;]
-      status_yellow[&quot;🟡 Partially implemented / needs improvement&quot;]
-      status_orange[&quot;🟠 Implemented but problematic or insufficient&quot;]
-      status_red[&quot;🔴 Not started&quot;]
-      status_unknown[&quot;⚪ Unknown / not yet assessed&quot;]
 </div>
 </div>

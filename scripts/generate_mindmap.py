@@ -122,17 +122,6 @@ def render_mindmap(chapters: list[Section]) -> str:
     for chapter in support_chapters:
         emit_section(chapter, lines, "      ", node_ids)
 
-    lines.extend(
-        [
-            '    legend["Status Legend"]',
-            '      status_green["🟢 Implemented and effective"]',
-            '      status_yellow["🟡 Partially implemented / needs improvement"]',
-            '      status_orange["🟠 Implemented but problematic or insufficient"]',
-            '      status_red["🔴 Not started"]',
-            '      status_unknown["⚪ Unknown / not yet assessed"]',
-        ]
-    )
-
     return "\n".join(lines)
 
 
