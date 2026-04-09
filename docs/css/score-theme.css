@@ -191,6 +191,31 @@ a:hover,
     line-height: 1.5;
 }
 
+.mindmap-note {
+    margin: 0 0 1rem;
+    color: #5f5f5f;
+}
+
+.mindmap-shell {
+    overflow-x: auto;
+    margin: 1rem 0 2rem;
+    padding: 0.75rem;
+    border: 1px solid rgba(45, 25, 66, 0.12);
+    border-radius: 14px;
+    background:
+        radial-gradient(circle at top right, rgba(163, 130, 197, 0.12), transparent 38%),
+        linear-gradient(180deg, rgba(124, 77, 170, 0.04), rgba(45, 25, 66, 0.02));
+}
+
+.mindmap-shell .mermaid {
+    width: max-content;
+    min-width: 100%;
+}
+
+.mindmap-shell svg {
+    max-width: none;
+}
+
 @media screen and (max-width: 900px) {
     .landing-grid-2,
     .landing-grid-3 {

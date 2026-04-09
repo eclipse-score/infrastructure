@@ -33,6 +33,7 @@ markdown_extensions:
 
 nav:
   - Overview: index.md
+  - Mindmap: mindmap.md
   - Chapters:
       - 1. Source Code Infrastructure: 01-source-code-infrastructure.md
       - 2. Developer Environment: 02-developer-environment.md

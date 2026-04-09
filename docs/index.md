@@ -97,6 +97,8 @@ click C9 href "09-documentation-infrastructure/" "Open chapter 9"
 click C10 href "10-infrastructure-operations/" "Open chapter 10"
 ```
 
+Need the full chapter hierarchy instead of the high-level flow? Open the [Infrastructure Mindmap](mindmap.md).
+
 ## Status Legend
 
 - 🟢 Implemented and effective
