@@ -8,6 +8,7 @@ from dataclasses import dataclass, field
 from itertools import count
 from pathlib import Path
 import re
+import textwrap
 
 HEADING_RE = re.compile(r"^(#{1,3})\s+(?P<title>.+?)\s*$")
 LINK_RE = re.compile(r"\[([^\]]+)\]\([^)]+\)")
@@ -31,6 +32,25 @@ def repo_root() -> Path:
 def chapter_documents(docs_dir: Path) -> list[Path]:
     """Return the numbered chapter markdown files in sorted order."""
     return sorted(path for path in docs_dir.glob("[0-9][0-9]-*.md") if path.is_file())
+
+
+def wrap_label(text: str, width: int) -> str:
+    """Return text wrapped with Mermaid-friendly HTML line breaks."""
+    lines = textwrap.wrap(
+        text,
+        width=width,
+        break_long_words=False,
+        break_on_hyphens=True,
+    )
+    return "<br/>".join(lines) if lines else text
+
+
+def display_title(section: Section) -> str:
+    """Return a wrapped label while preserving the original heading text."""
+    title = LINK_RE.sub(r"\1", section.title)
+    if section.level == 1:
+        return wrap_label(title, width=22)
+    return wrap_label(title, width=24)
 
 
 def parse_chapter(path: Path) -> Section:
@@ -82,9 +102,16 @@ def mermaid_label(text: str) -> str:
     return plain.replace('"', "'")
 
 
-def emit_leaf(lines: list[str], indent: str, node_id: str, label: str) -> None:
+def emit_leaf(
+    lines: list[str],
+    indent: str,
+    node_id: str,
+    label: str,
+    css_class: str | None = None,
+) -> None:
     """Append a simple quoted Mermaid node."""
-    lines.append(f'{indent}{node_id}["{mermaid_label(label)}"]')
+    suffix = f":::{css_class}" if css_class else ""
+    lines.append(f'{indent}{node_id}["{mermaid_label(label)}"]{suffix}')
 
 
 def emit_section(
@@ -95,7 +122,8 @@ def emit_section(
 ) -> None:
     """Render a section and its nested children as Mermaid mindmap nodes."""
     section_id = f"node_{next(node_ids):03d}"
-    emit_leaf(lines, indent, section_id, section.title)
+    css_class = "mindmap-h1" if section.level == 1 else "mindmap-h2"
+    emit_leaf(lines, indent, section_id, display_title(section), css_class=css_class)
 
     child_indent = f"{indent}  "
 
@@ -105,21 +133,15 @@ def emit_section(
 
 def render_mindmap(chapters: list[Section]) -> str:
     """Render the complete Mermaid mindmap."""
-    flow_chapters = [chapter for chapter in chapters if chapter_number(chapter) <= 8]
-    support_chapters = [chapter for chapter in chapters if chapter_number(chapter) >= 9]
     node_ids = count(1)
 
     lines = [
+        "%%{init: {'themeVariables': {'fontSize': '16px'}}}%%",
         "mindmap",
         '  root((S-CORE Infrastructure))',
-        '    flow["Engineering Flow"]',
     ]
 
-    for chapter in flow_chapters:
-        emit_section(chapter, lines, "      ", node_ids)
-
-    lines.append('    support["Supporting Layers"]')
-    for chapter in support_chapters:
+    for chapter in chapters:
         emit_section(chapter, lines, "      ", node_ids)
 
     return "\n".join(lines)
@@ -140,7 +162,7 @@ def render_page(chapters: list[Section]) -> str:
             "It is generated straight from the `#` and `##` headings in the numbered chapter files.",
             "Run `python3 scripts/generate_mindmap.py` after changing the chapter structure.",
             "",
-            '<p class="mindmap-note">The map is intentionally limited to chapter and section level for readability.</p>',
+            '<p class="mindmap-note">Titles are unchanged; only line breaks and hierarchy styling are used to improve readability.</p>',
             "",
             '<div class="mindmap-shell">',
             '<div class="mermaid">',
