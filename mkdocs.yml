@@ -15,11 +15,12 @@ extra_css:
   - css/score-theme.css
 
 extra_javascript:
-  - https://unpkg.com/mermaid@11.12.2/dist/mermaid.min.js
+  - js/mindmap.js
 
 plugins:
   - search
   - mermaid2:
+      version: '11.12.2'
       arguments:
         securityLevel: loose
 
@@ -33,7 +34,6 @@ markdown_extensions:
 
 nav:
   - Overview: index.md
-  - Mindmap: mindmap.md
   - Chapters:
       - 1. Source Code Infrastructure: 01-source-code-infrastructure.md
       - 2. Developer Environment: 02-developer-environment.md

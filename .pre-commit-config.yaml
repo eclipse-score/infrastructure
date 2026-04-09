@@ -9,8 +9,8 @@ repos:
         files: ^(docs/.*\.md|scripts/aggregate_status\.py)$
         exclude: ^docs/index\.md$
       - id: generate-mindmap
-        name: Generate infrastructure mindmap
+        name: Generate infrastructure chapter map
         entry: python3 scripts/generate_mindmap.py
         language: system
         pass_filenames: false
-        files: ^(docs/[0-9][0-9]-.*\.md|scripts/generate_mindmap\.py)$
+        files: ^(docs/[0-9][0-9]-.*\.md|docs/index\.md|scripts/generate_mindmap\.py)$

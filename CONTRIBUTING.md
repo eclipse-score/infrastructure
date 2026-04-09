@@ -16,9 +16,9 @@ uv run mkdocs build --strict
 
 A contribution is not complete until the documentation still builds cleanly with strict checks.
 
-The numbered chapter files also drive generated artifacts. In particular,
-`docs/mindmap.md` is regenerated automatically by pre-commit whenever the
-chapter heading structure changes. If you are not using pre-commit, run
+The numbered chapter files also drive the generated chapter-map section in
+`docs/index.md`. That section is refreshed automatically by pre-commit whenever
+the chapter heading structure changes. If you are not using pre-commit, run
 `python3 scripts/generate_mindmap.py` manually before committing.
 
 If you use pre-commit locally, install the hooks once with:

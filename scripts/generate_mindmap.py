@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Generate a Mermaid mindmap page from the numbered documentation chapters."""
+"""Generate the overview chapter map from the numbered chapter headings."""
 
 from __future__ import annotations
 
-import html
+import json
 from dataclasses import dataclass, field
 from itertools import count
 from pathlib import Path
@@ -12,6 +12,10 @@ import textwrap
 
 HEADING_RE = re.compile(r"^(#{1,3})\s+(?P<title>.+?)\s*$")
 LINK_RE = re.compile(r"\[([^\]]+)\]\([^)]+\)")
+STATUS_RE = re.compile(r"\s+[🟢🟡🟠🔴⚪]$")
+CHAPTER_NUMBER_RE = re.compile(r"^(?P<number>\d+)\s+")
+INDEX_MAP_START = "<!-- BEGIN GENERATED CHAPTER MAP -->"
+INDEX_MAP_END = "<!-- END GENERATED CHAPTER MAP -->"
 
 
 @dataclass
@@ -20,6 +24,7 @@ class Section:
 
     level: int
     title: str
+    source_path: Path
     children: list["Section"] = field(default_factory=list)
 
 
@@ -31,6 +36,16 @@ def repo_root() -> Path:
 def chapter_documents(docs_dir: Path) -> list[Path]:
     """Return the numbered chapter markdown files in sorted order."""
     return sorted(path for path in docs_dir.glob("[0-9][0-9]-*.md") if path.is_file())
+
+
+def plain_title(text: str) -> str:
+    """Return a title without markdown link syntax."""
+    return " ".join(LINK_RE.sub(r"\1", text).split()).strip()
+
+
+def clean_title(text: str) -> str:
+    """Return a title without markdown links or trailing status marker."""
+    return STATUS_RE.sub("", plain_title(text)).strip()
 
 
 def wrap_label(text: str, width: int) -> str:
@@ -45,11 +60,34 @@ def wrap_label(text: str, width: int) -> str:
 
 
 def display_title(section: Section) -> str:
-    """Return a wrapped label while preserving the original heading text."""
-    title = LINK_RE.sub(r"\1", section.title)
+    """Return a wrapped display label while preserving the original title."""
     if section.level == 1:
-        return wrap_label(title, width=22)
-    return wrap_label(title, width=24)
+        return wrap_label(plain_title(section.title), width=24)
+    return wrap_label(plain_title(section.title), width=26)
+
+
+def heading_anchor(title: str) -> str:
+    """Return the MkDocs-compatible fragment identifier for a heading."""
+    normalized = clean_title(title).lower().replace(".", "")
+    normalized = re.sub(r"[^0-9a-z]+", "-", normalized)
+    normalized = re.sub(r"-+", "-", normalized)
+    return normalized.strip("-")
+
+
+def section_href(section: Section) -> str:
+    """Return the relative href for a section node."""
+    base = f"{section.source_path.stem}/"
+    if section.level == 1:
+        return base
+    return f"{base}#{heading_anchor(section.title)}"
+
+
+def chapter_number(section: Section) -> int:
+    """Return the leading chapter number from a top-level chapter title."""
+    match = CHAPTER_NUMBER_RE.match(section.title)
+    if match is None:
+        raise ValueError(f"Chapter title does not start with a number: {section.title}")
+    return int(match.group("number"))
 
 
 def parse_chapter(path: Path) -> Section:
@@ -67,6 +105,7 @@ def parse_chapter(path: Path) -> Section:
             Section(
                 level=level,
                 title=" ".join(match.group("title").split()),
+                source_path=path,
             )
         )
 
@@ -89,18 +128,7 @@ def parse_chapter(path: Path) -> Section:
 
 def mermaid_label(text: str) -> str:
     """Return text safe for a Mermaid quoted node label."""
-    plain = LINK_RE.sub(r"\1", text)
-    return plain.replace('"', "'")
-
-
-def emit_leaf(
-    lines: list[str],
-    indent: str,
-    node_id: str,
-    label: str,
-) -> None:
-    """Append a simple quoted Mermaid node."""
-    lines.append(f'{indent}{node_id}["{mermaid_label(label)}"]')
+    return plain_title(text).replace('"', "'")
 
 
 def emit_section(
@@ -108,68 +136,84 @@ def emit_section(
     lines: list[str],
     indent: str,
     node_ids: count,
+    links: list[dict[str, object]],
 ) -> None:
-    """Render a section and its nested children as Mermaid mindmap nodes."""
-    section_id = f"node_{next(node_ids):03d}"
-    emit_leaf(lines, indent, section_id, display_title(section))
-
-    child_indent = f"{indent}  "
+    """Render a section and its H2 children as Mermaid mindmap nodes."""
+    node_id = f"node_{next(node_ids):03d}"
+    lines.append(f'{indent}{node_id}["{mermaid_label(display_title(section))}"]')
+    links.append(
+        {
+            "id": node_id,
+            "kind": "chapter" if section.level == 1 else "section",
+            "href": section_href(section),
+            "title": clean_title(section.title),
+            "match_texts": [plain_title(section.title), clean_title(section.title)],
+        }
+    )
 
     for child in section.children:
-        emit_section(child, lines, child_indent, node_ids)
+        emit_section(child, lines, f"{indent}  ", node_ids, links)
 
 
-def render_mindmap(chapters: list[Section]) -> str:
-    """Render the complete Mermaid mindmap."""
+def render_mindmap(chapters: list[Section]) -> tuple[str, list[dict[str, object]]]:
+    """Render a Mermaid mindmap plus its link metadata."""
     node_ids = count(1)
-
+    links: list[dict[str, object]] = []
     lines = [
         "%%{init: {'themeVariables': {'fontSize': '16px'}}}%%",
         "mindmap",
-        '  root((S-CORE Infrastructure))',
+        "  root((S-CORE Infrastructure))",
     ]
 
     for chapter in chapters:
-        emit_section(chapter, lines, "      ", node_ids)
+        emit_section(chapter, lines, "    ", node_ids, links)
 
-    return "\n".join(lines)
+    return "\n".join(lines), links
 
 
-def render_page(chapters: list[Section]) -> str:
-    """Return the markdown page that hosts the Mermaid mindmap."""
-    diagram = html.escape(render_mindmap(chapters))
-
+def render_embed(chapters: list[Section]) -> str:
+    """Return the generated overview-page chapter map markup."""
+    diagram, links = render_mindmap(chapters)
+    link_data = json.dumps(links, ensure_ascii=False, separators=(",", ":"))
     return "\n".join(
         [
-            "<!-- Generated by scripts/generate_mindmap.py. Do not edit manually. -->",
+            INDEX_MAP_START,
+            '<p class="chapter-map-note">This chapter map is generated from the `#` and `##` headings in the numbered chapter files. Click any chapter or section box to open it.</p>',
             "",
-            "# Infrastructure Mindmap",
-            "",
-            "This page turns the numbered infrastructure chapters into one large Mermaid mindmap.",
-            "",
-            "It is generated straight from the `#` and `##` headings in the numbered chapter files.",
-            "Run `python3 scripts/generate_mindmap.py` after changing the chapter structure.",
-            "",
-            '<p class="mindmap-note">Titles are unchanged; only line breaks and hierarchy styling are used to improve readability.</p>',
-            "",
-            '<div class="mindmap-shell">',
-            '<div class="mermaid">',
+            "```mermaid",
             diagram,
-            "</div>",
-            "</div>",
-            "",
+            "```",
+            f'<script type="application/json" class="chapter-map-links-data">{link_data}</script>',
+            INDEX_MAP_END,
         ]
     )
 
 
+def update_index_page(index_path: Path, chapters: list[Section]) -> bool:
+    """Replace the generated chapter-map block in the overview page."""
+    original = index_path.read_text(encoding="utf-8")
+    pattern = re.compile(
+        rf"{re.escape(INDEX_MAP_START)}.*?{re.escape(INDEX_MAP_END)}",
+        re.DOTALL,
+    )
+    replacement = render_embed(chapters)
+    updated, count = pattern.subn(replacement, original, count=1)
+    if count != 1:
+        raise ValueError(f"Could not find generated chapter-map markers in {index_path}")
+    if updated == original:
+        return False
+    index_path.write_text(updated, encoding="utf-8")
+    return True
+
+
 def main() -> int:
-    """Generate the docs mindmap page and return a shell-friendly exit code."""
+    """Generate the overview chapter map and return a shell-friendly exit code."""
     docs_dir = repo_root() / "docs"
-    output_path = docs_dir / "mindmap.md"
+    index_path = docs_dir / "index.md"
 
     chapters = [parse_chapter(path) for path in chapter_documents(docs_dir)]
-    output_path.write_text(render_page(chapters), encoding="utf-8")
-    print(f"Updated {output_path}")
+    _ = update_index_page(index_path, chapters)
+    print(f"Updated {index_path}")
     return 0
 
 
