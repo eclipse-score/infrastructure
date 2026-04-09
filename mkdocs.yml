@@ -16,7 +16,6 @@ extra_css:
 
 extra_javascript:
   - https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs
-  - js/mindmap.js
 
 plugins:
   - search

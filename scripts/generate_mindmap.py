@@ -3,17 +3,15 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 import html
+from dataclasses import dataclass, field
 from itertools import count
-import json
 from pathlib import Path
 import re
 
 HEADING_RE = re.compile(r"^(#{1,3})\s+(?P<title>.+?)\s*$")
 LINK_RE = re.compile(r"\[([^\]]+)\]\([^)]+\)")
 CHAPTER_TITLE_RE = re.compile(r"^(?P<number>\d+)\s+")
-STATUS_RE = re.compile(r"\s+[🟢🟡🟠🔴⚪]$")
 
 
 @dataclass
@@ -22,7 +20,6 @@ class Section:
 
     level: int
     title: str
-    source_path: Path
     children: list["Section"] = field(default_factory=list)
 
 
@@ -36,47 +33,21 @@ def chapter_documents(docs_dir: Path) -> list[Path]:
     return sorted(path for path in docs_dir.glob("[0-9][0-9]-*.md") if path.is_file())
 
 
-def clean_title(text: str) -> str:
-    """Return a title without markdown links or trailing status markers."""
-    plain = LINK_RE.sub(r"\1", text)
-    plain = STATUS_RE.sub("", plain)
-    return " ".join(plain.split()).strip()
-
-
-def heading_anchor(title: str) -> str:
-    """Return the MkDocs-compatible fragment identifier for a heading."""
-    normalized = clean_title(title).lower().replace(".", "")
-    normalized = re.sub(r"[^0-9a-z]+", "-", normalized)
-    normalized = re.sub(r"-+", "-", normalized)
-    return normalized.strip("-")
-
-
-def page_href(source_path: Path) -> str:
-    """Return the relative href from the mindmap page to a chapter page."""
-    return f"../{source_path.stem}/"
-
-
-def section_href(section: Section) -> str:
-    """Return the relative href for a section node."""
-    href = page_href(section.source_path)
-    if section.level == 1:
-        return href
-    return f"{href}#{heading_anchor(section.title)}"
-
-
 def parse_chapter(path: Path) -> Section:
-    """Parse a chapter markdown file into a nested heading tree."""
+    """Parse a chapter markdown file into a nested H1/H2 heading tree."""
     sections: list[Section] = []
 
     for line in path.read_text(encoding="utf-8").splitlines():
         match = HEADING_RE.match(line)
         if match is None:
             continue
+        level = len(match.group(1))
+        if level > 2:
+            continue
         sections.append(
             Section(
-                level=len(match.group(1)),
+                level=level,
                 title=" ".join(match.group("title").split()),
-                source_path=path,
             )
         )
 
@@ -121,32 +92,22 @@ def emit_section(
     lines: list[str],
     indent: str,
     node_ids: count,
-    node_links: list[dict[str, str]],
 ) -> None:
     """Render a section and its nested children as Mermaid mindmap nodes."""
     section_id = f"node_{next(node_ids):03d}"
     emit_leaf(lines, indent, section_id, section.title)
-    node_links.append(
-        {
-            "id": section_id,
-            "label": section.title,
-            "ariaLabel": clean_title(section.title),
-            "href": section_href(section),
-        }
-    )
 
     child_indent = f"{indent}  "
 
     for child in section.children:
-        emit_section(child, lines, child_indent, node_ids, node_links)
+        emit_section(child, lines, child_indent, node_ids)
 
 
-def render_mindmap(chapters: list[Section]) -> tuple[str, list[dict[str, str]]]:
-    """Render the complete Mermaid mindmap and collect clickable targets."""
+def render_mindmap(chapters: list[Section]) -> str:
+    """Render the complete Mermaid mindmap."""
     flow_chapters = [chapter for chapter in chapters if chapter_number(chapter) <= 8]
     support_chapters = [chapter for chapter in chapters if chapter_number(chapter) >= 9]
     node_ids = count(1)
-    node_links: list[dict[str, str]] = []
 
     lines = [
         "mindmap",
@@ -155,11 +116,11 @@ def render_mindmap(chapters: list[Section]) -> tuple[str, list[dict[str, str]]]:
     ]
 
     for chapter in flow_chapters:
-        emit_section(chapter, lines, "      ", node_ids, node_links)
+        emit_section(chapter, lines, "      ", node_ids)
 
     lines.append('    support["Supporting Layers"]')
     for chapter in support_chapters:
-        emit_section(chapter, lines, "      ", node_ids, node_links)
+        emit_section(chapter, lines, "      ", node_ids)
 
     lines.extend(
         [
@@ -172,14 +133,12 @@ def render_mindmap(chapters: list[Section]) -> tuple[str, list[dict[str, str]]]:
         ]
     )
 
-    return "\n".join(lines), node_links
+    return "\n".join(lines)
 
 
 def render_page(chapters: list[Section]) -> str:
     """Return the markdown page that hosts the Mermaid mindmap."""
-    diagram_text, node_links = render_mindmap(chapters)
-    diagram = html.escape(diagram_text)
-    links_json = json.dumps(node_links, ensure_ascii=False, indent=2)
+    diagram = html.escape(render_mindmap(chapters))
 
     return "\n".join(
         [
@@ -189,30 +148,16 @@ def render_page(chapters: list[Section]) -> str:
             "",
             "This page turns the numbered infrastructure chapters into one large Mermaid mindmap.",
             "",
-            "It is generated straight from the `#`, `##`, and `###` headings in the numbered chapter files.",
+            "It is generated straight from the `#` and `##` headings in the numbered chapter files.",
             "Run `python3 scripts/generate_mindmap.py` after changing the chapter structure.",
             "",
-            '<p class="mindmap-note">Click a chapter or section box to open it. Use the controls to zoom, and drag the resize handle if you want a taller canvas.</p>',
+            '<p class="mindmap-note">The map is intentionally limited to chapter and section level for readability.</p>',
             "",
-            '<div class="mindmap-toolbar" role="toolbar" aria-label="Mindmap controls">',
-            '  <button type="button" class="mindmap-button" data-zoom-action="out" aria-label="Zoom out">-</button>',
-            '  <button type="button" class="mindmap-button" data-zoom-action="reset">Reset</button>',
-            '  <button type="button" class="mindmap-button" data-zoom-action="in" aria-label="Zoom in">+</button>',
-            '  <button type="button" class="mindmap-button" data-zoom-action="fit">Fit</button>',
-            '  <span class="mindmap-scale" aria-live="polite">120%</span>',
-            "</div>",
-            "",
-            '<div class="mindmap-shell" data-default-scale="1.2">',
-            '<div class="mindmap-frame">',
+            '<div class="mindmap-shell">',
             '<div class="mermaid">',
             diagram,
             "</div>",
             "</div>",
-            "</div>",
-            "",
-            '<script type="application/json" id="mindmap-links">',
-            links_json,
-            "</script>",
             "",
         ]
     )
