@@ -196,24 +196,86 @@ a:hover,
     color: #5f5f5f;
 }
 
+.mindmap-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin: 0 0 0.85rem;
+}
+
+.mindmap-button {
+    border: 1px solid rgba(45, 25, 66, 0.18);
+    border-radius: 999px;
+    background: #ffffff;
+    color: var(--score-header);
+    font: inherit;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.45rem 0.8rem;
+    transition:
+        background-color 120ms ease,
+        border-color 120ms ease,
+        transform 120ms ease;
+}
+
+.mindmap-button:hover,
+.mindmap-button:focus-visible {
+    background: rgba(124, 77, 170, 0.08);
+    border-color: rgba(124, 77, 170, 0.38);
+    outline: none;
+}
+
+.mindmap-button:active {
+    transform: translateY(1px);
+}
+
+.mindmap-scale {
+    min-width: 3.8rem;
+    color: var(--score-header);
+    font-weight: 700;
+    text-align: center;
+}
+
 .mindmap-shell {
     overflow-x: auto;
+    overflow-y: auto;
     margin: 1rem 0 2rem;
     padding: 0.75rem;
+    height: 75vh;
+    min-height: 34rem;
     border: 1px solid rgba(45, 25, 66, 0.12);
     border-radius: 14px;
+    resize: vertical;
     background:
         radial-gradient(circle at top right, rgba(163, 130, 197, 0.12), transparent 38%),
         linear-gradient(180deg, rgba(124, 77, 170, 0.04), rgba(45, 25, 66, 0.02));
 }
 
+.mindmap-frame,
 .mindmap-shell .mermaid {
     width: max-content;
     min-width: 100%;
+    min-height: 100%;
 }
 
 .mindmap-shell svg {
+    display: block;
     max-width: none;
+}
+
+.mindmap-clickable {
+    cursor: pointer;
+}
+
+.mindmap-clickable:focus {
+    outline: none;
+}
+
+.mindmap-clickable:hover :is(rect, circle, ellipse, polygon, path),
+.mindmap-clickable:focus :is(rect, circle, ellipse, polygon, path) {
+    filter: drop-shadow(0 0 0.35rem rgba(124, 77, 170, 0.28));
 }
 
 @media screen and (max-width: 900px) {
@@ -224,5 +286,10 @@ a:hover,
 
     .landing-hero h2 {
         font-size: 1.6rem;
+    }
+
+    .mindmap-shell {
+        height: 65vh;
+        min-height: 28rem;
     }
 }
