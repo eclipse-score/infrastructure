@@ -3,8 +3,14 @@ repos:
     hooks:
       - id: aggregate-status
         name: Aggregate chapter statuses
-        entry: python scripts/aggregate_status.py
-        language: python
+        entry: python3 scripts/aggregate_status.py
+        language: system
         pass_filenames: false
         files: ^(docs/.*\.md|scripts/aggregate_status\.py)$
         exclude: ^docs/index\.md$
+      - id: generate-mindmap
+        name: Generate infrastructure mindmap
+        entry: python3 scripts/generate_mindmap.py
+        language: system
+        pass_filenames: false
+        files: ^(docs/[0-9][0-9]-.*\.md|scripts/generate_mindmap\.py)$

@@ -16,6 +16,17 @@ uv run mkdocs build --strict
 
 A contribution is not complete until the documentation still builds cleanly with strict checks.
 
+The numbered chapter files also drive generated artifacts. In particular,
+`docs/mindmap.md` is regenerated automatically by pre-commit whenever the
+chapter heading structure changes. If you are not using pre-commit, run
+`python3 scripts/generate_mindmap.py` manually before committing.
+
+If you use pre-commit locally, install the hooks once with:
+
+```bash
+pre-commit install
+```
+
 ## Documentation Style
 
 Prefer short prose over long bullet lists. Bullets are useful for genuinely list-shaped content such as commands, checklists, or grouped links, but explanatory sections should read like normal English.
