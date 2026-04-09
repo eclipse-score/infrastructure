@@ -107,11 +107,9 @@ def emit_leaf(
     indent: str,
     node_id: str,
     label: str,
-    css_class: str | None = None,
 ) -> None:
     """Append a simple quoted Mermaid node."""
-    suffix = f":::{css_class}" if css_class else ""
-    lines.append(f'{indent}{node_id}["{mermaid_label(label)}"]{suffix}')
+    lines.append(f'{indent}{node_id}["{mermaid_label(label)}"]')
 
 
 def emit_section(
@@ -122,8 +120,7 @@ def emit_section(
 ) -> None:
     """Render a section and its nested children as Mermaid mindmap nodes."""
     section_id = f"node_{next(node_ids):03d}"
-    css_class = "mindmap-h1" if section.level == 1 else "mindmap-h2"
-    emit_leaf(lines, indent, section_id, display_title(section), css_class=css_class)
+    emit_leaf(lines, indent, section_id, display_title(section))
 
     child_indent = f"{indent}  "
 

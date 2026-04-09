@@ -220,18 +220,6 @@ a:hover,
     max-width: none;
 }
 
-.mindmap-shell .mindmap-h1,
-.mindmap-shell .mindmap-h1 :is(text, tspan, foreignObject, span) {
-    font-size: 1.08rem;
-    font-weight: 700;
-}
-
-.mindmap-shell .mindmap-h2,
-.mindmap-shell .mindmap-h2 :is(text, tspan, foreignObject, span) {
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
 @media screen and (max-width: 900px) {
     .landing-grid-2,
     .landing-grid-3 {

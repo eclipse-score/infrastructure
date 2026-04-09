@@ -14,58 +14,58 @@ Run `python3 scripts/generate_mindmap.py` after changing the chapter structure.
 %%{init: {&#x27;themeVariables&#x27;: {&#x27;fontSize&#x27;: &#x27;16px&#x27;}}}%%
 mindmap
   root((S-CORE Infrastructure))
-      node_001[&quot;1 Source Code&lt;br/&gt;Infrastructure 🟠&quot;]:::mindmap-h1
-        node_002[&quot;1.1 Hosting &amp;&lt;br/&gt;Organization ⚪&quot;]:::mindmap-h2
-        node_003[&quot;1.2 Repository&lt;br/&gt;Provisioning &amp; Lifecycle&lt;br/&gt;🟡&quot;]:::mindmap-h2
-        node_004[&quot;1.3 Repository Policy&lt;br/&gt;Management 🔴&quot;]:::mindmap-h2
-        node_005[&quot;1.4 Repository Standards&lt;br/&gt;🟠&quot;]:::mindmap-h2
-      node_006[&quot;2 Developer&lt;br/&gt;Environment 🟡&quot;]:::mindmap-h1
-        node_007[&quot;2.1 Central Devcontainer&lt;br/&gt;🟠&quot;]:::mindmap-h2
-        node_008[&quot;2.2 Local Auxiliary&lt;br/&gt;Tooling 🟡&quot;]:::mindmap-h2
-      node_009[&quot;3 Build &amp; Dependencies&lt;br/&gt;⚪&quot;]:::mindmap-h1
-        node_010[&quot;3.1 Build System ⚪&quot;]:::mindmap-h2
-        node_011[&quot;3.2 Dependency&lt;br/&gt;Management ⚪&quot;]:::mindmap-h2
-        node_012[&quot;3.3 Toolchain Management&lt;br/&gt;⚪&quot;]:::mindmap-h2
-        node_013[&quot;3.4 Build&lt;br/&gt;Reproducibility &amp;&lt;br/&gt;Evidence ⚪&quot;]:::mindmap-h2
-        node_014[&quot;3.5 Build Execution&lt;br/&gt;Infrastructure ⚪&quot;]:::mindmap-h2
-      node_015[&quot;4 Testing ⚪&quot;]:::mindmap-h1
-        node_016[&quot;4.1 Test Levels ⚪&quot;]:::mindmap-h2
-        node_017[&quot;4.2 Test Framework&lt;br/&gt;Integration ⚪&quot;]:::mindmap-h2
-        node_018[&quot;4.3 Test Traceability ⚪&quot;]:::mindmap-h2
-        node_019[&quot;4.4 Test Execution &amp;&lt;br/&gt;Dynamic Analysis ⚪&quot;]:::mindmap-h2
-        node_020[&quot;4.5 Test Reporting ⚪&quot;]:::mindmap-h2
-      node_021[&quot;5 Code Analysis&lt;br/&gt;Infrastructure ⚪&quot;]:::mindmap-h1
-        node_022[&quot;5.1 Tooling Baseline ⚪&quot;]:::mindmap-h2
-        node_023[&quot;5.2 Shared Rule&lt;br/&gt;Configuration ⚪&quot;]:::mindmap-h2
-        node_024[&quot;5.3 Execution Model ⚪&quot;]:::mindmap-h2
-        node_025[&quot;5.4 Security Scanning ⚪&quot;]:::mindmap-h2
-        node_026[&quot;5.5 Results and&lt;br/&gt;Governance ⚪&quot;]:::mindmap-h2
-      node_027[&quot;6 Dependency Analysis&lt;br/&gt;Infrastructure ⚪&quot;]:::mindmap-h1
-        node_028[&quot;6.1 Analysis Scope &amp;&lt;br/&gt;Inputs ⚪&quot;]:::mindmap-h2
-        node_029[&quot;6.2 Development-Time&lt;br/&gt;Dependency Analysis ⚪&quot;]:::mindmap-h2
-        node_030[&quot;6.3 Continuous Artifact&lt;br/&gt;Monitoring ⚪&quot;]:::mindmap-h2
-        node_031[&quot;6.4 Findings &amp;&lt;br/&gt;Governance ⚪&quot;]:::mindmap-h2
-      node_032[&quot;7 Automation&lt;br/&gt;Infrastructure &amp;&lt;br/&gt;Continuous Integration&lt;br/&gt;(CI) ⚪&quot;]:::mindmap-h1
-        node_033[&quot;7.1 Runners 🟠&quot;]:::mindmap-h2
-        node_034[&quot;7.2 Reusable Workflows ⚪&quot;]:::mindmap-h2
-        node_035[&quot;7.3 Cross-Repository&lt;br/&gt;Integration ⚪&quot;]:::mindmap-h2
-        node_036[&quot;7.4 Secrets Management ⚪&quot;]:::mindmap-h2
-        node_037[&quot;7.5 CI Observability ⚪&quot;]:::mindmap-h2
-      node_038[&quot;8 Release &amp;&lt;br/&gt;Distribution ⚪&quot;]:::mindmap-h1
-        node_039[&quot;8.1 Deliverable Types ⚪&quot;]:::mindmap-h2
-        node_040[&quot;8.2 Distribution&lt;br/&gt;Channels ⚪&quot;]:::mindmap-h2
-        node_041[&quot;8.3 Release Metadata ⚪&quot;]:::mindmap-h2
-        node_042[&quot;8.4 Consumer Access ⚪&quot;]:::mindmap-h2
-        node_043[&quot;8.5 Post-Release&lt;br/&gt;Communication &amp; Response&lt;br/&gt;⚪&quot;]:::mindmap-h2
-      node_044[&quot;9 Documentation &amp;&lt;br/&gt;Traceability ⚪&quot;]:::mindmap-h1
-        node_045[&quot;9.1 Authoring &amp; Tooling&lt;br/&gt;⚪&quot;]:::mindmap-h2
-        node_046[&quot;9.2 Build, Validation &amp;&lt;br/&gt;Publishing ⚪&quot;]:::mindmap-h2
-        node_047[&quot;9.3 Cross-Repository&lt;br/&gt;Documentation&lt;br/&gt;Integration ⚪&quot;]:::mindmap-h2
-        node_048[&quot;9.4 Engineering&lt;br/&gt;Documentation &amp;&lt;br/&gt;Traceability ⚪&quot;]:::mindmap-h2
-      node_049[&quot;10 Infrastructure&lt;br/&gt;Operations ⚪&quot;]:::mindmap-h1
-        node_050[&quot;10.1 CI Runner&lt;br/&gt;Operations ⚪&quot;]:::mindmap-h2
-        node_051[&quot;10.2 Infrastructure&lt;br/&gt;Monitoring ⚪&quot;]:::mindmap-h2
-        node_052[&quot;10.3 Infrastructure&lt;br/&gt;Maintenance ⚪&quot;]:::mindmap-h2
-        node_053[&quot;10.4 Infrastructure&lt;br/&gt;Governance ⚪&quot;]:::mindmap-h2
+      node_001[&quot;1 Source Code&lt;br/&gt;Infrastructure 🟠&quot;]
+        node_002[&quot;1.1 Hosting &amp;&lt;br/&gt;Organization ⚪&quot;]
+        node_003[&quot;1.2 Repository&lt;br/&gt;Provisioning &amp; Lifecycle&lt;br/&gt;🟡&quot;]
+        node_004[&quot;1.3 Repository Policy&lt;br/&gt;Management 🔴&quot;]
+        node_005[&quot;1.4 Repository Standards&lt;br/&gt;🟠&quot;]
+      node_006[&quot;2 Developer&lt;br/&gt;Environment 🟡&quot;]
+        node_007[&quot;2.1 Central Devcontainer&lt;br/&gt;🟠&quot;]
+        node_008[&quot;2.2 Local Auxiliary&lt;br/&gt;Tooling 🟡&quot;]
+      node_009[&quot;3 Build &amp; Dependencies&lt;br/&gt;⚪&quot;]
+        node_010[&quot;3.1 Build System ⚪&quot;]
+        node_011[&quot;3.2 Dependency&lt;br/&gt;Management ⚪&quot;]
+        node_012[&quot;3.3 Toolchain Management&lt;br/&gt;⚪&quot;]
+        node_013[&quot;3.4 Build&lt;br/&gt;Reproducibility &amp;&lt;br/&gt;Evidence ⚪&quot;]
+        node_014[&quot;3.5 Build Execution&lt;br/&gt;Infrastructure ⚪&quot;]
+      node_015[&quot;4 Testing ⚪&quot;]
+        node_016[&quot;4.1 Test Levels ⚪&quot;]
+        node_017[&quot;4.2 Test Framework&lt;br/&gt;Integration ⚪&quot;]
+        node_018[&quot;4.3 Test Traceability ⚪&quot;]
+        node_019[&quot;4.4 Test Execution &amp;&lt;br/&gt;Dynamic Analysis ⚪&quot;]
+        node_020[&quot;4.5 Test Reporting ⚪&quot;]
+      node_021[&quot;5 Code Analysis&lt;br/&gt;Infrastructure ⚪&quot;]
+        node_022[&quot;5.1 Tooling Baseline ⚪&quot;]
+        node_023[&quot;5.2 Shared Rule&lt;br/&gt;Configuration ⚪&quot;]
+        node_024[&quot;5.3 Execution Model ⚪&quot;]
+        node_025[&quot;5.4 Security Scanning ⚪&quot;]
+        node_026[&quot;5.5 Results and&lt;br/&gt;Governance ⚪&quot;]
+      node_027[&quot;6 Dependency Analysis&lt;br/&gt;Infrastructure ⚪&quot;]
+        node_028[&quot;6.1 Analysis Scope &amp;&lt;br/&gt;Inputs ⚪&quot;]
+        node_029[&quot;6.2 Development-Time&lt;br/&gt;Dependency Analysis ⚪&quot;]
+        node_030[&quot;6.3 Continuous Artifact&lt;br/&gt;Monitoring ⚪&quot;]
+        node_031[&quot;6.4 Findings &amp;&lt;br/&gt;Governance ⚪&quot;]
+      node_032[&quot;7 Automation&lt;br/&gt;Infrastructure &amp;&lt;br/&gt;Continuous Integration&lt;br/&gt;(CI) ⚪&quot;]
+        node_033[&quot;7.1 Runners 🟠&quot;]
+        node_034[&quot;7.2 Reusable Workflows ⚪&quot;]
+        node_035[&quot;7.3 Cross-Repository&lt;br/&gt;Integration ⚪&quot;]
+        node_036[&quot;7.4 Secrets Management ⚪&quot;]
+        node_037[&quot;7.5 CI Observability ⚪&quot;]
+      node_038[&quot;8 Release &amp;&lt;br/&gt;Distribution ⚪&quot;]
+        node_039[&quot;8.1 Deliverable Types ⚪&quot;]
+        node_040[&quot;8.2 Distribution&lt;br/&gt;Channels ⚪&quot;]
+        node_041[&quot;8.3 Release Metadata ⚪&quot;]
+        node_042[&quot;8.4 Consumer Access ⚪&quot;]
+        node_043[&quot;8.5 Post-Release&lt;br/&gt;Communication &amp; Response&lt;br/&gt;⚪&quot;]
+      node_044[&quot;9 Documentation &amp;&lt;br/&gt;Traceability ⚪&quot;]
+        node_045[&quot;9.1 Authoring &amp; Tooling&lt;br/&gt;⚪&quot;]
+        node_046[&quot;9.2 Build, Validation &amp;&lt;br/&gt;Publishing ⚪&quot;]
+        node_047[&quot;9.3 Cross-Repository&lt;br/&gt;Documentation&lt;br/&gt;Integration ⚪&quot;]
+        node_048[&quot;9.4 Engineering&lt;br/&gt;Documentation &amp;&lt;br/&gt;Traceability ⚪&quot;]
+      node_049[&quot;10 Infrastructure&lt;br/&gt;Operations ⚪&quot;]
+        node_050[&quot;10.1 CI Runner&lt;br/&gt;Operations ⚪&quot;]
+        node_051[&quot;10.2 Infrastructure&lt;br/&gt;Monitoring ⚪&quot;]
+        node_052[&quot;10.3 Infrastructure&lt;br/&gt;Maintenance ⚪&quot;]
+        node_053[&quot;10.4 Infrastructure&lt;br/&gt;Governance ⚪&quot;]
 </div>
 </div>
