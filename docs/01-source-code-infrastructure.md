@@ -13,6 +13,7 @@
 - A common organization location makes repositories easier to discover, relate, and govern consistently.
 - Shared hosting also enables organization-level settings, applications, and automation to be managed centrally.
 - Discoverability depends not only on hosting location but also on repository naming, metadata, topics, and consistent descriptions.
+- The organization start page, served through [eclipse-score/.github](https://github.com/eclipse-score/.github), is also part of that discoverability surface because it can link readers to shared repository inventories, standards, and other cross-project guidance.
 - Good discovery infrastructure reduces onboarding friction and helps contributors navigate a growing repository landscape.
 - **Biggest gap**: there is no shared discoverability standard for how S-CORE repositories should present themselves in GitHub.
 
@@ -77,6 +78,8 @@ Shared conventions are starting to emerge, but not yet synchronized.
 
 The same template also gives Bazel modules a partial starter baseline for repository-local tooling configuration, such as the initial Bazel wiring, editor settings, and starter workflow files. That helps new Bazel-based repositories begin from a more consistent shape, but it is still only a bootstrap aid for one repository class rather than a cross-project standardization mechanism.
 
+Repository-local tooling configuration is only one part of the broader repository-standard surface. Cross-repository collection and publication of repository facts, adoption, and drift belong with [conformance reporting](#144-conformance-reporting), not as a tooling-only concern.
+
 **Biggest gap**: no clearly enforced baseline/override model exists across repository classes, and the current template-based help is limited to Bazel modules.
 
 ### 1.4.3 Synchronization Mechanisms 🔴
@@ -101,4 +104,6 @@ Migration support matters alongside synchronization, because existing repositori
 - Adoption and drift should be tracked so migration work can be prioritized instead of discovered reactively.
 - Cross-repository reporting should make deviations visible early enough to support planned migration rather than reactive cleanup.
 - Cross-repository consistency of standards and related policy expectations is not yet reliably measured.
+- A practical reporting tool should be able to collect structured repository facts such as the Bazel version or module baseline in use, whether central reusable workflows such as `cicd-workflows/daily.yml` are consumed, whether `pre-commit` is configured, and where repositories intentionally diverge from the shared baseline.
+- One suitable delivery model is generated Markdown stored in [eclipse-score/.github](https://github.com/eclipse-score/.github) and linked from the organization start page at [github.com/eclipse-score](https://github.com/eclipse-score/), so the conformance view becomes part of the normal project discovery surface rather than a hidden internal report.
 - **Biggest gap**: no shared conformance dashboard or report currently shows adoption and drift across the repository landscape.
