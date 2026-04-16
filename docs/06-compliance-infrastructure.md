@@ -6,7 +6,7 @@
 
 **S-CORE**
 
-This chapter is the canonical home for the end-to-end compliance view: how files in a repository, dependency manifests, and manual declarations become classified components, enriched dependency data, scoped SBOMs, later OSS review inputs, and monitoring results. [Chapter 3](03-build-infrastructure.md) still owns how inventories, SBOMs, and other evidence are produced during normal builds. This chapter owns what happens once that raw information needs to be interpreted, enriched, scoped, checked for license and vulnerability concerns, and made useful over time.
+This chapter is the canonical home for the end-to-end compliance view: how files in a repository, dependency manifests, build-generated dependency graphs, and manual declarations become classified components, enriched dependency data, scoped SBOMs, later OSS review inputs, and monitoring results. [Chapter 3](03-build-infrastructure.md) still owns how inventories, SBOMs, and other evidence are produced during normal builds. This chapter owns what happens once that raw information needs to be interpreted, enriched, scoped, checked for license and vulnerability concerns, and made useful over time.
 
 That scope applies not only to product artifacts, but also to self-developed tooling and environment artifacts such as devcontainer images when S-CORE builds and distributes them. Publication and consumer delivery of those artifacts remain the responsibility of [chapter 8](08-artifact-distribution.md), while CI orchestration of the checks described here belongs in [chapter 7](07-automation-integration.md). Some later OSS review steps may be required by downstream distributors rather than by S-CORE itself, but they still depend on the evidence and scoping decisions described here. **Biggest gap**: the pieces of this compliance flow already exist, but they are not yet described and operated as one shared cross-repository capability spanning file-level licensing, dependency enrichment, SBOM scoping, distributor-facing scan inputs, and continuous monitoring.
 
@@ -16,7 +16,7 @@ That scope applies not only to product artifacts, but also to self-developed too
 
 **S-CORE**
 
-The easiest way to understand this chapter is to follow the data from repository state to compliance outcomes. Files in the repository need licensing metadata. Dependency manifests need scanning and occasional manual declarations. Those inputs are then merged, enriched, and turned into SBOMs whose scope depends on whether the resulting component is merely part of the development environment or part of the runtime product. The resulting SBOMs can then feed license-compliance review inside S-CORE, distributor-facing OSS scans where required, and continuous vulnerability monitoring.
+The easiest way to understand this chapter is to follow the data from repository state to compliance outcomes. Files in the repository need licensing metadata. Dependency manifests need scanning and occasional manual declarations. Build systems such as Bazel can also contribute a dependency graph that reflects what the build actually consumes. Those inputs are then merged, enriched, and turned into SBOMs whose scope depends on whether the resulting component is merely part of the development environment or part of the runtime product. The resulting SBOMs can then feed license-compliance review inside S-CORE, distributor-facing OSS scans where required, and continuous vulnerability monitoring.
 
 The exact toolchain may evolve, but the structure of the flow should remain stable:
 
@@ -24,6 +24,7 @@ The exact toolchain may evolve, but the structure of the flow should remain stab
 flowchart TD
     file_in_repo["File in repository"]
     dependency_manifest["Dependency manifest\nin repository"]
+    bazel_graph["Bazel dependency graph"]
     manual_declarations["Manual third-party\ndependency declarations"]
 
     %% File path
@@ -45,7 +46,10 @@ flowchart TD
 
     %% Dependency discovery path
     dependency_manifest --> cdxgen_scan["cdxgen"]
-    cdxgen_scan --> merge_inputs["Merge cdxgen output\n+ manual declarations"]
+    dependency_manifest --> bazel_graph
+    bazel_graph --> sbom_conversion["SBOM tool\n(graph -> SBOM format)"]
+    cdxgen_scan --> merge_inputs["Merge converted build graph\n+ cdxgen output\n+ manual declarations"]
+    sbom_conversion --> merge_inputs
     manual_declarations --> merge_inputs
 
     merge_inputs --> dash_enrichment["Enrich license data via\nEclipse Dash License Tool"]
@@ -73,8 +77,8 @@ flowchart TD
     classDef action fill:#E8F5E9,stroke:#43A047,color:#1B5E20
     classDef decision fill:#FFF3E0,stroke:#FB8C00,color:#E65100
 
-    class file_in_repo,dependency_manifest,manual_declarations,first_party,third_party_file,current_component,external_component,non_product_sbom,product_sbom,vulnerability_results artifact
-    class add_header,add_license,cdxgen_scan,merge_inputs,dash_enrichment,reuse_checks,license_compliance,github_upload,dependencytrack_upload action
+    class file_in_repo,dependency_manifest,bazel_graph,manual_declarations,first_party,third_party_file,current_component,external_component,non_product_sbom,product_sbom,vulnerability_results artifact
+    class add_header,add_license,cdxgen_scan,sbom_conversion,merge_inputs,dash_enrichment,reuse_checks,license_compliance,github_upload,dependencytrack_upload action
     class header_check,copyright_owner,included_check decision
 ```
 
@@ -92,7 +96,7 @@ The compliance story begins with ordinary files in a repository. Some files can 
 
 **S-CORE**
 
-Dependency discovery starts from the manifests a repository already maintains, but that is rarely enough on its own. Scanner output such as `cdxgen` still needs to be merged with manual third-party declarations so the later compliance model reflects reality rather than only what one tool can infer automatically. Once the inputs are combined, license data can be enriched through services such as the Eclipse Dash License Tool. This is the point where raw dependency state turns into something that later SBOM and compliance tooling can work with reliably. **Biggest gap**: generated dependency data and manual declarations are not yet merged and enriched through one consistent cross-repository flow.
+Dependency discovery starts from the manifests a repository already maintains, but that is rarely enough on its own. In Bazel-based repositories, an important additional input is the Bazel dependency graph, because it reflects the dependencies that the build actually sees rather than only the declarations a human happens to inspect. What is sometimes called an "SBOM tool" should therefore be understood carefully here: in this flow, it is primarily a conversion step that serializes the build graph into an SBOM format rather than a magical source of dependency truth by itself. Scanner output such as `cdxgen` still needs to be merged with that converted build evidence and with manual third-party declarations so the later compliance model reflects reality rather than only what one tool can infer automatically. Once the inputs are combined, license data can be enriched through services such as the Eclipse Dash License Tool. This is the point where raw dependency state turns into something that later SBOM and compliance tooling can work with reliably. **Biggest gap**: build-derived dependency graphs, converted SBOM data, and manual declarations are not yet merged and enriched through one consistent cross-repository flow.
 
 ### 6.1.3 SBOM Scope Decisions
 
@@ -140,7 +144,7 @@ Tooling packages, devcontainer images, and similar engineering artifacts need th
 
 **S-CORE**
 
-This is where the repository inputs and build-generated evidence converge. The build side described in [chapter 3](03-build-infrastructure.md) produces inventories and SBOM candidates. The compliance side described here decides their scope, enriches them, and connects them to downstream consumers such as license-compliance review, distributor-facing OSS scans, GitHub, and Dependency-Track. In other words, this section is about using SBOMs as living infrastructure inputs rather than treating them as static release attachments. **Biggest gap**: S-CORE does not yet have a standardized flow that consistently turns repository and build inputs into scoped SBOMs, compliance review inputs, distributor scan inputs, and durable monitoring results.
+This is where the repository inputs and build-generated evidence converge. The build side described in [chapter 3](03-build-infrastructure.md) produces inventories, dependency graphs, and SBOM candidates. In Bazel-based repositories, that means the dependency graph is the primary technical input and the so-called SBOM tool is mostly a translation layer that emits the chosen SBOM format from that graph. The compliance side described here then decides scope, enriches the result, and connects it to downstream consumers such as license-compliance review, distributor-facing OSS scans, GitHub, and Dependency-Track. In other words, this section is about using SBOMs as living infrastructure inputs rather than treating them as static release attachments. **Biggest gap**: S-CORE does not yet have a standardized flow that consistently turns repository and build inputs into scoped SBOMs, compliance review inputs, distributor scan inputs, and durable monitoring results.
 
 ### 6.3.1 Development and Product SBOMs
 
