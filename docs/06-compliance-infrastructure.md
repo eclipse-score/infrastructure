@@ -6,9 +6,9 @@
 
 **S-CORE**
 
-This chapter is the canonical home for the end-to-end compliance view: how files in a repository, dependency manifests, and manual declarations become classified components, enriched dependency data, scoped SBOMs, and later monitoring results. [Chapter 3](03-build-infrastructure.md) still owns how inventories, SBOMs, and other evidence are produced during normal builds. This chapter owns what happens once that raw information needs to be interpreted, enriched, scoped, checked for license and vulnerability concerns, and made useful over time.
+This chapter is the canonical home for the end-to-end compliance view: how files in a repository, dependency manifests, and manual declarations become classified components, enriched dependency data, scoped SBOMs, later OSS review inputs, and monitoring results. [Chapter 3](03-build-infrastructure.md) still owns how inventories, SBOMs, and other evidence are produced during normal builds. This chapter owns what happens once that raw information needs to be interpreted, enriched, scoped, checked for license and vulnerability concerns, and made useful over time.
 
-That scope applies not only to product artifacts, but also to self-developed tooling and environment artifacts such as devcontainer images when S-CORE builds and distributes them. Publication and consumer delivery of those artifacts remain the responsibility of [chapter 8](08-artifact-distribution.md), while CI orchestration of the checks described here belongs in [chapter 7](07-automation-integration.md). **Biggest gap**: the pieces of this compliance flow already exist, but they are not yet described and operated as one shared cross-repository capability spanning file-level licensing, dependency enrichment, SBOM scoping, and continuous monitoring.
+That scope applies not only to product artifacts, but also to self-developed tooling and environment artifacts such as devcontainer images when S-CORE builds and distributes them. Publication and consumer delivery of those artifacts remain the responsibility of [chapter 8](08-artifact-distribution.md), while CI orchestration of the checks described here belongs in [chapter 7](07-automation-integration.md). Some later OSS review steps may be required by downstream distributors rather than by S-CORE itself, but they still depend on the evidence and scoping decisions described here. **Biggest gap**: the pieces of this compliance flow already exist, but they are not yet described and operated as one shared cross-repository capability spanning file-level licensing, dependency enrichment, SBOM scoping, distributor-facing scan inputs, and continuous monitoring.
 
 ## 6.1 End-to-End Compliance Flow ⚪
 
@@ -16,7 +16,7 @@ That scope applies not only to product artifacts, but also to self-developed too
 
 **S-CORE**
 
-The easiest way to understand this chapter is to follow the data from repository state to compliance outcomes. Files in the repository need licensing metadata. Dependency manifests need scanning and occasional manual declarations. Those inputs are then merged, enriched, and turned into SBOMs whose scope depends on whether the resulting component is merely part of the development environment or part of the runtime product. The resulting SBOMs can then feed both license-compliance review and continuous vulnerability monitoring.
+The easiest way to understand this chapter is to follow the data from repository state to compliance outcomes. Files in the repository need licensing metadata. Dependency manifests need scanning and occasional manual declarations. Those inputs are then merged, enriched, and turned into SBOMs whose scope depends on whether the resulting component is merely part of the development environment or part of the runtime product. The resulting SBOMs can then feed license-compliance review inside S-CORE, distributor-facing OSS scans where required, and continuous vulnerability monitoring.
 
 The exact toolchain may evolve, but the structure of the flow should remain stable:
 
@@ -140,7 +140,7 @@ Tooling packages, devcontainer images, and similar engineering artifacts need th
 
 **S-CORE**
 
-This is where the repository inputs and build-generated evidence converge. The build side described in [chapter 3](03-build-infrastructure.md) produces inventories and SBOM candidates. The compliance side described here decides their scope, enriches them, and connects them to downstream consumers such as license-compliance review, GitHub, and Dependency-Track. In other words, this section is about using SBOMs as living infrastructure inputs rather than treating them as static release attachments. **Biggest gap**: S-CORE does not yet have a standardized flow that consistently turns repository and build inputs into scoped SBOMs, compliance review inputs, and durable monitoring results.
+This is where the repository inputs and build-generated evidence converge. The build side described in [chapter 3](03-build-infrastructure.md) produces inventories and SBOM candidates. The compliance side described here decides their scope, enriches them, and connects them to downstream consumers such as license-compliance review, distributor-facing OSS scans, GitHub, and Dependency-Track. In other words, this section is about using SBOMs as living infrastructure inputs rather than treating them as static release attachments. **Biggest gap**: S-CORE does not yet have a standardized flow that consistently turns repository and build inputs into scoped SBOMs, compliance review inputs, distributor scan inputs, and durable monitoring results.
 
 ### 6.3.1 Development and Product SBOMs
 
@@ -158,7 +158,17 @@ The diagram above makes an important distinction that should stay visible in the
 
 Once SBOMs exist, they should not be treated as the end of the process. They are inputs to license-compliance handling, which may include Dash-based enrichment, IP review flows, and project-level allowlists or whitelists. The important architectural point is that these reviews should consume the same scoped evidence that later vulnerability monitoring sees, rather than inventing a separate manual inventory. That keeps the license and dependency stories connected instead of creating one toolchain for legal review and another for security monitoring. **Biggest gap**: there is no shared compliance pipeline yet that clearly connects SBOM generation, Dash enrichment, and later license review expectations across repository classes.
 
-### 6.3.3 Continuous Monitoring and Vulnerability Results
+### 6.3.3 Distributor OSS Scans and Scan Targets
+
+*Preparing the right scan inputs when downstream distributors need full OSS review.*
+
+**S-CORE**
+
+There is also a later compliance step that sits adjacent to S-CORE rather than fully inside it: distributor-facing OSS scans. Those scans may be out of scope for S-CORE's own shared infrastructure, but they are still part of the end-to-end compliance story because distributors can only scan what S-CORE makes explicit and available. The practical implication is that this chapter needs to differentiate the scan target clearly instead of speaking vaguely about "the project" or "the artifact."
+
+What gets scanned can differ substantially. A distributor might scan a repository snapshot or source release to review file-level licensing and imported third-party content. They might scan a shipped runtime artifact or image to review the delivered product composition. They might also scan tooling or environment artifacts when those are redistributed, even if they are not part of the runtime product itself. Those are different scan scopes with different questions, and they should not be collapsed into one generic OSS scan. S-CORE should therefore provide the metadata and scoped evidence that makes these later scans possible and interpretable, even if the actual scan is performed by a downstream distributor rather than by S-CORE. **Biggest gap**: the chapter does not yet define a shared model for which concrete deliverable is the scan target in each compliance situation and which distributor-facing OSS scans are expected to consume it.
+
+### 6.3.4 Continuous Monitoring and Vulnerability Results
 
 *Uploading scoped SBOMs to monitoring systems and using them to detect newly relevant issues over time.*
 
