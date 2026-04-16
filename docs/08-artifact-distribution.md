@@ -11,7 +11,7 @@
 - The registry UI at [eclipse-score.github.io/bazel_registry_ui](https://eclipse-score.github.io/bazel_registry_ui/) is the intended discovery surface for published Bazel modules.
 - Artifact versioning follows semantic versioning aligned with Git tagging.
 - SBOM and provenance data should be generated during builds and accompany released deliverables.
-- Continuous security monitoring of distributed artifact SBOMs belongs in [chapter 6](06-compliance-infrastructure.md) once those artifacts exist.
+- This chapter covers publishing that evidence with releases, while [chapter 6](06-compliance-infrastructure.md) is the canonical home for how SBOMs are scoped, interpreted, and monitored once they exist.
 
 ## 8.1 Deliverable Types ⚪
 
@@ -133,9 +133,9 @@ Helpful links:
 
 **S-CORE**
 
-- SBOMs, provenance data, signatures, checksums, and release notes should accompany released deliverables where applicable.
-- This metadata supports compliance, traceability, and trust in downstream usage.
-- **Biggest gap**: no standardized process ensures that compliance and traceability metadata is generated and published with each release.
+SBOMs, provenance data, signatures, checksums, and release notes should accompany released deliverables where applicable. From the release perspective, the key question is simple: which evidence travels with the published artifact so downstream users can verify and understand it? The harder compliance questions, such as how a repository arrived at that SBOM, how license data was enriched, or whether a dependency belongs in development scope or product scope, belong in [chapter 6](06-compliance-infrastructure.md) and should not be duplicated here.
+
+This metadata still matters here because publication is what makes the evidence durable and consumer-visible. A release artifact without its supporting evidence is harder to audit, trust, and respond to later when issues are disclosed. **Biggest gap**: no standardized process ensures that compliance and traceability metadata is generated and published with each release.
 
 ---
 
@@ -201,7 +201,7 @@ That split is important for keeping the documentation maintainable. This infrast
 
 **S-CORE**
 
-- Dependency analysis and continuous SBOM monitoring belong in [chapter 6](06-compliance-infrastructure.md).
+- Dependency analysis, license interpretation, and continuous SBOM monitoring belong in [chapter 6](06-compliance-infrastructure.md).
 - This chapter focuses on what happens on the consumer-facing release side once those issues are known.
 - **Biggest gap**: no shared advisory and remediation communication model is defined for S-CORE deliverables.
 
@@ -229,5 +229,5 @@ That split is important for keeping the documentation maintainable. This infrast
 
 **S-CORE**
 
-- Advisories are stronger when they can reference release notes, SBOMs, provenance, and other supporting material already produced elsewhere in the infrastructure flow.
+- Advisories are stronger when they can reference release notes, SBOMs, provenance, and other supporting material already produced elsewhere in the infrastructure flow, including the scoped compliance evidence described in [chapter 6](06-compliance-infrastructure.md).
 - **Biggest gap**: there is no shared pattern for linking consumer advisories back to the supporting release evidence.

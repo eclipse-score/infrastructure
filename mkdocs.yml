@@ -40,7 +40,7 @@ nav:
       - 3. Build & Dependencies: 03-build-infrastructure.md
       - 4. Testing: 04-testing-infrastructure.md
       - 5. Code Analysis Infrastructure: 05-static-analysis-infrastructure.md
-      - 6. Dependency Analysis Infrastructure: 06-compliance-infrastructure.md
+      - 6. Compliance & Dependency Analysis: 06-compliance-infrastructure.md
       - 7. Automation & CI: 07-automation-integration.md
       - 8. Release & Distribution: 08-artifact-distribution.md
       - 9. Documentation & Traceability: 09-documentation-infrastructure.md
