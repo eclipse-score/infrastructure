@@ -128,7 +128,8 @@ Once that is in place, dependencies are declared in `MODULE.bazel` with Bazel's 
 
 - Toolchain versions and build-time configuration are owned here, even when contributors access the surrounding local tooling through the shared environment described in [chapter 2](02-developer-environment.md).
 - Shared toolchain baselines are the main link between the Bazel build model and automated build execution.
-- **Biggest gap**: toolchain versions diverge across repositories without a shared baseline definition.
+
+S-CORE is increasingly using a deliberate split between language toolchain modules and language policy modules. Toolchain repositories answer "how do we build this language in Bazel?" and therefore own compiler integration, sysroots, templates, registration, and other mechanics needed for reproducible builds. Separate policy repositories answer "which shared rules should repositories follow?" and package lint, warning, formatting, sanitizer, and safety-profile defaults that consumers can adopt without being forced onto a particular compiler rollout at the same time. That separation matters because toolchain upgrades and policy changes have different ownership and should be able to evolve on different cadences. **Biggest gap**: the pattern now exists in the S-CORE repository landscape, but it is not yet documented and adopted consistently enough that consumers can rely on it as the default model.
 
 ### 3.3.1 C++ Toolchains
 
@@ -136,8 +137,7 @@ Once that is in place, dependencies are declared in `MODULE.bazel` with Bazel's 
 
 **S-CORE**
 
-- C++ toolchain configuration is provided through the devcontainer and per-repository Bazel setup.
-- **Biggest gap**: no shared toolchain version target is enforced across S-CORE repositories.
+The emerging C++ structure follows that split directly. [eclipse-score/bazel_cpp_toolchains](https://github.com/eclipse-score/bazel_cpp_toolchains) is the build-facing module: it provides the Bazel C/C++ toolchain configuration layer, templates, package descriptors, and registration logic for Linux and QNX builds. [eclipse-score/score_cpp_policies](https://github.com/eclipse-score/score_cpp_policies) is the policy-facing companion: it centralizes reusable `cc_feature` and flag selections such as ASan, UBSan, LSan, and TSan support, `debug_symbols`, runtime environment templates, constraint targets such as `no_tsan` and `any_sanitizer`, and the flag infrastructure that repositories can use in `select()` expressions. That same policy layer is also the natural home for shared warning baselines and later ASIL-oriented safety configurations. The point of the split is that a module should be able to adopt shared C++ policies without being forced onto one specific toolchain release. The runtime purpose and rollout of sanitizers themselves belong in [chapter 4](04-testing-infrastructure.md#432-sanitizers-runtime-checks); this subsection only owns the reusable build-side mechanism that makes those checks selectable. **Biggest gap**: the repository split now exists, but common adoption and governance of shared C++ toolchain and policy baselines are still incomplete across S-CORE.
 
 ### 3.3.2 Rust Toolchains
 
@@ -145,8 +145,7 @@ Once that is in place, dependencies are declared in `MODULE.bazel` with Bazel's 
 
 **S-CORE**
 
-- Rust toolchain rules exist in some repositories; no shared configuration is mandated.
-- **Biggest gap**: no standard Rust toolchain version or `rules_rust` configuration is shared across S-CORE.
+Rust already shows the same separation more explicitly. [eclipse-score/toolchains_rust](https://github.com/eclipse-score/toolchains_rust) packages the actual Rust toolchains for Bazel, including prebuilt Ferrocene toolchains and the helper extension used to register them. [eclipse-score/score_rust_policies](https://github.com/eclipse-score/score_rust_policies) separately packages the shared Clippy and rustfmt defaults that S-CORE projects are expected to consume. In other words, one repository answers how Bazel gets a Rust compiler, while the other answers which Rust lint and formatting rules S-CORE wants to enforce. Keeping those concerns decoupled allows toolchain upgrades and policy tightening to evolve independently instead of being forced into one release stream. **Biggest gap**: the split is already visible in the repository landscape, but consistent rollout and governance of those shared Rust baselines are still not project-wide.
 
 ### 3.3.3 Python Toolchains
 

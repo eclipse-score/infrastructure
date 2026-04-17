@@ -63,7 +63,8 @@
 
 - Shared rule configurations are an important part of repository standards and should be versioned like other infrastructure policy artifacts.
 - Repository overrides should be explicit, limited, and explainable rather than silent drift from the shared baseline.
-- **Biggest gap**: no documented baseline-versus-override model exists for static-analysis rules across repository classes.
+
+In the current S-CORE repository landscape, these shared rules are increasingly packaged as separate policy modules rather than being folded into toolchain repositories. That is why repositories such as `score_rust_policies` and `score_cpp_policies` belong to this chapter's perspective, while `toolchains_rust` and `bazel_cpp_toolchains` belong to [chapter 3](03-build-infrastructure.md#33-toolchain-management). The important architectural rule is that consumers should be able to adopt shared lint, warning, and formatting baselines without having to change compiler versions or Bazel toolchain registration at the same time. When such a policy also exposes selectable runtime-oriented features such as sanitizers, [chapter 4](04-testing-infrastructure.md#432-sanitizers-runtime-checks) still owns why and when those checks are executed; this chapter owns only the reusable rule baseline.
 
 ### 5.2.1 Baseline Rulesets
 
