@@ -120,6 +120,16 @@ Once that is in place, dependencies are declared in `MODULE.bazel` with Bazel's 
 - The same is true for build-relevant environment artifacts such as the devcontainer, because they package dependencies, licenses, and supply-chain choices into something contributors and CI consume directly.
 - **Biggest gap**: tooling repositories and environment artifacts are not yet described as first-class citizens of the shared dependency-governance model.
 
+### 3.2.6 Lock Files
+
+*Capturing the resolved dependency graph in version control for reproducible Bazel and `uv` inputs.*
+
+**S-CORE**
+
+Lock files such as `MODULE.bazel.lock` and `uv.lock` make the resolved dependency graph explicit instead of leaving each machine to rediscover it from the high-level declarations. From the build and dependency perspective, that matters because reproducibility depends not only on the declared inputs, but also on the exact resolved result that Bazel or `uv` will consume.
+
+In the S-CORE repository landscape, this pattern already exists in practice, but not yet consistently across all repositories. Where lock files are used, the practical refresh step is typically handled locally through `pre-commit` and committed together with the dependency declaration change rather than being edited by hand. CI should then treat the committed lock state as authoritative for both Bazel and `uv` flows and fail when the declarations and the lock file no longer match. Current automated updates are also split by source: `renovate-bot` updates dependencies that come through the local S-CORE registry, while Dependabot updates dependencies that come from public registries.
+
 ## 3.3 Toolchain Management ⚪
 
 *Compiler and runtime toolchain configuration for C++, Rust, and Python across S-CORE builds.*

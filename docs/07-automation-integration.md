@@ -77,6 +77,8 @@
 - Build success is a required check for merges in S-CORE repositories via branch protection configuration.
 - **Biggest gap**: build validation implementation details still vary by repository maturity.
 
+Where repositories use dependency lock files, the CI perspective should be enforcement rather than regeneration: workflows should verify that committed files such as `MODULE.bazel.lock` and `uv.lock` are already up to date instead of silently rewriting them during the run.
+
 ### 7.2.3 Test Validation
 
 *Ensuring tests pass before code is merged, with reusable test workflow patterns.*

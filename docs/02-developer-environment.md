@@ -61,3 +61,5 @@ In S-CORE, custom hooks are published through [eclipse-score/tooling](https://gi
 The local auxiliary layer needs a clear boundary or repositories will duplicate checks, force unsuitable tasks through lightweight hooks, or blur the line between convenience and authoritative enforcement. The infrastructure question here is not to make every check identical, but to define the right delivery layer for each kind of check.
 
 In S-CORE, the current practical split is that surrounding-tool checks run directly in the shared devcontainer or via pre-commit, while deeper repository-native validation stays with the repository's main build or test flow and final enforcement stays in CI. For "dependable element" repositories that usually means Bazel, but other repositories may use different local execution paths.
+
+Where repositories use dependency lock files such as `uv.lock` or `MODULE.bazel.lock`, the practical local refresh step may still happen through `pre-commit`, but the lock state itself belongs to the repository's dependency model and is therefore described in [chapter 3](03-build-infrastructure.md#326-lock-files).
