@@ -145,8 +145,22 @@ Where repositories use dependency lock files, the CI perspective should be enfor
 **S-CORE**
 
 - Cross-repository automation needs more than triggers; it also needs a repeatable way to hand off artifacts, SBOMs, and verification evidence between jobs or repositories.
-- That handover may include module references resolved through `bazel_registry`, release assets, and the test outputs produced by `reference_integration`.
+- That handover may include the `known_good` manifest or identifier, module references resolved through `bazel_registry`, release assets, and the test outputs produced by `reference_integration`.
 - **Biggest gap**: no shared artifact handover model exists for multi-repository automation scenarios.
+
+### 7.3.4 Known-Good Promotion
+
+*Using `reference_integration` to validate and promote integrated module sets in CI.*
+
+**S-CORE**
+
+`known_good` gives CI a stable unit of promotion. Module repositories can continue to publish releases, registry entries, or candidate revisions independently, but cross-repository automation needs one place where those inputs are assembled into a candidate stack, executed together, and either promoted or rejected with clear feedback. The important nuance is that CI does not treat `known_good` as a byproduct of Bazel resolution. It treats it as the higher-level control file that selects the candidate stack and can also carry automation metadata such as which branch should be followed for automatic updates.
+
+Assuming the still-undecided Option 2 direction currently under discussion, `reference_integration` would own that promotion gate. For a pull request in one repository, CI would build a candidate manifest from the changed repository ref together with the last known-good refs for the other participating repositories, generate the Bazel-facing inputs needed for the integrated workspace from that manifest, and run the fast integration subset for early feedback. After merges, or on a schedule, `reference_integration` would build a fuller manifest from the latest eligible branches, run the deeper suite, and only on success update the stored `known_good` record. If the final scope of `reference_integration` is narrowed later, the same promotion pattern still makes sense, but the meaning of `known_good` must be reduced to the checks that are actually re-executed centrally.
+
+That also gives the handover model a natural key: artifacts, SBOMs, reports, and logs should be traceable to the `known_good` identifier or manifest hash they were produced for rather than only to an individual repository run. **Biggest gap**: S-CORE has no standardized candidate-manifest construction, `known_good` promotion workflow, ownership model, or result schema for cross-repository CI.
+
+The workflow shape described here follows the distributed-monolith integration model in [DR-002-Infra](https://eclipse-score.github.io/score/main/design_decisions/DR-002-infra.html), while the stronger central ownership assumed in some sentences still depends on the unresolved Option 2 versus lighter-scope discussion in [DR-008-Int](https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1).
 
 ## 7.4 Secrets Management ⚪
 

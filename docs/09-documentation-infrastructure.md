@@ -79,6 +79,7 @@
 **S-CORE**
 
 - Stable links are required if documentation, code, requirements, and release artifacts live in different repositories.
+- For integrated views produced from `reference_integration`, those links should resolve within one explicit `known_good` snapshot rather than silently mixing repository heads.
 - **Biggest gap**: no agreed cross-repository linking strategy exists for versioned and unversioned documentation content.
 
 ### 9.3.2 Shared Navigation and Discovery
@@ -111,3 +112,17 @@
 
 - Traceability needs explicit object models and stable identifiers, not just linked prose.
 - **Biggest gap**: links between requirements, code, tests, and impact analysis are still too manual across S-CORE.
+
+### 9.4.2 Known-Good Documentation Snapshots
+
+*Tying integrated docs and traceability evidence to one validated cross-repository snapshot.*
+
+**S-CORE**
+
+Cross-repository documentation becomes ambiguous unless readers can tell which combination of component revisions it describes. The `known_good` concept solves that by giving integrated documentation, verification summaries, and traceability views one shared snapshot identifier. A single documentation build in `reference_integration` should therefore describe one concrete `known_good` manifest or record, not an unspecified mix of module heads.
+
+Under the currently assumed but still-undecided Option 2 model, this identifier is also what allows the project to claim that integrated docs and integrated evidence were generated from the same centrally validated stack. If `reference_integration` later ends up with a lighter scope, the documentation benefit remains, but the traceability story has to distinguish more clearly between centrally generated pages and evidence linked in from module repositories.
+
+The important architectural point is that links, release notes, dashboards, and archived evidence should all resolve back to the same `known_good` identifier. **Biggest gap**: S-CORE does not yet have a documented rule for binding integrated documentation and traceability artifacts to one explicit cross-repository snapshot.
+
+This snapshot-oriented documentation view depends on the same integration model described in [DR-002-Infra](https://eclipse-score.github.io/score/main/design_decisions/DR-002-infra.html) and on the still-unsettled `reference_integration` scope discussion in [DR-008-Int](https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1).

@@ -112,7 +112,7 @@ Test results are already visible in several places, but they do not yet form one
 
 **S-CORE**
 
-Aggregation already exists in pieces. CI runs produce artifacts, and release-oriented flows can combine selected outputs into something closer to a reusable evidence package. For higher integration levels, `reference_integration` is an especially important aggregation point because it collects results after cross-repository assembly and scenario execution. **Biggest gap**: aggregation works for some release flows, but continuous project-wide aggregation across repositories is still incomplete.
+Aggregation already exists in pieces. CI runs produce artifacts, and release-oriented flows can combine selected outputs into something closer to a reusable evidence package. For higher integration levels, `reference_integration` is an especially important aggregation point because it collects results after cross-repository assembly and scenario execution. To stay meaningful, those aggregated results should be keyed to a concrete `known_good` manifest or record rather than to a vague notion of "current main". The fast integration subset can provide early feedback against a candidate manifest, but the deeper post-merge or scheduled suite is what should advance the stored known-good baseline. **Biggest gap**: aggregation works for some release flows, but continuous project-wide aggregation across repositories is still incomplete.
 
 ### 4.4.2 Test Dashboards
 

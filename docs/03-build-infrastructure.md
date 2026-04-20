@@ -130,6 +130,22 @@ Lock files such as `MODULE.bazel.lock` and `uv.lock` make the resolved dependenc
 
 In the S-CORE repository landscape, this pattern already exists in practice, but not yet consistently across all repositories. Where lock files are used, the practical refresh step is typically handled locally through `pre-commit` and committed together with the dependency declaration change rather than being edited by hand. CI should then treat the committed lock state as authoritative for both Bazel and `uv` flows and fail when the declarations and the lock file no longer match. Current automated updates are also split by source: `renovate-bot` updates dependencies that come through the local S-CORE registry, while Dependabot updates dependencies that come from public registries.
 
+### 3.2.7 Known-Good Integration Sets
+
+*Capturing the explicit cross-repository integration manifest and metadata used to assemble one S-CORE stack.*
+
+**S-CORE**
+
+`reference_integration` introduced the idea of a `known_good` set: an explicit manifest of which component revisions belong together in one integrated S-CORE stack. In the language of the distributed-monolith integration decision, the core content is a tuple of `(component, commit)` pairs plus metadata that allows the stack to be reproduced later. That should not be described as just another Bazel lock file, because it sits one level above that. `known_good` is the curated integration manifest from which Bazel-facing inputs can be generated, while a lock file such as `MODULE.bazel.lock` captures the resolved dependency graph that a concrete Bazel workspace consumes.
+
+That difference matters because `known_good` carries integration-control information that ordinary Bazel lock files do not. Besides selecting component revisions, it can also describe metadata such as timestamps, suite or manifest identity, and automation inputs such as which branch should be followed for automated CI refreshes. In practice it may be represented as a JSON file, but the important architectural point here is its role as the higher-level source of truth for integrated stack selection and automation behavior.
+
+Assuming the still-undecided Option 2 direction currently under discussion for `reference_integration`, this manifest is more than a selection file. It becomes the unit that central integration rebuilds, re-tests, and turns into integrated evidence. If the project later settles on a lighter `reference_integration` scope, `known_good` still remains useful as the agreed integration input set, but some verification evidence would then stay in module repositories instead of being re-executed centrally.
+
+The concrete file format matters less here than the behavior: `known_good` should be version-controlled, diffable, reproducible, and easy for CI to refresh and promote while remaining clearly distinct from generated Bazel lock data.
+
+For decision background, the strategic "consistent stack" direction is discussed in [DR-001-Strat](https://eclipse-score.github.io/score/main/design_decisions/DR-001-strat.html), the manifest and stored known-good record model in [DR-002-Infra](https://eclipse-score.github.io/score/main/design_decisions/DR-002-infra.html), and the still-undecided central `reference_integration` scope options in [DR-008-Int](https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1).
+
 ## 3.3 Toolchain Management ⚪
 
 *Compiler and runtime toolchain configuration for C++, Rust, and Python across S-CORE builds.*
@@ -213,6 +229,7 @@ Rust already shows the same separation more explicitly. [eclipse-score/toolchain
 **S-CORE**
 
 - Build provenance and SBOM generation are target capabilities and should become routine outputs of normal builds so that later release and compliance steps consume real build evidence instead of reconstructed paperwork.
+- In cross-repository integration flows, that provenance should identify not only the local repository revision but also the `known_good` set or equivalent manifest that defined the integrated stack.
 - **Biggest gap**: no build pipeline currently produces SBOMs and provenance consistently across repository types.
 
 ### 3.4.4 Tooling, Environment SBOMs & License Evidence
