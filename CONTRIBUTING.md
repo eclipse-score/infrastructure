@@ -64,9 +64,9 @@ The developer-tooling and devcontainer story follows the same rule:
 
 Language support split across toolchain repositories and policy repositories follows the same rule:
 
-- [docs/03-build-infrastructure.md](docs/03-build-infrastructure.md) is the canonical explanation of how Bazel toolchain modules such as `toolchains_rust` or `bazel_cpp_toolchains` provide compiler and toolchain integration.
-- [docs/05-static-analysis-infrastructure.md](docs/05-static-analysis-infrastructure.md) keeps the shared rule-baseline perspective for policy modules such as `score_rust_policies` and `score_cpp_policies`.
-- [docs/04-testing-infrastructure.md](docs/04-testing-infrastructure.md) keeps the runtime-execution perspective for sanitizers and other dynamic checks that may be enabled by those policies.
+- [docs/03-build-infrastructure.md](docs/03-build-infrastructure.md) is the canonical explanation of how toolchain modules (`bazel_cpp_toolchains`, `toolchains_rust`) and policy modules (`score_cpp_policies`, `score_rust_policies`) relate.
+- [docs/05-static-analysis-infrastructure.md](docs/05-static-analysis-infrastructure.md) keeps the shared rule-baseline perspective for policy modules.
+- [docs/04-testing-infrastructure.md](docs/04-testing-infrastructure.md) keeps the runtime-execution perspective for sanitizers and dynamic checks enabled by those policies.
 
 ## Review Checklist
 

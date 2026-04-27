@@ -88,7 +88,9 @@ Coverage is already part of the verification-evidence story in several places, w
 
 **S-CORE**
 
-Sanitizers and similar runtime checks can surface memory misuse, undefined behavior, or concurrency problems far earlier than system-level debugging. They are especially valuable for C and C++ heavy repositories, but they need common support and expectations if they are to become shared infrastructure rather than ad hoc local practice. The ownership boundary should stay explicit: [chapter 3](03-build-infrastructure.md#33-toolchain-management) owns how toolchains and Bazel features make sanitizers available, and [chapter 5](05-static-analysis-infrastructure.md#52-shared-rule-configuration) owns shared policy modules when they package reusable sanitizer feature sets or defaults. The moment those capabilities are executed against runnable targets and interpreted as verification evidence, however, they belong in the testing story here.
+Sanitizers and similar runtime checks can surface memory misuse, undefined behavior, or concurrency problems far earlier than system-level debugging. They are especially valuable for C and C++ heavy repositories, but they need common support and expectations if they are to become shared infrastructure rather than ad hoc local practice.
+
+Ownership is split across three chapters: [chapter 3](03-build-infrastructure.md#33-toolchain-management) owns how toolchains and Bazel features make sanitizers selectable, [chapter 5](05-static-analysis-infrastructure.md#52-shared-rule-configuration) owns shared policy modules that package reusable sanitizer defaults, and this chapter owns execution against runnable targets and interpretation as verification evidence.
 
 ### 4.3.3 Fuzzing, Stress & Profiling
 
