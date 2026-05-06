@@ -92,8 +92,13 @@ Publishing should be an explicit, reproducible stage of the docs pipeline rather
 
 **S-CORE**
 
-- Shared entry points such as overview pages or hub sites can reduce the need to know the right repository in advance.
-- **Biggest gap**: repository-specific sites still feel isolated because no common navigation and discovery pattern ties them together.
+When documentation is spread across repository-specific sites, the first problem is knowing where to look. A contributor searching for "how do I add a Bazel module" should not need to guess whether the answer lives in the platform documentation, the build infrastructure site, or a module repository's own pages. The same applies to consumers who want to understand what S-CORE offers before they start integrating.
+
+Shared entry points address this by giving readers a starting location that links outward. The simplest version is an overview page or hub site that indexes the major documentation surfaces and describes what each one covers. A more structured version adds cross-site navigation elements — shared headers, breadcrumbs, or sidebar links — so that readers who land on one repository's site can see where related content lives without returning to the hub. The design choice is how tightly to couple this: a lightweight hub with stable links is easy to maintain, while deeper navigation integration requires coordination whenever a repository restructures its pages.
+
+For S-CORE, the practical starting point is the main [eclipse-score.github.io](https://eclipse-score.github.io/score) site, which already serves as a project-level entry. But the path from that entry to repository-specific documentation is not yet systematic: some repositories are linked, others are not, and the reader has no way to know what exists without browsing GitHub directly. A shared navigation pattern would define which documentation surfaces are expected to appear, how they are categorized, and where the canonical index lives so that new repositories automatically become discoverable when they follow the pattern.
+
+**Biggest gap**: repository-specific sites still feel isolated because no common navigation and discovery pattern ties them together. There is no defined standard for how new documentation surfaces register themselves in a project-wide index.
 
 ---
 

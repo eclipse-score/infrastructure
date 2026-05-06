@@ -40,7 +40,11 @@ Rust tests typically use the native Rust test model through `rules_rust`, which 
 
 **S-CORE**
 
-Python tests generally rely on pytest-style execution integrated through Bazel's Python rules. Python also matters beyond unit tests because it often acts as the orchestration layer for higher-level scenarios and target interaction. **Biggest gap**: there is no shared Python test framework and plugin baseline across repositories.
+Python tests generally rely on pytest-style execution integrated through Bazel's Python rules. Python also matters beyond unit tests because it often acts as the orchestration layer for higher-level scenarios and target interaction, which is why ITF ([section 4.1.5](#415-itf-framework)) is itself pytest-based.
+
+For repositories that use pytest, the infrastructure question is not whether pytest works — it does — but whether repositories converge on a shared baseline for plugin selection, fixture patterns, and result output. Without that, each repository assembles its own pytest configuration, and shared tooling that consumes test results (reporting in [section 4.4](#44-test-reporting-), traceability in [section 4.2](#42-test-traceability-)) has to account for divergent output formats and metadata conventions. A shared pytest baseline would define which plugins are expected by default, how results are formatted for downstream consumption, and how system-level tests that need target interaction relate to the ITF plugin model.
+
+The rollout challenge is that pytest is used at multiple levels: lightweight unit-style tests in module repositories, orchestration-heavy system tests in integration environments, and ITF-based target tests. A shared baseline must be useful across those levels without forcing a one-size-fits-all configuration. **Biggest gap**: there is no shared Python test framework and plugin baseline across repositories, and the boundary between plain pytest usage and ITF-managed execution is not yet clearly drawn.
 
 ### 4.1.4 Scenario Test Framework
 
