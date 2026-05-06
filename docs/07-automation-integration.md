@@ -36,7 +36,15 @@
 
 **S-CORE**
 
-- **Biggest gap**: availability and reliability of hardware runners are not yet at a level that enables consistent automated hardware testing across S-CORE.
+Hardware test runners differ from cloud runners in almost every dimension. A cloud runner is an ephemeral VM that executes a job and disappears; a hardware runner is a persistent physical device — an embedded board, an automotive-grade SoC, or a development kit — that must be provisioned, maintained, and shared across pipelines. The infrastructure challenge is not just making hardware available, but making it usable as a CI execution target with the same trigger-run-report model that cloud runners already provide.
+
+The practical need in S-CORE comes from two directions. Cross-compiled test execution ([section 4.3](04-testing-infrastructure.md#43-test-execution-dynamic-analysis)) needs a way to run `cc_test` and `rust_test` binaries built for non-host platforms such as QNX on an actual target or a representative emulator. Performance and benchmark testing ([section 4.3.4](04-testing-infrastructure.md#434-performance-benchmark-testing)) needs to measure timing, throughput, and resource consumption on real hardware where host-based emulation cannot reproduce the actual behavior. Both depend on the same underlying provisioning model.
+
+The target hardware landscape currently includes single-board computers such as Raspberry Pi for lightweight integration and smoke testing, and automotive-grade SoCs such as the Qualcomm SA8650P for representative performance measurement and platform-level validation. Each class brings different constraints: single-board computers are cheap and easy to provision but limited in compute; automotive SoCs are representative but expensive, scarce, and often require vendor-specific BSPs and boot infrastructure. A viable hardware runner model must account for both ends of that spectrum.
+
+The infrastructure layers that need to exist are: physical device management and health monitoring, a deployment mechanism that flashes or transfers test binaries and their dependencies to the target, a remote execution model that triggers test runs and collects results back into the CI pipeline, and an isolation strategy that prevents concurrent jobs from interfering with each other on shared devices. For GitHub Actions integration, this typically means self-hosted runners attached to specific device classes, with job routing based on labels that encode the target platform and availability.
+
+**Biggest gap**: S-CORE has no documented hardware runner provisioning model, no deployment and result collection pipeline for embedded targets, and no device management or scheduling infrastructure. Hardware test execution is currently ad hoc rather than a reproducible CI capability.
 
 ### 7.1.3 Execution Isolation & Trust Boundaries
 
