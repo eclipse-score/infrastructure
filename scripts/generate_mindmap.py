@@ -174,7 +174,7 @@ def render_mindmap(chapters: list[Section]) -> tuple[str, list[dict[str, object]
 def render_embed(chapters: list[Section]) -> str:
     """Return the generated overview-page chapter map markup."""
     diagram, links = render_mindmap(chapters)
-    link_data = json.dumps(links, ensure_ascii=False, separators=(",", ":"))
+    link_data = json.dumps(links, ensure_ascii=False, indent=2)
     return "\n".join(
         [
             INDEX_MAP_START,
@@ -183,7 +183,9 @@ def render_embed(chapters: list[Section]) -> str:
             "```mermaid",
             diagram,
             "```",
-            f'<script type="application/json" class="chapter-map-links-data">{link_data}</script>',
+            '<script type="application/json" class="chapter-map-links-data">',
+            link_data,
+            "</script>",
             INDEX_MAP_END,
         ]
     )
