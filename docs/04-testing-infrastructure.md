@@ -72,7 +72,11 @@ Test traceability is one of the parts of the testing stack that already shows a 
 
 **S-CORE**
 
-At execution time, the common model is straightforward: tests are Bazel targets and normally run through `bazel test`, which provides isolation and incremental reuse of previous results. When re-execution must be forced, `--nocache_test_results` is available, and coverage collection already follows the stricter rule of always re-running with instrumentation. This section also owns the runtime-oriented techniques that depend on executing software rather than inspecting it statically. That includes coverage, sanitizers, fuzzing, stress testing, and profiling, even when their outputs later feed other chapters. In practice, this mostly shows up as a deployment pattern: lower-level execution stays inside module repositories, while cross-repository and target-oriented execution increasingly relies on shared environments such as `reference_integration` and ITF. **Biggest gap**: test execution standards and runtime-analysis expectations are not yet defined consistently across repositories.
+At execution time, the common model is straightforward: tests are Bazel targets and normally run through `bazel test`, which provides isolation and incremental reuse of previous results. When re-execution must be forced, `--nocache_test_results` is available, and coverage collection already follows the stricter rule of always re-running with instrumentation. This section also owns the runtime-oriented techniques that depend on executing software rather than inspecting it statically. That includes coverage, sanitizers, fuzzing, stress testing, profiling, and performance benchmarking, even when their outputs later feed other chapters. In practice, this mostly shows up as a deployment pattern: lower-level execution stays inside module repositories, while cross-repository and target-oriented execution increasingly relies on shared environments such as `reference_integration` and ITF.
+
+An important special case is cross-compiled test execution. S-CORE supports building for multiple target platforms through its toolchain infrastructure, but building a test binary and executing it are separate problems when the target platform differs from the build host. QNX is the clearest current example: [section 3.3.1](03-build-infrastructure.md#331-c-toolchains) describes how `bazel_cpp_toolchains` provides toolchain configuration for QNX builds, but running the resulting `cc_test` or `rust_test` binaries requires either a QNX-capable emulator, a remote target device, or a CI runner with appropriate sysroot and runtime support. The same pattern applies to any platform where the build host cannot natively execute the test output, and it connects directly to the hardware runner infrastructure described in [section 7.1.2](07-automation-integration.md#712-hardware-test-runners).
+
+**Biggest gap**: test execution standards and runtime-analysis expectations are not yet defined consistently across repositories. Cross-compiled test execution for non-host platforms such as QNX lacks documented runner and deployment infrastructure.
 
 ### 4.3.1 Coverage & Runtime Instrumentation
 
@@ -97,6 +101,20 @@ Sanitizers and similar runtime checks can surface memory misuse, undefined behav
 **S-CORE**
 
 Fuzzing, stress execution, and profiling sit naturally next to the rest of the test execution story because they also depend on runnable targets, special harnesses, and result handling that differs from ordinary regression tests. They are relevant to robustness and performance, but they are still described more as possibilities than as reusable S-CORE capabilities. **Biggest gap**: advanced dynamic-analysis techniques beyond basic coverage are not yet defined as shared infrastructure.
+
+### 4.3.4 Performance & Benchmark Testing
+
+*Infrastructure for measuring and tracking runtime performance of S-CORE components on representative targets.*
+
+**S-CORE**
+
+Performance testing differs from functional testing in that the result is a measurement rather than a pass/fail verdict. A benchmark run produces timing data, throughput numbers, or resource consumption figures that only become meaningful when compared against a previous baseline or an agreed budget. That comparison model is what turns raw profiling output into actionable infrastructure.
+
+For S-CORE, the practical need comes from two directions. Module repositories want to detect performance regressions early, ideally as part of the normal Bazel test flow on cloud runners. Integration-level testing wants to measure representative workloads on real hardware targets such as embedded boards and automotive-grade SoCs, where host-based emulation cannot reproduce the actual timing and resource behavior.
+
+The infrastructure challenge is therefore layered. Cloud-based benchmark targets can reuse the existing runner and Bazel execution model, but they need stable machine baselines and a way to compare results across runs without being dominated by runner variance. Hardware-based benchmarks additionally need target provisioning, deployment, and result collection infrastructure that extends the hardware runner story described in [section 7.1.2](07-automation-integration.md#712-hardware-test-runners). In both cases, results should be stored durably and presented as trend data rather than one-shot artifacts.
+
+**Biggest gap**: S-CORE has no shared performance testing framework, no benchmark result storage or comparison model, and no hardware target provisioning for performance measurement on embedded boards.
 
 ## 4.4 Test Reporting ⚪
 
