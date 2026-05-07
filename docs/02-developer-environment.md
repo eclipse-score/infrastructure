@@ -14,7 +14,11 @@ In S-CORE, Bazel is the central build system for the actual software stack, but 
 
 Multi-repository development needs one repeatable local environment for the tools that are not naturally delivered by each repository's own build or test flow. Without that, editor support, formatting, documentation tooling, YAML or workflow linting, and similar surrounding capabilities become repository-specific setup problems instead of shared infrastructure.
 
-S-CORE solves this primarily through the central [eclipse-score/devcontainer](https://github.com/eclipse-score/devcontainer) repository. It builds, tests, and publishes pre-built development-container images, with pinned and preconfigured tools, so repositories can consume one shared local environment instead of maintaining their own setup stacks. 
+S-CORE solves this primarily through the central [eclipse-score/devcontainer](https://github.com/eclipse-score/devcontainer) repository. It builds, tests, and publishes pre-built development-container images, with pinned and preconfigured tools, so repositories can consume one shared local environment instead of maintaining their own setup stacks.
+
+The design decision behind this approach is documented in [DR-003](https://eclipse-score.github.io/score/main/design_decisions/DR-003-infra.html). The key tradeoff is between a single monolithic image that carries all shared tools and a multi-container setup using Docker Compose where each concern (build toolchain, documentation, linting) gets its own image. S-CORE chose the monolithic path because it keeps the contributor entry point simple — one container, one `devcontainer.json` — and avoids the orchestration complexity of managing multiple containers for what is ultimately a development-time convenience layer. The tradeoff is that the image is larger than any individual contributor needs, but pre-built images and layer caching keep startup fast enough in practice.
+
+The same container image also serves as a CI execution environment, which is important because it means the tools a contributor runs locally and the tools CI runs remotely are the same versions. That alignment is not automatic — it requires that CI workflows explicitly pull the devcontainer image rather than assembling their own tool stack — but when it works, it eliminates a class of "works on my machine" failures.
 
 ### 2.1.1 Shared Tool Baseline 🟠
 
@@ -30,7 +34,11 @@ In S-CORE, that baseline is currently expressed through the published `ghcr.io/e
 
 A central environment only helps if repositories consume it in a predictable way. The infrastructure concern here is not only that an image exists, but that repositories expose the same basic entry path and do not each reinvent how contributors attach to it.
 
-In S-CORE, the concrete mechanism is a checked-in `.devcontainer/devcontainer.json` that points to a versioned image from the central devcontainer. That gives repositories a practical way to consume the shared environment today, but adoption is still uneven across repository classes. Repository integration of the central devcontainer is still inconsistent enough that contributors cannot always assume the same entry path everywhere.
+In S-CORE, the concrete mechanism is a checked-in `.devcontainer/devcontainer.json` that points to a versioned image from the central devcontainer. That gives repositories a practical way to consume the shared environment today, but adoption is still uneven across repository classes.
+
+The rollout dimension matters as much as the initial setup. When the central devcontainer publishes a new image version — adding a tool, updating a formatter, fixing a bug — each consuming repository needs to update its `.devcontainer/devcontainer.json` reference. Without automation, that update becomes a manual pull request in every repository, which tends to drift. Automated version bumps through Dependabot or a similar mechanism can keep repositories tracking the latest image, but the rollout must still be staged so that a broken image update does not simultaneously break every repository's development environment.
+
+Repository integration of the central devcontainer is still inconsistent enough that contributors cannot always assume the same entry path everywhere.
 
 ### 2.1.3 IDE And Shell Integration 🟠
 
