@@ -145,8 +145,11 @@ In the current S-CORE repository landscape, these shared rules are increasingly 
 
 **S-CORE**
 
-- CodeQL and similar SAST tools are available through GitHub Actions for S-CORE repositories.
-- **Biggest gap**: SAST-specific configuration and required security-gate policies are not yet standardized across repositories.
+SAST tools analyze source code for security vulnerabilities without executing it. For S-CORE, CodeQL is the primary SAST tool because it integrates natively with GitHub through code scanning alerts, supports C/C++ and Python analysis relevant to the S-CORE language landscape, and can run as a standard GitHub Actions workflow. The infrastructure question is not whether CodeQL works — it does — but how it is configured consistently: which query suites are enabled, what severity thresholds gate a merge, and how results are surfaced to maintainers.
+
+A useful SAST configuration has three layers. The query suite defines which vulnerability patterns to look for — the default security suite covers the most impactful findings, while extended suites add code-quality checks at the cost of more noise. The CI gate defines which findings block merges — typically only high and critical severity — while lower findings appear as alerts for maintainers to triage. The cross-repository alignment defines whether all S-CORE repositories use the same query suite and gate policy or whether repositories can override the baseline.
+
+**Biggest gap**: SAST-specific configuration and required security-gate policies are not yet standardized across repositories. CodeQL query suite selection and severity thresholds vary between repositories.
 
 ### 5.4.2 Secret Scanning
 
