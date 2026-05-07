@@ -60,7 +60,13 @@ Scenario-style execution matters once testing spans modules, services, or richer
 
 **S-CORE**
 
-ITF is the clearest example of target-oriented higher-level testing infrastructure in the current landscape. It is pytest-based, designed for ECU-oriented testing, and is evolving toward a more target-agnostic plugin model covering environments such as Docker, QEMU, and real hardware, along with concerns like DLT handling. That makes it important infrastructure, but the Bazel integration is still incomplete from a traceability perspective. **Biggest gap**: ITF Bazel targets do not yet allow adding the test properties needed for full traceability.
+ITF is the clearest example of target-oriented higher-level testing infrastructure in the current landscape. It is pytest-based, designed for ECU-oriented testing, and is evolving toward a more target-agnostic plugin model covering environments such as Docker, QEMU, and real hardware, along with concerns like DLT handling.
+
+The execution pipeline for ITF tests follows a layered model. Bazel invokes a pytest runner, which uses ITF plugins to manage the target environment — starting a Docker container, launching a QEMU instance, or connecting to a hardware device. The test code then interacts with the system under test through the environment that the plugin provides. Results flow back through pytest into Bazel's test result model. This pipeline means that ITF tests can be triggered as ordinary `bazel test` targets while the execution complexity is hidden inside the plugin layer.
+
+The plugin model is what makes ITF extensible. Each target environment (Docker, QEMU, hardware) is a plugin that handles provisioning, communication, and teardown. DLT log handling is another plugin concern. The infrastructure direction is to keep adding target types without changing the test-writing interface, so that a test author writes pytest test functions and declares which target environment the test needs, and the plugin layer handles the rest. The `pytest-remote` utility extends this model further by allowing test execution on remote targets, where the test orchestrator runs locally or in CI while the system under test runs on a separate machine. That pattern is especially relevant for hardware-in-the-loop testing described in [section 7.1.2](07-automation-integration.md#712-hardware-test-runners).
+
+**Biggest gap**: ITF Bazel targets do not yet allow adding the test properties needed for full traceability. The plugin model is evolving but not yet documented as a stable extension point, and onboarding guidance for module teams adopting ITF is missing.
 
 ## 4.2 Test Traceability ⚪
 
@@ -88,7 +94,15 @@ An important special case is cross-compiled test execution. S-CORE supports buil
 
 **S-CORE**
 
-Coverage is already part of the verification-evidence story in several places, which makes it one of the more concrete dynamic-analysis capabilities in S-CORE today. The missing piece is not the idea of coverage itself, but shared expectations around when it is required, how it is produced, and which result formats downstream tooling should rely on. **Biggest gap**: coverage expectations and result formats are not yet standardized across repositories.
+Coverage is already part of the verification-evidence story in several places, which makes it one of the more concrete dynamic-analysis capabilities in S-CORE today. The missing piece is not the idea of coverage itself, but shared expectations around when it is required, how it is produced, and which result formats downstream tooling should rely on.
+
+For C++, Bazel can collect coverage using `bazel coverage` with the `--combined_report` flag, producing LCOV output that downstream tools can consume. The toolchain-level support comes from `bazel_cpp_toolchains` ([section 3.3.1](03-build-infrastructure.md#331-c-toolchains)), which configures the compiler instrumentation flags. The infrastructure gap is not the mechanism but the conventions: which targets should produce coverage, what minimum coverage expectations exist, and how results are aggregated across a module's test suite into a single report that CI can publish as an artifact.
+
+For Rust, `rules_rust` supports coverage through similar Bazel instrumentation, but the tooling maturity is lower than for C++. Source-based coverage via LLVM's `llvm-cov` is the preferred approach because it produces accurate line and region coverage without the branch-level noise of gcov-style instrumentation. The same LCOV output format should be used so that downstream reporting does not need language-specific parsers.
+
+For ITF-based tests, coverage collection crosses a process boundary because the test orchestrator (pytest) and the system under test (running in a Docker container, QEMU image, or on hardware) are separate processes. Collecting coverage in that scenario requires instrumentation on the target side and a mechanism to retrieve the coverage data after the test run completes. That integration is not yet in place for most ITF test configurations.
+
+**Biggest gap**: coverage expectations and result formats are not yet standardized across repositories. Language-specific coverage tooling exists but is not configured or reported consistently, and ITF-based coverage collection is not yet integrated.
 
 ### 4.3.2 Sanitizers & Runtime Checks
 
