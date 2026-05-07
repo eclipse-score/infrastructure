@@ -55,6 +55,20 @@ The infrastructure layers that need to exist are: physical device management and
 - CI execution environments should make trust boundaries explicit, especially when different jobs handle external contributions, internal credentials, or hardware access.
 - **Biggest gap**: there is no clearly documented execution trust model across the different runner types used in S-CORE workflows.
 
+### 7.1.4 Platform Constraints & Best Practices
+
+*Documenting GitHub Actions platform limitations and established patterns for working within them.*
+
+**S-CORE**
+
+GitHub Actions is the CI platform for S-CORE, and its constraints shape what workflows can and cannot do. Some of these constraints are well-known but still catch contributors who come from other CI systems; others are specific to the scale and multi-repository structure of S-CORE. Making them explicit avoids repeated debugging and helps workflow authors make deliberate design choices instead of discovering limits in production.
+
+The most consequential constraints include: workflow storage quotas that limit how much artifact data a repository can retain across runs, concurrency limits that determine how many jobs can run in parallel per organization, runner disk space that constrains large Bazel builds and Docker-in-Docker workloads, the split between `GITHUB_TOKEN` and fine-grained PAT permissions that affects cross-repository access, and the inability to share mutable state between jobs except through artifacts or caches. For self-hosted runners, additional constraints include node pool sizing, network access to internal resources, and the security implications of running untrusted pull-request code on persistent infrastructure.
+
+Established patterns that work well in S-CORE include: using composite actions to encapsulate Bazel setup and teardown so that cache configuration, disk cleanup, and shutdown steps are consistent across workflows; restricting `workflow_dispatch` and `pull_request_target` triggers to workflows that explicitly need elevated permissions; and using reusable workflows from [section 7.2](#72-reusable-workflows) rather than copying common steps between repositories. Where a pattern has been validated, it should be documented as a recommendation rather than left as tribal knowledge in individual workflow files.
+
+**Biggest gap**: GitHub Actions platform constraints and S-CORE-specific best practices are not documented in one place. Contributors rediscover the same limitations independently.
+
 ## 7.2 Reusable Workflows ⚪
 
 *Shared GitHub Actions workflows reused across S-CORE repositories.*

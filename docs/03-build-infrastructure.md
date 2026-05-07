@@ -278,8 +278,15 @@ Rust already shows the same separation more explicitly. [eclipse-score/toolchain
 
 **S-CORE**
 
-- RBE infrastructure is not currently provisioned for S-CORE.
-- **Biggest gap**: no RBE backend is available; builds are constrained to single-runner execution.
+Remote Build Execution (RBE) offloads Bazel's action graph to a cluster of workers so that parallelism is no longer bound by the CPU and memory of a single runner. For S-CORE, the practical value is twofold: CI builds that currently serialize on a single GitHub Actions runner could fan out across remote workers, and developers running Bazel locally could optionally delegate heavy compilations to remote infrastructure while keeping the edit-build-test cycle on their own machine.
+
+The infrastructure involves three layers. First, a backend service that implements the Bazel Remote Execution API — candidates range from open-source solutions such as Buildbarn and BuildBuddy Community to managed commercial services. Second, the CI and local `.bazelrc` configuration that enables remote execution for the right subset of actions without breaking platform-specific builds. Third, authentication and access control so that the backend serves authorized S-CORE builds without exposing the cluster to uncontrolled workloads.
+
+A related Bazel mechanism is dynamic execution, which lets Bazel race a local and a remote execution of the same action and take whichever finishes first. This can smooth the transition period where some actions run faster locally and others benefit from remote workers, but it adds complexity to the configuration and requires the backend to tolerate speculative cancellations.
+
+For hardware-oriented testing, RBE intersects with the hardware runner story in [section 7.1.2](07-automation-integration.md#712-hardware-test-runners). If lab-attached devices such as Raspberry Pi boards are registered as RBE workers, Bazel could schedule test execution on real hardware as part of a normal `bazel test` invocation, avoiding a separate deployment step. This is an advanced pattern that depends on both the RBE backend and the hardware provisioning model being in place.
+
+**Biggest gap**: no RBE backend is available; builds are constrained to single-runner execution. Provider evaluation criteria, architecture decisions, and authentication model are not yet documented.
 
 ### 3.5.3 Build Resource Scheduling
 

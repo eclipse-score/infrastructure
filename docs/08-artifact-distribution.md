@@ -162,15 +162,21 @@ Good discoverability also requires light explanation. Users need to know that th
 
 **Biggest gap**: no consistent discoverability pattern yet spans both GitHub release assets and registry-published modules in one coherent consumer story.
 
-### 8.4.2 Retention & Availability
+### 8.4.2 Retention, Availability & Rollback
 
-*Keeping released deliverables accessible over time according to a defined lifecycle.*
+*Keeping released deliverables accessible over time and enabling reliable rollback to previous baselines.*
 
 **S-CORE**
 
-- GitHub retains release artifacts indefinitely, while GitHub Actions artifacts are ephemeral and CI-scoped only.
-- Long-term consumer access depends on persistent publication channels rather than temporary pipeline storage.
-- **Biggest gap**: no explicit retention, mirroring, or availability policy is defined for S-CORE deliverables.
+Retention and rollback are two sides of the same coin. Retention asks which artifacts stay available and for how long; rollback asks how a consumer or the project itself reverts to a previously baselined release when a newer version turns out to be broken.
+
+For S-CORE, the retention picture depends on the publication channel. GitHub Releases retain release assets indefinitely by default, which means source archives, binaries, and attached metadata remain accessible as long as the repository exists. The Bazel registry retains module entries permanently because they are committed files in a Git repository. GitHub Actions artifacts, by contrast, are ephemeral and disappear after a configurable retention window, which makes them unsuitable as the only home for anything that needs to survive beyond a single CI run.
+
+Rollback requires more than artifact availability. A consumer who needs to revert to a previous module version can do so through the registry by pinning `bazel_dep` to the older version, which is straightforward as long as the older version is still present in the registry and the release assets it references are still available. For integrated baselines that span multiple modules, rollback means returning to a previous `known_good` manifest rather than individually downgrading components, because the combination of module versions matters as much as any single version. The `known_good` model described in [section 7.3.4](07-automation-integration.md#734-known-good-promotion) provides the identifier, but the ability to rebuild and redeploy from that identifier depends on all referenced artifacts, toolchain versions, and environment images still being retrievable.
+
+A practical rollback strategy therefore needs three properties: durable artifact storage so that nothing disappears before it is no longer needed, manifest-level version identity so that "go back to the previous known-good" is an unambiguous operation, and a tested procedure so that rollback is a routine operation rather than an emergency improvisation.
+
+**Biggest gap**: no explicit retention policy, rollback procedure, or availability guarantee is defined for S-CORE deliverables. The ability to roll back to a previous integrated baseline is assumed but not documented or tested.
 
 ### 8.4.3 Consumer Guidance
 
