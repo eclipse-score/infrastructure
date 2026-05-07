@@ -6,11 +6,11 @@
 
 **S-CORE**
 
-- GitHub Actions is the CI/CD platform for S-CORE; workflows are triggered on pull requests, merges, schedules, and releases.
-- Reusable workflows shared across repositories reduce duplication and enforce consistent pipeline structure.
-- Pipeline execution relies on both GitHub-hosted cloud runners and hardware-oriented execution environments.
-- This chapter owns workflow orchestration and gate delivery, including cases where CI reuses the shared contributor environment from [chapter 2](02-developer-environment.md), not the technical baselines defined in [chapter 3](03-build-infrastructure.md), [chapter 4](04-testing-infrastructure.md), [chapter 5](05-static-analysis-infrastructure.md), and [chapter 6](06-compliance-infrastructure.md).
-- **Biggest gap**: reusable workflow coverage and quality gate consistency across S-CORE repositories are incomplete.
+GitHub Actions is the CI/CD platform for S-CORE. Workflows are triggered on pull requests, merges, schedules, and releases. Reusable workflows shared across repositories reduce duplication and enforce consistent pipeline structure. Pipeline execution relies on both GitHub-hosted cloud runners and hardware-oriented execution environments. This chapter owns workflow orchestration and gate delivery, including cases where CI reuses the shared contributor environment from [chapter 2](02-developer-environment.md), not the technical baselines defined in [chapter 3](03-build-infrastructure.md), [chapter 4](04-testing-infrastructure.md), [chapter 5](05-static-analysis-infrastructure.md), and [chapter 6](06-compliance-infrastructure.md).
+
+Because GitHub Actions is a managed platform, its constraints shape what workflows can and cannot do. The most consequential constraints include: workflow storage quotas that limit how much artifact data a repository can retain across runs, concurrency limits that determine how many jobs can run in parallel per organization, runner disk space that constrains large Bazel builds and Docker-in-Docker workloads, the split between `GITHUB_TOKEN` and fine-grained PAT permissions that affects cross-repository access, and the inability to share mutable state between jobs except through artifacts or caches. For self-hosted runners, additional constraints include node pool sizing, network access to internal resources, and the security implications of running untrusted pull-request code on persistent infrastructure. Established patterns that work well in S-CORE include using composite actions for Bazel setup and teardown, restricting `workflow_dispatch` and `pull_request_target` triggers to workflows that explicitly need elevated permissions, and using reusable workflows rather than copying common steps between repositories.
+
+**Biggest gap**: reusable workflow coverage and quality gate consistency across S-CORE repositories are incomplete. GitHub Actions platform constraints and S-CORE-specific best practices are not documented in one place.
 
 ## 7.1 Runners 🟠
 
@@ -54,20 +54,6 @@ The infrastructure layers that need to exist are: physical device management and
 
 - CI execution environments should make trust boundaries explicit, especially when different jobs handle external contributions, internal credentials, or hardware access.
 - **Biggest gap**: there is no clearly documented execution trust model across the different runner types used in S-CORE workflows.
-
-### 7.1.4 Platform Constraints & Best Practices
-
-*Documenting GitHub Actions platform limitations and established patterns for working within them.*
-
-**S-CORE**
-
-GitHub Actions is the CI platform for S-CORE, and its constraints shape what workflows can and cannot do. Some of these constraints are well-known but still catch contributors who come from other CI systems; others are specific to the scale and multi-repository structure of S-CORE. Making them explicit avoids repeated debugging and helps workflow authors make deliberate design choices instead of discovering limits in production.
-
-The most consequential constraints include: workflow storage quotas that limit how much artifact data a repository can retain across runs, concurrency limits that determine how many jobs can run in parallel per organization, runner disk space that constrains large Bazel builds and Docker-in-Docker workloads, the split between `GITHUB_TOKEN` and fine-grained PAT permissions that affects cross-repository access, and the inability to share mutable state between jobs except through artifacts or caches. For self-hosted runners, additional constraints include node pool sizing, network access to internal resources, and the security implications of running untrusted pull-request code on persistent infrastructure.
-
-Established patterns that work well in S-CORE include: using composite actions to encapsulate Bazel setup and teardown so that cache configuration, disk cleanup, and shutdown steps are consistent across workflows; restricting `workflow_dispatch` and `pull_request_target` triggers to workflows that explicitly need elevated permissions; and using reusable workflows from [section 7.2](#72-reusable-workflows) rather than copying common steps between repositories. Where a pattern has been validated, it should be documented as a recommendation rather than left as tribal knowledge in individual workflow files.
-
-**Biggest gap**: GitHub Actions platform constraints and S-CORE-specific best practices are not documented in one place. Contributors rediscover the same limitations independently.
 
 ## 7.2 Reusable Workflows ⚪
 
