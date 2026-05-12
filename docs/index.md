@@ -56,6 +56,46 @@
   </div>
 </div>
 
+## Quick Links
+
+<div class="landing-quick-links">
+
+  <p class="landing-section-label">Infrastructure Team</p>
+
+  <div class="landing-grid landing-grid-2">
+    <a class="landing-card-link" href="https://github.com/orgs/eclipse-score/discussions/236" target="_blank" rel="noopener">
+      <p class="landing-link-title">Meeting Minutes</p>
+      <p class="landing-link-desc">Infrastructure team meeting notes on GitHub Discussions.</p>
+    </a>
+    <a class="landing-card-link" href="https://sdvworkinggroup.slack.com/archives/C0894QGRZDM" target="_blank" rel="noopener">
+      <p class="landing-link-title">Slack: #score-infrastructure</p>
+      <p class="landing-link-desc">Main channel for infrastructure team discussion.</p>
+    </a>
+    <a class="landing-card-link" href="https://sdvworkinggroup.slack.com/archives/C08RDRKH5FE" target="_blank" rel="noopener">
+      <p class="landing-link-title">Slack: #score-infrastructure-review-requests</p>
+      <p class="landing-link-desc">Drop PR links here for review — no comments, just links.</p>
+    </a>
+    <a class="landing-card-link" href="https://eclipse-score.github.io/.github/" target="_blank" rel="noopener">
+      <p class="landing-link-title">Repository Overview</p>
+      <p class="landing-link-desc">Cross-repo metrics and status across all eclipse-score repositories.</p>
+    </a>
+  </div>
+
+  <p class="landing-section-label">S-CORE Project</p>
+
+  <div class="landing-grid landing-grid-2">
+    <a class="landing-card-link" href="https://eclipse.dev/score/" target="_blank" rel="noopener">
+      <p class="landing-link-title">S-CORE Website</p>
+      <p class="landing-link-desc">The main Eclipse S-CORE project website — "Open by Choice. Safe by Design."</p>
+    </a>
+    <a class="landing-card-link" href="https://eclipse-score.github.io/score/main/handbook" target="_blank" rel="noopener">
+      <p class="landing-link-title">S-CORE Handbook</p>
+      <p class="landing-link-desc">Technical handbook — processes, tooling, and contribution model.</p>
+    </a>
+  </div>
+
+</div>
+
 ## Chapter Map
 
 <!-- BEGIN GENERATED CHAPTER MAP -->
