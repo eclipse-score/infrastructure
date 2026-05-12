@@ -49,14 +49,14 @@ def clean_title(text: str) -> str:
 
 
 def wrap_label(text: str, width: int) -> str:
-    """Return text wrapped with Mermaid-friendly HTML line breaks."""
+    """Return text wrapped with newlines for Mermaid markdown string labels."""
     lines = textwrap.wrap(
         text,
         width=width,
         break_long_words=False,
         break_on_hyphens=True,
     )
-    return "<br/>".join(lines) if lines else text
+    return "\n".join(lines) if lines else text
 
 
 def display_title(section: Section) -> str:
@@ -127,8 +127,12 @@ def parse_chapter(path: Path) -> Section:
 
 
 def mermaid_label(text: str) -> str:
-    """Return text safe for a Mermaid quoted node label."""
-    return plain_title(text).replace('"', "'")
+    """Return text safe for a Mermaid quoted node label.
+
+    Input already comes from display_title which calls plain_title,
+    so we only need to escape quote characters here.
+    """
+    return text.replace('"', "'").replace("`", "'")
 
 
 def emit_section(
@@ -140,7 +144,11 @@ def emit_section(
 ) -> None:
     """Render a section and its H2 children as Mermaid mindmap nodes."""
     node_id = f"node_{next(node_ids):03d}"
-    lines.append(f'{indent}{node_id}["{mermaid_label(display_title(section))}"]')
+    label = mermaid_label(display_title(section))
+    if "\n" in label:
+        lines.append(f'{indent}{node_id}["`{label}`"]')
+    else:
+        lines.append(f'{indent}{node_id}["{label}"]')
     links.append(
         {
             "id": node_id,
@@ -160,7 +168,6 @@ def render_mindmap(chapters: list[Section]) -> tuple[str, list[dict[str, object]
     node_ids = count(1)
     links: list[dict[str, object]] = []
     lines = [
-        "%%{init: {'themeVariables': {'fontSize': '16px'}}}%%",
         "mindmap",
         "  root((S-CORE Infrastructure))",
     ]

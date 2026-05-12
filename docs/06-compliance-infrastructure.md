@@ -23,9 +23,11 @@ The exact toolchain may evolve, but the structure of the flow should remain stab
 ```mermaid
 flowchart TD
     file_in_repo["File in repository"]
-    dependency_manifest["Dependency manifest\nin repository"]
+    dependency_manifest["`Dependency manifest
+in repository`"]
     bazel_graph["Bazel dependency graph"]
-    manual_declarations["Manual third-party\ndependency declarations"]
+    manual_declarations["`Manual third-party
+dependency declarations`"]
 
     %% File path
     file_in_repo --> header_check{"Supports copyright header?"}
@@ -33,13 +35,15 @@ flowchart TD
     header_check -->|Yes| add_header["Add copyright + SPDX header"]
     header_check -->|No| add_license["Add .license file"]
 
-    add_header --> copyright_owner{"Copyright holder\n= Eclipse S-CORE?"}
+    add_header --> copyright_owner{"`Copyright holder
+= Eclipse S-CORE?`"}
     add_license --> copyright_owner
 
     copyright_owner -->|Yes| first_party["First-party file"]
     copyright_owner -->|No| third_party_file["Third-party / external file"]
 
-    first_party --> current_component["Component produced\nby this repo"]
+    first_party --> current_component["`Component produced
+by this repo`"]
 
     third_party_file --> reuse_checks["REUSE / license compliance"]
     reuse_checks --> external_component["Third-party component"]
@@ -47,30 +51,41 @@ flowchart TD
     %% Dependency discovery path
     dependency_manifest --> cdxgen_scan["cdxgen"]
     dependency_manifest --> bazel_graph
-    bazel_graph --> sbom_conversion["SBOM tool\n(graph -> SBOM format)"]
-    cdxgen_scan --> merge_inputs["Merge converted build graph\n+ cdxgen output\n+ manual declarations"]
+    bazel_graph --> sbom_conversion["`SBOM tool
+(graph -> SBOM format)`"]
+    cdxgen_scan --> merge_inputs["`Merge converted build graph
++ cdxgen output
++ manual declarations`"]
     sbom_conversion --> merge_inputs
     manual_declarations --> merge_inputs
 
-    merge_inputs --> dash_enrichment["Enrich license data via\nEclipse Dash License Tool"]
+    merge_inputs --> dash_enrichment["`Enrich license data via
+Eclipse Dash License Tool`"]
 
     %% Converged SBOM candidate path
-    current_component --> included_check{"Included in product?\n(SBOM scope: runtime)"}
+    current_component --> included_check{"`Included in product?
+(SBOM scope: runtime)`"}
     external_component --> included_check
     dash_enrichment --> included_check
 
-    included_check -->|No| non_product_sbom["Development SBOM\n(build scope)"]
-    included_check -->|Yes| product_sbom["Product SBOM\n(runtime scope)"]
+    included_check -->|No| non_product_sbom["`Development SBOM
+(build scope)`"]
+    included_check -->|Yes| product_sbom["`Product SBOM
+(runtime scope)`"]
 
-    non_product_sbom --> license_compliance["License compliance\n(IP Lab / Dash\n+ project whitelist)"]
+    non_product_sbom --> license_compliance["`License compliance
+(IP Lab / Dash
++ project whitelist)`"]
     product_sbom --> license_compliance
 
     non_product_sbom --> github_upload["Upload SBOM to GitHub"]
-    non_product_sbom --> dependencytrack_upload["Upload SBOM\nto Dependency-Track"]
+    non_product_sbom --> dependencytrack_upload["`Upload SBOM
+to Dependency-Track`"]
     product_sbom --> github_upload
     product_sbom --> dependencytrack_upload
 
-    github_upload --> vulnerability_results["Vulnerability findings\n/ monitoring"]
+    github_upload --> vulnerability_results["`Vulnerability findings
+/ monitoring`"]
     dependencytrack_upload --> vulnerability_results
 
     classDef artifact fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1

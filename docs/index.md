@@ -62,61 +62,97 @@
 <p class="chapter-map-note">This chapter map is generated from the `#` and `##` headings in the numbered chapter files. Click any chapter or section box to open it.</p>
 
 ```mermaid
-%%{init: {'themeVariables': {'fontSize': '16px'}}}%%
 mindmap
   root((S-CORE Infrastructure))
-    node_001["1 Source Code<br/>Infrastructure 🟠"]
-      node_002["1.1 Hosting & Organization<br/>⚪"]
-      node_003["1.2 Repository<br/>Provisioning & Lifecycle 🟡"]
-      node_004["1.3 Repository Policy<br/>Management 🔴"]
+    node_001["`1 Source Code
+Infrastructure 🟠`"]
+      node_002["`1.1 Hosting & Organization
+⚪`"]
+      node_003["`1.2 Repository
+Provisioning & Lifecycle 🟡`"]
+      node_004["`1.3 Repository Policy
+Management 🔴`"]
       node_005["1.4 Repository Standards 🟠"]
-    node_006["2 Developer Environment<br/>🟡"]
+    node_006["`2 Developer Environment
+🟡`"]
       node_007["2.1 Central Devcontainer 🟠"]
-      node_008["2.2 Local Auxiliary<br/>Tooling 🟡"]
+      node_008["`2.2 Local Auxiliary
+Tooling 🟡`"]
     node_009["3 Build & Dependencies ⚪"]
       node_010["3.1 Build System ⚪"]
-      node_011["3.2 Dependency Management<br/>⚪"]
+      node_011["`3.2 Dependency Management
+⚪`"]
       node_012["3.3 Toolchain Management ⚪"]
-      node_013["3.4 Build Reproducibility<br/>& Evidence ⚪"]
-      node_014["3.5 Build Execution<br/>Infrastructure ⚪"]
+      node_013["`3.4 Build Reproducibility
+& Evidence ⚪`"]
+      node_014["`3.5 Build Execution
+Infrastructure ⚪`"]
     node_015["4 Testing ⚪"]
-      node_016["4.1 Test Framework<br/>Integration ⚪"]
+      node_016["`4.1 Test Framework
+Integration ⚪`"]
       node_017["4.2 Test Traceability ⚪"]
-      node_018["4.3 Test Execution &<br/>Dynamic Analysis ⚪"]
+      node_018["`4.3 Test Execution &
+Dynamic Analysis ⚪`"]
       node_019["4.4 Test Reporting ⚪"]
-    node_020["5 Code Analysis<br/>Infrastructure ⚪"]
+    node_020["`5 Code Analysis
+Infrastructure ⚪`"]
       node_021["5.1 Tooling Baseline ⚪"]
-      node_022["5.2 Shared Rule<br/>Configuration ⚪"]
+      node_022["`5.2 Shared Rule
+Configuration ⚪`"]
       node_023["5.3 Execution Model ⚪"]
       node_024["5.4 Security Scanning ⚪"]
-      node_025["5.5 Results and Governance<br/>⚪"]
-    node_026["6 Compliance &<br/>Dependency Analysis ⚪"]
-      node_027["6.1 End-to-End Compliance<br/>Flow ⚪"]
-      node_028["6.2 Repository Inputs &<br/>Compliance Evidence ⚪"]
-      node_029["6.3 SBOM Scope, Compliance<br/>Processing & Monitoring ⚪"]
-      node_030["6.4 Findings & Governance<br/>⚪"]
-    node_031["7 Automation<br/>Infrastructure &<br/>Continuous Integration<br/>(CI) ⚪"]
+      node_025["`5.5 Results and Governance
+⚪`"]
+    node_026["`6 Compliance &
+Dependency Analysis ⚪`"]
+      node_027["`6.1 End-to-End Compliance
+Flow ⚪`"]
+      node_028["`6.2 Repository Inputs &
+Compliance Evidence ⚪`"]
+      node_029["`6.3 SBOM Scope, Compliance
+Processing & Monitoring ⚪`"]
+      node_030["`6.4 Findings & Governance
+⚪`"]
+    node_031["`7 Automation
+Infrastructure &
+Continuous Integration
+(CI) ⚪`"]
       node_032["7.1 Runners 🟠"]
       node_033["7.2 Reusable Workflows ⚪"]
-      node_034["7.3 Cross-Repository<br/>Integration ⚪"]
+      node_034["`7.3 Cross-Repository
+Integration ⚪`"]
       node_035["7.4 Secrets Management ⚪"]
       node_036["7.5 CI Observability ⚪"]
-    node_037["8 Release & Distribution<br/>⚪"]
+    node_037["`8 Release & Distribution
+⚪`"]
       node_038["8.1 Deliverable Types ⚪"]
-      node_039["8.2 Distribution Channels<br/>⚪"]
+      node_039["`8.2 Distribution Channels
+⚪`"]
       node_040["8.3 Release Metadata ⚪"]
       node_041["8.4 Consumer Access ⚪"]
-      node_042["8.5 Post-Release<br/>Communication & Response ⚪"]
-    node_043["9 Documentation &<br/>Traceability ⚪"]
+      node_042["`8.5 Post-Release
+Communication & Response ⚪`"]
+    node_043["`9 Documentation &
+Traceability ⚪`"]
       node_044["9.1 Authoring & Tooling ⚪"]
-      node_045["9.2 Build, Validation &<br/>Publishing ⚪"]
-      node_046["9.3 Cross-Repository<br/>Documentation Integration<br/>⚪"]
-      node_047["9.4 Engineering<br/>Documentation &<br/>Traceability ⚪"]
-    node_048["10 Infrastructure<br/>Operations ⚪"]
-      node_049["10.1 CI Runner Operations<br/>⚪"]
-      node_050["10.2 Infrastructure<br/>Monitoring ⚪"]
-      node_051["10.3 Infrastructure<br/>Maintenance ⚪"]
-      node_052["10.4 Infrastructure<br/>Governance ⚪"]
+      node_045["`9.2 Build, Validation &
+Publishing ⚪`"]
+      node_046["`9.3 Cross-Repository
+Documentation Integration
+⚪`"]
+      node_047["`9.4 Engineering
+Documentation &
+Traceability ⚪`"]
+    node_048["`10 Infrastructure
+Operations ⚪`"]
+      node_049["`10.1 CI Runner Operations
+⚪`"]
+      node_050["`10.2 Infrastructure
+Monitoring ⚪`"]
+      node_051["`10.3 Infrastructure
+Maintenance ⚪`"]
+      node_052["`10.4 Infrastructure
+Governance ⚪`"]
 ```
 <script type="application/json" class="chapter-map-links-data">
 [
