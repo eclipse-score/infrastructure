@@ -6,54 +6,8 @@
   <p class="landing-lead">
     This site explains what S-CORE infrastructure is, which shared capabilities and repositories already exist,
     how mature they are, what is still missing, and how a concrete issue or pull request fits into the bigger picture.
+    Whether you're asking how we do something, where to look for a topic, or how an issue fits the big picture — start here.
   </p>
-</div>
-
-<div class="landing-grid landing-grid-3">
-  <div class="landing-card">
-    <h3>Who should read this</h3>
-    <p>
-      Technical and non-technical stakeholders who need an overview, plus infrastructure contributors
-      who need to understand the current state, gaps, and direction of the project infrastructure.
-    </p>
-    <p>Typical reader questions:</p>
-    <ul>
-      <li>What do we mean by S-CORE infrastructure?</li>
-      <li>Which infrastructure building blocks already exist?</li>
-      <li>How far along is each area?</li>
-    </ul>
-  </div>
-  <div class="landing-card">
-    <h3>What it covers</h3>
-    <p>
-      The technical capabilities that make engineering work possible and scalable across S-CORE:
-      source code infrastructure, developer environment, builds and dependencies, testing,
-      code analysis, dependency analysis, automation, release distribution, documentation,
-      traceability, and operations.
-    </p>
-    <p>
-      The chapters are capability-oriented, but they are grounded in the actual repositories
-      that implement the infrastructure across the Eclipse S-CORE GitHub organization.
-    </p>
-    <p>
-      Cross-cutting concerns such as security and compliance are described inside the chapters
-      where the work actually happens rather than as standalone silos.
-    </p>
-  </div>
-  <div class="landing-card">
-    <h3>What this site is for</h3>
-    <p>
-      An infrastructure overview, a development map for current state and remaining work,
-      a contribution map for infrastructure contributors, and a reference for architecture
-      and cross-cutting concerns.
-    </p>
-    <p>Typical contributor questions:</p>
-    <ul>
-      <li>How do we do a specific thing?</li>
-      <li>Where should I look for a topic or responsibility?</li>
-      <li>How does this issue or PR belong to the big picture?</li>
-    </ul>
-  </div>
 </div>
 
 ## Quick Links

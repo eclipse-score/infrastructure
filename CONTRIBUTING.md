@@ -2,6 +2,14 @@
 
 This repository contains the source for the S-CORE infrastructure documentation. Contributions should improve clarity, keep the information architecture coherent, and make the documentation easier to use for both humans and tools.
 
+## Site Purpose & Audience
+
+The published site serves technical and non-technical stakeholders who need an infrastructure overview, plus infrastructure contributors who need to understand current state, gaps, and direction. It covers the technical capabilities that make engineering work possible and scalable across S-CORE: source code infrastructure, developer environment, builds and dependencies, testing, code analysis, dependency analysis, automation, release distribution, documentation, traceability, and operations.
+
+The chapters are capability-oriented but grounded in the actual repositories that implement the infrastructure. Cross-cutting concerns such as security and compliance are described inside the chapters where the work happens rather than as standalone silos.
+
+The site functions as an infrastructure overview, a development map for current state and remaining work, a contribution map for infrastructure contributors, and a reference for architecture and cross-cutting concerns.
+
 ## Working On The Documentation
 
 Use the published site for content consumption and this repository for source edits, review, and validation.
