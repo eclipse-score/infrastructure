@@ -99,53 +99,53 @@ Configuration ⚪`"]
 ⚪`"]
     node_026["`6 Compliance &
 Dependency Analysis ⚪`"]
-      node_027["`6.1 End-to-End Compliance
-Flow ⚪`"]
-      node_028["`6.2 Repository Inputs &
+      node_027["6.1 File-Level Licensing ⚪"]
+      node_028["6.2 Dependency Analysis ⚪"]
+      node_029["`6.3 SBOM Scoping and
 Compliance Evidence ⚪`"]
-      node_029["`6.3 SBOM Scope, Compliance
-Processing & Monitoring ⚪`"]
-      node_030["`6.4 Findings & Governance
-⚪`"]
-    node_031["`7 Automation
+      node_030["`6.4 License Checks and
+Compliance ⚪`"]
+      node_031["`6.5 Monitoring and
+Governance ⚪`"]
+    node_032["`7 Automation
 Infrastructure &
 Continuous Integration
 (CI) ⚪`"]
-      node_032["7.1 Runners 🟠"]
-      node_033["7.2 Reusable Workflows ⚪"]
-      node_034["`7.3 Cross-Repository
+      node_033["7.1 Runners 🟠"]
+      node_034["7.2 Reusable Workflows ⚪"]
+      node_035["`7.3 Cross-Repository
 Integration ⚪`"]
-      node_035["7.4 Secrets Management ⚪"]
-      node_036["7.5 CI Observability ⚪"]
-    node_037["`8 Release & Distribution
+      node_036["7.4 Secrets Management ⚪"]
+      node_037["7.5 CI Observability ⚪"]
+    node_038["`8 Release & Distribution
 ⚪`"]
-      node_038["8.1 Deliverable Types ⚪"]
-      node_039["`8.2 Distribution Channels
+      node_039["8.1 Deliverable Types ⚪"]
+      node_040["`8.2 Distribution Channels
 ⚪`"]
-      node_040["8.3 Release Metadata ⚪"]
-      node_041["8.4 Consumer Access ⚪"]
-      node_042["`8.5 Post-Release
+      node_041["8.3 Release Metadata ⚪"]
+      node_042["8.4 Consumer Access ⚪"]
+      node_043["`8.5 Post-Release
 Communication & Response ⚪`"]
-    node_043["`9 Documentation &
+    node_044["`9 Documentation &
 Traceability ⚪`"]
-      node_044["9.1 Authoring & Tooling ⚪"]
-      node_045["`9.2 Build, Validation &
+      node_045["9.1 Authoring & Tooling ⚪"]
+      node_046["`9.2 Build, Validation &
 Publishing ⚪`"]
-      node_046["`9.3 Cross-Repository
+      node_047["`9.3 Cross-Repository
 Documentation Integration
 ⚪`"]
-      node_047["`9.4 Engineering
+      node_048["`9.4 Engineering
 Documentation &
 Traceability ⚪`"]
-    node_048["`10 Infrastructure
+    node_049["`10 Infrastructure
 Operations ⚪`"]
-      node_049["`10.1 CI Runner Operations
+      node_050["`10.1 CI Runner Operations
 ⚪`"]
-      node_050["`10.2 Infrastructure
+      node_051["`10.2 Infrastructure
 Monitoring ⚪`"]
-      node_051["`10.3 Infrastructure
+      node_052["`10.3 Infrastructure
 Maintenance ⚪`"]
-      node_052["`10.4 Infrastructure
+      node_053["`10.4 Infrastructure
 Governance ⚪`"]
 ```
 <script type="application/json" class="chapter-map-links-data">
@@ -413,45 +413,55 @@ Governance ⚪`"]
   {
     "id": "node_027",
     "kind": "section",
-    "href": "06-compliance-infrastructure/#61-end-to-end-compliance-flow",
-    "title": "6.1 End-to-End Compliance Flow",
+    "href": "06-compliance-infrastructure/#61-file-level-licensing",
+    "title": "6.1 File-Level Licensing",
     "match_texts": [
-      "6.1 End-to-End Compliance Flow ⚪",
-      "6.1 End-to-End Compliance Flow"
+      "6.1 File-Level Licensing ⚪",
+      "6.1 File-Level Licensing"
     ]
   },
   {
     "id": "node_028",
     "kind": "section",
-    "href": "06-compliance-infrastructure/#62-repository-inputs-compliance-evidence",
-    "title": "6.2 Repository Inputs & Compliance Evidence",
+    "href": "06-compliance-infrastructure/#62-dependency-analysis",
+    "title": "6.2 Dependency Analysis",
     "match_texts": [
-      "6.2 Repository Inputs & Compliance Evidence ⚪",
-      "6.2 Repository Inputs & Compliance Evidence"
+      "6.2 Dependency Analysis ⚪",
+      "6.2 Dependency Analysis"
     ]
   },
   {
     "id": "node_029",
     "kind": "section",
-    "href": "06-compliance-infrastructure/#63-sbom-scope-compliance-processing-monitoring",
-    "title": "6.3 SBOM Scope, Compliance Processing & Monitoring",
+    "href": "06-compliance-infrastructure/#63-sbom-scoping-and-compliance-evidence",
+    "title": "6.3 SBOM Scoping and Compliance Evidence",
     "match_texts": [
-      "6.3 SBOM Scope, Compliance Processing & Monitoring ⚪",
-      "6.3 SBOM Scope, Compliance Processing & Monitoring"
+      "6.3 SBOM Scoping and Compliance Evidence ⚪",
+      "6.3 SBOM Scoping and Compliance Evidence"
     ]
   },
   {
     "id": "node_030",
     "kind": "section",
-    "href": "06-compliance-infrastructure/#64-findings-governance",
-    "title": "6.4 Findings & Governance",
+    "href": "06-compliance-infrastructure/#64-license-checks-and-compliance",
+    "title": "6.4 License Checks and Compliance",
     "match_texts": [
-      "6.4 Findings & Governance ⚪",
-      "6.4 Findings & Governance"
+      "6.4 License Checks and Compliance ⚪",
+      "6.4 License Checks and Compliance"
     ]
   },
   {
     "id": "node_031",
+    "kind": "section",
+    "href": "06-compliance-infrastructure/#65-monitoring-and-governance",
+    "title": "6.5 Monitoring and Governance",
+    "match_texts": [
+      "6.5 Monitoring and Governance ⚪",
+      "6.5 Monitoring and Governance"
+    ]
+  },
+  {
+    "id": "node_032",
     "kind": "chapter",
     "href": "07-automation-integration/",
     "title": "7 Automation Infrastructure & Continuous Integration (CI)",
@@ -461,7 +471,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_032",
+    "id": "node_033",
     "kind": "section",
     "href": "07-automation-integration/#71-runners",
     "title": "7.1 Runners",
@@ -471,7 +481,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_033",
+    "id": "node_034",
     "kind": "section",
     "href": "07-automation-integration/#72-reusable-workflows",
     "title": "7.2 Reusable Workflows",
@@ -481,7 +491,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_034",
+    "id": "node_035",
     "kind": "section",
     "href": "07-automation-integration/#73-cross-repository-integration",
     "title": "7.3 Cross-Repository Integration",
@@ -491,7 +501,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_035",
+    "id": "node_036",
     "kind": "section",
     "href": "07-automation-integration/#74-secrets-management",
     "title": "7.4 Secrets Management",
@@ -501,7 +511,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_036",
+    "id": "node_037",
     "kind": "section",
     "href": "07-automation-integration/#75-ci-observability",
     "title": "7.5 CI Observability",
@@ -511,7 +521,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_037",
+    "id": "node_038",
     "kind": "chapter",
     "href": "08-artifact-distribution/",
     "title": "8 Release & Distribution",
@@ -521,7 +531,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_038",
+    "id": "node_039",
     "kind": "section",
     "href": "08-artifact-distribution/#81-deliverable-types",
     "title": "8.1 Deliverable Types",
@@ -531,7 +541,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_039",
+    "id": "node_040",
     "kind": "section",
     "href": "08-artifact-distribution/#82-distribution-channels",
     "title": "8.2 Distribution Channels",
@@ -541,7 +551,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_040",
+    "id": "node_041",
     "kind": "section",
     "href": "08-artifact-distribution/#83-release-metadata",
     "title": "8.3 Release Metadata",
@@ -551,7 +561,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_041",
+    "id": "node_042",
     "kind": "section",
     "href": "08-artifact-distribution/#84-consumer-access",
     "title": "8.4 Consumer Access",
@@ -561,7 +571,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_042",
+    "id": "node_043",
     "kind": "section",
     "href": "08-artifact-distribution/#85-post-release-communication-response",
     "title": "8.5 Post-Release Communication & Response",
@@ -571,7 +581,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_043",
+    "id": "node_044",
     "kind": "chapter",
     "href": "09-documentation-infrastructure/",
     "title": "9 Documentation & Traceability",
@@ -581,7 +591,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_044",
+    "id": "node_045",
     "kind": "section",
     "href": "09-documentation-infrastructure/#91-authoring-tooling",
     "title": "9.1 Authoring & Tooling",
@@ -591,7 +601,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_045",
+    "id": "node_046",
     "kind": "section",
     "href": "09-documentation-infrastructure/#92-build-validation-publishing",
     "title": "9.2 Build, Validation & Publishing",
@@ -601,7 +611,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_046",
+    "id": "node_047",
     "kind": "section",
     "href": "09-documentation-infrastructure/#93-cross-repository-documentation-integration",
     "title": "9.3 Cross-Repository Documentation Integration",
@@ -611,7 +621,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_047",
+    "id": "node_048",
     "kind": "section",
     "href": "09-documentation-infrastructure/#94-engineering-documentation-traceability",
     "title": "9.4 Engineering Documentation & Traceability",
@@ -621,7 +631,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_048",
+    "id": "node_049",
     "kind": "chapter",
     "href": "10-infrastructure-operations/",
     "title": "10 Infrastructure Operations",
@@ -631,7 +641,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_049",
+    "id": "node_050",
     "kind": "section",
     "href": "10-infrastructure-operations/#101-ci-runner-operations",
     "title": "10.1 CI Runner Operations",
@@ -641,7 +651,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_050",
+    "id": "node_051",
     "kind": "section",
     "href": "10-infrastructure-operations/#102-infrastructure-monitoring",
     "title": "10.2 Infrastructure Monitoring",
@@ -651,7 +661,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_051",
+    "id": "node_052",
     "kind": "section",
     "href": "10-infrastructure-operations/#103-infrastructure-maintenance",
     "title": "10.3 Infrastructure Maintenance",
@@ -661,7 +671,7 @@ Governance ⚪`"]
     ]
   },
   {
-    "id": "node_052",
+    "id": "node_053",
     "kind": "section",
     "href": "10-infrastructure-operations/#104-infrastructure-governance",
     "title": "10.4 Infrastructure Governance",

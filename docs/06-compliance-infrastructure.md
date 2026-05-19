@@ -1,236 +1,347 @@
 # 6 Compliance & Dependency Analysis ⚪
 
-*Infrastructure for turning repository files, dependency declarations, and build outputs into licensing evidence, SBOMs, and ongoing vulnerability and compliance monitoring across S-CORE.*
+*Infrastructure for turning repository files, dependency declarations, and build outputs into licensing evidence, SBOMs, and ongoing compliance and vulnerability monitoring across S-CORE.*
 
-⚠️ This chapter is written by ChatGPT and was not yet reviewed
+The compliance flow has five stages. File-level licensing (§6.1) classifies every file as first-party or third-party. Dependency analysis (§6.2) discovers what each repository consumes and produces enriched SBOMs. SBOM scoping (§6.3) decides which evidence belongs in which SBOM and who receives it. License checks (§6.4) verify that the license profile is acceptable and produce a license-enriched SBOM. Monitoring and governance (§6.5) uses that artifact for ongoing vulnerability detection and compliance oversight.
 
-**S-CORE**
+[Chapter 3](03-build-infrastructure.md) owns generating raw build evidence. [Chapter 7](07-automation-integration.md) owns CI orchestration. [Chapter 8](08-artifact-distribution.md) owns artifact publication. This chapter owns interpreting, enriching, scoping, and checking compliance evidence.
 
-This chapter is the canonical home for the end-to-end compliance view: how files in a repository, dependency manifests, build-generated dependency graphs, and manual declarations become classified components, enriched dependency data, scoped SBOMs, later OSS review inputs, and monitoring results. [Chapter 3](03-build-infrastructure.md) still owns how inventories, SBOMs, and other evidence are produced during normal builds. This chapter owns what happens once that raw information needs to be interpreted, enriched, scoped, checked for license and vulnerability concerns, and made useful over time.
-
-That scope applies not only to product artifacts, but also to self-developed tooling and environment artifacts such as devcontainer images when S-CORE builds and distributes them. Publication and consumer delivery of those artifacts remain the responsibility of [chapter 8](08-artifact-distribution.md), while CI orchestration of the checks described here belongs in [chapter 7](07-automation-integration.md). Some later OSS review steps may be required by downstream distributors rather than by S-CORE itself, but they still depend on the evidence and scoping decisions described here. **Biggest gap**: the pieces of this compliance flow already exist, but they are not yet described and operated as one shared cross-repository capability spanning file-level licensing, dependency enrichment, SBOM scoping, distributor-facing scan inputs, and continuous monitoring.
-
-## 6.1 End-to-End Compliance Flow ⚪
-
-*System view of how repository content becomes compliance evidence and monitoring inputs.*
-
-**S-CORE**
-
-The easiest way to understand this chapter is to follow the data from repository state to compliance outcomes. Files in the repository need licensing metadata. Dependency manifests need scanning and occasional manual declarations. Build systems such as Bazel can also contribute a dependency graph that reflects what the build actually consumes. Those inputs are then merged, enriched, and turned into SBOMs whose scope depends on whether the resulting component is merely part of the development environment or part of the runtime product. The resulting SBOMs can then feed license-compliance review inside S-CORE, distributor-facing OSS scans where required, and continuous vulnerability monitoring.
-
-The exact toolchain may evolve, but the structure of the flow should remain stable:
+The tooling landscape for this area is still early-stage. [eclipse-score/sbom-tool](https://github.com/eclipse-score/sbom-tool) is a proof-of-concept Bazel rule set that integrates SBOM generation into the build, using dash-license-scan and cdxgen as data sources for license enrichment. It belongs entirely to this chapter: it consumes build outputs as inputs but owns discovery, enrichment, and SBOM generation — all compliance concerns. The remaining gaps are around scope decisions, non-Bazel repositories, monitoring, and governance — which is what this chapter describes.
 
 ```mermaid
 flowchart TD
-    file_in_repo["File in repository"]
-    dependency_manifest["`Dependency manifest
-in repository`"]
-    bazel_graph["Bazel dependency graph"]
-    manual_declarations["`Manual third-party
-dependency declarations`"]
+    subgraph s61 ["§ 6.1  File-Level Licensing"]
+        repo_files["Repository files"]
+        file_class["File classification\n(first / third-party)"]
+        repo_files --> file_class
+    end
 
-    %% File path
-    file_in_repo --> header_check{"Supports copyright header?"}
+    subgraph s62 ["§ 6.2  Dependency Analysis"]
+        dep_sources["`Dependency manifests
++ build graphs`"]
+        enriched_sboms["Enriched SBOMs"]
+        dep_sources --> enriched_sboms
+    end
 
-    header_check -->|Yes| add_header["Add copyright + SPDX header"]
-    header_check -->|No| add_license["Add .license file"]
+    subgraph s63 ["§ 6.3  SBOM Scoping and Compliance Evidence"]
+        scope{"`Scope decision
+(dev / product)`"}
+        scoped_sboms["Scoped SBOMs"]
+        scope --> scoped_sboms
+    end
 
-    add_header --> copyright_owner{"`Copyright holder
-= Eclipse S-CORE?`"}
-    add_license --> copyright_owner
+    subgraph s64 ["§ 6.4  License Checks and Compliance"]
+        license_check["License checking\n(Dash / IP review)"]
+        license_sbom["License-enriched SBOM"]
+        license_check --> license_sbom
+    end
 
-    copyright_owner -->|Yes| first_party["First-party file"]
-    copyright_owner -->|No| third_party_file["Third-party / external file"]
+    subgraph s65 ["§ 6.5  Monitoring and Governance"]
+        monitoring["Vulnerability monitoring"]
+        governance["Findings & coverage"]
+    end
 
-    first_party --> current_component["`Component produced
-by this repo`"]
-
-    third_party_file --> reuse_checks["REUSE / license compliance"]
-    reuse_checks --> external_component["Third-party component"]
-
-    %% Dependency discovery path
-    dependency_manifest --> cdxgen_scan["cdxgen"]
-    dependency_manifest --> bazel_graph
-    bazel_graph --> sbom_conversion["`SBOM tool
-(graph -> SBOM format)`"]
-    cdxgen_scan --> merge_inputs["`Merge converted build graph
-+ cdxgen output
-+ manual declarations`"]
-    sbom_conversion --> merge_inputs
-    manual_declarations --> merge_inputs
-
-    merge_inputs --> dash_enrichment["`Enrich license data via
-Eclipse Dash License Tool`"]
-
-    %% Converged SBOM candidate path
-    current_component --> included_check{"`Included in product?
-(SBOM scope: runtime)`"}
-    external_component --> included_check
-    dash_enrichment --> included_check
-
-    included_check -->|No| non_product_sbom["`Development SBOM
-(build scope)`"]
-    included_check -->|Yes| product_sbom["`Product SBOM
-(runtime scope)`"]
-
-    non_product_sbom --> license_compliance["`License compliance
-(IP Lab / Dash
-+ project whitelist)`"]
-    product_sbom --> license_compliance
-
-    non_product_sbom --> github_upload["Upload SBOM to GitHub"]
-    non_product_sbom --> dependencytrack_upload["`Upload SBOM
-to Dependency-Track`"]
-    product_sbom --> github_upload
-    product_sbom --> dependencytrack_upload
-
-    github_upload --> vulnerability_results["`Vulnerability findings
-/ monitoring`"]
-    dependencytrack_upload --> vulnerability_results
+    file_class --> scope
+    enriched_sboms --> scope
+    scoped_sboms --> license_check
+    license_sbom --> monitoring
+    license_sbom --> governance
+    monitoring --> governance
 
     classDef artifact fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1
     classDef action fill:#E8F5E9,stroke:#43A047,color:#1B5E20
     classDef decision fill:#FFF3E0,stroke:#FB8C00,color:#E65100
+    classDef outcome fill:#F3E5F5,stroke:#8E24AA,color:#4A148C
 
-    class file_in_repo,dependency_manifest,bazel_graph,manual_declarations,first_party,third_party_file,current_component,external_component,non_product_sbom,product_sbom,vulnerability_results artifact
-    class add_header,add_license,cdxgen_scan,sbom_conversion,merge_inputs,dash_enrichment,reuse_checks,license_compliance,github_upload,dependencytrack_upload action
-    class header_check,copyright_owner,included_check decision
+    class repo_files,dep_sources,file_class,enriched_sboms,scoped_sboms,license_sbom artifact
+    class scope decision
+    class license_check,monitoring action
+    class governance outcome
 ```
 
-### 6.1.1 File-Level Classification
+## 6.1 File-Level Licensing ⚪
+
+*Classifying repository files as first-party or third-party and attaching machine-readable licensing metadata.*
+
+```mermaid
+flowchart LR
+    file["Repository files"]
+    header_ok{"`Supports
+inline header?`"}
+    header["`Copyright + SPDX
+header`"]
+    sidecar[".license sidecar"]
+    owner{"`Copyright holder
+= S-CORE?`"}
+    first["First-party"]
+    third["Third-party"]
+    out["`File classification
+→ §6.3`"]
 
-*Classifying repository files as first-party or third-party and attaching the licensing metadata they need.*
+    file --> header_ok
+    header_ok -->|Yes| header
+    header_ok -->|No| sidecar
+    header --> owner
+    sidecar --> owner
+    owner -->|Yes| first
+    owner -->|No| third
+    first --> out
+    third --> out
 
-**S-CORE**
+    classDef artifact fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1
+    classDef action fill:#E8F5E9,stroke:#43A047,color:#1B5E20
+    classDef decision fill:#FFF3E0,stroke:#FB8C00,color:#E65100
+    classDef context fill:#F5F5F5,stroke:#BDBDBD,color:#757575
+
+    class file,first,third artifact
+    class header,sidecar action
+    class header_ok,owner decision
+    class out context
+```
+
+### 6.1.1 Metadata Model
+
+*How files carry their licensing information and how first-party content is distinguished from third-party content.*
+
+Every file needs machine-readable licensing metadata in one of two forms: a copyright notice and SPDX license identifier in the file header, or a sidecar `.license` file for formats that cannot carry inline headers. This metadata is what allows tooling to distinguish first-party S-CORE material from third-party imports. Third-party files need to stay visible as externally sourced so they reach later license-compliance steps.
+
+**Biggest gap**: file-level licensing metadata and first-party versus third-party classification are not yet enforced consistently across repositories.
+
+### 6.1.2 Enforcement
+
+*Automated enforcement of file-level licensing metadata through local hooks and CI checks.*
+
+Consistent metadata requires two enforcement layers: a pre-commit hook that auto-adds the correct header to new first-party files, and a CI check that verifies all files carry required metadata. Both should share the same configuration so local and remote enforcement agree. REUSE-style validation is the likely long-term consolidation point. Copyright tooling from [eclipse-score/tooling](https://github.com/eclipse-score/tooling) currently provides a pre-commit hook and PR check.
+
+**Biggest gap**: enforcement coverage is inconsistent across repositories, and the boundary between current header tooling and REUSE-based validation is not yet resolved.
+
+## 6.2 Dependency Analysis ⚪
+
+*Discovering what a repository consumes and producing enriched SBOM-format outputs.*
+
+This path requires three distinct capabilities: dependency discovery, license enrichment, and SBOM-format output. In Bazel-based repositories, [eclipse-score/sbom-tool](https://github.com/eclipse-score/sbom-tool) already integrates all three as a Bazel rule. It uses the Bazel module graph and aspects for discovery, dash-license-scan for Rust license data, cdxgen for C++ license data, and produces SPDX 2.3 / CycloneDX 1.6 output — so these tools are data sources within one orchestrated build step, not competing alternatives.
+
+```mermaid
+flowchart LR
+    subgraph inputs ["Build inputs"]
+        direction TB
+        lockfiles["Lock files"]
+        modulegraph["`Bazel module graph
++ aspects`"]
+        manual["`Manual
+declarations`"]
+    end
 
-The compliance story begins with ordinary files in a repository. Some files can carry a copyright notice and SPDX identifier directly in the file header. Others need a sidecar `.license` file instead. That is not just formatting detail: it is what allows the project to distinguish first-party material produced by S-CORE from third-party material that has been imported or reused. Third-party files then need to stay visible to REUSE and later license-compliance handling rather than being treated like ordinary project sources. **Biggest gap**: file-level licensing metadata and first-party versus third-party classification are not yet enforced consistently across S-CORE repositories.
+    subgraph enrichment ["License data sources"]
+        direction TB
+        dash["`dash-license-scan
+(Rust)`"]
+        cdxgen["`cdxgen
+(C++)`"]
+    end
 
-### 6.1.2 Dependency Discovery & Enrichment
+    sbom_tool["`SBOM generator
+(sbom-tool)`"]
+    sbom_output["`SPDX 2.3
+CycloneDX 1.6`"]
+    out["`Enriched SBOMs
+→ §6.3`"]
 
-*Collecting dependency information from manifests, scanners, and manual declarations, then enriching it for later compliance use.*
+    inputs --> sbom_tool
+    enrichment --> sbom_tool
+    sbom_tool --> sbom_output --> out
 
-**S-CORE**
+    classDef artifact fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1
+    classDef action fill:#E8F5E9,stroke:#43A047,color:#1B5E20
+    classDef transparent fill:none,stroke:#ccc
+    classDef context fill:#F5F5F5,stroke:#BDBDBD,color:#757575
 
-Dependency discovery starts from the manifests a repository already maintains, but that is rarely enough on its own. In Bazel-based repositories, an important additional input is the Bazel dependency graph, because it reflects the dependencies that the build actually sees rather than only the declarations a human happens to inspect. What is sometimes called an "SBOM tool" should therefore be understood carefully here: in this flow, it is primarily a conversion step that serializes the build graph into an SBOM format rather than a magical source of dependency truth by itself. Scanner output such as `cdxgen` still needs to be merged with that converted build evidence and with manual third-party declarations so the later compliance model reflects reality rather than only what one tool can infer automatically. Once the inputs are combined, license data can be enriched through services such as the Eclipse Dash License Tool. This is the point where raw dependency state turns into something that later SBOM and compliance tooling can work with reliably. **Biggest gap**: build-derived dependency graphs, converted SBOM data, and manual declarations are not yet merged and enriched through one consistent cross-repository flow.
+    class lockfiles,modulegraph,manual,sbom_output artifact
+    class dash,cdxgen,sbom_tool action
+    class inputs,enrichment transparent
+    class out context
+```
 
-### 6.1.3 SBOM Scope Decisions
+### 6.2.1 Discovery and Enrichment
 
-*Deciding whether the resulting evidence belongs to development-time scope or runtime product scope.*
+*Collecting dependency information from multiple sources and mapping it to license status.*
 
-**S-CORE**
+For Bazel-based repositories, [sbom-tool](https://github.com/eclipse-score/sbom-tool) already combines these sources: the Bazel module graph provides structural dependency data, lock files provide version and checksum data, dash-license-scan enriches Rust crate licenses via the Eclipse Dash License Tool, and cdxgen scans C++ dependencies. Manual declarations cover vendored content and transitive relationships that automated sources miss. The result is a merged, enriched SBOM produced as a normal build output.
 
-The same repository can produce more than one compliance view. Some components and dependencies belong only to the build or development environment, while others are actually part of the runtime product delivered downstream. That distinction matters because it changes which SBOM should be produced, how findings are interpreted, and which later consumers care about the result. The useful mental model is therefore not "one repository, one SBOM" but "one set of inputs, then a scope decision." **Biggest gap**: S-CORE does not yet have a shared explanation of which inputs belong in development-scope SBOMs, which belong in product SBOMs, and how that decision should be represented consistently.
+For non-Bazel repositories, no equivalent integration exists yet. The same capabilities are needed — discovery, enrichment, output — but the tooling path is undefined.
 
-## 6.2 Repository Inputs & Compliance Evidence ⚪
+**Biggest gap**: sbom-tool covers Bazel-based repositories as a proof of concept, but the flow is not yet consistently available across all repository types. Coverage for non-Bazel repositories and for C++ license enrichment (where dash-license-scan does not yet work) remains open.
 
-*The repository-level sources of truth that feed licensing and dependency compliance infrastructure.*
+## 6.3 SBOM Scoping and Compliance Evidence ⚪
 
-**S-CORE**
+*Deciding what belongs in which SBOM and who consumes the resulting compliance evidence.*
 
-Once the end-to-end view is clear, the next question is what the infrastructure actually consumes from repositories. The answer is broader than just dependency files. Compliance also depends on file-level licensing markers, third-party declarations, and a clear view of whether a repository is describing product code, tooling, or environment artifacts. This section therefore focuses on the inputs that need to exist before later SBOM and monitoring steps can work well. **Biggest gap**: repositories do not yet expose one clear, consistent compliance input surface that shared tooling can consume without repository-specific interpretation.
+This is where the two input paths converge. One repository does not produce one SBOM — it produces inputs to a scope decision that determines which evidence goes where and to whom.
 
-### 6.2.1 Source Files, Headers, and REUSE Metadata
+```mermaid
+flowchart TD
+    in61["`File classification
+← §6.1`"]
+    in62["`Enriched SBOMs
+← §6.2`"]
 
-*Using headers, sidecar files, and REUSE-compatible metadata to describe the licensing status of repository content.*
+    scope{"`Scope
+decision`"}
 
-**S-CORE**
+    dev_sbom["`Development SBOM
+(build scope)`"]
+    prod_sbom["`Product SBOM
+(runtime scope)`"]
 
-Headers and `.license` sidecars are the smallest compliance building blocks, but they are also some of the most important because they preserve intent at the point where content is created or imported. REUSE-style validation depends on that metadata being present and accurate, especially for third-party material that should remain visible as externally sourced content. When this metadata is missing or inconsistent, later license evidence becomes fragile because the project has to reconstruct authorship and license intent after the fact.
+    license_checks["`License checks
+→ §6.4`"]
+    distributor_source["`Distributor: source
+release scan`"]
+    distributor_runtime["`Distributor: runtime
+image scan`"]
 
-Enforcing this at scale requires tooling that operates in two modes. A pre-commit hook should automatically add the correct copyright and SPDX header to new first-party files so that contributors do not need to remember the format. A CI check should then verify that all files carry the required metadata — either a direct header or a `.license` sidecar — and that the copyright holder and license identifier are consistent with project policy. The pre-commit hook catches omissions early; the CI check catches anything that slipped through. Both should share the same configuration so that the local and remote enforcement agree on what is correct.
+    in61 --> scope
+    in62 --> scope
+    scope --> dev_sbom
+    scope --> prod_sbom
 
-In S-CORE, copyright tooling is published through [eclipse-score/tooling](https://github.com/eclipse-score/tooling) and integrated as a pre-commit hook. The hook adds the S-CORE copyright header to new files automatically, while a corresponding PR check verifies compliance for contributions. **Biggest gap**: header and sidecar conventions are not yet validated or enforced consistently enough to make REUSE-style compliance dependable across all repositories, and the boundary between auto-add behavior and check-only behavior is not yet clearly documented.
+    dev_sbom --> license_checks
+    prod_sbom --> license_checks
+    prod_sbom --> distributor_source
+    prod_sbom --> distributor_runtime
 
-### 6.2.2 Dependency Manifests and Manual Declarations
+    classDef artifact fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1
+    classDef decision fill:#FFF3E0,stroke:#FB8C00,color:#E65100
+    classDef consumer fill:#F3E5F5,stroke:#8E24AA,color:#4A148C
+    classDef context fill:#F5F5F5,stroke:#BDBDBD,color:#757575
 
-*Combining repository dependency manifests with explicit declarations for third-party material that scanners do not capture well.*
+    class dev_sbom,prod_sbom artifact
+    class scope decision
+    class distributor_source,distributor_runtime consumer
+    class in61,in62,license_checks context
+```
 
-**S-CORE**
+### 6.3.1 Development vs Product Scope
 
-Dependency manifests remain the main machine-readable description of what a repository consumes, but real compliance work also needs a place for manual declarations. Some third-party material, generated assets, vendored content, or transitive relationships are difficult to reconstruct cleanly from scanners alone. That is why the compliance flow needs both automated discovery and explicit human-supplied declarations, with one merge point rather than parallel truths. This is also where supply-chain expectations such as source visibility and pinning discipline become part of the same infrastructure story. **Biggest gap**: repositories do not yet provide a well-defined merged dependency declaration model that later compliance and monitoring tooling can consume consistently.
+*Distinguishing between build-scope and runtime-scope compliance evidence.*
 
-### 6.2.3 Tooling & Environment Artifact Scope
+Some dependencies belong only to building, testing, or the development environment. Others are part of the delivered runtime product. That distinction changes which SBOM is produced, how findings are interpreted, and which consumers care. The same scope model applies to S-CORE's tooling and environment artifacts such as devcontainers — [chapter 3](03-build-infrastructure.md#344-tooling-environment-sboms-license-evidence) describes how they produce build evidence; this chapter owns the scope decision.
 
-*Applying the same compliance model to S-CORE-developed tooling and environment artifacts, not only product outputs.*
+**Biggest gap**: no shared definition yet of which inputs belong in development-scope versus product-scope SBOMs.
 
-**S-CORE**
+### 6.3.2 Compliance Consumers
 
-Tooling packages, devcontainer images, and similar engineering artifacts need the same kind of visibility as product deliverables because they also bundle dependencies, licenses, and supply-chain choices. From a compliance point of view, there is no good reason to treat them as out of scope merely because they are used by contributors or CI rather than by the final runtime product. Their later SBOM scope may differ, but they still belong inside the same overall system view. **Biggest gap**: tooling and environment artifacts are still not treated as first-class compliance targets across S-CORE.
+*Who uses the scoped evidence and for what purpose.*
 
-## 6.3 SBOM Scope, Compliance Processing & Monitoring ⚪
+Scoped SBOMs serve two immediate audiences before feeding downstream. Internally, they are the input to §6.4 License Checks and Compliance. For downstream distributors, they support OSS scans whose scope varies by deliverable type: a source release, a runtime image, and a redistributed tool are different scan targets with different questions. Vulnerability monitoring (§6.5) sits downstream of §6.4 and receives the license-enriched SBOM, not the scoped SBOM directly.
 
-*Turning repository and build inputs into scoped SBOMs, license evidence, and ongoing vulnerability monitoring.*
+**Biggest gap**: no shared model defines which deliverable is the scan target in each compliance situation.
 
-**S-CORE**
+## 6.4 License Checks and Compliance ⚪
 
-This is where the repository inputs and build-generated evidence converge. The build side described in [chapter 3](03-build-infrastructure.md) produces inventories, dependency graphs, and SBOM candidates. In Bazel-based repositories, that means the dependency graph is the primary technical input and the so-called SBOM tool is mostly a translation layer that emits the chosen SBOM format from that graph. The compliance side described here then decides scope, enriches the result, and connects it to downstream consumers such as license-compliance review, distributor-facing OSS scans, GitHub, and Dependency-Track. In other words, this section is about using SBOMs as living infrastructure inputs rather than treating them as static release attachments. **Biggest gap**: S-CORE does not yet have a standardized flow that consistently turns repository and build inputs into scoped SBOMs, compliance review inputs, distributor scan inputs, and durable monitoring results.
+*Verifying that dependencies meet S-CORE's license policy and producing a license-enriched SBOM as output.*
 
-### 6.3.1 Development and Product SBOMs
+Scoped SBOMs from §6.3 carry dependency metadata but license status may still be unresolved or incomplete. This section runs the actual license checks — automated via Dash and manual via IP review — and resolves those gaps. The result is a **license-enriched SBOM** with verified license status for every component. That artifact is what §6.5 uses for vulnerability monitoring and governance; it is a richer input than the scoped SBOM from §6.3.
 
-*Distinguishing between build-scope SBOMs and runtime-scope product SBOMs.*
+```mermaid
+flowchart LR
+    in63["`Scoped SBOMs
+← §6.3`"]
 
-**S-CORE**
+    pr_check["`PR-scoped
+check`"]
+    ip_review["`IP review &
+policy`"]
 
-The diagram above makes an important distinction that should stay visible in the prose: not every dependency belongs to the runtime product. Some dependencies are only relevant for building, testing, tooling, or development environments, and they therefore belong in a development SBOM rather than a product SBOM. Others cross the boundary into the actual delivered runtime and need to be represented in the product view. Both are useful, but they answer different questions. **Biggest gap**: the split between development-scope and runtime-scope SBOMs is not yet defined consistently enough for shared tooling and reporting.
+    license_sbom["`License-enriched
+SBOM → §6.5`"]
 
-### 6.3.2 License Compliance Processing
+    in63 --> pr_check
+    in63 --> ip_review
+    pr_check --> license_sbom
+    ip_review --> license_sbom
 
-*Using scoped SBOMs and enriched dependency data as inputs to license-compliance review.*
+    classDef artifact fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1
+    classDef action fill:#E8F5E9,stroke:#43A047,color:#1B5E20
+    classDef context fill:#F5F5F5,stroke:#BDBDBD,color:#757575
 
-**S-CORE**
+    class license_sbom artifact
+    class pr_check,ip_review action
+    class in63 context
+```
 
-Once SBOMs exist, they should not be treated as the end of the process. They are inputs to license-compliance handling, which may include Dash-based enrichment, IP review flows, and project-level allowlists or whitelists. The important architectural point is that these reviews should consume the same scoped evidence that later vulnerability monitoring sees, rather than inventing a separate manual inventory. That keeps the license and dependency stories connected instead of creating one toolchain for legal review and another for security monitoring.
+### 6.4.1 PR-Scoped License Checking
 
-For S-CORE, the concrete tool is [eclipse-score/dash-license-scan](https://github.com/eclipse-score/dash-license-scan), a wrapper around the Eclipse Dash License Tool that automates the dependency-to-license-status pipeline. It can auto-discover dependencies from lock files, produce structured JSON output, and run as part of a PR workflow that comments only when dependency changes introduce new license questions. That scoped-to-changes model is important because it avoids noisy full-repository scans on every PR while still catching new additions. The tool's capabilities and CLI interface should be documented well enough that repository maintainers can configure it without reading the source, and CI enforcement in [chapter 7](07-automation-integration.md#724-analysis-enforcement) should reference the same tool and configuration.
+*Checking dependency license status as part of the contribution workflow without creating noise.*
 
-**Biggest gap**: there is no shared compliance pipeline yet that clearly connects SBOM generation, Dash enrichment, and later license review expectations across repository classes. The dash-license-scan tool exists but its capabilities and configuration are not yet documented as part of the infrastructure baseline.
+Full-repository license scans on every PR produce too much noise. The effective model is scoped checking: run only when dependency changes are detected, surface results only when new license questions arise. This pattern matters regardless of which tool implements it — the check should be scoped to changes, produce structured output, and integrate into PR review.
 
-### 6.3.3 Distributor OSS Scans and Scan Targets
+**Biggest gap**: PR-scoped dependency license checking is not consistently available across repositories.
 
-*Preparing the right scan inputs when downstream distributors need full OSS review.*
+### 6.4.2 IP Review and Project Policy
 
-**S-CORE**
+*Routing license findings that require human review and maintaining a shared policy for accepted and rejected licenses.*
 
-There is also a later compliance step that sits adjacent to S-CORE rather than fully inside it: distributor-facing OSS scans. Those scans may be out of scope for S-CORE's own shared infrastructure, but they are still part of the end-to-end compliance story because distributors can only scan what S-CORE makes explicit and available. The practical implication is that this chapter needs to differentiate the scan target clearly instead of speaking vaguely about "the project" or "the artifact."
+Automated checks resolve most license questions, but some dependencies require IP review. The project also needs a shared license policy — allowlists for accepted licenses and a clear escalation path for non-standard situations. That policy should be machine-readable enough to feed back into automated checks rather than living only in documents.
 
-What gets scanned can differ substantially. A distributor might scan a repository snapshot or source release to review file-level licensing and imported third-party content. They might scan a shipped runtime artifact or image to review the delivered product composition. They might also scan tooling or environment artifacts when those are redistributed, even if they are not part of the runtime product itself. Those are different scan scopes with different questions, and they should not be collapsed into one generic OSS scan. S-CORE should therefore provide the metadata and scoped evidence that makes these later scans possible and interpretable, even if the actual scan is performed by a downstream distributor rather than by S-CORE. **Biggest gap**: the chapter does not yet define a shared model for which concrete deliverable is the scan target in each compliance situation and which distributor-facing OSS scans are expected to consume it.
+**Biggest gap**: no shared license policy or allowlist is defined at the S-CORE level; individual repositories handle license decisions ad hoc.
 
-### 6.3.4 Continuous Monitoring and Vulnerability Results
+## 6.5 Monitoring and Governance ⚪
 
-*Uploading scoped SBOMs to monitoring systems and using them to detect newly relevant issues over time.*
+*Continuous vulnerability monitoring, findings ownership, and cross-repository compliance visibility.*
 
-**S-CORE**
+The compliance flow becomes useful infrastructure only when SBOMs stay fresh, findings can be owned, and coverage gaps stay visible.
 
-After scope and enrichment are settled, SBOMs become ongoing monitoring inputs. Uploading them to systems such as GitHub and Dependency-Track allows the project to detect vulnerabilities and related supply-chain concerns after the initial build or release, not only at creation time. This is also the basis for later impact analysis: once a new issue is disclosed, the project should be able to map it back to affected artifact versions and repository owners using the stored SBOMs and version metadata. Continuous monitoring only works, however, if uploads stay fresh and the relationship between repository state, built artifacts, and published SBOMs remains clear. **Biggest gap**: no shared cross-repository process currently keeps SBOM uploads fresh, routes resulting findings reliably, and supports impact analysis across S-CORE artifact types.
+```mermaid
+flowchart TD
+    in64["`License-enriched SBOM
+← §6.4`"]
 
-## 6.4 Findings & Governance ⚪
+    upload["`Upload to GitHub
+/ Dependency-Track`"]
+    vuln["Vulnerability findings"]
 
-*Handling license and dependency findings and making compliance coverage visible across repositories and artifact classes.*
+    ownership["Findings ownership"]
+    baselines["Baselines & exceptions"]
+    visibility["Cross-repo coverage visibility"]
 
-**S-CORE**
+    in64 --> upload --> vuln
+    vuln --> ownership
+    vuln --> baselines
+    ownership --> visibility
+    baselines --> visibility
 
-The end-to-end flow only becomes useful infrastructure when findings can be owned, exceptions can be explained, and coverage gaps stay visible. This governance loop applies equally to license concerns, vulnerability findings, missing metadata, and incomplete monitoring coverage. It should give the project a view not only of individual issues, but also of where the underlying compliance flow is still absent or inconsistent. **Biggest gap**: no shared governance loop currently connects compliance findings, ownership, exceptions, and coverage visibility across S-CORE.
+    classDef artifact fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1
+    classDef action fill:#E8F5E9,stroke:#43A047,color:#1B5E20
+    classDef outcome fill:#F3E5F5,stroke:#8E24AA,color:#4A148C
+    classDef context fill:#F5F5F5,stroke:#BDBDBD,color:#757575
 
-### 6.4.1 Findings Ownership
+    class vuln artifact
+    class upload action
+    class ownership,baselines,visibility outcome
+    class in64 context
+```
 
-*Clarifying who is expected to fix, triage, or escalate compliance and dependency-analysis findings.*
+### 6.5.1 Continuous Vulnerability Monitoring
 
-**S-CORE**
+*Using license-enriched SBOMs as ongoing monitoring inputs to detect newly relevant issues over time.*
 
-Findings can originate from different parts of the flow, so ownership cannot be reduced to one team by default. A missing SPDX header may belong to a repository maintainer, a broken enrichment step may belong to tooling or infrastructure owners, and a vulnerability in a distributed environment artifact may belong to the team that publishes that artifact. The compliance chapter should therefore make ownership visible along the flow, not only at the end when a dashboard turns red. **Biggest gap**: S-CORE does not yet have a documented ownership model that connects findings back to the responsible step in the compliance pipeline.
+Uploading SBOMs to systems such as GitHub and Dependency-Track allows the project to detect vulnerabilities after the initial build. sbom-tool already includes an SPDX-to-GitHub-snapshot converter for this purpose, though it is not yet integrated into a cross-repository upload flow. Monitoring is also the basis for impact analysis — mapping a newly disclosed vulnerability back to affected artifact versions and repository owners. This only works if uploads stay fresh; a stale SBOM gives a false sense of coverage.
 
-### 6.4.2 Baselines and Risk Acceptance
+**Biggest gap**: no shared process keeps SBOM uploads fresh or supports impact analysis across S-CORE artifact types.
 
-*Handling existing compliance debt and justified exceptions without losing traceability.*
+### 6.5.2 Findings Ownership and Baselines
 
-**S-CORE**
+*Clarifying who owns compliance findings and how existing debt is handled.*
 
-Not every issue can be resolved immediately. Repositories may need temporary baselines for legacy third-party content, accepted vulnerability exposure, or transitional gaps in metadata and tooling. What matters is that these exceptions remain visible, justified, and reviewable rather than becoming silent drift away from the intended model. **Biggest gap**: there is no shared policy yet for how license and dependency exceptions are justified, recorded, and revisited across S-CORE.
+Findings come from different parts of the flow, so ownership cannot default to one team. A missing header belongs to a repository maintainer; a broken enrichment step belongs to tooling owners; a vulnerability in a distributed artifact belongs to whoever publishes it. Not every issue can be fixed immediately — temporary baselines are acceptable as long as exceptions remain visible, justified, and reviewable.
 
-### 6.4.3 Cross-Repository Visibility
+**Biggest gap**: no documented ownership model connects findings to the responsible step in the compliance pipeline, and no shared policy defines how exceptions are justified, recorded, and revisited.
 
-*Measuring how completely the compliance flow is implemented across repositories and distributed artifacts.*
+### 6.5.3 Cross-Repository Visibility
 
-**S-CORE**
+*Measuring how completely the compliance flow is implemented across repositories.*
 
-Cross-repository visibility should show more than a list of current findings. It should also show which repositories classify files correctly, which ones publish scoped SBOMs, which artifact classes are uploaded to monitoring systems, and where manual declarations or enrichment steps are still missing. That kind of view is what turns the chapter from abstract guidance into operable infrastructure. **Biggest gap**: no common dashboard or conformance report currently shows how completely the end-to-end compliance flow is implemented across S-CORE.
+Visibility should show not just current findings but also coverage: which repositories classify files, which produce scoped SBOMs, which upload to monitoring, and where enrichment is still missing.
+
+**Biggest gap**: no conformance report shows how completely the compliance flow is implemented across S-CORE.
