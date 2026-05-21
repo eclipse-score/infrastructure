@@ -34,16 +34,22 @@ Step-by-step lessons for newcomers. Follow along to build understanding.
 - [Getting Started](tutorials/getting-started.md) — Set up your environment and run your first build
 - [Your First Pull Request](tutorials/first-pull-request.md) — From fork to merged PR, end to end
 - [Creating a New Module](tutorials/creating-a-module.md) — Start a new Bazel module from the template
+- [Write Your First ITF Integration Test](tutorials/itf-integration-test.md) — Docker-based target testing from scratch
 
 ## How-to Guides
 
 Practical recipes for specific tasks. Assumes you already have a working environment.
 
+**For contributors:**
+
 - [Building with Bazel](how-to/building.md) — Registry, dependencies, toolchains, lock files
-- [Testing](how-to/testing.md) — Test frameworks, coverage, sanitizers
+- [Testing](how-to/testing.md) — Test frameworks, ITF, QNX, coverage, sanitizers
 - [Code Quality](how-to/code-quality.md) — Pre-commit, lint policies, copyright headers
 - [Publishing Modules](how-to/publishing.md) — Release, registry import, consumer access
-- [Writing Documentation](how-to/writing-docs.md) — Bazel + Sphinx/MyST setup, local preview, validation
+
+**For infrastructure maintainers:**
+
+- [Writing Documentation](how-to/writing-docs.md) — Sphinx/MyST setup, local preview, status markers
 - [Update the Devcontainer](how-to/update-devcontainer.md) — Build, publish, and roll out a new shared image
 - [Manage CI Secrets](how-to/manage-ci-secrets.md) — Create, rotate, and replace secrets with OIDC
 - [Update a Shared Toolchain](how-to/update-toolchain.md) — Bump compiler or policy versions across repositories
@@ -62,18 +68,12 @@ Factual lookup material. No narrative, just the data you need.
 
 Architecture, design rationale, and maturity assessment of each infrastructure area.
 
-- [Infrastructure Landscape](explanation/index.md) — Chapter map and maturity overview
+- [Infrastructure Landscape](explanation/index.md) — Chapter map and maturity overview for all 10 areas
 - [Design Decisions](explanation/decisions.md) — Key architectural decisions and their rationale
-- [1. Source Code Infrastructure](explanation/01-source-code-infrastructure.md)
-- [2. Developer Environment](explanation/02-developer-environment.md)
-- [3. Build & Dependencies](explanation/03-build-infrastructure.md)
-- [4. Testing](explanation/04-testing-infrastructure.md)
-- [5. Code Analysis Infrastructure](explanation/05-static-analysis-infrastructure.md)
-- [6. Compliance & Dependency Analysis](explanation/06-compliance-infrastructure.md)
-- [7. Automation & CI](explanation/07-automation-integration.md)
-- [8. Release & Distribution](explanation/08-artifact-distribution.md)
-- [9. Documentation & Traceability](explanation/09-documentation-infrastructure.md)
-- [10. Infrastructure Operations](explanation/10-infrastructure-operations.md)
+- [4. Testing](explanation/04-testing-infrastructure.md) — ITF, QNX microvm, traceability, coverage
+- [9. Documentation & Traceability](explanation/09-documentation-infrastructure.md) — docs-as-code, sphinx-needs, known-good snapshots
+
+→ [All chapters](explanation/index.md)
 
 ## Quick Links
 
