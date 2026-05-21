@@ -10,6 +10,16 @@
   </p>
 </div>
 
+## Where to start
+
+| I want to… | Go to |
+|---|---|
+| Set up my environment and make my first contribution | [Tutorial: Getting Started](tutorials/getting-started.md) |
+| Solve a specific task (build, test, publish, write docs) | [How-to Guides](how-to/index.md) |
+| Understand how a piece of infrastructure works or why | [Explanation: Landscape Chapters](explanation/index.md) |
+| Look up a command, config value, or repository | [Quick Reference](reference/quick-reference.md) |
+| Understand project-specific terminology | [Glossary](reference/glossary.md) |
+
 ## Documentation Map
 
 | | **Learning** | **Working** |
@@ -43,12 +53,14 @@ Factual lookup material. No narrative, just the data you need.
 - [Configuration Reference](reference/configuration.md) — .bazelrc, pre-commit, devcontainer settings
 - [CI & Workflow Reference](reference/ci-workflows.md) — Reusable workflow inputs, outputs, and secrets
 - [Tool Versions](reference/tool-versions.md) — Version matrix for shared toolchains and images
+- [Glossary](reference/glossary.md) — Key terms and project-specific vocabulary
 
 ## Explanation
 
 Architecture, design rationale, and maturity assessment of each infrastructure area.
 
 - [Infrastructure Landscape](explanation/index.md) — Chapter map and maturity overview
+- [Design Decisions](explanation/decisions.md) — Key architectural decisions and their rationale
 - [1. Source Code Infrastructure](explanation/01-source-code-infrastructure.md)
 - [2. Developer Environment](explanation/02-developer-environment.md)
 - [3. Build & Dependencies](explanation/03-build-infrastructure.md)
@@ -63,6 +75,19 @@ Architecture, design rationale, and maturity assessment of each infrastructure a
 ## Quick Links
 
 <div class="landing-quick-links">
+
+  <p class="landing-section-label">Contributing</p>
+
+  <div class="landing-grid landing-grid-2">
+    <a class="landing-card-link" href="https://github.com/eclipse-score/infrastructure/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">
+      <p class="landing-link-title">Contributing Guide</p>
+      <p class="landing-link-desc">Documentation style, structure, and review checklist for contributors to this site.</p>
+    </a>
+    <a class="landing-card-link" href="how-to/writing-docs.md">
+      <p class="landing-link-title">How to Write Docs</p>
+      <p class="landing-link-desc">Bazel + Sphinx/MyST setup, local preview, validation workflow.</p>
+    </a>
+  </div>
 
   <p class="landing-section-label">Infrastructure Team</p>
 

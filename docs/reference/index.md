@@ -9,4 +9,5 @@ quick-reference
 configuration
 ci-workflows
 tool-versions
+glossary
 :::
