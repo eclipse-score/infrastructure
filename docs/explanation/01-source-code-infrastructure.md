@@ -26,16 +26,11 @@ graph TD
 
 *Provide a stable, discoverable, and scalable hosting foundation for all S-CORE repositories.*
 
-**S-CORE**
+All S-CORE repositories are hosted on GitHub at [github.com/eclipse-score](https://github.com/eclipse-score), aligned with Eclipse Foundation governance. A shared organization enables organization-level settings, applications, and automation to be managed centrally. The organization profile page ([eclipse-score/.github](https://github.com/eclipse-score/.github)) serves as a discovery surface that links to shared repository inventories, standards, and cross-project guidance.
 
-- GitHub is the canonical source-code hosting service for S-CORE repositories.
-- Repositories are hosted in GitHub aligned with Eclipse governance on https://github.com/eclipse-score
-- A common organization location makes repositories easier to discover, relate, and govern consistently.
-- Shared hosting also enables organization-level settings, applications, and automation to be managed centrally.
-- Discoverability depends not only on hosting location but also on repository naming, metadata, topics, and consistent descriptions.
-- The organization start page, served through [eclipse-score/.github](https://github.com/eclipse-score/.github), is also part of that discoverability surface because it can link readers to shared repository inventories, standards, and other cross-project guidance.
-- Good discovery infrastructure reduces onboarding friction and helps contributors navigate a growing repository landscape.
-- **Biggest gap**: there is no shared discoverability standard for how S-CORE repositories should present themselves in GitHub.
+Discoverability depends not only on hosting location but on repository naming, metadata, topics, and consistent descriptions. Without a shared standard, repositories drift in how they present themselves, which increases onboarding friction as the repository landscape grows.
+
+**Biggest gap**: there is no shared discoverability standard for how S-CORE repositories should present themselves in GitHub.
 
 
 ## 1.2 Repository Provisioning & Lifecycle 🟡
@@ -69,14 +64,11 @@ In S-CORE, policy intent is expressed centrally via the infrastructure-as-code t
 
 *Define, propagate, and measure standard repository elements to reduce unnecessary variation.*
 
-**S-CORE**
+Standards reduce unnecessary variation across the S-CORE repository landscape. To be effective, they need to be centrally defined, technically synchronized into repositories, and measurably adopted. These three concerns — definition, propagation, and conformance visibility — form a complete system only when they are all in place together.
 
-- Standards should be versioned, measurable, and continuously synchronized across repositories.
-- Standards are centrally defined and versioned.
-- Repositories adopt standards directly or through synchronized templates, generated configuration, or managed settings.
-- The standards story is only complete if adoption and drift can also be made visible across repositories.
-- These standards make repositories easier to discover, review, and automate across the broader S-CORE landscape.
-- **Biggest gap**: standards, synchronization, and conformance visibility are not yet operationalized as one coherent system.
+S-CORE has the beginnings of central standards but has not yet closed the loop to synchronized enforcement and visible conformance. The [module_template](https://github.com/eclipse-score/module_template) provides a bootstrap baseline for new Bazel-module repositories, and shared tooling and policy modules define some common expectations. However, these elements do not yet add up to a coherent cross-repository standardization system with automated rollout and drift detection.
+
+**Biggest gap**: standards, synchronization, and conformance visibility are not yet operationalized as one coherent system.
 
 ### 1.4.1 Repository Metadata 🟡
 

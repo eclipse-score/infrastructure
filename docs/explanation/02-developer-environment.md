@@ -6,6 +6,21 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 
 *Infrastructure that provides the local development layer across S-CORE repositories.*
 
+```{mermaid}
+graph LR
+    contributor["Contributor\n(VS Code / terminal)"]
+    dc["`ghcr.io/eclipse-score/devcontainer\n(Bazel · Python · pre-commit\nlanguage servers · doc tools)`"]
+    bazel["bazel build / test"]
+    precommit["pre-commit hooks"]
+    ci["`CI runners\n(same image)`"]
+
+    contributor -->|"Reopen in Container"| dc
+    dc --> bazel
+    dc --> precommit
+    bazel --> ci
+    precommit --> ci
+```
+
 S-CORE needs local infrastructure beyond its main software build flows. IDE integration, language servers, formatters, YAML and workflow linters, documentation helpers, and lightweight validation before CI all need a shared home or they drift from repository to repository.
 
 From a contributor's perspective, the developer environment is the entry point to every other infrastructure capability. A new contributor opens a devcontainer, gets a working editor and shell, and from there reaches into the build system ([chapter 3](03-build-infrastructure.md)), runs tests ([chapter 4](04-testing-infrastructure.md)), triggers local analysis ([chapter 5](05-static-analysis-infrastructure.md)), and eventually pushes a change that CI validates ([chapter 7](07-automation-integration.md)). Each of those chapters owns its own deep tooling, but the developer environment is where they all surface as a day-to-day experience. If the environment does not present those capabilities in a discoverable, consistent way, contributors end up reading CI logs to learn what they could have caught locally.
