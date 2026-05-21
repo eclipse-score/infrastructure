@@ -14,6 +14,8 @@ The devcontainer image is the canonical source for tool versions. Check the imag
 | Rust toolchain | [toolchains_rust](https://github.com/eclipse-score/toolchains_rust) | Rust stable, Ferrocene (safety-qualified) |
 | C++ policies | [score_cpp_policies](https://github.com/eclipse-score/score_cpp_policies) | Warning levels, sanitizers, constraint targets |
 | Rust policies | [score_rust_policies](https://github.com/eclipse-score/score_rust_policies) | Clippy rules, rustfmt configuration |
+| Integration Test Framework | [itf](https://github.com/eclipse-score/itf) | pytest-based target testing (Docker, QEMU, hardware) |
+| QNX unit test runner | [qnx_unit_tests](https://github.com/eclipse-score/qnx_unit_tests) | QEMU microvm test execution for QNX 8 |
 
 ## Build System
 

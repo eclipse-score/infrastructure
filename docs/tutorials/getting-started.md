@@ -51,6 +51,8 @@ This compiles all targets in the repository. On the first run, Bazel downloads e
 bazel test //...
 ```
 
+To see full output when a test fails, add `--test_output=all`.
+
 You should see all tests pass. If a test fails in a clean clone, it's a known issue — report it.
 
 ## 6. Set up pre-commit hooks

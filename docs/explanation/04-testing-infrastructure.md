@@ -5,8 +5,6 @@
 
 *Infrastructure supporting automated testing across S-CORE repositories, including dynamic analysis and verification evidence generation.*
 
-⚠️ This chapter is partially written by ChatGPT and was not yet reviewed
-
 **S-CORE**
 
 Testing infrastructure in S-CORE is centered on executable Bazel test targets, shared framework integration, traceability metadata, and reporting that can be consumed as verification evidence. The verification process may still use named levels such as unit, component integration, feature integration, and platform tests, but that taxonomy belongs to process guidance rather than this chapter. From the infrastructure perspective, the practical distinction is simpler: lower-level tests usually live in module repositories, while broader scenario-driven and target-oriented execution increasingly collects around shared environments such as `reference_integration` and ITF.
@@ -45,7 +43,7 @@ Rust tests typically use the native Rust test model through `rules_rust`, which 
 
 Python tests generally rely on pytest-style execution integrated through Bazel's Python rules. Python also matters beyond unit tests because it often acts as the orchestration layer for higher-level scenarios and target interaction, which is why ITF ([section 4.1.5](#415-itf-framework)) is itself pytest-based.
 
-For repositories that use pytest, the infrastructure question is not whether pytest works — it does — but whether repositories converge on a shared baseline for plugin selection, fixture patterns, and result output. Without that, each repository assembles its own pytest configuration, and shared tooling that consumes test results (reporting in [section 4.4](#44-test-reporting-), traceability in [section 4.2](#42-test-traceability-)) has to account for divergent output formats and metadata conventions. A shared pytest baseline would define which plugins are expected by default, how results are formatted for downstream consumption, and how system-level tests that need target interaction relate to the ITF plugin model.
+For repositories that use pytest, the infrastructure question is not whether pytest works — it does — but whether repositories converge on a shared baseline for plugin selection, fixture patterns, and result output. Without that, each repository assembles its own pytest configuration, and shared tooling that consumes test results (reporting in [section 4.4](#44-test-reporting), traceability in [section 4.2](#42-test-traceability)) has to account for divergent output formats and metadata conventions. A shared pytest baseline would define which plugins are expected by default, how results are formatted for downstream consumption, and how system-level tests that need target interaction relate to the ITF plugin model.
 
 The rollout challenge is that pytest is used at multiple levels: lightweight unit-style tests in module repositories, orchestration-heavy system tests in integration environments, and ITF-based target tests. A shared baseline must be useful across those levels without forcing a one-size-fits-all configuration. **Biggest gap**: there is no shared Python test framework and plugin baseline across repositories, and the boundary between plain pytest usage and ITF-managed execution is not yet clearly drawn.
 
@@ -63,17 +61,26 @@ Scenario-style execution matters once testing spans modules, services, or richer
 
 **S-CORE**
 
-ITF is the clearest example of target-oriented higher-level testing infrastructure in the current landscape. It is pytest-based, designed for ECU-oriented testing, and built around a target-agnostic plugin model covering environments such as Docker, QEMU, and real hardware, along with concerns like DLT handling.
+[ITF](https://github.com/eclipse-score/itf) is the clearest example of target-oriented higher-level testing infrastructure in the current landscape. It is pytest-based, designed for ECU-oriented testing, and built around a target-agnostic plugin model covering environments such as Docker, QEMU, and real hardware, along with concerns like DLT handling.
 
-The execution pipeline for ITF tests follows a layered model. Bazel invokes a pytest runner through the `py_itf_test` macro, which uses ITF plugins to manage the target environment — starting a Docker container, launching a QEMU instance, or connecting to a hardware device. The test code then interacts with the system under test through the environment that the plugin provides. Results flow back through pytest into Bazel's test result model. This pipeline means that ITF tests can be triggered as ordinary `bazel test` targets while the execution complexity is hidden inside the plugin layer.
+The execution pipeline for ITF tests follows a layered model. Bazel invokes a pytest runner through the `py_itf_test` symbolic macro, which uses ITF plugins to manage the target environment — starting a Docker container, launching a QEMU instance, or connecting to a hardware device. The test code then interacts with the system under test through the environment that the plugin provides. Results flow back through pytest into Bazel's test result model as JUnit XML written to `$XML_OUTPUT_FILE`. This pipeline means that ITF tests can be triggered as ordinary `bazel test` targets while the execution complexity is hidden inside the plugin layer. Because the `py_itf_test` macro produces a standard `py_test` binary that bundles test code and all plugin dependencies, ITF tests participate fully in Bazel's incremental build and caching: a test is only re-run if its source, dependencies, or configuration changes.
 
-The central abstraction is the capability-based `Target` model. Each target exposes capabilities such as `exec`, `file_transfer`, `restart`, `ssh`, and `sftp`. Tests declare which capabilities they require using decorators like `@requires_capabilities`, and the framework skips tests when the active target does not provide them. This design lets the same test code run against different target environments — a Docker container locally, a QEMU image in CI, a real board in the lab — with the plugin determining which capabilities are available.
+The central abstraction is the capability-based `Target` model. Each target exposes capabilities such as `exec`, `file_transfer`, `restart`, `ssh`, and `sftp`. Tests declare which capabilities they require using the `@requires_capabilities` decorator, and the framework skips tests when the active target does not provide them. This design lets the same test code run against different target environments — a Docker container locally, a QEMU image in CI, a real board in the lab — with the plugin determining which capabilities are available.
 
-The plugin model is what makes ITF extensible. Each target environment is a plugin (built via the `py_itf_plugin` Bazel macro) that handles provisioning, communication, and teardown. DLT log handling is another plugin concern. New target types can be added without changing the test-writing interface, and custom plugin documentation is already part of the ITF project.
+The plugin model is what makes ITF extensible. Four built-in plugins cover the current target types and supporting concerns:
 
-For traceability, ITF provides an attribute plugin with an `@add_test_properties` decorator that writes metadata such as `fully_verifies`, `test_type`, and `derivation_technique` into JUnit XML output. This connects ITF test results to the traceability model described in [section 4.2](#42-test-traceability-).
+| Plugin | Bazel label | Purpose |
+|---|---|---|
+| Docker | `@score_itf//score/itf/plugins:docker_plugin` | Container targets with `exec`, `file_transfer`, `restart` capabilities |
+| QEMU | `@score_itf//score/itf/plugins:qemu_plugin` | VM targets adding `ssh`, `sftp`, and network testing |
+| DLT | `@score_itf//score/itf/plugins:dlt_plugin` | Diagnostic Log and Trace message capture and query |
+| Attribute | `@score_itf//score/itf/plugins:attribute_plugin` | Requirement traceability metadata in JUnit XML |
 
-**Biggest gap**: the ITF plugin model and capability system are established, but onboarding guidance for module teams adopting ITF is still missing. The Bazel-side integration for passing traceability metadata from build targets into the attribute plugin is not yet streamlined.
+Each plugin is a Bazel target (built via the `py_itf_plugin` rule) that handles provisioning, communication, and teardown. New target types can be added by implementing the `Target` abstract class and a `target_init` pytest fixture in a custom plugin, without changing the ITF core or the test-writing interface.
+
+For traceability, the attribute plugin provides an `@add_test_properties` decorator that writes metadata such as `fully_verifies`, `test_type`, and `derivation_technique` into JUnit XML output. This connects ITF test results to the traceability model described in [section 4.2](#42-test-traceability).
+
+**Biggest gap**: the ITF plugin model and capability system are established, but onboarding guidance for module teams adopting ITF is still thin. The Bazel-side integration for passing traceability metadata from build targets into the attribute plugin is not yet streamlined.
 
 ## 4.2 Test Traceability ⚪
 
@@ -81,7 +88,11 @@ For traceability, ITF provides an attribute plugin with an `@add_test_properties
 
 **S-CORE**
 
-Test traceability is one of the parts of the testing stack that already shows a clear end-to-end shape. Test implementations can add requirement information to reports, and the docs-as-code flow can consume those reports to create links back into requirements and verification artifacts. Tests therefore behave as first-class evidence objects, even when they are represented differently from textual requirements. Higher-level traceability in `reference_integration` is already moving in the same direction. **Biggest gap**: Rust targets and some higher-level frameworks still cannot carry the same degree of traceability metadata as the more mature C++-centric flows.
+Test traceability is one of the parts of the testing stack that already shows a clear end-to-end shape. Test implementations can add requirement information to reports, and the docs-as-code flow can consume those reports to create links back into requirements and verification artifacts. Tests therefore behave as first-class evidence objects, even when they are represented differently from textual requirements. Higher-level traceability in `reference_integration` is already moving in the same direction.
+
+The concrete mechanism for ITF-based tests is the attribute plugin's `@add_test_properties` decorator, which writes structured metadata into the JUnit XML report. The supported fields include `fully_verifies` (list of requirement identifiers the test covers), `test_type` (e.g. `requirements-based`), and `derivation_technique` (e.g. `requirements-analysis`). Sphinx-based documentation tooling can then consume these JUnit XML reports to create bidirectional traceability between test results and requirement objects. This creates a verification chain from requirement through implementation to test result, which is especially valuable when requirements change between releases and the documentation build needs to identify which links break.
+
+**Biggest gap**: Rust targets and some higher-level frameworks still cannot carry the same degree of traceability metadata as the more mature C++-centric and ITF-based flows.
 
 ## 4.3 Test Execution & Dynamic Analysis ⚪
 
@@ -91,9 +102,13 @@ Test traceability is one of the parts of the testing stack that already shows a 
 
 At execution time, the common model is straightforward: tests are Bazel targets and normally run through `bazel test`, which provides isolation and incremental reuse of previous results. When re-execution must be forced, `--nocache_test_results` is available, and coverage collection already follows the stricter rule of always re-running with instrumentation. This section also owns the runtime-oriented techniques that depend on executing software rather than inspecting it statically. That includes coverage, sanitizers, fuzzing, stress testing, profiling, and performance benchmarking, even when their outputs later feed other chapters. In practice, this mostly shows up as a deployment pattern: lower-level execution stays inside module repositories, while cross-repository and target-oriented execution increasingly relies on shared environments such as `reference_integration` and ITF.
 
-An important special case is cross-compiled test execution. S-CORE supports building for multiple target platforms through its toolchain infrastructure, but building a test binary and executing it are separate problems when the target platform differs from the build host. QNX is the clearest current example: [section 3.3.1](03-build-infrastructure.md#331-c-toolchains) describes how `bazel_cpp_toolchains` provides toolchain configuration for QNX builds, but running the resulting `cc_test` or `rust_test` binaries requires either a QNX-capable emulator, a remote target device, or a CI runner with appropriate sysroot and runtime support. The same pattern applies to any platform where the build host cannot natively execute the test output, and it connects directly to the hardware runner infrastructure described in [section 7.1.2](07-automation-integration.md#712-hardware-test-runners).
+An important special case is cross-compiled test execution. S-CORE supports building for multiple target platforms through its toolchain infrastructure, but building a test binary and executing it are separate problems when the target platform differs from the build host. QNX is the clearest current example: [section 3.3.1](03-build-infrastructure.md#331-c-toolchains) describes how `bazel_cpp_toolchains` provides toolchain configuration for QNX builds, but running the resulting `cc_test` or `rust_test` binaries requires a QNX-capable execution environment.
 
-**Biggest gap**: test execution standards and runtime-analysis expectations are not yet defined consistently across repositories. Cross-compiled test execution for non-host platforms such as QNX lacks documented runner and deployment infrastructure.
+The [qnx_unit_tests](https://github.com/eclipse-score/qnx_unit_tests) module (`score_qnx_unit_tests`) solves this with a QEMU microvm approach. The `cc_test_qnx` and `rust_test_qnx` macros wrap standard Bazel test targets for execution inside QEMU running QNX 8. The execution pipeline packages the test binary and its runfiles into a tar archive, builds a QNX IFS boot image containing the kernel and startup scripts, boots QEMU with the IFS image, mounts the test archive via a custom virtio-9p resource manager for host-guest file sharing, executes the test, and extracts results (XML, coverage) from the shared directory. This supports both x86_64 and aarch64 target architectures and requires QEMU with KVM access for practical performance. QNX SDP 8.0 credentials are needed for the toolchain download.
+
+The same pattern applies to any platform where the build host cannot natively execute the test output, and it connects directly to the hardware runner infrastructure described in [section 7.1.2](07-automation-integration.md#712-hardware-test-runners). The QNX microvm approach is notable because it brings target execution into the normal `bazel test` flow without requiring a separate deployment or device provisioning step.
+
+**Biggest gap**: the QNX microvm execution model is functional for C++ and Rust unit tests, but broader cross-compiled test execution standards and runtime-analysis expectations are not yet defined consistently across repositories.
 
 ### 4.3.1 Coverage & Runtime Instrumentation
 

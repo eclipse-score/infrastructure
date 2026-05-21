@@ -38,6 +38,17 @@ All checks must pass before merge.
 
 CI secrets are managed at the GitHub organization level. Repository-level secrets are avoided where possible. See [Explanation: Automation & CI](../explanation/07-automation-integration.md) for the security model.
 
+## Test Execution in CI
+
+ITF tests run as ordinary `bazel test` targets. Docker-based ITF tests work on standard GitHub-hosted runners. QEMU-based ITF tests and QNX unit tests require runners with QEMU installed and KVM access (typically self-hosted).
+
+| Test type | Runner requirement | Notes |
+|---|---|---|
+| Unit tests (C++, Rust, Python) | GitHub-hosted | Standard `bazel test` |
+| ITF Docker tests | GitHub-hosted | Requires Docker |
+| ITF QEMU tests | Self-hosted (QEMU + KVM) | Needs QEMU images in `data` |
+| QNX unit tests | Self-hosted (QEMU + KVM) | Needs QNX SDP credentials |
+
 ## Cross-Repository Integration
 
 The [reference_integration](https://github.com/eclipse-score/reference_integration) repository tests cross-module compatibility by building and testing a combined workspace of multiple S-CORE modules.

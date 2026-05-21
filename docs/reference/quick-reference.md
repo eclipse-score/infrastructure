@@ -15,6 +15,8 @@
 | [eclipse-score/score_rust_policies](https://github.com/eclipse-score/score_rust_policies) | Shared Rust Clippy and rustfmt policies |
 | [eclipse-score/module_template](https://github.com/eclipse-score/module_template) | Template for new Bazel module repositories |
 | [eclipse-score/sbom-tool](https://github.com/eclipse-score/sbom-tool) | SBOM generation Bazel rules |
+| [eclipse-score/itf](https://github.com/eclipse-score/itf) | Integration Test Framework (pytest, Docker/QEMU/hardware) |
+| [eclipse-score/qnx_unit_tests](https://github.com/eclipse-score/qnx_unit_tests) | QNX microvm unit test runner (C++, Rust) |
 | [eclipse-score/reference_integration](https://github.com/eclipse-score/reference_integration) | Cross-repository integration environment |
 | [eclipse-score/.github](https://github.com/eclipse-score/.github) | Organization profile and cross-repo metrics |
 | [eclipse-score/.eclipsefdn](https://github.com/eclipse-score/.eclipsefdn) | Otterdog configuration (org settings as code) |

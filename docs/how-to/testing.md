@@ -1,6 +1,8 @@
 # How to Test
 
-## Run all tests
+## Run tests
+
+Run all tests in a repository:
 
 ```bash
 bazel test //...
@@ -18,11 +20,25 @@ Force re-execution (skip cache):
 bazel test //... --nocache_test_results
 ```
 
+See full output (useful when a test fails):
+
+```bash
+bazel test //path/to:target --test_output=all
+```
+
+Filter by test name pattern:
+
+```bash
+bazel test //path/to:target --test_filter="MyTest.specific_case"
+```
+
 ## Write a C++ test
 
-GoogleTest is integrated via Bazel. Define test targets using `cc_test`:
+GoogleTest is integrated via Bazel. Define a `cc_test` target:
 
 ```python
+load("@rules_cc//cc:defs.bzl", "cc_test")
+
 cc_test(
     name = "my_test",
     srcs = ["my_test.cc"],
@@ -33,36 +49,375 @@ cc_test(
 )
 ```
 
+```cpp
+// my_test.cc
+#include <gtest/gtest.h>
+#include "src/my_library.h"
+
+TEST(MyLibraryTest, ReturnsExpectedValue) {
+    EXPECT_EQ(compute(2, 3), 5);
+}
+```
+
+If the test needs data files:
+
+```python
+cc_test(
+    name = "my_test",
+    srcs = ["my_test.cc"],
+    data = ["testdata/input.bin"],
+    deps = ["@googletest//:gtest_main"],
+)
+```
+
 ## Write a Rust test
 
-Native Rust tests work through `rules_rust`. Define test targets using the standard Rust test model.
+Native Rust tests work through `rules_rust`:
+
+```python
+load("@rules_rust//rust:defs.bzl", "rust_test")
+
+rust_test(
+    name = "my_test",
+    srcs = ["my_test.rs"],
+    deps = ["//src:my_library"],
+)
+```
+
+```rust
+// my_test.rs
+use my_library::compute;
+
+#[test]
+fn returns_expected_value() {
+    assert_eq!(compute(2, 3), 5);
+}
+```
 
 ## Write a Python test
 
-pytest-based tests are integrated through Bazel's Python rules.
+pytest-based tests are integrated through Bazel's Python rules:
 
-## Use the Integration Test Framework (ITF)
+```python
+load("@rules_python//python:defs.bzl", "py_test")
 
-ITF is a pytest-based framework for target-oriented testing:
+py_test(
+    name = "my_test",
+    srcs = ["my_test.py"],
+    deps = ["//src:my_library"],
+)
+```
 
-- Use the `py_itf_test` Bazel macro to define test targets
-- Plugin model supports Docker, QEMU, and hardware targets
-- Declare required capabilities using the `@requires_capabilities` decorator
+## Write an ITF integration test
 
-See the [ITF project documentation](https://eclipse-score.github.io/score/main/) for detailed usage.
+[ITF](https://github.com/eclipse-score/itf) (Integration Test Framework) is a pytest-based framework for target-oriented testing. Tests execute against Docker containers, QEMU virtual machines, or real hardware through a plugin system with a unified `Target` interface.
+
+### Add ITF to your workspace
+
+In `MODULE.bazel`:
+
+```starlark
+bazel_dep(name = "score_itf", version = "0.2.0")
+```
+
+Ensure your `.bazelrc` includes the S-CORE registry:
+
+```
+common --registry=https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/
+common --registry=https://bcr.bazel.build
+```
+
+### Docker test
+
+The simplest ITF test runs a command inside a Docker container:
+
+```python
+# test_hello.py
+def test_hello(target):
+    exit_code, output = target.execute("echo 'Hello from target!'")
+    assert exit_code == 0
+    assert b"Hello from target!" in output
+```
+
+```starlark
+load("@score_itf//:defs.bzl", "py_itf_test")
+
+py_itf_test(
+    name = "test_hello",
+    srcs = ["test_hello.py"],
+    args = ["--docker-image=ubuntu:24.04"],
+    plugins = ["@score_itf//score/itf/plugins:docker_plugin"],
+)
+```
+
+Run it:
+
+```bash
+bazel test //path/to:test_hello --test_output=all
+```
+
+### QEMU test
+
+QEMU tests use SSH to interact with a virtual machine:
+
+```python
+def test_qemu_ssh(target):
+    with target.ssh(username="root", password="") as ssh:
+        exit_code = ssh.execute_command("uname -a")
+        assert exit_code == 0
+```
+
+```starlark
+py_itf_test(
+    name = "test_qemu",
+    srcs = ["test_qemu.py"],
+    args = [
+        "--qemu-image=$(location //path:qemu_image)",
+        "--qemu-config=$(location qemu_config.json)",
+    ],
+    data = [
+        "//path:qemu_image",
+        "qemu_config.json",
+    ],
+    plugins = ["@score_itf//score/itf/plugins:qemu_plugin"],
+)
+```
+
+QEMU configuration file (`qemu_config.json`):
+
+```json
+{
+    "networks": [
+        {
+            "name": "tap0",
+            "ip_address": "169.254.158.190",
+            "gateway": "169.254.21.88"
+        }
+    ],
+    "ssh_port": 22,
+    "qemu_num_cores": 2,
+    "qemu_ram_size": "1G"
+}
+```
+
+### Capability guards
+
+Tests can declare which target capabilities they need. The framework skips tests when the active target does not provide them, making the same test file portable across Docker and QEMU targets:
+
+```python
+from score.itf.plugins.core import requires_capabilities
+
+@requires_capabilities("exec")
+def test_docker_only(target):
+    exit_code, output = target.execute("ls /tmp")
+    assert exit_code == 0
+
+@requires_capabilities("ssh", "sftp")
+def test_network_features(target):
+    with target.ssh() as ssh:
+        ssh.execute_command("echo ok")
+```
+
+### DLT log capture
+
+Combine a target plugin with the DLT plugin to capture Diagnostic Log and Trace messages:
+
+```starlark
+py_itf_test(
+    name = "test_with_dlt",
+    srcs = ["test_with_dlt.py"],
+    args = [
+        "--docker-image=my-app:latest",
+        "--dlt-config=$(location dlt_config.json)",
+    ],
+    data = ["dlt_config.json"],
+    plugins = [
+        "@score_itf//score/itf/plugins:docker_plugin",
+        "@score_itf//score/itf/plugins:dlt_plugin",
+    ],
+)
+```
+
+```python
+from score.itf.plugins.dlt.dlt_window import DltWindow
+from score.itf.plugins.dlt.dlt_receive import Protocol
+import re
+
+def test_dlt_messages(target, dlt_config):
+    with DltWindow(
+        protocol=Protocol.UDP,
+        host_ip="127.0.0.1",
+        multicast_ips=["224.0.0.1"],
+        binary_path=dlt_config.dlt_receive_path,
+    ) as window:
+        with target.ssh() as ssh:
+            ssh.execute_command("my_application")
+
+        record = window.record()
+        results = record.find(query={
+            "apid": re.compile(r"APP1"),
+            "payload": re.compile(r".*Started successfully.*"),
+        })
+        assert len(results) > 0
+```
+
+### Requirement traceability
+
+The attribute plugin writes requirement links and test classification metadata into JUnit XML output, connecting test results to the docs-as-code traceability system:
+
+```python
+from attribute_plugin import add_test_properties
+
+@add_test_properties(
+    fully_verifies=["REQ-001", "REQ-002"],
+    test_type="requirements-based",
+    derivation_technique="requirements-analysis",
+)
+def test_hello(target):
+    exit_code, output = target.execute("echo 'Hello from target!'")
+    assert exit_code == 0
+```
+
+Add `attribute_plugin` to the plugin list:
+
+```starlark
+py_itf_test(
+    name = "test_hello",
+    srcs = ["test_hello.py"],
+    args = ["--docker-image=ubuntu:24.04"],
+    plugins = [
+        "@score_itf//score/itf/plugins:docker_plugin",
+        "@score_itf//score/itf/plugins:attribute_plugin",
+    ],
+)
+```
+
+### Session-scoped targets
+
+By default, ITF creates a fresh target per test function. Pass `--keep-target` to reuse the same target across all tests in a session (faster, but tests share state):
+
+```bash
+bazel test //path/to:test --test_arg=--keep-target
+```
+
+For full ITF documentation, see the [ITF project docs](https://eclipse-score.github.io/score/main/).
+
+## Run QNX unit tests
+
+[qnx_unit_tests](https://github.com/eclipse-score/qnx_unit_tests) provides `cc_test_qnx` and `rust_test_qnx` macros that wrap standard test targets for execution inside a QEMU microvm running QNX 8.
+
+### Prerequisites
+
+- QEMU (`qemu-system-x86_64` and/or `qemu-system-aarch64`)
+- KVM access (strongly recommended for performance)
+- QNX SDP 8.0 credentials (for toolchain download)
+
+### Add to your workspace
+
+In `MODULE.bazel`:
+
+```starlark
+bazel_dep(name = "score_qnx_unit_tests", version = "...")
+```
+
+### Wrap a test target
+
+Write a standard `cc_test`, then wrap it:
+
+```starlark
+load("@rules_cc//cc:defs.bzl", "cc_test")
+load("@score_qnx_unit_tests//:defs.bzl", "cc_test_qnx")
+
+cc_test(
+    name = "my_test",
+    srcs = ["my_test.cpp"],
+    deps = [
+        "@googletest//:gtest",
+        "@googletest//:gtest_main",
+    ],
+)
+
+cc_test_qnx(
+    name = "my_test_qnx",
+    cc_test = ":my_test",
+)
+```
+
+For Rust:
+
+```starlark
+load("@rules_rust//rust:defs.bzl", "rust_test")
+load("@score_qnx_unit_tests//:defs.bzl", "rust_test_qnx")
+
+rust_test(
+    name = "my_rust_test",
+    srcs = ["my_test.rs"],
+)
+
+rust_test_qnx(
+    name = "my_rust_test_qnx",
+    rust_test = ":my_rust_test",
+)
+```
+
+### Configure `.bazelrc`
+
+Use the provided platform configs:
+
+```
+build:qnx-x86_64  # Cross-compile for QNX x86_64
+build:qnx-aarch64 # Cross-compile for QNX aarch64
+```
+
+Run:
+
+```bash
+bazel test //path/to:my_test_qnx --config=qnx-x86_64
+```
+
+### How it works
+
+The macro packages the test binary and runfiles into a tar archive, builds a QNX IFS boot image with the kernel and startup scripts, boots QEMU with the IFS image, mounts the test archive via virtio-9p, executes the test, and extracts results (XML, coverage) from the shared directory.
 
 ## Collect coverage
+
+### C++
 
 ```bash
 bazel coverage //... --combined_report
 ```
 
-- **C++**: Compiler instrumentation via [bazel_cpp_toolchains](https://github.com/eclipse-score/bazel_cpp_toolchains)
-- **Rust**: LLVM-based source coverage
+Produces LCOV output. Compiler instrumentation is configured by [bazel_cpp_toolchains](https://github.com/eclipse-score/bazel_cpp_toolchains).
+
+### Rust
+
+```bash
+bazel coverage //... --combined_report
+```
+
+Uses LLVM source-based coverage (`llvm-cov`). The same LCOV output format is used so downstream reporting does not need language-specific parsers.
+
+### ITF tests
+
+For Docker-based ITF tests, the Docker plugin supports extracting coverage data from the container:
+
+```starlark
+py_itf_test(
+    name = "test_with_coverage",
+    srcs = ["test_example.py"],
+    args = [
+        "--docker-image=my-instrumented-image:latest",
+        "--extract-coverage",
+    ],
+    plugins = ["@score_itf//score/itf/plugins:docker_plugin"],
+)
+```
+
+Coverage files (`.gcda`) are extracted to `$TEST_UNDECLARED_OUTPUTS_DIR/sysroot` before container teardown.
 
 ## Enable sanitizers
 
-[score_cpp_policies](https://github.com/eclipse-score/score_cpp_policies) provides selectable sanitizer features:
+[score_cpp_policies](https://github.com/eclipse-score/score_cpp_policies) provides selectable sanitizer features as Bazel `cc_feature` definitions:
 
 | Sanitizer | Purpose |
 |---|---|
@@ -71,4 +426,4 @@ bazel coverage //... --combined_report
 | LSan | Memory leaks |
 | TSan | Data races |
 
-Enable sanitizers via Bazel `select()` expressions in your build configuration.
+Enable sanitizers via Bazel `select()` expressions or feature flags in your build configuration. The policy layer also provides constraint targets like `no_tsan` and `any_sanitizer` for conditional compilation.
