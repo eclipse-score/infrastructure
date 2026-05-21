@@ -6,6 +6,22 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 
 *Infrastructure for hosting and governing repositories consistently across the S-CORE project.*
 
+```{mermaid}
+graph TD
+    eclipsefdn["`.eclipsefdn`\notterdog config"]
+    otterdog["otterdog"]
+    github_org["eclipse-score\nGitHub organization"]
+    repos["Module repositories"]
+    template["`eclipse-score/module_template`"]
+    github_profile["`.github`\norg profile & conformance"]
+
+    eclipsefdn -->|defines org policy| otterdog
+    otterdog -->|applies: branch protection,\nrequired checks, Actions allowlist| github_org
+    github_org -->|hosts| repos
+    template -->|bootstraps new| repos
+    github_profile -.->|discovery surface| github_org
+```
+
 ## 1.1 Hosting & Organization ⚪
 
 *Provide a stable, discoverable, and scalable hosting foundation for all S-CORE repositories.*

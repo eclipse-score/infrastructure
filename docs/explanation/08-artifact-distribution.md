@@ -19,6 +19,22 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 - SBOM and provenance data should be generated during builds and accompany released deliverables.
 - This chapter covers publishing that evidence with releases, while [chapter 6](06-compliance-infrastructure.md) is the canonical home for how SBOMs are scoped, interpreted, and monitored once they exist.
 
+```{mermaid}
+graph LR
+    code["Module repository\n(source + tests)"]
+    tag["Git tag\n(v1.2.3)"]
+    release["GitHub Release\n(source archive + assets)"]
+    registry["`eclipse-score/bazel_registry\n(registry entry)`"]
+    ui["`Registry UI\nbazel_registry_ui`"]
+    consumer["Consumer MODULE.bazel\nbazel_dep(name, version)"]
+
+    code -->|"git tag + push"| tag
+    tag -->|"GitHub Release workflow"| release
+    release -->|"PR to add registry entry"| registry
+    registry --> ui
+    registry -->|"resolved via .bazelrc"| consumer
+```
+
 ## 8.1 Deliverable Types ⚪
 
 *Infrastructure defining which kinds of release deliverables S-CORE can publish and support.*

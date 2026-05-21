@@ -22,6 +22,25 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 - Contributor onboarding, IDE support, and surrounding local tooling guidance for those environments belongs in [chapter 2](02-developer-environment.md); this chapter owns the build-time model behind them.
 - **Biggest gap**: shared build rule libraries, toolchain baselines, dependency policy, and build evidence are not yet consistently available across all S-CORE repositories.
 
+```{mermaid}
+graph LR
+    module["MODULE.bazel\n(bazel_dep declarations)"]
+    score_reg["`S-CORE registry\neclipse-score/bazel_registry`"]
+    bcr["Bazel Central Registry\nbcr.bazel.build"]
+    build["bazel build //..."]
+    cache["Remote build cache"]
+    toolchains["Toolchain modules\nbazel_cpp_toolchains\ntoolchains_rust"]
+    policies["Policy modules\nscore_cpp_policies\nscore_rust_policies"]
+
+    module -->|"1st: resolve S-CORE deps"| score_reg
+    module -->|"2nd: fallback"| bcr
+    score_reg --> build
+    bcr --> build
+    toolchains --> build
+    policies --> build
+    build <-->|"cache hits / writes"| cache
+```
+
 ## 3.1 Build System ⚪
 
 *Core build tooling and workspace conventions shared across S-CORE repositories.*

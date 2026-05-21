@@ -18,6 +18,31 @@ Because GitHub Actions is a managed platform, its constraints shape what workflo
 
 **Biggest gap**: reusable workflow coverage and quality gate consistency across S-CORE repositories are incomplete. GitHub Actions platform constraints and S-CORE-specific best practices are not documented in one place.
 
+```{mermaid}
+graph TD
+    pr["Pull request / push"]
+    schedule["Schedule / release trigger"]
+
+    subgraph shared["Shared workflow libraries"]
+        cwf["`cicd-workflows\non-pr.yml · daily.yml`"]
+        cac["`cicd-actions\n(composite actions)`"]
+    end
+
+    subgraph runners["Runners"]
+        cloud["GitHub-hosted\n(cloud: x86, ARM, KVM)"]
+        hw["Self-hosted\n(hardware: RPi, automotive SoC)"]
+    end
+
+    pr --> cwf
+    schedule --> cwf
+    cwf --> cac
+    cac --> cloud
+    cac --> hw
+    cloud --> results["Status checks\nArtifacts / evidence"]
+    hw --> results
+    results -->|"required checks via otterdog"| pr
+```
+
 ## 7.1 Runners 🟠
 
 *Execution infrastructure used by S-CORE CI pipelines.*
