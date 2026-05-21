@@ -4,11 +4,22 @@ This repository contains the source for the S-CORE infrastructure documentation.
 
 ## Site Purpose & Audience
 
-The published site serves technical and non-technical stakeholders who need an infrastructure overview, plus infrastructure contributors who need to understand current state, gaps, and direction. It covers the technical capabilities that make engineering work possible and scalable across S-CORE: source code infrastructure, developer environment, builds and dependencies, testing, code analysis, dependency analysis, automation, release distribution, documentation, traceability, and operations.
+The published site serves infrastructure contributors who need to understand current state, gaps, and direction, plus technical and non-technical stakeholders who need an overview. It covers the capabilities that make engineering work possible and scalable across S-CORE: source code infrastructure, developer environment, builds, testing, code analysis, compliance, automation, release distribution, documentation, traceability, and operations.
 
-The chapters are capability-oriented but grounded in the actual repositories that implement the infrastructure. Cross-cutting concerns such as security and compliance are described inside the chapters where the work happens rather than as standalone silos.
+## Documentation Structure
 
-The site functions as an infrastructure overview, a development map for current state and remaining work, a contribution map for infrastructure contributors, and a reference for architecture and cross-cutting concerns.
+The site uses the [Divio documentation system](https://docs.divio.com/documentation-system/) with four content types:
+
+| Quadrant | Purpose | Location |
+|---|---|---|
+| **Tutorials** | Step-by-step learning guides for newcomers | `docs/tutorials/` |
+| **How-to Guides** | Task-oriented recipes for practitioners | `docs/how-to/` |
+| **Reference** | Factual lookup material (repos, config, versions) | `docs/reference/` |
+| **Explanation** | Architecture, design rationale, maturity assessment | `docs/explanation/` |
+
+Each quadrant serves a different reader need. When editing, know which quadrant a change belongs in and write for that quadrant's purpose. Do not mix content types — a how-to should not explain architecture, and an explanation should not read like a step-by-step recipe.
+
+The explanation quadrant contains numbered landscape chapters (`01-source-code-infrastructure.md` through `10-infrastructure-operations.md`) that are capability-oriented and grounded in the actual repositories that implement the infrastructure. Cross-cutting concerns such as security and compliance are described inside the chapters where the work happens rather than as standalone silos.
 
 ## Working On The Documentation
 
@@ -24,7 +35,7 @@ uv run mkdocs build --strict
 
 A contribution is not complete until the documentation still builds cleanly with strict checks.
 
-The numbered chapter files under `docs/explanation/` also drive the generated
+The numbered chapter files under `docs/explanation/` drive the generated
 chapter-map section in `docs/explanation/index.md`. That section is refreshed
 automatically by pre-commit whenever the chapter heading structure changes. If
 you are not using pre-commit, run `python3 scripts/generate_mindmap.py` manually
@@ -40,17 +51,15 @@ pre-commit install
 
 Prefer short prose over long bullet lists. Bullets are useful for genuinely list-shaped content such as commands, checklists, or grouped links, but explanatory sections should read like normal English.
 
-When a topic spans multiple chapters, choose one canonical home for the end-to-end explanation. Other chapters should describe only their local perspective and link back to the canonical section instead of repeating the same narrative. This keeps the reader experience coherent and prevents drift between chapters.
+When a topic spans multiple chapters in the explanation quadrant, choose one canonical home for the end-to-end explanation. Other chapters should describe only their local perspective and link back to the canonical section instead of repeating the same narrative. This keeps the reader experience coherent and prevents drift between chapters.
 
 Explain the mental model first, then the practical steps. Readers should understand what a thing is for before being asked to configure or operate it. When configuration is important, include a minimal concrete snippet rather than describing it abstractly.
 
 Link to authoritative upstream documentation when it owns the procedure. Do not copy long release checklists or external workflows into this repository when a maintained upstream README or manual already exists. Instead, explain how that external source fits into the S-CORE infrastructure story.
 
-Preserve the existing chapter structure unless there is a strong reason to change it. Adding a new top-level page or chapter is a last resort, not the default fix for a documentation problem.
-
 ## Cross-Chapter Topics
 
-Cross-cutting topics are expected in this repository, but they should still feel unified to the reader.
+Cross-cutting topics are expected in the explanation quadrant, but they should still feel unified to the reader.
 
 - Put the main narrative in the chapter that best matches the topic's primary purpose.
 - Let build-oriented chapters explain consumption and configuration.
@@ -81,25 +90,12 @@ Language support split across toolchain repositories and policy repositories fol
 
 Before opening or merging a change, check the following:
 
+- The change is in the right Divio quadrant.
 - The main explanation lives in one place.
 - Neighboring chapters do not repeat the same prose unnecessarily.
 - Explanatory sections read as prose, not as bullet dumps.
+- How-to guides are concrete and task-oriented.
 - Configuration details are concrete and minimal.
 - External procedures are linked, not copied.
 - Links and navigation still work.
 - `mkdocs build --strict` passes.
-
-## Detailed Instructions For AI Agents
-
-AI agents contributing to this repository should follow the same rules as human contributors, with extra care for structure and readability.
-
-When editing documentation:
-
-- Inspect neighboring chapters before rewriting a section so you understand where the topic should canonically live.
-- Prefer rewriting bullet-heavy content into short prose paragraphs when the section is explanatory.
-- For cross-cutting topics, write one complete explanation and convert the other locations into brief perspective-specific summaries with links.
-- Do not create a new top-level page just to avoid making a chapter more readable.
-- Include concrete snippets only when they directly help a contributor act, such as a `bazelrc` or command example.
-- Prefer linking upstream source-of-truth documents over copying long procedures into this repository.
-- Keep README content short; repo workflow belongs in `README.md`, while contribution and style guidance belongs here.
-- Validate changes with `uv run mkdocs build --strict` when possible, and say so if verification could not be completed.
