@@ -2,38 +2,65 @@
 
 ## Toolchain
 
-S-CORE documentation sites use:
+This site is built with the S-CORE [docs-as-code](https://github.com/eclipse-score/docs-as-code) toolchain:
 
-- **MkDocs** with the ReadTheDocs theme
-- **mermaid2** plugin for diagrams
-- **uv** for Python dependency management
+- **Bazel** as the build system
+- **Sphinx** with the **MyST** parser for Markdown support
+- **pydata-sphinx-theme** with S-CORE branding via `score_layout`
+- **Mermaid** and **PlantUML** for diagrams
 
 ## Start a local preview
 
 ```bash
-uv sync
-uv run mkdocs serve
+bazel run //:live_preview
 ```
 
-This opens a live-reloading preview at `http://127.0.0.1:8000/`.
+This opens a live-reloading preview in your browser.
 
-## Run a strict build
+## Run a validation build
 
 ```bash
-uv run mkdocs build --strict
+bazel run //:docs_check
 ```
 
-Catches broken links and invalid markup. This must pass before merging.
+Catches broken links, orphaned pages, and invalid markup. This must pass before merging.
+
+## Set up IDE support
+
+```bash
+bazel run //:ide_support
+```
+
+Creates a `.venv_docs` virtual environment that IDEs can use for autocompletion and linting of reStructuredText/MyST content.
 
 ## Set up pre-commit
-
-If the repository has pre-commit configured:
 
 ```bash
 pre-commit install
 ```
 
-Hooks may include checks like mindmap generation from chapter headings or other documentation-specific validations.
+Hooks auto-update generated content such as the chapter mindmap and maturity status rollups.
+
+## MyST Markdown syntax
+
+Content is written in Markdown using [MyST](https://myst-parser.readthedocs.io/) extensions.
+
+Admonitions use the colon-fence syntax:
+
+````markdown
+:::{tip} Optional title
+Body text here.
+:::
+````
+
+Mermaid diagrams use the directive syntax:
+
+````markdown
+```{mermaid}
+graph LR
+    A --> B
+```
+````
 
 ## Follow style conventions
 

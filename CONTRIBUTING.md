@@ -28,12 +28,12 @@ Use the published site for content consumption and this repository for source ed
 For local work:
 
 ```bash
-uv sync
-uv run mkdocs serve
-uv run mkdocs build --strict
+bazel run //:live_preview   # local preview with live reload
+bazel run //:docs_check     # validation — must pass cleanly
+bazel run //:ide_support    # create .venv_docs for IDE integration
 ```
 
-A contribution is not complete until the documentation still builds cleanly with strict checks.
+A contribution is not complete until `bazel run //:docs_check` passes cleanly.
 
 The numbered chapter files under `docs/explanation/` drive the generated
 chapter-map section in `docs/explanation/index.md`. That section is refreshed
@@ -98,4 +98,4 @@ Before opening or merging a change, check the following:
 - Configuration details are concrete and minimal.
 - External procedures are linked, not copied.
 - Links and navigation still work.
-- `mkdocs build --strict` passes.
+- `bazel run //:docs_check` passes.

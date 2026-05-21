@@ -1,7 +1,8 @@
 # 2 Developer Environment 🟡
 
-!!! tip "Looking for practical guides?"
-    This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+:::{tip} Looking for practical guides?
+This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+:::
 
 *Infrastructure that provides the local development layer across S-CORE repositories.*
 
@@ -75,4 +76,4 @@ The local auxiliary layer needs a clear boundary or repositories will duplicate 
 
 In S-CORE, the current practical split is that surrounding-tool checks run directly in the shared devcontainer or via pre-commit, while deeper repository-native validation stays with the repository's main build or test flow and final enforcement stays in CI. For "dependable element" repositories that usually means Bazel, but other repositories may use different local execution paths.
 
-Where repositories use dependency lock files such as `uv.lock` or `MODULE.bazel.lock`, the practical local refresh step may still happen through `pre-commit`, but the lock state itself belongs to the repository's dependency model and is therefore described in [chapter 3](03-build-infrastructure.md#326-lock-files).
+Where repositories use dependency lock files such as `uv.lock` or `MODULE.bazel.lock`, the practical local refresh step may still happen through `pre-commit`, but the lock state itself belongs to the repository's dependency model and is therefore described in [chapter 3](03-build-infrastructure.md#lock-files).

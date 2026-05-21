@@ -2,8 +2,9 @@
 
 This tutorial walks you through creating a new Bazel module repository from the S-CORE template, publishing it to the registry, and making it available for other modules to depend on.
 
-!!! note "Prerequisites"
-    Complete [Getting Started](getting-started.md) first. You should be comfortable with the devcontainer and Bazel basics.
+:::{note} Prerequisites
+Complete [Getting Started](getting-started.md) first. You should be comfortable with the devcontainer and Bazel basics.
+:::
 
 ## 1. Create a repository from the template
 

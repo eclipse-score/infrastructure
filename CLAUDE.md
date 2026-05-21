@@ -39,12 +39,13 @@ The explanation chapters have specific ownership rules for cross-cutting topics.
 # Build & Validation
 
 ```bash
-uv sync
-uv run mkdocs serve          # local preview
-uv run mkdocs build --strict  # must pass with zero warnings
+bazel run //:docs           # build documentation
+bazel run //:live_preview   # local preview with live reload
+bazel run //:docs_check     # validation — must pass cleanly
+bazel run //:ide_support    # create .venv_docs for IDE integration
 ```
 
-A change is not complete until `mkdocs build --strict` passes cleanly.
+A change is not complete until `bazel run //:docs_check` passes cleanly.
 
 # Pre-commit Hooks
 
@@ -62,4 +63,6 @@ python3 scripts/generate_mindmap.py
 
 # Navigation
 
-Navigation is defined in `mkdocs.yml` under `nav:`. When adding a new page, add it to the appropriate quadrant in the nav. Do not add pages without a nav entry — strict mode will warn about orphaned pages.
+Navigation is defined by `toctree` directives in the section index files (`docs/tutorials/index.md`, `docs/how-to/index.md`, `docs/reference/index.md`, `docs/explanation/index.md`). The top-level `docs/index.md` includes a hidden toctree pointing to these four section indices.
+
+When adding a new page, add it to the appropriate section's toctree. Pages without a toctree entry will cause build warnings.

@@ -1,7 +1,8 @@
 # 10 Infrastructure Operations ⚪
 
-!!! tip "Looking for practical guides?"
-    This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+:::{tip} Looking for practical guides?
+This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+:::
 
 *Infrastructure for operating and maintaining the S-CORE engineering infrastructure.*
 
@@ -107,7 +108,7 @@
 
 **S-CORE**
 
-- Tool upgrades (e.g. MkDocs, Bazel, runner images) are performed reactively on a per-repository basis.
+- Tool upgrades (e.g. Bazel, docs-as-code, runner images) are performed reactively on a per-repository basis.
 - **Biggest gap**: no coordinated tool update process or shared upgrade playbook exists across S-CORE.
 
 ### 10.3.2 Dependency Updates
@@ -134,7 +135,7 @@
 
 **S-CORE**
 
-The shared Bazel registry at [eclipse-score/bazel_registry](https://github.com/eclipse-score/bazel_registry/) and the registry UI at [eclipse-score.github.io/bazel_registry_ui](https://eclipse-score.github.io/bazel_registry_ui/) are part of the live infrastructure surface for cross-repository dependency management. The full publication and consumption flow is described in [chapter 8](08-artifact-distribution.md#822-registry-based-distribution); this section is only about operating that service reliably.
+The shared Bazel registry at [eclipse-score/bazel_registry](https://github.com/eclipse-score/bazel_registry/) and the registry UI at [eclipse-score.github.io/bazel_registry_ui](https://eclipse-score.github.io/bazel_registry_ui/) are part of the live infrastructure surface for cross-repository dependency management. The full publication and consumption flow is described in [chapter 8](08-artifact-distribution.md#registry-based-distribution); this section is only about operating that service reliably.
 
 Infrastructure maintainers therefore need to keep the registry repository, the automation that validates and publishes registry updates, the raw GitHub-hosted content that Bazel reads, and the GitHub Pages deployment of the companion [eclipse-score/bazel_registry_ui](https://github.com/eclipse-score/bazel_registry_ui) project working together. If the registry data is wrong, if validation breaks, or if the UI deployment is stale, module publication and discovery degrade across the project.
 

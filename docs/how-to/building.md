@@ -4,7 +4,7 @@
 
 Every S-CORE module repository configures two Bazel registries in `.bazelrc`:
 
-```bazelrc
+```text
 common --registry=https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/
 common --registry=https://bcr.bazel.build
 ```

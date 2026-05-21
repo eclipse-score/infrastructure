@@ -4,7 +4,7 @@
 
 Standard S-CORE registry configuration:
 
-```bazelrc
+```text
 common --registry=https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/
 common --registry=https://bcr.bazel.build
 ```
@@ -118,38 +118,31 @@ Referenced from `BUILD` via `--qemu-config=$(location qemu_config.json)`.
 
 `.bazelrc` platform configs for QNX cross-compilation:
 
-```bazelrc
+```text
 build:qnx-x86_64   # Cross-compile for QNX x86_64
 build:qnx-aarch64  # Cross-compile for QNX aarch64
 ```
 
 Required flag for proper test extraction (prevents Bazel configuration conflicts):
 
-```bazelrc
+```text
 build --experimental_retain_test_configuration_across_testonly
 ```
 
 Source: [eclipse-score/qnx_unit_tests](https://github.com/eclipse-score/qnx_unit_tests)
 
-## MkDocs
+## Documentation (docs-as-code)
 
-Documentation site configuration in `mkdocs.yml`:
+Documentation is built with Bazel using the `score_docs_as_code` module. Configuration lives in `docs/conf.py`:
 
-```yaml
-theme:
-  name: readthedocs
+```python
+project = "S-CORE Infrastructure"
+project_url = "https://eclipse-score.github.io/infrastructure"
+version = "0.1"
 
-plugins:
-  - search
-  - mermaid2
-
-markdown_extensions:
-  - admonition
-  - attr_list
-  - def_list
-  - tables
-  - toc:
-      permalink: true
+extensions = [
+    "score_sphinx_bundle",
+]
 ```
 
-Python dependencies managed via `pyproject.toml` + `uv.lock`.
+The `score_sphinx_bundle` extension bundles MyST parser, Mermaid, PlantUML, sphinx-needs, and the S-CORE theme. The Bazel dependency is declared in `MODULE.bazel`.

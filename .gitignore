@@ -1,3 +1,17 @@
-.venv/
-site/
+# Bazel
+bazel-*
+MODULE.bazel.lock
+user.bazelrc
+
+# Docs build artifacts
+/_build*
+docs/ubproject.toml
+
+# Python
+.venv
+.venv_docs
 __pycache__/
+.ruff_cache/
+
+# Legacy
+site/

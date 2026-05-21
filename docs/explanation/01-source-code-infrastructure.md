@@ -1,7 +1,8 @@
 # 1 Source Code Infrastructure 🟠
 
-!!! tip "Looking for practical guides?"
-    This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+:::{tip} Looking for practical guides?
+This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+:::
 
 *Infrastructure for hosting and governing repositories consistently across the S-CORE project.*
 
@@ -83,7 +84,7 @@ Shared conventions are starting to emerge, but not yet synchronized.
 
 The same template also gives Bazel modules a partial starter baseline for repository-local tooling configuration, such as the initial Bazel wiring, editor settings, and starter workflow files. That helps new Bazel-based repositories begin from a more consistent shape, but it is still only a bootstrap aid for one repository class rather than a cross-project standardization mechanism.
 
-Repository-local tooling configuration is only one part of the broader repository-standard surface. Cross-repository collection and publication of repository facts, adoption, and drift belong with [conformance reporting](#144-conformance-reporting), not as a tooling-only concern.
+Repository-local tooling configuration is only one part of the broader repository-standard surface. Cross-repository collection and publication of repository facts, adoption, and drift belong with [conformance reporting](#conformance-reporting), not as a tooling-only concern.
 
 **Biggest gap**: no clearly enforced baseline/override model exists across repository classes, and the current template-based help is limited to Bazel modules.
 

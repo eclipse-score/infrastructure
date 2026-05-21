@@ -14,19 +14,18 @@ The README intentionally stays short to avoid duplicating the actual documentati
 
 Contribution guidance, documentation style, and detailed instructions for AI agents live in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Run MkDocs Locally
+## Build Locally
 
-This repository uses `uv` for local toolchain management.
+This repository uses Bazel with the S-CORE [docs-as-code](https://github.com/eclipse-score/docs-as-code) toolchain.
 
-Install dependencies and start a live preview:
+Start a live-reloading preview:
 
 ```bash
-uv sync
-uv run mkdocs serve
+bazel run //:live_preview
 ```
 
-Build the site with strict checks:
+Validate the documentation:
 
 ```bash
-uv run mkdocs build --strict
+bazel run //:docs_check
 ```

@@ -1,7 +1,8 @@
 # 3 Build & Dependencies ⚪
 
-!!! tip "Looking for practical guides?"
-    This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+:::{tip} Looking for practical guides?
+This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+:::
 
 *Deterministic, reproducible builds across S-CORE repositories using Bazel as the shared build system, including the dependency and evidence model around those builds.*
 
@@ -83,16 +84,16 @@
 
 **S-CORE**
 
-S-CORE repositories are expected to exchange Bazel modules through the shared registry at [eclipse-score/bazel_registry](https://github.com/eclipse-score/bazel_registry/). From the build perspective, this section is only about consumption: a repository should resolve first-party modules through the registry rather than through ad hoc repository overrides or manual source wiring. The full publication flow, including the coupling between registry entries and GitHub Releases, is described in [chapter 8](08-artifact-distribution.md#822-registry-based-distribution).
+S-CORE repositories are expected to exchange Bazel modules through the shared registry at [eclipse-score/bazel_registry](https://github.com/eclipse-score/bazel_registry/). From the build perspective, this section is only about consumption: a repository should resolve first-party modules through the registry rather than through ad hoc repository overrides or manual source wiring. The full publication flow, including the coupling between registry entries and GitHub Releases, is described in [chapter 8](08-artifact-distribution.md#registry-based-distribution).
 
-For consumers, the practical step is to tell Bazel where to look for modules. The same registry configuration described in [chapter 8](08-artifact-distribution.md#843-consumer-guidance) applies here:
+For consumers, the practical step is to tell Bazel where to look for modules. The same registry configuration described in [chapter 8](08-artifact-distribution.md#consumer-guidance) applies here:
 
-```bazelrc
+```text
 common --registry=https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/
 common --registry=https://bcr.bazel.build
 ```
 
-Once that is in place, dependencies are declared in `MODULE.bazel` with Bazel's normal module mechanism such as `bazel_dep(...)`. That is enough for the build side. Module discovery, release mechanics, and service ownership are intentionally documented in [chapter 8](08-artifact-distribution.md#822-registry-based-distribution) and [chapter 10](10-infrastructure-operations.md#1034-shared-registry-services) instead of being repeated here.
+Once that is in place, dependencies are declared in `MODULE.bazel` with Bazel's normal module mechanism such as `bazel_dep(...)`. That is enough for the build side. Module discovery, release mechanics, and service ownership are intentionally documented in [chapter 8](08-artifact-distribution.md#registry-based-distribution) and [chapter 10](10-infrastructure-operations.md#shared-registry-services) instead of being repeated here.
 
 
 ### 3.2.3 Dependency Policies
@@ -166,7 +167,7 @@ S-CORE is increasingly using a deliberate split between language toolchain modul
 
 **S-CORE**
 
-The emerging C++ structure follows that split directly. [eclipse-score/bazel_cpp_toolchains](https://github.com/eclipse-score/bazel_cpp_toolchains) is the build-facing module: it provides the Bazel C/C++ toolchain configuration layer, templates, package descriptors, and registration logic for Linux and QNX builds. [eclipse-score/score_cpp_policies](https://github.com/eclipse-score/score_cpp_policies) is the policy-facing companion: it centralizes reusable `cc_feature` and flag selections such as ASan, UBSan, LSan, and TSan support, `debug_symbols`, runtime environment templates, constraint targets such as `no_tsan` and `any_sanitizer`, and the flag infrastructure that repositories can use in `select()` expressions. That same policy layer is also the natural home for shared warning baselines and later ASIL-oriented safety configurations. The point of the split is that a module should be able to adopt shared C++ policies without being forced onto one specific toolchain release. The runtime purpose and rollout of sanitizers themselves belong in [chapter 4](04-testing-infrastructure.md#432-sanitizers-runtime-checks); this subsection only owns the reusable build-side mechanism that makes those checks selectable. **Biggest gap**: the repository split now exists, but common adoption and governance of shared C++ toolchain and policy baselines are still incomplete across S-CORE.
+The emerging C++ structure follows that split directly. [eclipse-score/bazel_cpp_toolchains](https://github.com/eclipse-score/bazel_cpp_toolchains) is the build-facing module: it provides the Bazel C/C++ toolchain configuration layer, templates, package descriptors, and registration logic for Linux and QNX builds. [eclipse-score/score_cpp_policies](https://github.com/eclipse-score/score_cpp_policies) is the policy-facing companion: it centralizes reusable `cc_feature` and flag selections such as ASan, UBSan, LSan, and TSan support, `debug_symbols`, runtime environment templates, constraint targets such as `no_tsan` and `any_sanitizer`, and the flag infrastructure that repositories can use in `select()` expressions. That same policy layer is also the natural home for shared warning baselines and later ASIL-oriented safety configurations. The point of the split is that a module should be able to adopt shared C++ policies without being forced onto one specific toolchain release. The runtime purpose and rollout of sanitizers themselves belong in [chapter 4](04-testing-infrastructure.md#sanitizers-runtime-checks); this subsection only owns the reusable build-side mechanism that makes those checks selectable. **Biggest gap**: the repository split now exists, but common adoption and governance of shared C++ toolchain and policy baselines are still incomplete across S-CORE.
 
 ### 3.3.2 Rust Toolchains
 
@@ -287,7 +288,7 @@ The infrastructure involves three layers. First, a backend service that implemen
 
 A related Bazel mechanism is dynamic execution, which lets Bazel race a local and a remote execution of the same action and take whichever finishes first. This can smooth the transition period where some actions run faster locally and others benefit from remote workers, but it adds complexity to the configuration and requires the backend to tolerate speculative cancellations.
 
-For hardware-oriented testing, RBE intersects with the hardware runner story in [section 7.1.2](07-automation-integration.md#712-hardware-test-runners). If lab-attached devices such as Raspberry Pi boards are registered as RBE workers, Bazel could schedule test execution on real hardware as part of a normal `bazel test` invocation, avoiding a separate deployment step. This is an advanced pattern that depends on both the RBE backend and the hardware provisioning model being in place.
+For hardware-oriented testing, RBE intersects with the hardware runner story in [section 7.1.2](07-automation-integration.md#hardware-test-runners). If lab-attached devices such as Raspberry Pi boards are registered as RBE workers, Bazel could schedule test execution on real hardware as part of a normal `bazel test` invocation, avoiding a separate deployment step. This is an advanced pattern that depends on both the RBE backend and the hardware provisioning model being in place.
 
 **Biggest gap**: no RBE backend is available; builds are constrained to single-runner execution. Provider evaluation criteria, architecture decisions, and authentication model are not yet documented.
 

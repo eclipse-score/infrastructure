@@ -67,11 +67,13 @@ def display_title(section: Section) -> str:
 
 
 def heading_anchor(title: str) -> str:
-    """Return the MkDocs-compatible fragment identifier for a heading."""
-    normalized = clean_title(title).lower().replace(".", "")
+    """Return the Sphinx/docutils-compatible fragment identifier for a heading."""
+    normalized = clean_title(title).lower()
     normalized = re.sub(r"[^0-9a-z]+", "-", normalized)
     normalized = re.sub(r"-+", "-", normalized)
-    return normalized.strip("-")
+    normalized = normalized.strip("-")
+    normalized = re.sub(r"^[0-9-]+", "", normalized)
+    return normalized
 
 
 def section_href(section: Section) -> str:
@@ -187,7 +189,7 @@ def render_embed(chapters: list[Section]) -> str:
             INDEX_MAP_START,
             '<p class="chapter-map-note">This chapter map is generated from the `#` and `##` headings in the numbered chapter files. Click any chapter or section box to open it.</p>',
             "",
-            "```mermaid",
+            "```{mermaid}",
             diagram,
             "```",
             '<script type="application/json" class="chapter-map-links-data">',

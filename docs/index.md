@@ -33,7 +33,7 @@ Practical recipes for specific tasks. Assumes you already have a working environ
 - [Testing](how-to/testing.md) — Test frameworks, coverage, sanitizers
 - [Code Quality](how-to/code-quality.md) — Pre-commit, lint policies, copyright headers
 - [Publishing Modules](how-to/publishing.md) — Release, registry import, consumer access
-- [Writing Documentation](how-to/writing-docs.md) — MkDocs setup, local preview, strict builds
+- [Writing Documentation](how-to/writing-docs.md) — Bazel + Sphinx/MyST setup, local preview, validation
 
 ## Reference
 
@@ -99,3 +99,13 @@ Architecture, design rationale, and maturity assessment of each infrastructure a
   </div>
 
 </div>
+
+:::{toctree}
+:maxdepth: 2
+:hidden:
+
+tutorials/index
+how-to/index
+reference/index
+explanation/index
+:::

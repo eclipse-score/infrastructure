@@ -1,7 +1,8 @@
 # 8 Release & Distribution ⚪
 
-!!! tip "Looking for practical guides?"
-    This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+:::{tip} Looking for practical guides?
+This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+:::
 
 *Infrastructure managing released deliverables, versioning, publication, and consumer access across S-CORE.*
 
@@ -175,7 +176,7 @@ Retention and rollback are two sides of the same coin. Retention asks which arti
 
 For S-CORE, the retention picture depends on the publication channel. GitHub Releases retain release assets indefinitely by default, which means source archives, binaries, and attached metadata remain accessible as long as the repository exists. The Bazel registry retains module entries permanently because they are committed files in a Git repository. GitHub Actions artifacts, by contrast, are ephemeral and disappear after a configurable retention window, which makes them unsuitable as the only home for anything that needs to survive beyond a single CI run.
 
-Rollback requires more than artifact availability. A consumer who needs to revert to a previous module version can do so through the registry by pinning `bazel_dep` to the older version, which is straightforward as long as the older version is still present in the registry and the release assets it references are still available. For integrated baselines that span multiple modules, rollback means returning to a previous `known_good` manifest rather than individually downgrading components, because the combination of module versions matters as much as any single version. The `known_good` model described in [section 7.3.4](07-automation-integration.md#734-known-good-promotion) provides the identifier, but the ability to rebuild and redeploy from that identifier depends on all referenced artifacts, toolchain versions, and environment images still being retrievable.
+Rollback requires more than artifact availability. A consumer who needs to revert to a previous module version can do so through the registry by pinning `bazel_dep` to the older version, which is straightforward as long as the older version is still present in the registry and the release assets it references are still available. For integrated baselines that span multiple modules, rollback means returning to a previous `known_good` manifest rather than individually downgrading components, because the combination of module versions matters as much as any single version. The `known_good` model described in [section 7.3.4](07-automation-integration.md#known-good-promotion) provides the identifier, but the ability to rebuild and redeploy from that identifier depends on all referenced artifacts, toolchain versions, and environment images still being retrievable.
 
 A practical rollback strategy therefore needs three properties: durable artifact storage so that nothing disappears before it is no longer needed, manifest-level version identity so that "go back to the previous known-good" is an unambiguous operation, and a tested procedure so that rollback is a routine operation rather than an emergency improvisation.
 
@@ -187,13 +188,13 @@ A practical rollback strategy therefore needs three properties: durable artifact
 
 **S-CORE**
 
-For Bazel modules, the normal consumer workflow is straightforward. First, browse the [registry UI](https://eclipse-score.github.io/bazel_registry_ui/) to find the module and version you need. Next, configure your repository to use the S-CORE registry as described in [section 3.2.2](03-build-infrastructure.md#322-internal-module-dependencies). Finally, declare the dependency in `MODULE.bazel` and use the module according to the documentation in its owning repository.
+For Bazel modules, the normal consumer workflow is straightforward. First, browse the [registry UI](https://eclipse-score.github.io/bazel_registry_ui/) to find the module and version you need. Next, configure your repository to use the S-CORE registry as described in [section 3.2.2](03-build-infrastructure.md#internal-module-dependencies). Finally, declare the dependency in `MODULE.bazel` and use the module according to the documentation in its owning repository.
 
 Because registry entries are coupled to GitHub Releases, users can usually think of a registry version as the Bazel-consumable form of a repository release. The registry tells you which versions exist and how Bazel should fetch them. The owning repository tells you what the release contains and how to use the module once you depend on it.
 
 To make this concrete, consumer repositories need the registry configuration in `.bazelrc`:
 
-```bazelrc
+```text
 common --registry=https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/
 common --registry=https://bcr.bazel.build
 ```

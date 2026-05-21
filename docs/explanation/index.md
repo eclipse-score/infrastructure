@@ -18,7 +18,7 @@ Architecture, design rationale, and maturity assessment of each S-CORE infrastru
 <!-- BEGIN GENERATED CHAPTER MAP -->
 <p class="chapter-map-note">This chapter map is generated from the `#` and `##` headings in the numbered chapter files. Click any chapter or section box to open it.</p>
 
-```mermaid
+```{mermaid}
 mindmap
   root((S-CORE Infrastructure))
     node_001["`1 Source Code
@@ -126,7 +126,7 @@ Governance ⚪`"]
   {
     "id": "node_002",
     "kind": "section",
-    "href": "01-source-code-infrastructure/#11-hosting-organization",
+    "href": "01-source-code-infrastructure/#hosting-organization",
     "title": "1.1 Hosting & Organization",
     "match_texts": [
       "1.1 Hosting & Organization ⚪",
@@ -136,7 +136,7 @@ Governance ⚪`"]
   {
     "id": "node_003",
     "kind": "section",
-    "href": "01-source-code-infrastructure/#12-repository-provisioning-lifecycle",
+    "href": "01-source-code-infrastructure/#repository-provisioning-lifecycle",
     "title": "1.2 Repository Provisioning & Lifecycle",
     "match_texts": [
       "1.2 Repository Provisioning & Lifecycle 🟡",
@@ -146,7 +146,7 @@ Governance ⚪`"]
   {
     "id": "node_004",
     "kind": "section",
-    "href": "01-source-code-infrastructure/#13-repository-policy-management",
+    "href": "01-source-code-infrastructure/#repository-policy-management",
     "title": "1.3 Repository Policy Management",
     "match_texts": [
       "1.3 Repository Policy Management 🔴",
@@ -156,7 +156,7 @@ Governance ⚪`"]
   {
     "id": "node_005",
     "kind": "section",
-    "href": "01-source-code-infrastructure/#14-repository-standards",
+    "href": "01-source-code-infrastructure/#repository-standards",
     "title": "1.4 Repository Standards",
     "match_texts": [
       "1.4 Repository Standards 🟠",
@@ -176,7 +176,7 @@ Governance ⚪`"]
   {
     "id": "node_007",
     "kind": "section",
-    "href": "02-developer-environment/#21-central-devcontainer",
+    "href": "02-developer-environment/#central-devcontainer",
     "title": "2.1 Central Devcontainer",
     "match_texts": [
       "2.1 Central Devcontainer 🟠",
@@ -186,7 +186,7 @@ Governance ⚪`"]
   {
     "id": "node_008",
     "kind": "section",
-    "href": "02-developer-environment/#22-local-auxiliary-tooling",
+    "href": "02-developer-environment/#local-auxiliary-tooling",
     "title": "2.2 Local Auxiliary Tooling",
     "match_texts": [
       "2.2 Local Auxiliary Tooling 🟡",
@@ -206,7 +206,7 @@ Governance ⚪`"]
   {
     "id": "node_010",
     "kind": "section",
-    "href": "03-build-infrastructure/#31-build-system",
+    "href": "03-build-infrastructure/#build-system",
     "title": "3.1 Build System",
     "match_texts": [
       "3.1 Build System ⚪",
@@ -216,7 +216,7 @@ Governance ⚪`"]
   {
     "id": "node_011",
     "kind": "section",
-    "href": "03-build-infrastructure/#32-dependency-management",
+    "href": "03-build-infrastructure/#dependency-management",
     "title": "3.2 Dependency Management",
     "match_texts": [
       "3.2 Dependency Management ⚪",
@@ -226,7 +226,7 @@ Governance ⚪`"]
   {
     "id": "node_012",
     "kind": "section",
-    "href": "03-build-infrastructure/#33-toolchain-management",
+    "href": "03-build-infrastructure/#toolchain-management",
     "title": "3.3 Toolchain Management",
     "match_texts": [
       "3.3 Toolchain Management ⚪",
@@ -236,7 +236,7 @@ Governance ⚪`"]
   {
     "id": "node_013",
     "kind": "section",
-    "href": "03-build-infrastructure/#34-build-reproducibility-evidence",
+    "href": "03-build-infrastructure/#build-reproducibility-evidence",
     "title": "3.4 Build Reproducibility & Evidence",
     "match_texts": [
       "3.4 Build Reproducibility & Evidence ⚪",
@@ -246,7 +246,7 @@ Governance ⚪`"]
   {
     "id": "node_014",
     "kind": "section",
-    "href": "03-build-infrastructure/#35-build-execution-infrastructure",
+    "href": "03-build-infrastructure/#build-execution-infrastructure",
     "title": "3.5 Build Execution Infrastructure",
     "match_texts": [
       "3.5 Build Execution Infrastructure ⚪",
@@ -266,7 +266,7 @@ Governance ⚪`"]
   {
     "id": "node_016",
     "kind": "section",
-    "href": "04-testing-infrastructure/#41-test-framework-integration",
+    "href": "04-testing-infrastructure/#test-framework-integration",
     "title": "4.1 Test Framework Integration",
     "match_texts": [
       "4.1 Test Framework Integration ⚪",
@@ -276,7 +276,7 @@ Governance ⚪`"]
   {
     "id": "node_017",
     "kind": "section",
-    "href": "04-testing-infrastructure/#42-test-traceability",
+    "href": "04-testing-infrastructure/#test-traceability",
     "title": "4.2 Test Traceability",
     "match_texts": [
       "4.2 Test Traceability ⚪",
@@ -286,7 +286,7 @@ Governance ⚪`"]
   {
     "id": "node_018",
     "kind": "section",
-    "href": "04-testing-infrastructure/#43-test-execution-dynamic-analysis",
+    "href": "04-testing-infrastructure/#test-execution-dynamic-analysis",
     "title": "4.3 Test Execution & Dynamic Analysis",
     "match_texts": [
       "4.3 Test Execution & Dynamic Analysis ⚪",
@@ -296,7 +296,7 @@ Governance ⚪`"]
   {
     "id": "node_019",
     "kind": "section",
-    "href": "04-testing-infrastructure/#44-test-reporting",
+    "href": "04-testing-infrastructure/#test-reporting",
     "title": "4.4 Test Reporting",
     "match_texts": [
       "4.4 Test Reporting ⚪",
@@ -316,7 +316,7 @@ Governance ⚪`"]
   {
     "id": "node_021",
     "kind": "section",
-    "href": "05-static-analysis-infrastructure/#51-tooling-baseline",
+    "href": "05-static-analysis-infrastructure/#tooling-baseline",
     "title": "5.1 Tooling Baseline",
     "match_texts": [
       "5.1 Tooling Baseline ⚪",
@@ -326,7 +326,7 @@ Governance ⚪`"]
   {
     "id": "node_022",
     "kind": "section",
-    "href": "05-static-analysis-infrastructure/#52-shared-rule-configuration",
+    "href": "05-static-analysis-infrastructure/#shared-rule-configuration",
     "title": "5.2 Shared Rule Configuration",
     "match_texts": [
       "5.2 Shared Rule Configuration ⚪",
@@ -336,7 +336,7 @@ Governance ⚪`"]
   {
     "id": "node_023",
     "kind": "section",
-    "href": "05-static-analysis-infrastructure/#53-execution-model",
+    "href": "05-static-analysis-infrastructure/#execution-model",
     "title": "5.3 Execution Model",
     "match_texts": [
       "5.3 Execution Model ⚪",
@@ -346,7 +346,7 @@ Governance ⚪`"]
   {
     "id": "node_024",
     "kind": "section",
-    "href": "05-static-analysis-infrastructure/#54-security-scanning",
+    "href": "05-static-analysis-infrastructure/#security-scanning",
     "title": "5.4 Security Scanning",
     "match_texts": [
       "5.4 Security Scanning ⚪",
@@ -356,7 +356,7 @@ Governance ⚪`"]
   {
     "id": "node_025",
     "kind": "section",
-    "href": "05-static-analysis-infrastructure/#55-results-and-governance",
+    "href": "05-static-analysis-infrastructure/#results-and-governance",
     "title": "5.5 Results and Governance",
     "match_texts": [
       "5.5 Results and Governance ⚪",
@@ -376,7 +376,7 @@ Governance ⚪`"]
   {
     "id": "node_027",
     "kind": "section",
-    "href": "06-compliance-infrastructure/#61-file-level-licensing",
+    "href": "06-compliance-infrastructure/#file-level-licensing",
     "title": "6.1 File-Level Licensing",
     "match_texts": [
       "6.1 File-Level Licensing ⚪",
@@ -386,7 +386,7 @@ Governance ⚪`"]
   {
     "id": "node_028",
     "kind": "section",
-    "href": "06-compliance-infrastructure/#62-dependency-analysis",
+    "href": "06-compliance-infrastructure/#dependency-analysis",
     "title": "6.2 Dependency Analysis",
     "match_texts": [
       "6.2 Dependency Analysis ⚪",
@@ -396,7 +396,7 @@ Governance ⚪`"]
   {
     "id": "node_029",
     "kind": "section",
-    "href": "06-compliance-infrastructure/#63-sbom-scoping-and-compliance-evidence",
+    "href": "06-compliance-infrastructure/#sbom-scoping-and-compliance-evidence",
     "title": "6.3 SBOM Scoping and Compliance Evidence",
     "match_texts": [
       "6.3 SBOM Scoping and Compliance Evidence ⚪",
@@ -406,7 +406,7 @@ Governance ⚪`"]
   {
     "id": "node_030",
     "kind": "section",
-    "href": "06-compliance-infrastructure/#64-license-checks-and-compliance",
+    "href": "06-compliance-infrastructure/#license-checks-and-compliance",
     "title": "6.4 License Checks and Compliance",
     "match_texts": [
       "6.4 License Checks and Compliance ⚪",
@@ -416,7 +416,7 @@ Governance ⚪`"]
   {
     "id": "node_031",
     "kind": "section",
-    "href": "06-compliance-infrastructure/#65-monitoring-and-governance",
+    "href": "06-compliance-infrastructure/#monitoring-and-governance",
     "title": "6.5 Monitoring and Governance",
     "match_texts": [
       "6.5 Monitoring and Governance ⚪",
@@ -436,7 +436,7 @@ Governance ⚪`"]
   {
     "id": "node_033",
     "kind": "section",
-    "href": "07-automation-integration/#71-runners",
+    "href": "07-automation-integration/#runners",
     "title": "7.1 Runners",
     "match_texts": [
       "7.1 Runners 🟠",
@@ -446,7 +446,7 @@ Governance ⚪`"]
   {
     "id": "node_034",
     "kind": "section",
-    "href": "07-automation-integration/#72-reusable-workflows",
+    "href": "07-automation-integration/#reusable-workflows",
     "title": "7.2 Reusable Workflows",
     "match_texts": [
       "7.2 Reusable Workflows ⚪",
@@ -456,7 +456,7 @@ Governance ⚪`"]
   {
     "id": "node_035",
     "kind": "section",
-    "href": "07-automation-integration/#73-cross-repository-integration",
+    "href": "07-automation-integration/#cross-repository-integration",
     "title": "7.3 Cross-Repository Integration",
     "match_texts": [
       "7.3 Cross-Repository Integration ⚪",
@@ -466,7 +466,7 @@ Governance ⚪`"]
   {
     "id": "node_036",
     "kind": "section",
-    "href": "07-automation-integration/#74-secrets-management",
+    "href": "07-automation-integration/#secrets-management",
     "title": "7.4 Secrets Management",
     "match_texts": [
       "7.4 Secrets Management ⚪",
@@ -476,7 +476,7 @@ Governance ⚪`"]
   {
     "id": "node_037",
     "kind": "section",
-    "href": "07-automation-integration/#75-ci-observability",
+    "href": "07-automation-integration/#ci-observability",
     "title": "7.5 CI Observability",
     "match_texts": [
       "7.5 CI Observability ⚪",
@@ -496,7 +496,7 @@ Governance ⚪`"]
   {
     "id": "node_039",
     "kind": "section",
-    "href": "08-artifact-distribution/#81-deliverable-types",
+    "href": "08-artifact-distribution/#deliverable-types",
     "title": "8.1 Deliverable Types",
     "match_texts": [
       "8.1 Deliverable Types ⚪",
@@ -506,7 +506,7 @@ Governance ⚪`"]
   {
     "id": "node_040",
     "kind": "section",
-    "href": "08-artifact-distribution/#82-distribution-channels",
+    "href": "08-artifact-distribution/#distribution-channels",
     "title": "8.2 Distribution Channels",
     "match_texts": [
       "8.2 Distribution Channels ⚪",
@@ -516,7 +516,7 @@ Governance ⚪`"]
   {
     "id": "node_041",
     "kind": "section",
-    "href": "08-artifact-distribution/#83-release-metadata",
+    "href": "08-artifact-distribution/#release-metadata",
     "title": "8.3 Release Metadata",
     "match_texts": [
       "8.3 Release Metadata ⚪",
@@ -526,7 +526,7 @@ Governance ⚪`"]
   {
     "id": "node_042",
     "kind": "section",
-    "href": "08-artifact-distribution/#84-consumer-access",
+    "href": "08-artifact-distribution/#consumer-access",
     "title": "8.4 Consumer Access",
     "match_texts": [
       "8.4 Consumer Access ⚪",
@@ -536,7 +536,7 @@ Governance ⚪`"]
   {
     "id": "node_043",
     "kind": "section",
-    "href": "08-artifact-distribution/#85-post-release-communication-response",
+    "href": "08-artifact-distribution/#post-release-communication-response",
     "title": "8.5 Post-Release Communication & Response",
     "match_texts": [
       "8.5 Post-Release Communication & Response ⚪",
@@ -556,7 +556,7 @@ Governance ⚪`"]
   {
     "id": "node_045",
     "kind": "section",
-    "href": "09-documentation-infrastructure/#91-authoring-tooling",
+    "href": "09-documentation-infrastructure/#authoring-tooling",
     "title": "9.1 Authoring & Tooling",
     "match_texts": [
       "9.1 Authoring & Tooling ⚪",
@@ -566,7 +566,7 @@ Governance ⚪`"]
   {
     "id": "node_046",
     "kind": "section",
-    "href": "09-documentation-infrastructure/#92-build-validation-publishing",
+    "href": "09-documentation-infrastructure/#build-validation-publishing",
     "title": "9.2 Build, Validation & Publishing",
     "match_texts": [
       "9.2 Build, Validation & Publishing ⚪",
@@ -576,7 +576,7 @@ Governance ⚪`"]
   {
     "id": "node_047",
     "kind": "section",
-    "href": "09-documentation-infrastructure/#93-cross-repository-documentation-integration",
+    "href": "09-documentation-infrastructure/#cross-repository-documentation-integration",
     "title": "9.3 Cross-Repository Documentation Integration",
     "match_texts": [
       "9.3 Cross-Repository Documentation Integration ⚪",
@@ -586,7 +586,7 @@ Governance ⚪`"]
   {
     "id": "node_048",
     "kind": "section",
-    "href": "09-documentation-infrastructure/#94-engineering-documentation-traceability",
+    "href": "09-documentation-infrastructure/#engineering-documentation-traceability",
     "title": "9.4 Engineering Documentation & Traceability",
     "match_texts": [
       "9.4 Engineering Documentation & Traceability ⚪",
@@ -606,7 +606,7 @@ Governance ⚪`"]
   {
     "id": "node_050",
     "kind": "section",
-    "href": "10-infrastructure-operations/#101-ci-runner-operations",
+    "href": "10-infrastructure-operations/#ci-runner-operations",
     "title": "10.1 CI Runner Operations",
     "match_texts": [
       "10.1 CI Runner Operations ⚪",
@@ -616,7 +616,7 @@ Governance ⚪`"]
   {
     "id": "node_051",
     "kind": "section",
-    "href": "10-infrastructure-operations/#102-infrastructure-monitoring",
+    "href": "10-infrastructure-operations/#infrastructure-monitoring",
     "title": "10.2 Infrastructure Monitoring",
     "match_texts": [
       "10.2 Infrastructure Monitoring ⚪",
@@ -626,7 +626,7 @@ Governance ⚪`"]
   {
     "id": "node_052",
     "kind": "section",
-    "href": "10-infrastructure-operations/#103-infrastructure-maintenance",
+    "href": "10-infrastructure-operations/#infrastructure-maintenance",
     "title": "10.3 Infrastructure Maintenance",
     "match_texts": [
       "10.3 Infrastructure Maintenance ⚪",
@@ -636,7 +636,7 @@ Governance ⚪`"]
   {
     "id": "node_053",
     "kind": "section",
-    "href": "10-infrastructure-operations/#104-infrastructure-governance",
+    "href": "10-infrastructure-operations/#infrastructure-governance",
     "title": "10.4 Infrastructure Governance",
     "match_texts": [
       "10.4 Infrastructure Governance ⚪",
@@ -654,3 +654,19 @@ Governance ⚪`"]
 - 🟠 Implemented but problematic or insufficient
 - 🔴 Not started
 - ⚪ Unknown / not yet assessed
+
+:::{toctree}
+:maxdepth: 1
+:hidden:
+
+01-source-code-infrastructure
+02-developer-environment
+03-build-infrastructure
+04-testing-infrastructure
+05-static-analysis-infrastructure
+06-compliance-infrastructure
+07-automation-integration
+08-artifact-distribution
+09-documentation-infrastructure
+10-infrastructure-operations
+:::

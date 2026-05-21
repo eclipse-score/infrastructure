@@ -18,15 +18,31 @@ on:
 
 jobs:
 
-  self_test:
-    name: 🔬 Self Test
+  pre_commit:
+    name: Pre-commit checks
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 Check out
+      - name: Check out
         uses: actions/checkout@v6
 
-      - name: ⚙️ Setup uv
+      - name: Setup uv
         uses: astral-sh/setup-uv@v7
 
-      - name: 🛠️ Run pre-commit
+      - name: Run pre-commit
         run: uv run pre-commit run --all-files
+
+  docs_check:
+    name: Documentation validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v6
+
+      - name: Setup Bazel
+        uses: bazel-contrib/setup-bazel@0.19.0
+
+      - name: Install Graphviz
+        run: sudo apt update && sudo apt install -y graphviz
+
+      - name: Validate documentation
+        run: bazel run //:docs_check

@@ -1,7 +1,8 @@
 # 9 Documentation & Traceability ⚪
 
-!!! tip "Looking for practical guides?"
-    This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+:::{tip} Looking for practical guides?
+This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+:::
 
 *Infrastructure supporting engineering documentation across S-CORE repositories.*
 
@@ -30,9 +31,9 @@
 
 **S-CORE**
 
-[eclipse-score/docs-as-code](https://github.com/eclipse-score/docs-as-code) provides the shared documentation build tooling consumed across S-CORE. It packages Sphinx extensions, MkDocs themes and plugins, traceability support, and related documentation infrastructure into a versioned Bazel module. Repositories declare a dependency on `docs-as-code` to get a consistent documentation build experience without assembling their own toolchain.
+[eclipse-score/docs-as-code](https://github.com/eclipse-score/docs-as-code) provides the shared documentation build tooling consumed across S-CORE. It packages Sphinx with MyST parser, the pydata-sphinx-theme with S-CORE branding, traceability support via sphinx-needs, and related documentation infrastructure into a versioned Bazel module. Repositories declare a dependency on `docs-as-code` to get a consistent documentation build experience without assembling their own toolchain.
 
-Adoption is uneven: recent module repositories use `docs-as-code` v4.x, while older repositories still reference v1.x–v3.x or do not use the shared tooling at all. This version spread mirrors the broader synchronization challenge described in [chapter 1](01-source-code-infrastructure.md#143-synchronization-mechanisms). Good documentation infrastructure should also let contributors preview and validate changes without waiting for a remote publishing pipeline.
+Adoption is uneven: recent module repositories use `docs-as-code` v4.x, while older repositories still reference v1.x–v3.x or do not use the shared tooling at all. This version spread mirrors the broader synchronization challenge described in [chapter 1](01-source-code-infrastructure.md#synchronization-mechanisms). Good documentation infrastructure should also let contributors preview and validate changes without waiting for a remote publishing pipeline.
 
 **Biggest gap**: `docs-as-code` version adoption is fragmented, and fast local preview and validation workflows are not yet consistently documented across documentation-producing repositories.
 
@@ -46,7 +47,7 @@ Adoption is uneven: recent module repositories use `docs-as-code` v4.x, while ol
 
 Documentation build infrastructure should be versioned, reproducible, and reviewable like any other engineering toolchain. [eclipse-score/docs-as-code](https://github.com/eclipse-score/docs-as-code) is the shared build tooling that most module repositories are expected to consume. It is distributed through the Bazel registry and provides Sphinx-based documentation builds including traceability extensions. The CI side is handled by the reusable `docs.yml` and `docs-verify.yml` workflows in [eclipse-score/cicd-workflows](https://github.com/eclipse-score/cicd-workflows).
 
-This infrastructure documentation site uses a simpler MkDocs-based stack (`uv`, strict builds, GitHub Pages) rather than `docs-as-code`, because it does not need Sphinx's traceability features. Both models produce static sites validated in CI.
+This infrastructure documentation site uses `docs-as-code` with the standard Bazel-based Sphinx build, consistent with the rest of the S-CORE ecosystem. While it does not currently define traceability need objects, the infrastructure is in place to add them when needed.
 
 **Biggest gap**: not all documentation-producing repositories follow one shared toolchain and publication pattern. The `docs-as-code` version spread (v1.x through v4.x across repositories) means repositories do not reliably share the same documentation capabilities.
 
@@ -67,7 +68,7 @@ This infrastructure documentation site uses a simpler MkDocs-based stack (`uv`, 
 
 Documentation quality depends on catching structural problems before they reach the published site. Strict builds are the first line of defense: running the site generator in strict mode surfaces broken internal links, invalid markup, and missing navigation entries during CI rather than after publication. Beyond strict builds, dedicated structural checks can validate concerns that the site generator itself does not enforce, such as external link reachability, heading hierarchy consistency, required metadata fields, and naming conventions for files or anchors.
 
-These checks should run as part of the normal pull-request workflow so that contributors get feedback before merge. The important design choice is where the check definitions live. Checks that apply to all S-CORE documentation repositories belong in shared reusable workflows described in [section 7.2](07-automation-integration.md#72-reusable-workflows), while repository-specific validation rules can stay local. Both should produce clear, actionable output rather than noisy warnings that contributors learn to ignore.
+These checks should run as part of the normal pull-request workflow so that contributors get feedback before merge. The important design choice is where the check definitions live. Checks that apply to all S-CORE documentation repositories belong in shared reusable workflows described in [section 7.2](07-automation-integration.md#reusable-workflows), while repository-specific validation rules can stay local. Both should produce clear, actionable output rather than noisy warnings that contributors learn to ignore.
 
 Publishing should be an explicit, reproducible stage of the docs pipeline rather than an undocumented side effect. A contributor should be able to run the same validation locally before pushing, so the tooling must not depend on CI-only infrastructure.
 
@@ -131,7 +132,7 @@ Traceability needs explicit object models and stable identifiers, not just linke
 
 The Sphinx ecosystem provides this through extensions that let authors declare typed objects directly in documentation source and express relationships between them. Those objects can then be queried, filtered, and rendered as traceability matrices, coverage tables, or impact analysis views without maintaining a separate database. The important property is that the traceability data lives in version control alongside the prose, follows the same review process, and can be validated during the documentation build.
 
-For S-CORE, the practical value is that test evidence produced in [chapter 4](04-testing-infrastructure.md#42-test-traceability) can be linked back to requirement objects in documentation, creating a verification chain from requirement through implementation to test result. When requirements change between releases, the same object model makes it possible to identify which links break, which tests need re-evaluation, and which verification evidence is stale. That is the versioning dimension: requirement objects should carry version identity so that a documentation build for one `known_good` snapshot can show the requirement state at that point, while a diff between snapshots shows what changed.
+For S-CORE, the practical value is that test evidence produced in [chapter 4](04-testing-infrastructure.md#test-traceability) can be linked back to requirement objects in documentation, creating a verification chain from requirement through implementation to test result. When requirements change between releases, the same object model makes it possible to identify which links break, which tests need re-evaluation, and which verification evidence is stale. That is the versioning dimension: requirement objects should carry version identity so that a documentation build for one `known_good` snapshot can show the requirement state at that point, while a diff between snapshots shows what changed.
 
 **Biggest gap**: the tooling direction for docs-as-code traceability exists but is not yet named, standardized, or integrated into the documentation build pipeline across S-CORE repositories. Requirement versioning across releases is not yet addressed.
 

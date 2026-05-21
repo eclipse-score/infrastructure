@@ -39,9 +39,9 @@ ghcr.io/eclipse-score/devcontainer
 | `bazel coverage //... --combined_report` | Collect coverage (LCOV) |
 | `pre-commit install` | Set up git hooks |
 | `pre-commit run --all-files` | Run all pre-commit checks |
-| `uv sync` | Install Python dependencies |
-| `uv run mkdocs serve` | Start local docs preview |
-| `uv run mkdocs build --strict` | Build docs with strict validation |
+| `bazel run //:docs` | Build documentation |
+| `bazel run //:live_preview` | Start local docs preview with live reload |
+| `bazel run //:docs_check` | Validate docs (must pass before merge) |
 
 ## Key Links
 

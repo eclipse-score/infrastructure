@@ -1,7 +1,8 @@
 # 6 Compliance & Dependency Analysis ⚪
 
-!!! tip "Looking for practical guides?"
-    This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+:::{tip} Looking for practical guides?
+This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+:::
 
 *Infrastructure for turning repository files, dependency declarations, and build outputs into licensing evidence, SBOMs, and ongoing compliance and vulnerability monitoring across S-CORE.*
 
@@ -11,7 +12,7 @@ The compliance flow has five stages. File-level licensing (§6.1) classifies eve
 
 The tooling landscape for this area is still early-stage. [eclipse-score/sbom-tool](https://github.com/eclipse-score/sbom-tool) is a proof-of-concept Bazel rule set that integrates SBOM generation into the build, using dash-license-scan and cdxgen as data sources for license enrichment. It belongs entirely to this chapter: it consumes build outputs as inputs but owns discovery, enrichment, and SBOM generation — all compliance concerns. The remaining gaps are around scope decisions, non-Bazel repositories, monitoring, and governance — which is what this chapter describes.
 
-```mermaid
+```{mermaid}
 flowchart TD
     subgraph s61 ["§ 6.1  File-Level Licensing"]
         repo_files["Repository files"]
@@ -66,7 +67,7 @@ flowchart TD
 
 *Classifying repository files as first-party or third-party and attaching machine-readable licensing metadata.*
 
-```mermaid
+```{mermaid}
 flowchart LR
     file["Repository files"]
     header_ok{"`Supports
@@ -124,7 +125,7 @@ Consistent metadata requires two enforcement layers: a pre-commit hook that auto
 
 This path requires three distinct capabilities: dependency discovery, license enrichment, and SBOM-format output. In Bazel-based repositories, [eclipse-score/sbom-tool](https://github.com/eclipse-score/sbom-tool) already integrates all three as a Bazel rule. It uses the Bazel module graph and aspects for discovery, dash-license-scan for Rust license data, cdxgen for C++ license data, and produces SPDX 2.3 / CycloneDX 1.6 output — so these tools are data sources within one orchestrated build step, not competing alternatives.
 
-```mermaid
+```{mermaid}
 flowchart LR
     subgraph inputs ["Build inputs"]
         direction TB
@@ -181,7 +182,7 @@ For non-Bazel repositories, no equivalent integration exists yet. The same capab
 
 This is where the two input paths converge. One repository does not produce one SBOM — it produces inputs to a scope decision that determines which evidence goes where and to whom.
 
-```mermaid
+```{mermaid}
 flowchart TD
     in61["`File classification
 ← §6.1`"]
@@ -228,7 +229,7 @@ image scan`"]
 
 *Distinguishing between build-scope and runtime-scope compliance evidence.*
 
-Some dependencies belong only to building, testing, or the development environment. Others are part of the delivered runtime product. That distinction changes which SBOM is produced, how findings are interpreted, and which consumers care. The same scope model applies to S-CORE's tooling and environment artifacts such as devcontainers — [chapter 3](03-build-infrastructure.md#344-tooling-environment-sboms-license-evidence) describes how they produce build evidence; this chapter owns the scope decision.
+Some dependencies belong only to building, testing, or the development environment. Others are part of the delivered runtime product. That distinction changes which SBOM is produced, how findings are interpreted, and which consumers care. The same scope model applies to S-CORE's tooling and environment artifacts such as devcontainers — [chapter 3](03-build-infrastructure.md#tooling-environment-sboms-license-evidence) describes how they produce build evidence; this chapter owns the scope decision.
 
 **Biggest gap**: no shared definition yet of which inputs belong in development-scope versus product-scope SBOMs.
 
@@ -246,7 +247,7 @@ Scoped SBOMs serve two immediate audiences before feeding downstream. Internally
 
 Scoped SBOMs from §6.3 carry dependency metadata but license status may still be unresolved or incomplete. This section runs the actual license checks — automated via Dash and manual via IP review — and resolves those gaps. The result is a **license-enriched SBOM** with verified license status for every component. That artifact is what §6.5 uses for vulnerability monitoring and governance; it is a richer input than the scoped SBOM from §6.3.
 
-```mermaid
+```{mermaid}
 flowchart LR
     in63["`Scoped SBOMs
 ← §6.3`"]
@@ -295,7 +296,7 @@ Automated checks resolve most license questions, but some dependencies require I
 
 The compliance flow becomes useful infrastructure only when SBOMs stay fresh, findings can be owned, and coverage gaps stay visible.
 
-```mermaid
+```{mermaid}
 flowchart TD
     in64["`License-enriched SBOM
 ← §6.4`"]

@@ -2,8 +2,9 @@
 
 This tutorial walks you through making a change to a S-CORE repository and getting it merged. By the end, you will have submitted a real pull request.
 
-!!! note "Prerequisites"
-    Complete [Getting Started](getting-started.md) first. You need a working devcontainer and passing build.
+:::{note} Prerequisites
+Complete [Getting Started](getting-started.md) first. You need a working devcontainer and passing build.
+:::
 
 ## 1. Create a branch
 

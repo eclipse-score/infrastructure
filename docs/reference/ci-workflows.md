@@ -26,7 +26,7 @@ The `on-pr.yml` meta-workflow triggers checks on every pull request. A typical P
 2. **Copyright** — header presence
 3. **Lock file check** — `MODULE.bazel.lock` freshness
 4. **Build and test** — full Bazel build and test suite
-5. **Documentation** — strict MkDocs build (if docs are present)
+5. **Documentation** — Bazel docs-as-code build (if docs are present)
 6. **Static analysis** — linters and analyzers
 
 All checks must pass before merge. Required status checks are configured centrally via [otterdog](https://github.com/eclipse-score/.eclipsefdn/blob/main/otterdog/eclipse-score.jsonnet).

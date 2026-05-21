@@ -39,11 +39,13 @@ The devcontainer image is the canonical source for tool versions. Check the imag
 
 | Tool | Role |
 |---|---|
-| MkDocs | Static site generator |
-| mermaid2 | Diagram rendering plugin |
-| uv | Python package manager |
+| docs-as-code | Shared Bazel module for documentation builds |
+| Sphinx + MyST | Documentation engine with Markdown support |
+| pydata-sphinx-theme | HTML theme with S-CORE branding via `score_layout` |
+| Mermaid / PlantUML | Diagram rendering |
+| sphinx-needs | Traceability and requirement management |
 
-Version pins are in `pyproject.toml` and `uv.lock` per repository.
+Version is pinned via `bazel_dep` in each repository's `MODULE.bazel`.
 
 ## Pre-commit Hooks
 
