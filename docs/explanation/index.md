@@ -12,6 +12,15 @@ Architecture, design rationale, and maturity assessment of each S-CORE infrastru
 - [8. Release & Distribution](08-artifact-distribution.md)
 - [9. Documentation & Traceability](09-documentation-infrastructure.md)
 - [10. Infrastructure Operations](10-infrastructure-operations.md)
+- [Infrastructure Design Decisions](decisions.md)
+
+## Status Legend
+
+- 🟢 Implemented and effective
+- 🟡 Partially implemented / needs improvement
+- 🟠 Implemented but problematic or insufficient
+- 🔴 Not started
+- ⚪ Unknown / not yet assessed
 
 ## Chapter Map
 
@@ -647,14 +656,6 @@ Governance ⚪`"]
 </script>
 <!-- END GENERATED CHAPTER MAP -->
 
-## Status Legend
-
-- 🟢 Implemented and effective
-- 🟡 Partially implemented / needs improvement
-- 🟠 Implemented but problematic or insufficient
-- 🔴 Not started
-- ⚪ Unknown / not yet assessed
-
 :::{toctree}
 :maxdepth: 1
 :hidden:
@@ -669,4 +670,5 @@ Governance ⚪`"]
 08-artifact-distribution
 09-documentation-infrastructure
 10-infrastructure-operations
+decisions
 :::

@@ -1,7 +1,7 @@
 # 1 Source Code Infrastructure 🟠
 
 :::{tip} Looking for practical guides?
-This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [How-to Guides](../how-to/index.md).
 :::
 
 *Infrastructure for hosting and governing repositories consistently across the S-CORE project.*

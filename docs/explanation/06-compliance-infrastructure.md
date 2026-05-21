@@ -1,7 +1,11 @@
 # 6 Compliance & Dependency Analysis ⚪
 
 :::{tip} Looking for practical guides?
-This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [How-to Guides](../how-to/index.md).
+:::
+
+:::{note} Not yet assessed
+All sections in this chapter are marked ⚪ (not yet assessed). The content describes the target architecture and known gaps, not the current state of implementation.
 :::
 
 *Infrastructure for turning repository files, dependency declarations, and build outputs into licensing evidence, SBOMs, and ongoing compliance and vulnerability monitoring across S-CORE.*

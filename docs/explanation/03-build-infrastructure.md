@@ -1,12 +1,14 @@
 # 3 Build & Dependencies ⚪
 
 :::{tip} Looking for practical guides?
-This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [How-to Guides](../how-to/index.md).
 :::
 
 *Deterministic, reproducible builds across S-CORE repositories using Bazel as the shared build system, including the dependency and evidence model around those builds.*
 
-⚠️ This chapter is written by ChatGPT and was not yet reviewed
+:::{warning} Draft
+This chapter has not been fully reviewed. Content may be incomplete or inaccurate.
+:::
 
 **S-CORE**
 
@@ -138,17 +140,9 @@ In the S-CORE repository landscape, this pattern already exists in practice, but
 
 *Capturing the explicit cross-repository integration manifest and metadata used to assemble one S-CORE stack.*
 
-**S-CORE**
+The `known_good` manifest identifies which component revisions belong together in one validated S-CORE stack. It sits one level above ordinary Bazel lock files: a lock file captures the resolved dependency graph inside a workspace, while `known_good` is the curated integration selection from which those inputs are generated.
 
-`reference_integration` introduced the idea of a `known_good` set: an explicit manifest of which component revisions belong together in one integrated S-CORE stack. In the language of the distributed-monolith integration decision, the core content is a tuple of `(component, commit)` pairs plus metadata that allows the stack to be reproduced later. That should not be described as just another Bazel lock file, because it sits one level above that. `known_good` is the curated integration manifest from which Bazel-facing inputs can be generated, while a lock file such as `MODULE.bazel.lock` captures the resolved dependency graph that a concrete Bazel workspace consumes.
-
-That difference matters because `known_good` carries integration-control information that ordinary Bazel lock files do not. Besides selecting component revisions, it can also describe metadata such as timestamps, suite or manifest identity, and automation inputs such as which branch should be followed for automated CI refreshes. In practice it may be represented as a JSON file, but the important architectural point here is its role as the higher-level source of truth for integrated stack selection and automation behavior.
-
-Assuming the still-undecided Option 2 direction currently under discussion for `reference_integration`, this manifest is more than a selection file. It becomes the unit that central integration rebuilds, re-tests, and turns into integrated evidence. If the project later settles on a lighter `reference_integration` scope, `known_good` still remains useful as the agreed integration input set, but some verification evidence would then stay in module repositories instead of being re-executed centrally.
-
-The concrete file format matters less here than the behavior: `known_good` should be version-controlled, diffable, reproducible, and easy for CI to refresh and promote while remaining clearly distinct from generated Bazel lock data.
-
-For decision background, the strategic "consistent stack" direction is discussed in [DR-001-Strat](https://eclipse-score.github.io/score/main/design_decisions/DR-001-strat.html), the manifest and stored known-good record model in [DR-002-Infra](https://eclipse-score.github.io/score/main/design_decisions/DR-002-infra.html), and the still-undecided central `reference_integration` scope options in [DR-008-Int](https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1).
+The architectural context and decision background for this mechanism are documented separately: see [Infrastructure Design Decisions → `known_good` Architecture Note](decisions.md#known_good-architecture-note).
 
 ## 3.3 Toolchain Management ⚪
 
