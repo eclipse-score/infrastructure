@@ -66,6 +66,25 @@ Scenario-style execution matters once testing spans modules, services, or richer
 
 The execution pipeline for ITF tests follows a layered model. Bazel invokes a pytest runner through the `py_itf_test` symbolic macro, which uses ITF plugins to manage the target environment — starting a Docker container, launching a QEMU instance, or connecting to a hardware device. The test code then interacts with the system under test through the environment that the plugin provides. Results flow back through pytest into Bazel's test result model as JUnit XML written to `$XML_OUTPUT_FILE`. This pipeline means that ITF tests can be triggered as ordinary `bazel test` targets while the execution complexity is hidden inside the plugin layer. Because the `py_itf_test` macro produces a standard `py_test` binary that bundles test code and all plugin dependencies, ITF tests participate fully in Bazel's incremental build and caching: a test is only re-run if its source, dependencies, or configuration changes.
 
+```{mermaid}
+graph TD
+    bazel["bazel test //path:my_itf_test"]
+    pytest["pytest runner\n(py_itf_test macro)"]
+    plugin["ITF Plugin\n(Docker / QEMU / Hardware)"]
+    target["Target environment\n(container / VM / device)"]
+    caps["@requires_capabilities\nskip if not available"]
+    results["JUnit XML\n($XML_OUTPUT_FILE)"]
+    trace["@add_test_properties\ntraceability metadata"]
+
+    bazel --> pytest
+    pytest --> plugin
+    plugin --> target
+    plugin --> caps
+    caps -->|skip| pytest
+    target --> results
+    trace --> results
+```
+
 The central abstraction is the capability-based `Target` model. Each target exposes capabilities such as `exec`, `file_transfer`, `restart`, `ssh`, and `sftp`. Tests declare which capabilities they require using the `@requires_capabilities` decorator, and the framework skips tests when the active target does not provide them. This design lets the same test code run against different target environments — a Docker container locally, a QEMU image in CI, a real board in the lab — with the plugin determining which capabilities are available.
 
 The plugin model is what makes ITF extensible. Four built-in plugins cover the current target types and supporting concerns:

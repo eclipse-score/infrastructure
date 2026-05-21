@@ -8,4 +8,5 @@ Step-by-step lessons for newcomers. Follow along to build understanding.
 getting-started
 first-pull-request
 creating-a-module
+itf-integration-test
 :::
