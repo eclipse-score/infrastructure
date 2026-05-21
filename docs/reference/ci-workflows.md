@@ -6,14 +6,9 @@ S-CORE uses **GitHub Actions** for all CI/CD automation.
 
 ## Reusable Workflows
 
-Shared workflows are maintained in [eclipse-score/tooling](https://github.com/eclipse-score/tooling). Module repositories call these workflows to avoid duplicating CI logic.
+Shared reusable workflows are maintained in [eclipse-score/cicd-workflows](https://github.com/eclipse-score/cicd-workflows). Module repositories call these workflows to avoid duplicating CI logic. The available workflows cover building, testing, formatting, copyright, lock file checks, documentation, static analysis, CodeQL, license scanning, coverage, QNX cross-compilation, and template synchronization. Two meta-workflows — `on-pr.yml` and `daily.yml` — compose these checks into standard pipeline shapes for pull requests and scheduled maintenance respectively.
 
-| Workflow | Purpose |
-|---|---|
-| Build & Test | Bazel build and test for all targets |
-| Pre-commit | Run pre-commit checks |
-| Documentation | Build and validate MkDocs sites |
-| Registry Publish | Import released module into Bazel registry |
+Shared composite actions are maintained in [eclipse-score/cicd-actions](https://github.com/eclipse-score/cicd-actions) for cross-repository token provisioning and QNX SDP setup.
 
 ## Runner Infrastructure
 
@@ -25,14 +20,16 @@ Shared workflows are maintained in [eclipse-score/tooling](https://github.com/ec
 
 ## PR Checks
 
-Every pull request triggers:
+The `on-pr.yml` meta-workflow triggers checks on every pull request. A typical PR runs:
 
-1. **Pre-commit hooks** — formatting, headers, lock files
-2. **Bazel build** — full build of all targets
-3. **Bazel test** — full test suite execution
-4. **Documentation build** — strict MkDocs build (if docs are present)
+1. **Formatting** — code style enforcement
+2. **Copyright** — header presence
+3. **Lock file check** — `MODULE.bazel.lock` freshness
+4. **Build and test** — full Bazel build and test suite
+5. **Documentation** — strict MkDocs build (if docs are present)
+6. **Static analysis** — linters and analyzers
 
-All checks must pass before merge.
+All checks must pass before merge. Required status checks are configured centrally via [otterdog](https://github.com/eclipse-score/.eclipsefdn/blob/main/otterdog/eclipse-score.jsonnet).
 
 ## Secrets
 

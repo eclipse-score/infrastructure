@@ -2,24 +2,25 @@
 
 ## Key Repositories
 
+The most-used infrastructure repositories. For the full list of all 60+ repositories with status and metrics, see the [Repository Overview](https://eclipse-score.github.io/.github/).
+
 | Repository | Purpose |
 |---|---|
-| [eclipse-score/score](https://github.com/eclipse-score/score) | Main project repository and handbook |
-| [eclipse-score/devcontainer](https://github.com/eclipse-score/devcontainer) | Shared development container images |
-| [eclipse-score/tooling](https://github.com/eclipse-score/tooling) | Shared Bazel rules and pre-commit hooks |
-| [eclipse-score/bazel_registry](https://github.com/eclipse-score/bazel_registry) | Shared Bazel module registry |
-| [eclipse-score/bazel_registry_ui](https://github.com/eclipse-score/bazel_registry_ui) | Browsable registry UI |
-| [eclipse-score/bazel_cpp_toolchains](https://github.com/eclipse-score/bazel_cpp_toolchains) | C++ Bazel toolchain (Linux, QNX) |
-| [eclipse-score/toolchains_rust](https://github.com/eclipse-score/toolchains_rust) | Rust toolchains incl. Ferrocene |
-| [eclipse-score/score_cpp_policies](https://github.com/eclipse-score/score_cpp_policies) | Shared C++ lint, warning, and sanitizer policies |
-| [eclipse-score/score_rust_policies](https://github.com/eclipse-score/score_rust_policies) | Shared Rust Clippy and rustfmt policies |
-| [eclipse-score/module_template](https://github.com/eclipse-score/module_template) | Template for new Bazel module repositories |
-| [eclipse-score/sbom-tool](https://github.com/eclipse-score/sbom-tool) | SBOM generation Bazel rules |
-| [eclipse-score/itf](https://github.com/eclipse-score/itf) | Integration Test Framework (pytest, Docker/QEMU/hardware) |
-| [eclipse-score/qnx_unit_tests](https://github.com/eclipse-score/qnx_unit_tests) | QNX microvm unit test runner (C++, Rust) |
-| [eclipse-score/reference_integration](https://github.com/eclipse-score/reference_integration) | Cross-repository integration environment |
-| [eclipse-score/.github](https://github.com/eclipse-score/.github) | Organization profile and cross-repo metrics |
-| [eclipse-score/.eclipsefdn](https://github.com/eclipse-score/.eclipsefdn) | Otterdog configuration (org settings as code) |
+| [score](https://github.com/eclipse-score/score) | Main project repository and handbook |
+| [devcontainer](https://github.com/eclipse-score/devcontainer) | Shared development container images |
+| [tooling](https://github.com/eclipse-score/tooling) | Shared Bazel rules and pre-commit hooks |
+| [bazel_registry](https://github.com/eclipse-score/bazel_registry) | Shared Bazel module registry |
+| [cicd-workflows](https://github.com/eclipse-score/cicd-workflows) | Reusable GitHub Actions workflows |
+| [cicd-actions](https://github.com/eclipse-score/cicd-actions) | Reusable GitHub Actions (composite actions) |
+| [docs-as-code](https://github.com/eclipse-score/docs-as-code) | Docs-as-code tooling (Sphinx, traceability) |
+| [module_template](https://github.com/eclipse-score/module_template) | Template for new Bazel module repositories |
+| [bazel_cpp_toolchains](https://github.com/eclipse-score/bazel_cpp_toolchains) | C++ Bazel toolchain configuration (Linux, QNX) |
+| [toolchains_rust](https://github.com/eclipse-score/toolchains_rust) | Rust toolchains incl. Ferrocene |
+| [score_cpp_policies](https://github.com/eclipse-score/score_cpp_policies) | Shared C++ lint, warning, and sanitizer policies |
+| [score_rust_policies](https://github.com/eclipse-score/score_rust_policies) | Shared Rust Clippy and rustfmt policies |
+| [itf](https://github.com/eclipse-score/itf) | Integration Test Framework (pytest, Docker/QEMU/hardware) |
+| [reference_integration](https://github.com/eclipse-score/reference_integration) | Cross-repository integration environment |
+| [.eclipsefdn](https://github.com/eclipse-score/.eclipsefdn) | Otterdog configuration (org settings as code) |
 
 ## Devcontainer Image
 

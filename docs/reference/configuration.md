@@ -43,26 +43,29 @@ Source: [eclipse-score/devcontainer](https://github.com/eclipse-score/devcontain
 
 ## Pre-commit
 
-Hook source: [eclipse-score/tooling](https://github.com/eclipse-score/tooling/blob/main/.pre-commit-hooks.yaml)
+S-CORE repositories use [pre-commit](https://pre-commit.com/) hooks from two sources: a project-specific hook from `eclipse-score/tooling` and standard ecosystem hooks.
 
-Standard `.pre-commit-config.yaml` entry:
+### S-CORE hook
+
+Source: [eclipse-score/tooling](https://github.com/eclipse-score/tooling/blob/main/.pre-commit-hooks.yaml)
 
 ```yaml
 repos:
   - repo: https://github.com/eclipse-score/tooling
     rev: <version>
     hooks:
-      - id: <hook-id>
+      - id: copyright
 ```
-
-Checks provided by the tooling repository:
 
 | Hook | What it checks |
 |---|---|
-| Formatting | Code style (clang-format, rustfmt, black) |
-| YAML validation | Syntax and schema |
-| Copyright headers | SPDX identifier and copyright notice presence |
-| Lock file freshness | `MODULE.bazel.lock`, `uv.lock` |
+| `copyright` | SPDX license identifier and copyright header presence (via `cr_checker`) |
+
+### Ecosystem hooks
+
+Formatting, YAML validation, lock file freshness, and other hygiene checks come from standard pre-commit hooks (e.g. `pre-commit-hooks`, `mirrors-clang-format`). Each repository pins these in its own `.pre-commit-config.yaml`.
+
+The reusable CI workflows in [cicd-workflows](https://github.com/eclipse-score/cicd-workflows) include `format.yml` and `copyright.yml` that enforce these checks in CI independently of local hook configuration.
 
 ## ITF Test Targets
 

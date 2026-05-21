@@ -24,14 +24,17 @@
 - Markdown and rST are the primary input formats.
 - **Biggest gap**: authoring conventions and required documentation structure are not yet standardized across S-CORE repositories.
 
-### 9.1.1 IDE & Developer Experience
+### 9.1.1 Docs-As-Code Tooling
 
-*Providing fast feedback while authoring documentation locally.*
+*Shared documentation build infrastructure across S-CORE repositories.*
 
 **S-CORE**
 
-- Good documentation infrastructure should let contributors preview and validate changes without waiting for a remote publishing pipeline.
-- **Biggest gap**: fast local preview and validation workflows are not yet consistently documented across documentation-producing repositories.
+[eclipse-score/docs-as-code](https://github.com/eclipse-score/docs-as-code) provides the shared documentation build tooling consumed across S-CORE. It packages Sphinx extensions, MkDocs themes and plugins, traceability support, and related documentation infrastructure into a versioned Bazel module. Repositories declare a dependency on `docs-as-code` to get a consistent documentation build experience without assembling their own toolchain.
+
+Adoption is uneven: recent module repositories use `docs-as-code` v4.x, while older repositories still reference v1.x–v3.x or do not use the shared tooling at all. This version spread mirrors the broader synchronization challenge described in [chapter 1](01-source-code-infrastructure.md#143-synchronization-mechanisms). Good documentation infrastructure should also let contributors preview and validate changes without waiting for a remote publishing pipeline.
+
+**Biggest gap**: `docs-as-code` version adoption is fragmented, and fast local preview and validation workflows are not yet consistently documented across documentation-producing repositories.
 
 ---
 
@@ -41,9 +44,11 @@
 
 **S-CORE**
 
-- Documentation build infrastructure should be versioned, reproducible, and reviewable like any other engineering toolchain.
-- The current infrastructure documentation site in this repository uses MkDocs, `uv`, strict builds, and GitHub Pages, providing a concrete example of the tooling direction.
-- **Biggest gap**: not all documentation-producing repositories follow one shared toolchain and publication pattern.
+Documentation build infrastructure should be versioned, reproducible, and reviewable like any other engineering toolchain. [eclipse-score/docs-as-code](https://github.com/eclipse-score/docs-as-code) is the shared build tooling that most module repositories are expected to consume. It is distributed through the Bazel registry and provides Sphinx-based documentation builds including traceability extensions. The CI side is handled by the reusable `docs.yml` and `docs-verify.yml` workflows in [eclipse-score/cicd-workflows](https://github.com/eclipse-score/cicd-workflows).
+
+This infrastructure documentation site uses a simpler MkDocs-based stack (`uv`, strict builds, GitHub Pages) rather than `docs-as-code`, because it does not need Sphinx's traceability features. Both models produce static sites validated in CI.
+
+**Biggest gap**: not all documentation-producing repositories follow one shared toolchain and publication pattern. The `docs-as-code` version spread (v1.x through v4.x across repositories) means repositories do not reliably share the same documentation capabilities.
 
 ### 9.2.1 Deterministic Build and Configuration
 

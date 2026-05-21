@@ -64,11 +64,11 @@ The infrastructure layers that need to exist are: physical device management and
 
 **S-CORE**
 
-- Workflows are defined in `.github/workflows/` per repository; reusable workflows are hosted centrally for cross-repository use.
-- Reusable workflows are intended to standardize build, test, analysis, documentation, and release steps across repositories.
-- When workflow consistency benefits from reusing the shared local environment described in [chapter 2](02-developer-environment.md), the workflow layer is still responsible for how that environment is invoked and gated.
-- Required status checks are configured centrally via [otterdog](https://otterdog.readthedocs.io/en/latest/userguide/) in the [S-CORE configuration](https://github.com/eclipse-score/.eclipsefdn/blob/main/otterdog/eclipse-score.jsonnet).
-- **Biggest gap**: reusable workflow coverage is partial and quality gate definitions are not yet consistently enforced via shared workflows.
+Reusable workflows are maintained in [eclipse-score/cicd-workflows](https://github.com/eclipse-score/cicd-workflows) and reusable composite actions in [eclipse-score/cicd-actions](https://github.com/eclipse-score/cicd-actions). Module repositories call these shared workflows to standardize build, test, analysis, documentation, and release steps. Two meta-workflows compose the individual checks into standard pipeline shapes: `on-pr.yml` for pull-request checks and `daily.yml` for scheduled maintenance. Required status checks are configured centrally via [otterdog](https://otterdog.readthedocs.io/en/latest/userguide/) in the [S-CORE configuration](https://github.com/eclipse-score/.eclipsefdn/blob/main/otterdog/eclipse-score.jsonnet).
+
+When workflow consistency benefits from reusing the shared local environment described in [chapter 2](02-developer-environment.md), the workflow layer is still responsible for how that environment is invoked and gated.
+
+**Biggest gap**: reusable workflow coverage is partial and quality gate definitions are not yet consistently enforced via shared workflows.
 
 ### 7.2.1 Workflow Library Coverage
 
@@ -76,8 +76,9 @@ The infrastructure layers that need to exist are: physical device management and
 
 **S-CORE**
 
-- A shared reusable workflow library exists but does not yet cover all standard S-CORE pipeline scenarios.
-- **Biggest gap**: a complete baseline library for standard build, test, analysis, documentation, and release patterns is not yet fully defined.
+The [cicd-workflows](https://github.com/eclipse-score/cicd-workflows) library already covers a broad set of pipeline patterns: build and test, formatting, copyright enforcement, lock file verification, documentation build and verification, static analysis, CodeQL security scanning, dependency license checking, C++ and Rust coverage, QNX cross-compilation, and template synchronization. The [cicd-actions](https://github.com/eclipse-score/cicd-actions) repository complements this with composite actions for cross-repository token provisioning and QNX SDP setup.
+
+**Biggest gap**: the workflow library is substantial, but adoption is not yet universal. Some repositories still use local workflow copies instead of the shared library, and the full set of quality gates is not uniformly applied across all repository classes.
 
 ### 7.2.2 Build Validation
 
