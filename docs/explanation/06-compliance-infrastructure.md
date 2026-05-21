@@ -1,5 +1,8 @@
 # 6 Compliance & Dependency Analysis ⚪
 
+!!! tip "Looking for practical guides?"
+    This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+
 *Infrastructure for turning repository files, dependency declarations, and build outputs into licensing evidence, SBOMs, and ongoing compliance and vulnerability monitoring across S-CORE.*
 
 The compliance flow has five stages. File-level licensing (§6.1) classifies every file as first-party or third-party. Dependency analysis (§6.2) discovers what each repository consumes and produces enriched SBOMs. SBOM scoping (§6.3) decides which evidence belongs in which SBOM and who receives it. License checks (§6.4) verify that the license profile is acceptable and produce a license-enriched SBOM. Monitoring and governance (§6.5) uses that artifact for ongoing vulnerability detection and compliance oversight.

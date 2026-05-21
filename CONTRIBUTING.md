@@ -24,10 +24,11 @@ uv run mkdocs build --strict
 
 A contribution is not complete until the documentation still builds cleanly with strict checks.
 
-The numbered chapter files also drive the generated chapter-map section in
-`docs/index.md`. That section is refreshed automatically by pre-commit whenever
-the chapter heading structure changes. If you are not using pre-commit, run
-`python3 scripts/generate_mindmap.py` manually before committing.
+The numbered chapter files under `docs/explanation/` also drive the generated
+chapter-map section in `docs/explanation/index.md`. That section is refreshed
+automatically by pre-commit whenever the chapter heading structure changes. If
+you are not using pre-commit, run `python3 scripts/generate_mindmap.py` manually
+before committing.
 
 If you use pre-commit locally, install the hooks once with:
 
@@ -59,22 +60,22 @@ Cross-cutting topics are expected in this repository, but they should still feel
 
 The current reference example for this pattern is the Bazel registry writeup:
 
-- [docs/08-artifact-distribution.md](docs/08-artifact-distribution.md) is the canonical end-to-end explanation.
-- [docs/03-build-infrastructure.md](docs/03-build-infrastructure.md) keeps only the build-consumer perspective.
-- [docs/10-infrastructure-operations.md](docs/10-infrastructure-operations.md) keeps only the operations perspective.
+- [docs/explanation/08-artifact-distribution.md](docs/explanation/08-artifact-distribution.md) is the canonical end-to-end explanation.
+- [docs/explanation/03-build-infrastructure.md](docs/explanation/03-build-infrastructure.md) keeps only the build-consumer perspective.
+- [docs/explanation/10-infrastructure-operations.md](docs/explanation/10-infrastructure-operations.md) keeps only the operations perspective.
 
 The developer-tooling and devcontainer story follows the same rule:
 
-- [docs/02-developer-environment.md](docs/02-developer-environment.md) is the canonical explanation of how contributors obtain and use the shared environment locally.
-- [docs/03-build-infrastructure.md](docs/03-build-infrastructure.md) keeps the toolchain, reproducibility, and build-evidence perspective.
-- [docs/05-static-analysis-infrastructure.md](docs/05-static-analysis-infrastructure.md) keeps the policy and rule-baseline perspective.
-- [docs/07-automation-integration.md](docs/07-automation-integration.md) keeps the CI-delivery and gating perspective.
+- [docs/explanation/02-developer-environment.md](docs/explanation/02-developer-environment.md) is the canonical explanation of how contributors obtain and use the shared environment locally.
+- [docs/explanation/03-build-infrastructure.md](docs/explanation/03-build-infrastructure.md) keeps the toolchain, reproducibility, and build-evidence perspective.
+- [docs/explanation/05-static-analysis-infrastructure.md](docs/explanation/05-static-analysis-infrastructure.md) keeps the policy and rule-baseline perspective.
+- [docs/explanation/07-automation-integration.md](docs/explanation/07-automation-integration.md) keeps the CI-delivery and gating perspective.
 
 Language support split across toolchain repositories and policy repositories follows the same rule:
 
-- [docs/03-build-infrastructure.md](docs/03-build-infrastructure.md) is the canonical explanation of how Bazel toolchain modules such as `toolchains_rust` or `bazel_cpp_toolchains` provide compiler and toolchain integration.
-- [docs/05-static-analysis-infrastructure.md](docs/05-static-analysis-infrastructure.md) keeps the shared rule-baseline perspective for policy modules such as `score_rust_policies` and `score_cpp_policies`.
-- [docs/04-testing-infrastructure.md](docs/04-testing-infrastructure.md) keeps the runtime-execution perspective for sanitizers and other dynamic checks that may be enabled by those policies.
+- [docs/explanation/03-build-infrastructure.md](docs/explanation/03-build-infrastructure.md) is the canonical explanation of how Bazel toolchain modules such as `toolchains_rust` or `bazel_cpp_toolchains` provide compiler and toolchain integration.
+- [docs/explanation/05-static-analysis-infrastructure.md](docs/explanation/05-static-analysis-infrastructure.md) keeps the shared rule-baseline perspective for policy modules such as `score_rust_policies` and `score_cpp_policies`.
+- [docs/explanation/04-testing-infrastructure.md](docs/explanation/04-testing-infrastructure.md) keeps the runtime-execution perspective for sanitizers and other dynamic checks that may be enabled by those policies.
 
 ## Review Checklist
 

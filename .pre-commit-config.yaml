@@ -6,11 +6,11 @@ repos:
         entry: python3 scripts/aggregate_status.py
         language: system
         pass_filenames: false
-        files: ^(docs/.*\.md|scripts/aggregate_status\.py)$
-        exclude: ^docs/index\.md$
+        files: ^(docs/explanation/.*\.md|scripts/aggregate_status\.py)$
+        exclude: ^docs/explanation/index\.md$
       - id: generate-mindmap
         name: Generate infrastructure chapter map
         entry: python3 scripts/generate_mindmap.py
         language: system
         pass_filenames: false
-        files: ^(docs/[0-9][0-9]-.*\.md|docs/index\.md|scripts/generate_mindmap\.py)$
+        files: ^(docs/explanation/[0-9][0-9]-.*\.md|docs/explanation/index\.md|scripts/generate_mindmap\.py)$

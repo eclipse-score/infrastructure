@@ -1,5 +1,8 @@
 # 3 Build & Dependencies ⚪
 
+!!! tip "Looking for practical guides?"
+    This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+
 *Deterministic, reproducible builds across S-CORE repositories using Bazel as the shared build system, including the dependency and evidence model around those builds.*
 
 ⚠️ This chapter is written by ChatGPT and was not yet reviewed

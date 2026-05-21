@@ -1,5 +1,8 @@
 # 4 Testing ⚪
 
+!!! tip "Looking for practical guides?"
+    This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+
 *Infrastructure supporting automated testing across S-CORE repositories, including dynamic analysis and verification evidence generation.*
 
 ⚠️ This chapter is partially written by ChatGPT and was not yet reviewed

@@ -34,42 +34,30 @@ markdown_extensions:
 
 nav:
   - Overview: index.md
-  - Chapters:
-      - 1. Source Code Infrastructure: 01-source-code-infrastructure.md
-      - 2. Developer Environment: 02-developer-environment.md
-      - 3. Build & Dependencies: 03-build-infrastructure.md
-      - 4. Testing: 04-testing-infrastructure.md
-      - 5. Code Analysis Infrastructure: 05-static-analysis-infrastructure.md
-      - 6. Compliance & Dependency Analysis: 06-compliance-infrastructure.md
-      - 7. Automation & CI: 07-automation-integration.md
-      - 8. Release & Distribution: 08-artifact-distribution.md
-      - 9. Documentation & Traceability: 09-documentation-infrastructure.md
-      - 10. Infrastructure Operations: 10-infrastructure-operations.md
-  - "Preview: Divio":
-      - Overview: preview/divio/index.md
-      - Tutorials:
-          - Getting Started: preview/divio/tutorials/getting-started.md
-          - Your First Pull Request: preview/divio/tutorials/first-pull-request.md
-          - Creating a New Module: preview/divio/tutorials/creating-a-module.md
-      - How-to Guides:
-          - Building with Bazel: preview/divio/how-to/building.md
-          - Testing: preview/divio/how-to/testing.md
-          - Code Quality: preview/divio/how-to/code-quality.md
-          - Publishing Modules: preview/divio/how-to/publishing.md
-          - Writing Documentation: preview/divio/how-to/writing-docs.md
-      - Reference:
-          - Quick Reference: preview/divio/reference/quick-reference.md
-          - Configuration: preview/divio/reference/configuration.md
-          - CI & Workflows: preview/divio/reference/ci-workflows.md
-          - Tool Versions: preview/divio/reference/tool-versions.md
-      - Explanation:
-          - 1. Source Code Infrastructure: preview/divio/explanation/01-source-code-infrastructure.md
-          - 2. Developer Environment: preview/divio/explanation/02-developer-environment.md
-          - 3. Build & Dependencies: preview/divio/explanation/03-build-infrastructure.md
-          - 4. Testing: preview/divio/explanation/04-testing-infrastructure.md
-          - 5. Code Analysis Infrastructure: preview/divio/explanation/05-static-analysis-infrastructure.md
-          - 6. Compliance & Dependency Analysis: preview/divio/explanation/06-compliance-infrastructure.md
-          - 7. Automation & CI: preview/divio/explanation/07-automation-integration.md
-          - 8. Release & Distribution: preview/divio/explanation/08-artifact-distribution.md
-          - 9. Documentation & Traceability: preview/divio/explanation/09-documentation-infrastructure.md
-          - 10. Infrastructure Operations: preview/divio/explanation/10-infrastructure-operations.md
+  - Tutorials:
+      - Getting Started: tutorials/getting-started.md
+      - Your First Pull Request: tutorials/first-pull-request.md
+      - Creating a New Module: tutorials/creating-a-module.md
+  - How-to Guides:
+      - Building with Bazel: how-to/building.md
+      - Testing: how-to/testing.md
+      - Code Quality: how-to/code-quality.md
+      - Publishing Modules: how-to/publishing.md
+      - Writing Documentation: how-to/writing-docs.md
+  - Reference:
+      - Quick Reference: reference/quick-reference.md
+      - Configuration: reference/configuration.md
+      - CI & Workflows: reference/ci-workflows.md
+      - Tool Versions: reference/tool-versions.md
+  - Explanation:
+      - Overview: explanation/index.md
+      - 1. Source Code Infrastructure: explanation/01-source-code-infrastructure.md
+      - 2. Developer Environment: explanation/02-developer-environment.md
+      - 3. Build & Dependencies: explanation/03-build-infrastructure.md
+      - 4. Testing: explanation/04-testing-infrastructure.md
+      - 5. Code Analysis Infrastructure: explanation/05-static-analysis-infrastructure.md
+      - 6. Compliance & Dependency Analysis: explanation/06-compliance-infrastructure.md
+      - 7. Automation & CI: explanation/07-automation-integration.md
+      - 8. Release & Distribution: explanation/08-artifact-distribution.md
+      - 9. Documentation & Traceability: explanation/09-documentation-infrastructure.md
+      - 10. Infrastructure Operations: explanation/10-infrastructure-operations.md

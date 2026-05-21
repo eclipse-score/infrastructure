@@ -1,5 +1,8 @@
 # 7 Automation Infrastructure & Continuous Integration (CI) ⚪
 
+!!! tip "Looking for practical guides?"
+    This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+
 *Infrastructure integrating code changes safely across S-CORE repositories through automated workflows and quality gates.*
 
 ⚠️ This chapter is written by ChatGPT and was not yet reviewed

@@ -159,7 +159,7 @@ def resolve_target_path(target: Path | None) -> Path:
     """Return the file or directory to process."""
     if target is not None:
         return target
-    return Path(__file__).resolve().parent.parent / "docs"
+    return Path(__file__).resolve().parent.parent / "docs" / "explanation"
 
 
 def iter_chapter_files(target: Path) -> list[Path]:

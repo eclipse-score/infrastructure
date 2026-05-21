@@ -217,7 +217,7 @@ def update_index_page(index_path: Path, chapters: list[Section]) -> bool:
 
 def main() -> int:
     """Generate the overview chapter map and return a shell-friendly exit code."""
-    docs_dir = repo_root() / "docs"
+    docs_dir = repo_root() / "docs" / "explanation"
     index_path = docs_dir / "index.md"
 
     chapters = [parse_chapter(path) for path in chapter_documents(docs_dir)]

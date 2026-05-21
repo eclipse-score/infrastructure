@@ -1,5 +1,8 @@
 # 2 Developer Environment 🟡
 
+!!! tip "Looking for practical guides?"
+    This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [Guide section](../reference/quick-reference.md).
+
 *Infrastructure that provides the local development layer across S-CORE repositories.*
 
 S-CORE needs local infrastructure beyond its main software build flows. IDE integration, language servers, formatters, YAML and workflow linters, documentation helpers, and lightweight validation before CI all need a shared home or they drift from repository to repository.
