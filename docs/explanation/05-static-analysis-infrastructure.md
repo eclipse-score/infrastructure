@@ -135,7 +135,7 @@ In the current S-CORE repository landscape, these shared rules are increasingly 
 
 ---
 
-## 5.4 Security Scanning ⚪
+## 5.4 Security Scanning 🟠
 
 *Clarifying how code analysis relates to security-oriented scanning of source and repository configuration.*
 
@@ -145,7 +145,7 @@ In the current S-CORE repository landscape, these shared rules are increasingly 
 - This chapter is the canonical home for shared tooling, rule configuration, and execution boundaries that are common across analyzer types.
 - **Biggest gap**: the boundary between quality-oriented analyzers and security scanning is not yet described clearly enough to avoid duplication and ownership gaps.
 
-### 5.4.1 SAST
+### 5.4.1 SAST 🟠
 
 *Static application security testing for S-CORE code and configuration.*
 
@@ -157,7 +157,7 @@ A useful SAST configuration has three layers. The query suite defines which vuln
 
 **Biggest gap**: SAST-specific configuration and required security-gate policies are not yet standardized across repositories. CodeQL query suite selection and severity thresholds vary between repositories.
 
-### 5.4.2 Secret Scanning
+### 5.4.2 Secret Scanning 🟠
 
 *Detecting secrets inadvertently committed to S-CORE repositories.*
 

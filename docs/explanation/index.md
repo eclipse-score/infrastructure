@@ -53,20 +53,20 @@ Tooling 🟡`"]
 & Evidence ⚪`"]
       node_014["`3.5 Build Execution
 Infrastructure ⚪`"]
-    node_015["4 Testing ⚪"]
+    node_015["4 Testing 🟠"]
       node_016["`4.1 Test Framework
-Integration ⚪`"]
-      node_017["4.2 Test Traceability ⚪"]
+Integration 🟠`"]
+      node_017["4.2 Test Traceability 🟠"]
       node_018["`4.3 Test Execution &
-Dynamic Analysis ⚪`"]
-      node_019["4.4 Test Reporting ⚪"]
+Dynamic Analysis 🟠`"]
+      node_019["4.4 Test Reporting 🟠"]
     node_020["`5 Code Analysis
 Infrastructure ⚪`"]
       node_021["5.1 Tooling Baseline ⚪"]
       node_022["`5.2 Shared Rule
 Configuration ⚪`"]
       node_023["5.3 Execution Model ⚪"]
-      node_024["5.4 Security Scanning ⚪"]
+      node_024["5.4 Security Scanning 🟠"]
       node_025["`5.5 Results and Governance
 ⚪`"]
     node_026["`6 Compliance &
@@ -99,16 +99,16 @@ Integration ⚪`"]
       node_043["`8.5 Post-Release
 Communication & Response ⚪`"]
     node_044["`9 Documentation &
-Traceability ⚪`"]
-      node_045["9.1 Authoring & Tooling ⚪"]
+Traceability 🟠`"]
+      node_045["9.1 Authoring & Tooling 🟡"]
       node_046["`9.2 Build, Validation &
-Publishing ⚪`"]
+Publishing 🟡`"]
       node_047["`9.3 Cross-Repository
 Documentation Integration
-⚪`"]
+🔴`"]
       node_048["`9.4 Engineering
 Documentation &
-Traceability ⚪`"]
+Traceability 🟠`"]
     node_049["`10 Infrastructure
 Operations ⚪`"]
       node_050["`10.1 CI Runner Operations
@@ -268,7 +268,7 @@ Governance ⚪`"]
     "href": "04-testing-infrastructure/",
     "title": "4 Testing",
     "match_texts": [
-      "4 Testing ⚪",
+      "4 Testing 🟠",
       "4 Testing"
     ]
   },
@@ -278,7 +278,7 @@ Governance ⚪`"]
     "href": "04-testing-infrastructure/#test-framework-integration",
     "title": "4.1 Test Framework Integration",
     "match_texts": [
-      "4.1 Test Framework Integration ⚪",
+      "4.1 Test Framework Integration 🟠",
       "4.1 Test Framework Integration"
     ]
   },
@@ -288,7 +288,7 @@ Governance ⚪`"]
     "href": "04-testing-infrastructure/#test-traceability",
     "title": "4.2 Test Traceability",
     "match_texts": [
-      "4.2 Test Traceability ⚪",
+      "4.2 Test Traceability 🟠",
       "4.2 Test Traceability"
     ]
   },
@@ -298,7 +298,7 @@ Governance ⚪`"]
     "href": "04-testing-infrastructure/#test-execution-dynamic-analysis",
     "title": "4.3 Test Execution & Dynamic Analysis",
     "match_texts": [
-      "4.3 Test Execution & Dynamic Analysis ⚪",
+      "4.3 Test Execution & Dynamic Analysis 🟠",
       "4.3 Test Execution & Dynamic Analysis"
     ]
   },
@@ -308,7 +308,7 @@ Governance ⚪`"]
     "href": "04-testing-infrastructure/#test-reporting",
     "title": "4.4 Test Reporting",
     "match_texts": [
-      "4.4 Test Reporting ⚪",
+      "4.4 Test Reporting 🟠",
       "4.4 Test Reporting"
     ]
   },
@@ -358,7 +358,7 @@ Governance ⚪`"]
     "href": "05-static-analysis-infrastructure/#security-scanning",
     "title": "5.4 Security Scanning",
     "match_texts": [
-      "5.4 Security Scanning ⚪",
+      "5.4 Security Scanning 🟠",
       "5.4 Security Scanning"
     ]
   },
@@ -558,7 +558,7 @@ Governance ⚪`"]
     "href": "09-documentation-infrastructure/",
     "title": "9 Documentation & Traceability",
     "match_texts": [
-      "9 Documentation & Traceability ⚪",
+      "9 Documentation & Traceability 🟠",
       "9 Documentation & Traceability"
     ]
   },
@@ -568,7 +568,7 @@ Governance ⚪`"]
     "href": "09-documentation-infrastructure/#authoring-tooling",
     "title": "9.1 Authoring & Tooling",
     "match_texts": [
-      "9.1 Authoring & Tooling ⚪",
+      "9.1 Authoring & Tooling 🟡",
       "9.1 Authoring & Tooling"
     ]
   },
@@ -578,7 +578,7 @@ Governance ⚪`"]
     "href": "09-documentation-infrastructure/#build-validation-publishing",
     "title": "9.2 Build, Validation & Publishing",
     "match_texts": [
-      "9.2 Build, Validation & Publishing ⚪",
+      "9.2 Build, Validation & Publishing 🟡",
       "9.2 Build, Validation & Publishing"
     ]
   },
@@ -588,7 +588,7 @@ Governance ⚪`"]
     "href": "09-documentation-infrastructure/#cross-repository-documentation-integration",
     "title": "9.3 Cross-Repository Documentation Integration",
     "match_texts": [
-      "9.3 Cross-Repository Documentation Integration ⚪",
+      "9.3 Cross-Repository Documentation Integration 🔴",
       "9.3 Cross-Repository Documentation Integration"
     ]
   },
@@ -598,7 +598,7 @@ Governance ⚪`"]
     "href": "09-documentation-infrastructure/#engineering-documentation-traceability",
     "title": "9.4 Engineering Documentation & Traceability",
     "match_texts": [
-      "9.4 Engineering Documentation & Traceability ⚪",
+      "9.4 Engineering Documentation & Traceability 🟠",
       "9.4 Engineering Documentation & Traceability"
     ]
   },

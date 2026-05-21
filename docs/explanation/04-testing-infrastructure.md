@@ -1,11 +1,7 @@
-# 4 Testing ⚪
+# 4 Testing 🟠
 
 :::{tip} Looking for practical guides?
 This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [How-to Guides](../how-to/index.md).
-:::
-
-:::{note} Not yet assessed
-All sections in this chapter are marked ⚪ (not yet assessed). The content describes the target architecture and known gaps, not the current state of implementation.
 :::
 
 *Infrastructure supporting automated testing across S-CORE repositories, including dynamic analysis and verification evidence generation.*
@@ -16,7 +12,7 @@ Testing infrastructure in S-CORE is centered on executable Bazel test targets, s
 
 That scope also explains why coverage, sanitizers, fuzzing, and profiling belong here. They are runtime techniques that depend on executing software, even when their outputs are later consumed by documentation, compliance, or CI chapters. **Biggest gap**: testing capability already exists in several strong islands, but shared conventions for framework packaging, traceability, aggregation, dashboards, and advanced runtime analysis are still incomplete across S-CORE.
 
-## 4.1 Test Framework Integration ⚪
+## 4.1 Test Framework Integration 🟠
 
 *Integrating language-specific and target-specific test frameworks with the Bazel build system.*
 
@@ -24,7 +20,7 @@ That scope also explains why coverage, sanitizers, fuzzing, and profiling belong
 
 S-CORE already has a workable multi-language testing base. Repositories define Bazel `*_test` targets for C++, Rust, and Python, and higher-level integration environments layer scenario support and target orchestration on top. What is still missing is a clearer shared baseline for how those frameworks are packaged, versioned, and reused so that repositories converge on similar patterns instead of each building a local interpretation. **Biggest gap**: no single shared framework baseline or packaging model is yet defined across all S-CORE repositories.
 
-### 4.1.1 C++ Test Frameworks
+### 4.1.1 C++ Test Frameworks 🟡
 
 *Infrastructure supporting C++ testing frameworks.*
 
@@ -32,7 +28,7 @@ S-CORE already has a workable multi-language testing base. Repositories define B
 
 C++ testing is one of the most mature paths today. Bazel-integrated frameworks such as GoogleTest already support ordinary unit-style execution well, and existing C++ flows are also ahead on coverage and evidence generation. The remaining issue is consistency: framework versions and Bazel rule setup still vary per repository. **Biggest gap**: framework versioning and Bazel rule configuration are not yet aligned across S-CORE.
 
-### 4.1.2 Rust Test Frameworks
+### 4.1.2 Rust Test Frameworks 🟠
 
 *Infrastructure supporting Rust testing frameworks.*
 
@@ -40,7 +36,7 @@ C++ testing is one of the most mature paths today. Bazel-integrated frameworks s
 
 Rust tests typically use the native Rust test model through `rules_rust`, which fits well with the Bazel-centered infrastructure direction. The capability exists, but it is less even than the established C++ path, especially around reporting, coverage integration, and traceability metadata. **Biggest gap**: consistent `rules_rust` versioning and reporting support are not yet uniformly available.
 
-### 4.1.3 Python Test Frameworks
+### 4.1.3 Python Test Frameworks 🟠
 
 *Infrastructure supporting Python testing frameworks.*
 
@@ -52,7 +48,7 @@ For repositories that use pytest, the infrastructure question is not whether pyt
 
 The rollout challenge is that pytest is used at multiple levels: lightweight unit-style tests in module repositories, orchestration-heavy system tests in integration environments, and ITF-based target tests. A shared baseline must be useful across those levels without forcing a one-size-fits-all configuration. **Biggest gap**: there is no shared Python test framework and plugin baseline across repositories, and the boundary between plain pytest usage and ITF-managed execution is not yet clearly drawn.
 
-### 4.1.4 Scenario Test Framework
+### 4.1.4 Scenario Test Framework 🟠
 
 *Infrastructure supporting scenario-based testing for C++ and Rust.*
 
@@ -60,7 +56,7 @@ The rollout challenge is that pytest is used at multiple levels: lightweight uni
 
 Scenario-style execution matters once testing spans modules, services, or richer system behavior. S-CORE already uses scenario-based approaches to exercise common flows across languages and repositories, which is especially relevant when `reference_integration` assembles modules into shared environments. The tradeoff is that scenario logic can be split across orchestration code and implementation-specific backends, which makes ownership and failure diagnosis harder. **Biggest gap**: scenario support exists, but it is not yet packaged as a uniformly reusable cross-repository capability.
 
-### 4.1.5 ITF Framework
+### 4.1.5 ITF Framework 🟡
 
 *Infrastructure supporting target-oriented integration and system-like testing.*
 
@@ -87,7 +83,7 @@ For traceability, the attribute plugin provides an `@add_test_properties` decora
 
 **Biggest gap**: the ITF plugin model and capability system are established, but onboarding guidance for module teams adopting ITF is still thin. The Bazel-side integration for passing traceability metadata from build targets into the attribute plugin is not yet streamlined.
 
-## 4.2 Test Traceability ⚪
+## 4.2 Test Traceability 🟠
 
 *Infrastructure for tracking traceability between test cases, requirements, and verification evidence.*
 
@@ -99,7 +95,7 @@ The concrete mechanism for ITF-based tests is the attribute plugin's `@add_test_
 
 **Biggest gap**: Rust targets and some higher-level frameworks still cannot carry the same degree of traceability metadata as the more mature C++-centric and ITF-based flows.
 
-## 4.3 Test Execution & Dynamic Analysis ⚪
+## 4.3 Test Execution & Dynamic Analysis 🟠
 
 *Infrastructure for executing automated tests and runtime-driven analysis via the build system.*
 
@@ -115,7 +111,7 @@ The same pattern applies to any platform where the build host cannot natively ex
 
 **Biggest gap**: the QNX microvm execution model is functional for C++ and Rust unit tests, but broader cross-compiled test execution standards and runtime-analysis expectations are not yet defined consistently across repositories.
 
-### 4.3.1 Coverage & Runtime Instrumentation
+### 4.3.1 Coverage & Runtime Instrumentation 🟠
 
 *Measuring exercised code and collecting instrumentation data during tests.*
 
@@ -131,7 +127,7 @@ For ITF-based tests, coverage collection crosses a process boundary because the 
 
 **Biggest gap**: coverage expectations and result formats are not yet standardized across repositories. Language-specific coverage tooling exists but is not configured or reported consistently, and ITF-based coverage collection is not yet integrated.
 
-### 4.3.2 Sanitizers & Runtime Checks
+### 4.3.2 Sanitizers & Runtime Checks 🟠
 
 *Detecting runtime problems such as memory misuse, undefined behavior, or concurrency issues.*
 
@@ -139,7 +135,7 @@ For ITF-based tests, coverage collection crosses a process boundary because the 
 
 Sanitizers and similar runtime checks can surface memory misuse, undefined behavior, or concurrency problems far earlier than system-level debugging. They are especially valuable for C and C++ heavy repositories, but they need common support and expectations if they are to become shared infrastructure rather than ad hoc local practice. The ownership boundary should stay explicit: [chapter 3](03-build-infrastructure.md#toolchain-management) owns how toolchains and Bazel features make sanitizers available, and [chapter 5](05-static-analysis-infrastructure.md#shared-rule-configuration) owns shared policy modules when they package reusable sanitizer feature sets or defaults. The moment those capabilities are executed against runnable targets and interpreted as verification evidence, however, they belong in the testing story here.
 
-### 4.3.3 Fuzzing, Stress & Profiling
+### 4.3.3 Fuzzing, Stress & Profiling 🔴
 
 *Using generated inputs, stress techniques, and runtime diagnostics to expose robustness and performance issues.*
 
@@ -147,7 +143,7 @@ Sanitizers and similar runtime checks can surface memory misuse, undefined behav
 
 Fuzzing, stress execution, and profiling sit naturally next to the rest of the test execution story because they also depend on runnable targets, special harnesses, and result handling that differs from ordinary regression tests. They are relevant to robustness and performance, but they are still described more as possibilities than as reusable S-CORE capabilities. **Biggest gap**: advanced dynamic-analysis techniques beyond basic coverage are not yet defined as shared infrastructure.
 
-### 4.3.4 Performance & Benchmark Testing
+### 4.3.4 Performance & Benchmark Testing 🔴
 
 *Infrastructure for measuring and tracking runtime performance of S-CORE components on representative targets.*
 
@@ -161,7 +157,7 @@ The infrastructure challenge is therefore layered. Cloud-based benchmark targets
 
 **Biggest gap**: S-CORE has no shared performance testing framework, no benchmark result storage or comparison model, and no hardware target provisioning for performance measurement on boards such as Raspberry Pi or Qualcomm SA8650P.
 
-## 4.4 Test Reporting ⚪
+## 4.4 Test Reporting 🟠
 
 *Infrastructure for collecting, aggregating, and presenting test results as verification evidence across S-CORE.*
 
@@ -169,7 +165,7 @@ The infrastructure challenge is therefore layered. Cloud-based benchmark targets
 
 Test results are already visible in several places, but they do not yet form one consistent project-wide reporting layer. GitHub Actions exposes outcomes per pipeline run, release flows can aggregate and attach selected test and coverage artifacts, and some repositories already publish dashboard-style views for traceability or unit-test summaries. `reference_integration` also plays an important role in collecting higher-level evidence once modules are assembled and exercised together. The infrastructure direction is therefore visible: reporting should turn execution results into durable evidence that can be reviewed per run, per release, and eventually across repositories. **Biggest gap**: no centralized project-wide dashboard or durable cross-repository reporting model yet spans all of S-CORE.
 
-### 4.4.1 Result Aggregation
+### 4.4.1 Result Aggregation 🟠
 
 *Infrastructure aggregating test results across CI pipeline runs.*
 
@@ -177,7 +173,7 @@ Test results are already visible in several places, but they do not yet form one
 
 Aggregation already exists in pieces. CI runs produce artifacts, and release-oriented flows can combine selected outputs into something closer to a reusable evidence package. For higher integration levels, `reference_integration` is an especially important aggregation point because it collects results after cross-repository assembly and scenario execution. To stay meaningful, those aggregated results should be keyed to a concrete `known_good` manifest or record rather than to a vague notion of "current main". The fast integration subset can provide early feedback against a candidate manifest, but the deeper post-merge or scheduled suite is what should advance the stored known-good baseline. **Biggest gap**: aggregation works for some release flows, but continuous project-wide aggregation across repositories is still incomplete.
 
-### 4.4.2 Test Dashboards
+### 4.4.2 Test Dashboards 🔴
 
 *Infrastructure providing dashboards for monitoring test results and trends.*
 

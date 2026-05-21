@@ -1,18 +1,10 @@
-# 9 Documentation & Traceability ⚪
+# 9 Documentation & Traceability 🟠
 
 :::{tip} Looking for practical guides?
 This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [How-to Guides](../how-to/index.md).
 :::
 
 *Infrastructure supporting engineering documentation across S-CORE repositories.*
-
-:::{warning} Draft
-This chapter has not been fully reviewed. Content may be incomplete or inaccurate.
-:::
-
-:::{note} Not yet assessed
-All sections in this chapter are marked ⚪ (not yet assessed). The content describes the target architecture and known gaps, not the current state of implementation.
-:::
 
 **S-CORE**
 
@@ -21,7 +13,7 @@ All sections in this chapter are marked ⚪ (not yet assessed). The content desc
 - Engineering traceability (requirements, architecture, design, implementation, tests) is a target capability for functional safety compliance.
 - **Biggest gap**: shared documentation conventions, cross-repository navigation, and traceability integration are not yet defined as one coherent project-wide capability.
 
-## 9.1 Authoring & Tooling ⚪
+## 9.1 Authoring & Tooling 🟡
 
 *Capabilities for writing, structuring, and maintaining documentation in repositories.*
 
@@ -31,7 +23,7 @@ All sections in this chapter are marked ⚪ (not yet assessed). The content desc
 - Markdown and rST are the primary input formats.
 - **Biggest gap**: authoring conventions and required documentation structure are not yet standardized across S-CORE repositories.
 
-### 9.1.1 Docs-As-Code Tooling
+### 9.1.1 Docs-As-Code Tooling 🟡
 
 *Shared documentation build infrastructure across S-CORE repositories.*
 
@@ -45,7 +37,7 @@ Adoption is uneven: recent module repositories use `docs-as-code` v4.x, while ol
 
 ---
 
-## 9.2 Build, Validation & Publishing ⚪
+## 9.2 Build, Validation & Publishing 🟡
 
 *Infrastructure for builds, quality checks, and publication of documentation sites.*
 
@@ -57,7 +49,7 @@ This infrastructure documentation site uses `docs-as-code` with the standard Baz
 
 **Biggest gap**: not all documentation-producing repositories follow one shared toolchain and publication pattern. The `docs-as-code` version spread (v1.x through v4.x across repositories) means repositories do not reliably share the same documentation capabilities.
 
-### 9.2.1 Deterministic Build and Configuration
+### 9.2.1 Deterministic Build and Configuration 🟡
 
 *Ensuring reproducible documentation output across local and CI environments.*
 
@@ -66,7 +58,7 @@ This infrastructure documentation site uses `docs-as-code` with the standard Baz
 - Tooling and site configuration should live in version control so contributors can reproduce the published result locally and in CI.
 - **Biggest gap**: documentation toolchain choices and configuration practices are not yet aligned across S-CORE documentation surfaces.
 
-### 9.2.2 Validation, Previews, and Publishing
+### 9.2.2 Validation, Previews, and Publishing 🟡
 
 *Providing contributor feedback before merge through fast preview and validation workflows.*
 
@@ -82,7 +74,7 @@ Publishing should be an explicit, reproducible stage of the docs pipeline rather
 
 ---
 
-## 9.3 Cross-Repository Documentation Integration ⚪
+## 9.3 Cross-Repository Documentation Integration 🔴
 
 *Connecting documentation across repositories with stable linking and navigation patterns.*
 
@@ -91,7 +83,7 @@ Publishing should be an explicit, reproducible stage of the docs pipeline rather
 - Contributors and stakeholders should be able to move across repository boundaries without losing context.
 - **Biggest gap**: there is no shared information architecture for how repository-local documentation fits into a broader S-CORE documentation landscape.
 
-### 9.3.1 Cross-Repository Linking
+### 9.3.1 Cross-Repository Linking 🔴
 
 *Establishing reliable links across repository boundaries and release versions.*
 
@@ -101,7 +93,7 @@ Publishing should be an explicit, reproducible stage of the docs pipeline rather
 - For integrated views produced from `reference_integration`, those links should resolve within one explicit `known_good` snapshot rather than silently mixing repository heads.
 - **Biggest gap**: no agreed cross-repository linking strategy exists for versioned and unversioned documentation content.
 
-### 9.3.2 Shared Navigation and Discovery
+### 9.3.2 Shared Navigation and Discovery 🔴
 
 *Making documentation content easier to discover across repository-specific sites.*
 
@@ -117,7 +109,7 @@ For S-CORE, the practical starting point is the main [eclipse-score.github.io](h
 
 ---
 
-## 9.4 Engineering Documentation & Traceability ⚪
+## 9.4 Engineering Documentation & Traceability 🟠
 
 *Infrastructure supporting requirements, architecture, design, and links to implementation and tests.*
 
@@ -128,7 +120,7 @@ For S-CORE, the practical starting point is the main [eclipse-score.github.io](h
 - Test evidence itself is produced in [chapter 4](04-testing-infrastructure.md); this chapter focuses on the documentation and traceability structures that should consume that evidence.
 - **Biggest gap**: traceability and engineering evidence exist in parts, but the supporting model and tooling are not yet standardized across repositories and verification flows.
 
-### 9.4.1 Traceability, Code Integration, and Impact Analysis
+### 9.4.1 Traceability, Code Integration, and Impact Analysis 🟠
 
 *Linking requirements, design, code, and verification artifacts to support impact analysis.*
 
@@ -142,7 +134,7 @@ For S-CORE, the practical value is that test evidence produced in [chapter 4](04
 
 **Biggest gap**: the tooling direction for docs-as-code traceability exists but is not yet named, standardized, or integrated into the documentation build pipeline across S-CORE repositories. Requirement versioning across releases is not yet addressed.
 
-### 9.4.2 Known-Good Documentation Snapshots
+### 9.4.2 Known-Good Documentation Snapshots 🔴
 
 *Tying integrated docs and traceability evidence to one validated cross-repository snapshot.*
 
