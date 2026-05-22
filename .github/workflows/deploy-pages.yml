@@ -115,6 +115,8 @@ jobs:
       - name: Extend versions.json
         if: steps.metadata.outputs.should_deploy == 'true'
         run: |
+          TARGET="${{ steps.target.outputs.folder }}"
+
           # if versions.json does not exist, create it with an empty array as content
           if [ ! -f gh-pages-content/versions.json ]; then
             echo '[]' > gh-pages-content/versions.json
