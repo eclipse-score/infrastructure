@@ -108,19 +108,13 @@ jobs:
           github-token: ${{ github.token }}
           path: gh-pages-content/${{ steps.target.outputs.folder }}
 
-      - name: Untar documentation artifact
+      - name: Ensure .nojekyll exists
         if: steps.metadata.outputs.should_deploy == 'true'
-        run: mkdir -p extracted_docs && tar -xf github-pages.tar -C extracted_docs
+        run: touch gh-pages-content/.nojekyll
 
-      - name: Add documentation to gh-pages
+      - name: Extend versions.json
         if: steps.metadata.outputs.should_deploy == 'true'
         run: |
-          touch gh-pages-content/.nojekyll
-
-          TARGET="${{ steps.target.outputs.folder }}"
-          mkdir -p gh-pages-content/"$TARGET"
-          mv extracted_docs/_build/* gh-pages-content/"$TARGET"
-
           # if versions.json does not exist, create it with an empty array as content
           if [ ! -f gh-pages-content/versions.json ]; then
             echo '[]' > gh-pages-content/versions.json
