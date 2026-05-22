@@ -35,9 +35,6 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
       - name: Download documentation artifact
         uses: actions/download-artifact@v8.0.1
         with:
@@ -102,63 +99,56 @@ jobs:
         if: steps.metadata.outputs.should_deploy == 'true'
         run: mkdir -p extracted_docs && tar -xf github-pages.tar -C extracted_docs
 
-      - name: Prepare deploy folder
-        if: steps.metadata.outputs.should_deploy == 'true'
-        run: |
-          mkdir -p deploy_root version_root
-          mv extracted_docs/_build/* deploy_root/
-          touch deploy_root/.nojekyll
-
-          BASE_REPO="https://github.com/${{ github.repository }}.git"
-          git remote add base "$BASE_REPO" 2>/dev/null || git remote set-url base "$BASE_REPO"
-          git fetch base gh-pages --depth 1 || true
-
-          git checkout base/gh-pages -- versions.json 2>/dev/null || echo '[]' > versions.json
-
-          TARGET="${{ steps.target.outputs.folder }}"
-
-          if jq -e --arg v "$TARGET" 'map(select(.version == $v)) | length > 0' versions.json > /dev/null; then
-            echo "Version '$TARGET' already exists in versions.json"
-          else
-            REPO_NAME=$(basename "${{ github.repository }}")
-            OWNER_NAME="${{ github.repository_owner }}"
-            PAGES_URL="https://${OWNER_NAME}.github.io/${REPO_NAME}"
-            jq --arg v "$TARGET" --arg u "${PAGES_URL}/${TARGET}/" \
-              '. + [{"version": $v, "url": $u}]' versions.json > tmp.json && mv tmp.json versions.json
-          fi
-
-          mv versions.json version_root/
-
-      - name: Deploy documentation to gh-pages
-        if: steps.metadata.outputs.should_deploy == 'true'
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: deploy_root
-          target-folder: ${{ steps.target.outputs.folder }}
-          clean: true
-          clean-exclude: .nojekyll
-
-      - name: Deploy versions.json to gh-pages
-        if: steps.metadata.outputs.should_deploy == 'true'
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: version_root
-          clean: false
-
-      - name: Checkout gh-pages branch
+      - name: Checkout gh-pages
         if: steps.metadata.outputs.should_deploy == 'true'
         uses: actions/checkout@v6
         with:
           ref: gh-pages
           path: gh-pages-content
 
-      - name: Upload Pages artifact
+      - name: Add documentation to gh-pages
+        if: steps.metadata.outputs.should_deploy == 'true'
+        run: |
+          touch gh-pages-content/.nojekyll
+
+          TARGET="${{ steps.target.outputs.folder }}"
+          mkdir -p gh-pages-content/"$TARGET"
+          mv extracted_docs/_build/* gh-pages-content/"$TARGET"
+
+          # if versions.json does not exist, create it with an empty array as content
+          if [ ! -f gh-pages-content/versions.json ]; then
+            echo '[]' > gh-pages-content/versions.json
+          fi
+
+          # Add new version entry to versions.json if it doesn't already exist
+          if jq -e --arg v "$TARGET" 'map(select(.version == $v)) | length > 0' gh-pages-content/versions.json > /dev/null; then
+            echo "Version '$TARGET' already exists in versions.json"
+          else
+            REPO_NAME=$(basename "${{ github.repository }}")
+            OWNER_NAME="${{ github.repository_owner }}"
+            PAGES_URL="https://${OWNER_NAME}.github.io/${REPO_NAME}"
+            jq --arg v "$TARGET" --arg u "${PAGES_URL}/${TARGET}/" \
+              '. + [{"version": $v, "url": $u}]' gh-pages-content/versions.json > gh-pages-content/tmp.json && mv gh-pages-content/tmp.json gh-pages-content/versions.json
+          fi
+
+      - name: Commit and push changes to gh-pages
+        if: steps.metadata.outputs.should_deploy == 'true'
+        run: |
+          # Create commit and push changes to gh-pages branch
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          cd gh-pages-content
+          git add .
+          git commit -m "Update documentation for ${{ steps.target.outputs.folder }}" || echo "No changes to commit"
+          git push
+
+      - name: Create artifact from gh-pages
         if: steps.metadata.outputs.should_deploy == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: gh-pages-content
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy artifact to GitHub Pages
         if: steps.metadata.outputs.should_deploy == 'true'
         id: deploy-pages
         uses: actions/deploy-pages@v4
