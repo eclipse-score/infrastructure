@@ -42,13 +42,12 @@ jobs:
       - name: Build documentation
         run: |
           bazel run //:docs -- --github_user=${{ github.repository_owner }} --github_repo=${{ github.event.repository.name }}
-          tar -cf github-pages.tar _build
 
       - name: Upload documentation artifact
         uses: actions/upload-artifact@v7.0.1
         with:
           name: github-pages
-          path: github-pages.tar
+          path: _build
           retention-days: 1
           if-no-files-found: error
 

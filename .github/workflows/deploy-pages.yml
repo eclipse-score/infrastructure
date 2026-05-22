@@ -35,13 +35,6 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - name: Download documentation artifact
-        uses: actions/download-artifact@v8.0.1
-        with:
-          name: github-pages
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ github.token }}
-
       - name: Download build metadata
         uses: actions/download-artifact@v8.0.1
         with:
@@ -95,16 +88,29 @@ jobs:
             echo "folder=${{ steps.metadata.outputs.ref_name }}" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Untar documentation artifact
-        if: steps.metadata.outputs.should_deploy == 'true'
-        run: mkdir -p extracted_docs && tar -xf github-pages.tar -C extracted_docs
-
       - name: Checkout gh-pages
         if: steps.metadata.outputs.should_deploy == 'true'
         uses: actions/checkout@v6
         with:
           ref: gh-pages
           path: gh-pages-content
+
+      - name: Clean up old documentation
+        if: steps.metadata.outputs.should_deploy == 'true'
+        run: |
+          rm -rf "gh-pages-content/${{ steps.target.outputs.folder }}"
+
+      - name: Download documentation artifact
+        uses: actions/download-artifact@v8.0.1
+        with:
+          name: github-pages
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+          path: gh-pages-content/${{ steps.target.outputs.folder }}
+
+      - name: Untar documentation artifact
+        if: steps.metadata.outputs.should_deploy == 'true'
+        run: mkdir -p extracted_docs && tar -xf github-pages.tar -C extracted_docs
 
       - name: Add documentation to gh-pages
         if: steps.metadata.outputs.should_deploy == 'true'
