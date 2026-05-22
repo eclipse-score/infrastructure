@@ -1,5 +1,5 @@
 # *******************************************************************************
-# Copyright (c) 2025 Contributors to the Eclipse Foundation
+# Copyright (c) 2026 Contributors to the Eclipse Foundation
 #
 # See the NOTICE file(s) distributed with this work for additional
 # information regarding copyright ownership.
@@ -13,7 +13,4 @@
 
 load("@score_docs_as_code//:docs.bzl", "docs")
 
-docs(
-    data = [],
-    source_dir = "docs",
-)
+docs(source_dir = "docs")

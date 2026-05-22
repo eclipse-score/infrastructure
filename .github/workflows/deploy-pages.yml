@@ -1,5 +1,5 @@
 # *******************************************************************************
-# Copyright (c) 2025 Contributors to the Eclipse Foundation
+# Copyright (c) 2026 Contributors to the Eclipse Foundation
 #
 # See the NOTICE file(s) distributed with this work for additional
 # information regarding copyright ownership.
@@ -136,10 +136,9 @@ jobs:
       - name: Commit and push changes to gh-pages
         if: steps.metadata.outputs.should_deploy == 'true'
         run: |
-          # Create commit and push changes to gh-pages branch
+          cd gh-pages-content
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          cd gh-pages-content
           git add .
           git commit -m "Update documentation for ${{ steps.target.outputs.folder }}" || echo "No changes to commit"
           git push
