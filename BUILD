@@ -16,5 +16,4 @@ load("@score_docs_as_code//:docs.bzl", "docs")
 docs(
     data = [],
     source_dir = "docs",
-    plantuml = False,
 )

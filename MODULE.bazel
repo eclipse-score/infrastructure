@@ -36,9 +36,3 @@ use_repo(python)
 #
 ###############################################################################
 bazel_dep(name = "score_docs_as_code", version = "4.1.0")
-
-git_override(
-    module_name = "score_docs_as_code",
-    remote = "https://github.com/etas-contrib/score_docs-as-code.git",
-    commit = "132818718847d2910fb3ae582639013ae934bc96",
-)
