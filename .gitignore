@@ -1,0 +1,7 @@
+# Bazel
+bazel-*
+
+# Docs
+/.venv*
+/_build*
+docs/ubproject.toml
