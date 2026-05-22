@@ -33,9 +33,6 @@ jobs:
       id-token: write
       contents: write
       pull-requests: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy-pages.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -148,10 +145,6 @@ jobs:
           folder: version_root
           clean: false
 
-      - name: Configure GitHub Pages
-        if: steps.metadata.outputs.should_deploy == 'true'
-        uses: actions/configure-pages@v5
-
       - name: Checkout gh-pages branch
         if: steps.metadata.outputs.should_deploy == 'true'
         uses: actions/checkout@v6
@@ -171,7 +164,7 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Find existing PR comment
-        if: steps.metadata.outputs.event_name == 'pull_request' && steps.metadata.outputs.pr_number != ''
+        if: steps.metadata.outputs.should_deploy == 'true' && steps.metadata.outputs.event_name == 'pull_request' && steps.metadata.outputs.pr_number != ''
         uses: peter-evans/find-comment@v3
         id: fc
         with:
@@ -180,11 +173,10 @@ jobs:
           body-includes: Documentation preview for this pull request
 
       - name: Comment on PR with preview link
-        if: steps.metadata.outputs.event_name == 'pull_request' && steps.metadata.outputs.pr_number != '' && steps.fc.outputs.comment-id == ''
+        if: steps.metadata.outputs.should_deploy == 'true' && steps.metadata.outputs.event_name == 'pull_request' && steps.metadata.outputs.pr_number != '' && steps.fc.outputs.comment-id == ''
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ steps.metadata.outputs.pr_number }}
           body: |
             Documentation preview for this pull request is available at:
             **${{ steps.target.outputs.folder }}**: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ steps.target.outputs.folder }}/
-          reactions: rocket
