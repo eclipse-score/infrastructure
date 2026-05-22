@@ -23,6 +23,7 @@ on:
     branches:
       - main # docs are built only on push to main branch, for feature branches there are PR builds
       - dev # as repo content is not yet on main branch, let's just treat dev as main for now
+      - basics # just for measuring this proposal
   merge_group:
     types: [checks_requested]
   release:
