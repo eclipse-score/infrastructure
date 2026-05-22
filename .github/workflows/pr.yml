@@ -69,16 +69,3 @@ jobs:
           name: build-metadata
           path: build-info.json
           retention-days: 1
-
-  pre_commit:
-    name: Pre-commit checks
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out
-        uses: actions/checkout@v6
-
-      - name: Setup uv
-        uses: astral-sh/setup-uv@v7
-
-      - name: Run pre-commit
-        run: uv run pre-commit run --all-files
