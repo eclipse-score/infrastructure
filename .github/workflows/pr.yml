@@ -13,56 +13,21 @@
 
 name: PR
 
-permissions:
-  contents: read
-
 on:
   pull_request:
     types: [opened, reopened, synchronize]
   push:
     branches:
-      - main # docs are built only on push to main branch, for feature branches there are PR builds
+      - main
   merge_group:
     types: [checks_requested]
   release:
     types: [created]
 
+permissions:
+  contents: read
+
 jobs:
   docs-build:
     name: Build documentation
-    runs-on: ubuntu-latest
-    steps:
-      - uses: eclipse-score/more-disk-space@v1
-
-      - name: Check out
-        uses: actions/checkout@v6
-
-      - name: Build documentation
-        run: |
-          bazel run //:docs -- --github_user=${{ github.repository_owner }} --github_repo=${{ github.event.repository.name }}
-
-      - name: Upload documentation artifact
-        uses: actions/upload-artifact@v7.0.1
-        with:
-          name: github-pages
-          path: _build
-          retention-days: 1
-          if-no-files-found: error
-
-      - name: Create build metadata
-        run: |
-          cat > build-info.json <<'EOF'
-          {
-            "event_name": "${{ github.event_name }}",
-            "pr_number": "${{ github.event.pull_request.number }}",
-            "ref_name": "${{ github.ref_name }}",
-            "head_sha": "${{ github.sha }}"
-          }
-          EOF
-
-      - name: Upload build metadata
-        uses: actions/upload-artifact@v7.0.1
-        with:
-          name: build-metadata
-          path: build-info.json
-          retention-days: 1
+    uses: eclipse-score/cicd-workflows/.github/workflows/docs.yml@dev

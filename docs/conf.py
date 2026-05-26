@@ -15,6 +15,8 @@ project = "S-CORE Infrastructure"
 project_url = "https://eclipse-score.github.io/infrastructure"
 version = "0.1"
 
-extensions = [
-    "score_sphinx_bundle",
-]
+extensions = ["score_sphinx_bundle"]
+
+html_static_path = ["_static"]
+html_css_files = ["css/custom.css"]
+html_js_files = ["js/mindmap.js"]

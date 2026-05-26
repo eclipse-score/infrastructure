@@ -6,6 +6,10 @@ bazel-*
 /_build*
 docs/ubproject.toml
 
+# Python
+__pycache__/
+.ruff_cache/
+
 # AI
 /.claude
 /.codex

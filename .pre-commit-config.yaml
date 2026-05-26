@@ -1,0 +1,28 @@
+repos:
+  - repo: local
+    hooks:
+      - id: aggregate-status
+        name: Aggregate chapter statuses
+        entry: python3 scripts/aggregate_status.py
+        language: system
+        pass_filenames: false
+        files: ^(docs/explanation/.*\.md|scripts/aggregate_status\.py)$
+        exclude: ^docs/explanation/index\.md$
+      - id: generate-mindmap
+        name: Generate infrastructure chapter map
+        entry: python3 scripts/generate_mindmap.py
+        language: system
+        pass_filenames: false
+        files: ^(docs/explanation/[0-9][0-9]-.*\.md|docs/explanation/index\.md|scripts/generate_mindmap\.py)$
+      - id: ruff-check
+        name: ruff-check
+        entry: scripts/run_tool.sh ruff check --fix
+        language: system
+        require_serial: true
+        types: [python]
+      - id: ruff-format
+        name: ruff-format
+        entry: scripts/run_tool.sh ruff format
+        language: system
+        require_serial: true
+        types: [python]
