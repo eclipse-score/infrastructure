@@ -1,0 +1,1677 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Infrastructure Landscape &#8212; S-CORE Infrastructure  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score.css?v=bb63a8e1" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score_needs.css?v=82a1844f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score_design.css?v=8048e6ee" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-data-viewer/jsonview.bundle.css?v=f6ef2277" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/libs/html/datatables.min.css?v=4b4fd840" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/modern.css?v=803738c0" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cf9fcd3f" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=7f41d439"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/sphinx-data-viewer/jsonview.bundle.js?v=18cd53c5"></script>
+    <script src="../_static/sphinx-data-viewer/jsonview_loader.js?v=f7ff7e7d"></script>
+    <script src="../_static/sphinx-needs/libs/html/datatables.min.js?v=8a4aee21"></script>
+    <script src="../_static/sphinx-needs/libs/html/datatables_loader.js?v=a2cae175"></script>
+    <script src="../_static/sphinx-needs/libs/html/sphinx_needs_collapse.js?v=dca66431"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = `pre.mermaid {
+    /* Same as .mermaid-container > pre */
+    display: block;
+    width: 100%;
+}
+
+pre.mermaid > svg {
+    /* Same as .mermaid-container > pre > svg */
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}`;
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = `.mermaid-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.mermaid-container > pre {
+    display: block;
+    width: 100%;
+}
+
+.mermaid-container > pre > svg {
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.mermaid-fullscreen-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    color: #333;
+}
+
+.mermaid-fullscreen-btn:hover {
+    opacity: 100% !important;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-btn.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-btn.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 95vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999;
+    padding: 20px;
+    overflow: auto;
+}
+
+.mermaid-fullscreen-modal.dark-theme {
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.mermaid-fullscreen-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    max-width: 95vw;
+    max-height: 90vh;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen.dark-theme {
+    background: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+.mermaid-container-fullscreen pre.mermaid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen .mermaid svg {
+    height: 100% !important;
+    width: 100% !important;
+    cursor: grab;
+}
+
+.mermaid-fullscreen-close {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    font-size: 24px;
+    line-height: 1;
+    color: #333;
+}
+
+.mermaid-fullscreen-close:hover {
+    background: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-close.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-close.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
+    display: none !important;
+}`;
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        all_mermaids.forEach((el) => {
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+        await mermaid.run();
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
+
+    if ("False" === "True") {
+        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("");
+            if(all_mermaids.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else if(svgs.size() !== mermaids_to_add_zoom) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else {
+                svgs.each(function() {
+                    var svg = d3.select(this);
+                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+                    var inner = svg.select("g");
+                    var zoom = d3.zoom().on("zoom", function(event) {
+                        inner.attr("transform", event.transform);
+                    });
+                    svg.call(zoom);
+                });
+            }
+        }
+    } else if(all_mermaids.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if ("True" !== "True") return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = '⛶';
+        fullscreenBtn.style.opacity = '50%';
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scroll, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.sdisplay = 'block';
+
+                if ("False" === "True") {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+const load = async () => {
+    initStyles();
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...JSON.parse(
+                    `{"startOnLoad": false}`
+                ),
+                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...JSON.parse(
+        `{"startOnLoad": false}`
+    ),
+    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explanation/index';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://eclipse-score.github.io/infrastructure/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/js/mindmap.js?v=40886bf0"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1 Source Code Infrastructure 🟠" href="01-source-code-infrastructure.html" />
+    <link rel="prev" title="Glossary" href="../reference/glossary.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Eclipse S-CORE</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how-to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Infrastructure Landscape
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/eclipse-score" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how-to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Infrastructure Landscape
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/eclipse-score" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar"><svg class="pst-icon svg-inline--fa" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-source-code-infrastructure.html">1 Source Code Infrastructure 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-developer-environment.html">2 Developer Environment 🟡</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-testing-infrastructure.html">4 Testing 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-documentation-infrastructure.html">9 Documentation &amp; Traceability 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-infrastructure-operations.html">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decisions.html">Infrastructure Design Decisions</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Infrastructure Landscape</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="infrastructure-landscape">
+<h1>Infrastructure Landscape<a class="headerlink" href="#infrastructure-landscape" title="Link to this heading">#</a></h1>
+<p>Architecture, design rationale, and maturity assessment of each S-CORE infrastructure area. These chapters describe what exists, how it works, and what is still missing.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="01-source-code-infrastructure.html"><span class="std std-doc">1. Source Code Infrastructure</span></a></p></li>
+<li><p><a class="reference internal" href="02-developer-environment.html"><span class="std std-doc">2. Developer Environment</span></a></p></li>
+<li><p><a class="reference internal" href="03-build-infrastructure.html"><span class="std std-doc">3. Build &amp; Dependencies</span></a></p></li>
+<li><p><a class="reference internal" href="04-testing-infrastructure.html"><span class="std std-doc">4. Testing</span></a></p></li>
+<li><p><a class="reference internal" href="05-static-analysis-infrastructure.html"><span class="std std-doc">5. Code Analysis Infrastructure</span></a></p></li>
+<li><p><a class="reference internal" href="06-compliance-infrastructure.html"><span class="std std-doc">6. Compliance &amp; Dependency Analysis</span></a></p></li>
+<li><p><a class="reference internal" href="07-automation-integration.html"><span class="std std-doc">7. Automation &amp; CI</span></a></p></li>
+<li><p><a class="reference internal" href="08-artifact-distribution.html"><span class="std std-doc">8. Release &amp; Distribution</span></a></p></li>
+<li><p><a class="reference internal" href="09-documentation-infrastructure.html"><span class="std std-doc">9. Documentation &amp; Traceability</span></a></p></li>
+<li><p><a class="reference internal" href="10-infrastructure-operations.html"><span class="std std-doc">10. Infrastructure Operations</span></a></p></li>
+<li><p><a class="reference internal" href="decisions.html"><span class="std std-doc">Infrastructure Design Decisions</span></a></p></li>
+</ul>
+<section id="status-legend">
+<h2>Status Legend<a class="headerlink" href="#status-legend" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>🟢 Implemented and effective</p></li>
+<li><p>🟡 Partially implemented / needs improvement</p></li>
+<li><p>🟠 Implemented but problematic or insufficient</p></li>
+<li><p>🔴 Not started</p></li>
+<li><p>⚪ Unknown / not yet assessed</p></li>
+</ul>
+</section>
+<section id="chapter-map">
+<h2>Chapter Map<a class="headerlink" href="#chapter-map" title="Link to this heading">#</a></h2>
+<!-- BEGIN GENERATED CHAPTER MAP -->
+<p class="chapter-map-note">This chapter map is generated from the `#` and `##` headings in the numbered chapter files. Click any chapter or section box to open it.</p>
+<pre  class="mermaid">
+        mindmap
+  root((S-CORE Infrastructure))
+    node_001[&quot;`1 Source Code
+Infrastructure 🟠`&quot;]
+      node_002[&quot;`1.1 Hosting &amp; Organization
+⚪`&quot;]
+      node_003[&quot;`1.2 Repository
+Provisioning &amp; Lifecycle 🟡`&quot;]
+      node_004[&quot;`1.3 Repository Policy
+Management 🔴`&quot;]
+      node_005[&quot;1.4 Repository Standards 🟠&quot;]
+    node_006[&quot;`2 Developer Environment
+🟡`&quot;]
+      node_007[&quot;2.1 Central Devcontainer 🟠&quot;]
+      node_008[&quot;`2.2 Local Auxiliary
+Tooling 🟡`&quot;]
+    node_009[&quot;3 Build &amp; Dependencies ⚪&quot;]
+      node_010[&quot;3.1 Build System ⚪&quot;]
+      node_011[&quot;`3.2 Dependency Management
+⚪`&quot;]
+      node_012[&quot;3.3 Toolchain Management ⚪&quot;]
+      node_013[&quot;`3.4 Build Reproducibility
+&amp; Evidence ⚪`&quot;]
+      node_014[&quot;`3.5 Build Execution
+Infrastructure ⚪`&quot;]
+    node_015[&quot;4 Testing 🟠&quot;]
+      node_016[&quot;`4.1 Test Framework
+Integration 🟠`&quot;]
+      node_017[&quot;4.2 Test Traceability 🟠&quot;]
+      node_018[&quot;`4.3 Test Execution &amp;
+Dynamic Analysis 🟠`&quot;]
+      node_019[&quot;4.4 Test Reporting 🟠&quot;]
+    node_020[&quot;`5 Code Analysis
+Infrastructure ⚪`&quot;]
+      node_021[&quot;5.1 Tooling Baseline ⚪&quot;]
+      node_022[&quot;`5.2 Shared Rule
+Configuration ⚪`&quot;]
+      node_023[&quot;5.3 Execution Model ⚪&quot;]
+      node_024[&quot;5.4 Security Scanning 🟠&quot;]
+      node_025[&quot;`5.5 Results and Governance
+⚪`&quot;]
+    node_026[&quot;`6 Compliance &amp;
+Dependency Analysis ⚪`&quot;]
+      node_027[&quot;6.1 File-Level Licensing ⚪&quot;]
+      node_028[&quot;6.2 Dependency Analysis ⚪&quot;]
+      node_029[&quot;`6.3 SBOM Scoping and
+Compliance Evidence ⚪`&quot;]
+      node_030[&quot;`6.4 License Checks and
+Compliance ⚪`&quot;]
+      node_031[&quot;`6.5 Monitoring and
+Governance ⚪`&quot;]
+    node_032[&quot;`7 Automation
+Infrastructure &amp;
+Continuous Integration
+(CI) ⚪`&quot;]
+      node_033[&quot;7.1 Runners 🟠&quot;]
+      node_034[&quot;7.2 Reusable Workflows ⚪&quot;]
+      node_035[&quot;`7.3 Cross-Repository
+Integration ⚪`&quot;]
+      node_036[&quot;7.4 Secrets Management ⚪&quot;]
+      node_037[&quot;7.5 CI Observability ⚪&quot;]
+    node_038[&quot;`8 Release &amp; Distribution
+⚪`&quot;]
+      node_039[&quot;8.1 Deliverable Types ⚪&quot;]
+      node_040[&quot;`8.2 Distribution Channels
+⚪`&quot;]
+      node_041[&quot;8.3 Release Metadata ⚪&quot;]
+      node_042[&quot;8.4 Consumer Access ⚪&quot;]
+      node_043[&quot;`8.5 Post-Release
+Communication &amp; Response ⚪`&quot;]
+    node_044[&quot;`9 Documentation &amp;
+Traceability 🟠`&quot;]
+      node_045[&quot;9.1 Authoring &amp; Tooling 🟡&quot;]
+      node_046[&quot;`9.2 Build, Validation &amp;
+Publishing 🟡`&quot;]
+      node_047[&quot;`9.3 Cross-Repository
+Documentation Integration
+🔴`&quot;]
+      node_048[&quot;`9.4 Engineering
+Documentation &amp;
+Traceability 🟠`&quot;]
+    node_049[&quot;`10 Infrastructure
+Operations ⚪`&quot;]
+      node_050[&quot;`10.1 CI Runner Operations
+⚪`&quot;]
+      node_051[&quot;`10.2 Infrastructure
+Monitoring ⚪`&quot;]
+      node_052[&quot;`10.3 Infrastructure
+Maintenance ⚪`&quot;]
+      node_053[&quot;`10.4 Infrastructure
+Governance ⚪`&quot;]
+    </pre><script type="application/json" class="chapter-map-links-data">
+[
+  {
+    "id": "node_001",
+    "kind": "chapter",
+    "href": "01-source-code-infrastructure/",
+    "title": "1 Source Code Infrastructure",
+    "match_texts": [
+      "1 Source Code Infrastructure 🟠",
+      "1 Source Code Infrastructure"
+    ]
+  },
+  {
+    "id": "node_002",
+    "kind": "section",
+    "href": "01-source-code-infrastructure/#hosting-organization",
+    "title": "1.1 Hosting & Organization",
+    "match_texts": [
+      "1.1 Hosting & Organization ⚪",
+      "1.1 Hosting & Organization"
+    ]
+  },
+  {
+    "id": "node_003",
+    "kind": "section",
+    "href": "01-source-code-infrastructure/#repository-provisioning-lifecycle",
+    "title": "1.2 Repository Provisioning & Lifecycle",
+    "match_texts": [
+      "1.2 Repository Provisioning & Lifecycle 🟡",
+      "1.2 Repository Provisioning & Lifecycle"
+    ]
+  },
+  {
+    "id": "node_004",
+    "kind": "section",
+    "href": "01-source-code-infrastructure/#repository-policy-management",
+    "title": "1.3 Repository Policy Management",
+    "match_texts": [
+      "1.3 Repository Policy Management 🔴",
+      "1.3 Repository Policy Management"
+    ]
+  },
+  {
+    "id": "node_005",
+    "kind": "section",
+    "href": "01-source-code-infrastructure/#repository-standards",
+    "title": "1.4 Repository Standards",
+    "match_texts": [
+      "1.4 Repository Standards 🟠",
+      "1.4 Repository Standards"
+    ]
+  },
+  {
+    "id": "node_006",
+    "kind": "chapter",
+    "href": "02-developer-environment/",
+    "title": "2 Developer Environment",
+    "match_texts": [
+      "2 Developer Environment 🟡",
+      "2 Developer Environment"
+    ]
+  },
+  {
+    "id": "node_007",
+    "kind": "section",
+    "href": "02-developer-environment/#central-devcontainer",
+    "title": "2.1 Central Devcontainer",
+    "match_texts": [
+      "2.1 Central Devcontainer 🟠",
+      "2.1 Central Devcontainer"
+    ]
+  },
+  {
+    "id": "node_008",
+    "kind": "section",
+    "href": "02-developer-environment/#local-auxiliary-tooling",
+    "title": "2.2 Local Auxiliary Tooling",
+    "match_texts": [
+      "2.2 Local Auxiliary Tooling 🟡",
+      "2.2 Local Auxiliary Tooling"
+    ]
+  },
+  {
+    "id": "node_009",
+    "kind": "chapter",
+    "href": "03-build-infrastructure/",
+    "title": "3 Build & Dependencies",
+    "match_texts": [
+      "3 Build & Dependencies ⚪",
+      "3 Build & Dependencies"
+    ]
+  },
+  {
+    "id": "node_010",
+    "kind": "section",
+    "href": "03-build-infrastructure/#build-system",
+    "title": "3.1 Build System",
+    "match_texts": [
+      "3.1 Build System ⚪",
+      "3.1 Build System"
+    ]
+  },
+  {
+    "id": "node_011",
+    "kind": "section",
+    "href": "03-build-infrastructure/#dependency-management",
+    "title": "3.2 Dependency Management",
+    "match_texts": [
+      "3.2 Dependency Management ⚪",
+      "3.2 Dependency Management"
+    ]
+  },
+  {
+    "id": "node_012",
+    "kind": "section",
+    "href": "03-build-infrastructure/#toolchain-management",
+    "title": "3.3 Toolchain Management",
+    "match_texts": [
+      "3.3 Toolchain Management ⚪",
+      "3.3 Toolchain Management"
+    ]
+  },
+  {
+    "id": "node_013",
+    "kind": "section",
+    "href": "03-build-infrastructure/#build-reproducibility-evidence",
+    "title": "3.4 Build Reproducibility & Evidence",
+    "match_texts": [
+      "3.4 Build Reproducibility & Evidence ⚪",
+      "3.4 Build Reproducibility & Evidence"
+    ]
+  },
+  {
+    "id": "node_014",
+    "kind": "section",
+    "href": "03-build-infrastructure/#build-execution-infrastructure",
+    "title": "3.5 Build Execution Infrastructure",
+    "match_texts": [
+      "3.5 Build Execution Infrastructure ⚪",
+      "3.5 Build Execution Infrastructure"
+    ]
+  },
+  {
+    "id": "node_015",
+    "kind": "chapter",
+    "href": "04-testing-infrastructure/",
+    "title": "4 Testing",
+    "match_texts": [
+      "4 Testing 🟠",
+      "4 Testing"
+    ]
+  },
+  {
+    "id": "node_016",
+    "kind": "section",
+    "href": "04-testing-infrastructure/#test-framework-integration",
+    "title": "4.1 Test Framework Integration",
+    "match_texts": [
+      "4.1 Test Framework Integration 🟠",
+      "4.1 Test Framework Integration"
+    ]
+  },
+  {
+    "id": "node_017",
+    "kind": "section",
+    "href": "04-testing-infrastructure/#test-traceability",
+    "title": "4.2 Test Traceability",
+    "match_texts": [
+      "4.2 Test Traceability 🟠",
+      "4.2 Test Traceability"
+    ]
+  },
+  {
+    "id": "node_018",
+    "kind": "section",
+    "href": "04-testing-infrastructure/#test-execution-dynamic-analysis",
+    "title": "4.3 Test Execution & Dynamic Analysis",
+    "match_texts": [
+      "4.3 Test Execution & Dynamic Analysis 🟠",
+      "4.3 Test Execution & Dynamic Analysis"
+    ]
+  },
+  {
+    "id": "node_019",
+    "kind": "section",
+    "href": "04-testing-infrastructure/#test-reporting",
+    "title": "4.4 Test Reporting",
+    "match_texts": [
+      "4.4 Test Reporting 🟠",
+      "4.4 Test Reporting"
+    ]
+  },
+  {
+    "id": "node_020",
+    "kind": "chapter",
+    "href": "05-static-analysis-infrastructure/",
+    "title": "5 Code Analysis Infrastructure",
+    "match_texts": [
+      "5 Code Analysis Infrastructure ⚪",
+      "5 Code Analysis Infrastructure"
+    ]
+  },
+  {
+    "id": "node_021",
+    "kind": "section",
+    "href": "05-static-analysis-infrastructure/#tooling-baseline",
+    "title": "5.1 Tooling Baseline",
+    "match_texts": [
+      "5.1 Tooling Baseline ⚪",
+      "5.1 Tooling Baseline"
+    ]
+  },
+  {
+    "id": "node_022",
+    "kind": "section",
+    "href": "05-static-analysis-infrastructure/#shared-rule-configuration",
+    "title": "5.2 Shared Rule Configuration",
+    "match_texts": [
+      "5.2 Shared Rule Configuration ⚪",
+      "5.2 Shared Rule Configuration"
+    ]
+  },
+  {
+    "id": "node_023",
+    "kind": "section",
+    "href": "05-static-analysis-infrastructure/#execution-model",
+    "title": "5.3 Execution Model",
+    "match_texts": [
+      "5.3 Execution Model ⚪",
+      "5.3 Execution Model"
+    ]
+  },
+  {
+    "id": "node_024",
+    "kind": "section",
+    "href": "05-static-analysis-infrastructure/#security-scanning",
+    "title": "5.4 Security Scanning",
+    "match_texts": [
+      "5.4 Security Scanning 🟠",
+      "5.4 Security Scanning"
+    ]
+  },
+  {
+    "id": "node_025",
+    "kind": "section",
+    "href": "05-static-analysis-infrastructure/#results-and-governance",
+    "title": "5.5 Results and Governance",
+    "match_texts": [
+      "5.5 Results and Governance ⚪",
+      "5.5 Results and Governance"
+    ]
+  },
+  {
+    "id": "node_026",
+    "kind": "chapter",
+    "href": "06-compliance-infrastructure/",
+    "title": "6 Compliance & Dependency Analysis",
+    "match_texts": [
+      "6 Compliance & Dependency Analysis ⚪",
+      "6 Compliance & Dependency Analysis"
+    ]
+  },
+  {
+    "id": "node_027",
+    "kind": "section",
+    "href": "06-compliance-infrastructure/#file-level-licensing",
+    "title": "6.1 File-Level Licensing",
+    "match_texts": [
+      "6.1 File-Level Licensing ⚪",
+      "6.1 File-Level Licensing"
+    ]
+  },
+  {
+    "id": "node_028",
+    "kind": "section",
+    "href": "06-compliance-infrastructure/#dependency-analysis",
+    "title": "6.2 Dependency Analysis",
+    "match_texts": [
+      "6.2 Dependency Analysis ⚪",
+      "6.2 Dependency Analysis"
+    ]
+  },
+  {
+    "id": "node_029",
+    "kind": "section",
+    "href": "06-compliance-infrastructure/#sbom-scoping-and-compliance-evidence",
+    "title": "6.3 SBOM Scoping and Compliance Evidence",
+    "match_texts": [
+      "6.3 SBOM Scoping and Compliance Evidence ⚪",
+      "6.3 SBOM Scoping and Compliance Evidence"
+    ]
+  },
+  {
+    "id": "node_030",
+    "kind": "section",
+    "href": "06-compliance-infrastructure/#license-checks-and-compliance",
+    "title": "6.4 License Checks and Compliance",
+    "match_texts": [
+      "6.4 License Checks and Compliance ⚪",
+      "6.4 License Checks and Compliance"
+    ]
+  },
+  {
+    "id": "node_031",
+    "kind": "section",
+    "href": "06-compliance-infrastructure/#monitoring-and-governance",
+    "title": "6.5 Monitoring and Governance",
+    "match_texts": [
+      "6.5 Monitoring and Governance ⚪",
+      "6.5 Monitoring and Governance"
+    ]
+  },
+  {
+    "id": "node_032",
+    "kind": "chapter",
+    "href": "07-automation-integration/",
+    "title": "7 Automation Infrastructure & Continuous Integration (CI)",
+    "match_texts": [
+      "7 Automation Infrastructure & Continuous Integration (CI) ⚪",
+      "7 Automation Infrastructure & Continuous Integration (CI)"
+    ]
+  },
+  {
+    "id": "node_033",
+    "kind": "section",
+    "href": "07-automation-integration/#runners",
+    "title": "7.1 Runners",
+    "match_texts": [
+      "7.1 Runners 🟠",
+      "7.1 Runners"
+    ]
+  },
+  {
+    "id": "node_034",
+    "kind": "section",
+    "href": "07-automation-integration/#reusable-workflows",
+    "title": "7.2 Reusable Workflows",
+    "match_texts": [
+      "7.2 Reusable Workflows ⚪",
+      "7.2 Reusable Workflows"
+    ]
+  },
+  {
+    "id": "node_035",
+    "kind": "section",
+    "href": "07-automation-integration/#cross-repository-integration",
+    "title": "7.3 Cross-Repository Integration",
+    "match_texts": [
+      "7.3 Cross-Repository Integration ⚪",
+      "7.3 Cross-Repository Integration"
+    ]
+  },
+  {
+    "id": "node_036",
+    "kind": "section",
+    "href": "07-automation-integration/#secrets-management",
+    "title": "7.4 Secrets Management",
+    "match_texts": [
+      "7.4 Secrets Management ⚪",
+      "7.4 Secrets Management"
+    ]
+  },
+  {
+    "id": "node_037",
+    "kind": "section",
+    "href": "07-automation-integration/#ci-observability",
+    "title": "7.5 CI Observability",
+    "match_texts": [
+      "7.5 CI Observability ⚪",
+      "7.5 CI Observability"
+    ]
+  },
+  {
+    "id": "node_038",
+    "kind": "chapter",
+    "href": "08-artifact-distribution/",
+    "title": "8 Release & Distribution",
+    "match_texts": [
+      "8 Release & Distribution ⚪",
+      "8 Release & Distribution"
+    ]
+  },
+  {
+    "id": "node_039",
+    "kind": "section",
+    "href": "08-artifact-distribution/#deliverable-types",
+    "title": "8.1 Deliverable Types",
+    "match_texts": [
+      "8.1 Deliverable Types ⚪",
+      "8.1 Deliverable Types"
+    ]
+  },
+  {
+    "id": "node_040",
+    "kind": "section",
+    "href": "08-artifact-distribution/#distribution-channels",
+    "title": "8.2 Distribution Channels",
+    "match_texts": [
+      "8.2 Distribution Channels ⚪",
+      "8.2 Distribution Channels"
+    ]
+  },
+  {
+    "id": "node_041",
+    "kind": "section",
+    "href": "08-artifact-distribution/#release-metadata",
+    "title": "8.3 Release Metadata",
+    "match_texts": [
+      "8.3 Release Metadata ⚪",
+      "8.3 Release Metadata"
+    ]
+  },
+  {
+    "id": "node_042",
+    "kind": "section",
+    "href": "08-artifact-distribution/#consumer-access",
+    "title": "8.4 Consumer Access",
+    "match_texts": [
+      "8.4 Consumer Access ⚪",
+      "8.4 Consumer Access"
+    ]
+  },
+  {
+    "id": "node_043",
+    "kind": "section",
+    "href": "08-artifact-distribution/#post-release-communication-response",
+    "title": "8.5 Post-Release Communication & Response",
+    "match_texts": [
+      "8.5 Post-Release Communication & Response ⚪",
+      "8.5 Post-Release Communication & Response"
+    ]
+  },
+  {
+    "id": "node_044",
+    "kind": "chapter",
+    "href": "09-documentation-infrastructure/",
+    "title": "9 Documentation & Traceability",
+    "match_texts": [
+      "9 Documentation & Traceability 🟠",
+      "9 Documentation & Traceability"
+    ]
+  },
+  {
+    "id": "node_045",
+    "kind": "section",
+    "href": "09-documentation-infrastructure/#authoring-tooling",
+    "title": "9.1 Authoring & Tooling",
+    "match_texts": [
+      "9.1 Authoring & Tooling 🟡",
+      "9.1 Authoring & Tooling"
+    ]
+  },
+  {
+    "id": "node_046",
+    "kind": "section",
+    "href": "09-documentation-infrastructure/#build-validation-publishing",
+    "title": "9.2 Build, Validation & Publishing",
+    "match_texts": [
+      "9.2 Build, Validation & Publishing 🟡",
+      "9.2 Build, Validation & Publishing"
+    ]
+  },
+  {
+    "id": "node_047",
+    "kind": "section",
+    "href": "09-documentation-infrastructure/#cross-repository-documentation-integration",
+    "title": "9.3 Cross-Repository Documentation Integration",
+    "match_texts": [
+      "9.3 Cross-Repository Documentation Integration 🔴",
+      "9.3 Cross-Repository Documentation Integration"
+    ]
+  },
+  {
+    "id": "node_048",
+    "kind": "section",
+    "href": "09-documentation-infrastructure/#engineering-documentation-traceability",
+    "title": "9.4 Engineering Documentation & Traceability",
+    "match_texts": [
+      "9.4 Engineering Documentation & Traceability 🟠",
+      "9.4 Engineering Documentation & Traceability"
+    ]
+  },
+  {
+    "id": "node_049",
+    "kind": "chapter",
+    "href": "10-infrastructure-operations/",
+    "title": "10 Infrastructure Operations",
+    "match_texts": [
+      "10 Infrastructure Operations ⚪",
+      "10 Infrastructure Operations"
+    ]
+  },
+  {
+    "id": "node_050",
+    "kind": "section",
+    "href": "10-infrastructure-operations/#ci-runner-operations",
+    "title": "10.1 CI Runner Operations",
+    "match_texts": [
+      "10.1 CI Runner Operations ⚪",
+      "10.1 CI Runner Operations"
+    ]
+  },
+  {
+    "id": "node_051",
+    "kind": "section",
+    "href": "10-infrastructure-operations/#infrastructure-monitoring",
+    "title": "10.2 Infrastructure Monitoring",
+    "match_texts": [
+      "10.2 Infrastructure Monitoring ⚪",
+      "10.2 Infrastructure Monitoring"
+    ]
+  },
+  {
+    "id": "node_052",
+    "kind": "section",
+    "href": "10-infrastructure-operations/#infrastructure-maintenance",
+    "title": "10.3 Infrastructure Maintenance",
+    "match_texts": [
+      "10.3 Infrastructure Maintenance ⚪",
+      "10.3 Infrastructure Maintenance"
+    ]
+  },
+  {
+    "id": "node_053",
+    "kind": "section",
+    "href": "10-infrastructure-operations/#infrastructure-governance",
+    "title": "10.4 Infrastructure Governance",
+    "match_texts": [
+      "10.4 Infrastructure Governance ⚪",
+      "10.4 Infrastructure Governance"
+    ]
+  }
+]
+</script>
+<!-- END GENERATED CHAPTER MAP -->
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../reference/glossary.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Glossary</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="01-source-code-infrastructure.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">1 Source Code Infrastructure 🟠</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#status-legend">Status Legend</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-map">Chapter Map</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/eclipse-score/infrastructure/edit/main/docs/explanation/index.md">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

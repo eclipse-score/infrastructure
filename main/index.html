@@ -44,6 +44,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-needs/modern.css?v=803738c0" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=cf9fcd3f" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
@@ -71,8 +72,10 @@
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="_static/js/mindmap.js?v=40886bf0"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorials" href="tutorials/index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.1" />
@@ -155,6 +158,33 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="how-to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="explanation/index.html">
+    Infrastructure Landscape
+  </a>
+</li>
+
   </ul>
 </nav></div>
       
@@ -266,6 +296,33 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="how-to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="explanation/index.html">
+    Infrastructure Landscape
+  </a>
+</li>
+
   </ul>
 </nav></div>
           
@@ -354,7 +411,163 @@
                   
   <section id="s-core-infrastructure-landscape">
 <h1>S-CORE Infrastructure Landscape<a class="headerlink" href="#s-core-infrastructure-landscape" title="Link to this heading">#</a></h1>
-<p>Landing Page</p>
+<div class="landing-hero">
+  <p class="landing-kicker">Overview, roadmap, contribution guide, and reference</p>
+  <h2>Get oriented in the S-CORE infrastructure landscape.</h2>
+  <p class="landing-lead">
+    This site explains what S-CORE infrastructure is, which shared capabilities and repositories already exist,
+    how mature they are, what is still missing, and how a concrete issue or pull request fits into the bigger picture.
+    Whether you're asking how we do something, where to look for a topic, or how an issue fits the big picture — start here.
+  </p>
+</div>
+<section id="where-to-start">
+<h2>Where to start<a class="headerlink" href="#where-to-start" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>I want to…</p></th>
+<th class="head"><p>Go to</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Set up my environment and make my first contribution</p></td>
+<td><p><a class="reference internal" href="tutorials/getting-started.html"><span class="std std-doc">Tutorial: Getting Started</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Solve a specific task (build, test, publish, write docs)</p></td>
+<td><p><a class="reference internal" href="how-to/index.html"><span class="std std-doc">How-to Guides</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Understand how a piece of infrastructure works or why</p></td>
+<td><p><a class="reference internal" href="explanation/index.html"><span class="std std-doc">Explanation: Landscape Chapters</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Look up a command, config value, or repository</p></td>
+<td><p><a class="reference internal" href="reference/quick-reference.html"><span class="std std-doc">Quick Reference</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Understand project-specific terminology</p></td>
+<td><p><a class="reference internal" href="reference/glossary.html"><span class="std std-doc">Glossary</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="documentation-map">
+<h2>Documentation Map<a class="headerlink" href="#documentation-map" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p><strong>Learning</strong></p></th>
+<th class="head"><p><strong>Working</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Practical</strong></p></td>
+<td><p><a class="reference internal" href="tutorials/getting-started.html"><span class="std std-doc">Tutorials</span></a></p></td>
+<td><p><a class="reference internal" href="how-to/building.html"><span class="std std-doc">How-to Guides</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Theoretical</strong></p></td>
+<td><p><a class="reference internal" href="explanation/index.html"><span class="std std-doc">Explanation</span></a></p></td>
+<td><p><a class="reference internal" href="reference/quick-reference.html"><span class="std std-doc">Reference</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="tutorials">
+<h2>Tutorials<a class="headerlink" href="#tutorials" title="Link to this heading">#</a></h2>
+<p>Step-by-step lessons for newcomers. Follow along to build understanding.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="tutorials/getting-started.html"><span class="std std-doc">Getting Started</span></a> — Set up your environment and run your first build</p></li>
+<li><p><a class="reference internal" href="tutorials/first-pull-request.html"><span class="std std-doc">Your First Pull Request</span></a> — From fork to merged PR, end to end</p></li>
+<li><p><a class="reference internal" href="tutorials/creating-a-module.html"><span class="std std-doc">Creating a New Module</span></a> — Start a new Bazel module from the template</p></li>
+<li><p><a class="reference internal" href="tutorials/itf-integration-test.html"><span class="std std-doc">Write Your First ITF Integration Test</span></a> — Docker-based target testing from scratch</p></li>
+</ul>
+</section>
+<section id="how-to-guides">
+<h2>How-to Guides<a class="headerlink" href="#how-to-guides" title="Link to this heading">#</a></h2>
+<p>Practical recipes for specific tasks. Assumes you already have a working environment.</p>
+<p><strong>For contributors:</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="how-to/building.html"><span class="std std-doc">Building with Bazel</span></a> — Registry, dependencies, toolchains, lock files</p></li>
+<li><p><a class="reference internal" href="how-to/testing.html"><span class="std std-doc">Testing</span></a> — Test frameworks, ITF, QNX, coverage, sanitizers</p></li>
+<li><p><a class="reference internal" href="how-to/code-quality.html"><span class="std std-doc">Code Quality</span></a> — Pre-commit, lint policies, copyright headers</p></li>
+<li><p><a class="reference internal" href="how-to/publishing.html"><span class="std std-doc">Publishing Modules</span></a> — Release, registry import, consumer access</p></li>
+</ul>
+<p><strong>For infrastructure maintainers:</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="how-to/writing-docs.html"><span class="std std-doc">Writing Documentation</span></a> — Sphinx/MyST setup, local preview, status markers</p></li>
+<li><p><a class="reference internal" href="how-to/update-devcontainer.html"><span class="std std-doc">Update the Devcontainer</span></a> — Build, publish, and roll out a new shared image</p></li>
+<li><p><a class="reference internal" href="how-to/manage-ci-secrets.html"><span class="std std-doc">Manage CI Secrets</span></a> — Create, rotate, and replace secrets with OIDC</p></li>
+<li><p><a class="reference internal" href="how-to/update-toolchain.html"><span class="std std-doc">Update a Shared Toolchain</span></a> — Bump compiler or policy versions across repositories</p></li>
+</ul>
+</section>
+<section id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Link to this heading">#</a></h2>
+<p>Factual lookup material. No narrative, just the data you need.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="reference/quick-reference.html"><span class="std std-doc">Quick Reference</span></a> — Repositories, commands, links</p></li>
+<li><p><a class="reference internal" href="reference/configuration.html"><span class="std std-doc">Configuration Reference</span></a> — .bazelrc, pre-commit, devcontainer settings</p></li>
+<li><p><a class="reference internal" href="reference/ci-workflows.html"><span class="std std-doc">CI &amp; Workflow Reference</span></a> — Reusable workflow inputs, outputs, and secrets</p></li>
+<li><p><a class="reference internal" href="reference/tool-versions.html"><span class="std std-doc">Tool Versions</span></a> — Version matrix for shared toolchains and images</p></li>
+<li><p><a class="reference internal" href="reference/glossary.html"><span class="std std-doc">Glossary</span></a> — Key terms and project-specific vocabulary</p></li>
+</ul>
+</section>
+<section id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h2>
+<p>Architecture, design rationale, and maturity assessment of each infrastructure area.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="explanation/index.html"><span class="std std-doc">Infrastructure Landscape</span></a> — Chapter map and maturity overview for all 10 areas</p></li>
+<li><p><a class="reference internal" href="explanation/decisions.html"><span class="std std-doc">Design Decisions</span></a> — Key architectural decisions and their rationale</p></li>
+<li><p><a class="reference internal" href="explanation/04-testing-infrastructure.html"><span class="std std-doc">4. Testing</span></a> — ITF, QNX microvm, traceability, coverage</p></li>
+<li><p><a class="reference internal" href="explanation/09-documentation-infrastructure.html"><span class="std std-doc">9. Documentation &amp; Traceability</span></a> — docs-as-code, sphinx-needs, known-good snapshots</p></li>
+</ul>
+<p>→ <a class="reference internal" href="explanation/index.html"><span class="std std-doc">All chapters</span></a></p>
+</section>
+<section id="quick-links">
+<h2>Quick Links<a class="headerlink" href="#quick-links" title="Link to this heading">#</a></h2>
+<div class="landing-quick-links">
+  <p class="landing-section-label">Contributing</p>
+  <div class="landing-grid landing-grid-2">
+    <a class="landing-card-link" href="https://github.com/eclipse-score/infrastructure/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">
+      <p class="landing-link-title">Contributing Guide</p>
+      <p class="landing-link-desc">Documentation style, structure, and review checklist for contributors to this site.</p>
+    </a>
+    <a class="landing-card-link" href="how-to/writing-docs.md">
+      <p class="landing-link-title">How to Write Docs</p>
+      <p class="landing-link-desc">Bazel + Sphinx/MyST setup, local preview, validation workflow.</p>
+    </a>
+  </div>
+  <p class="landing-section-label">Infrastructure Team</p>
+  <div class="landing-grid landing-grid-2">
+    <a class="landing-card-link" href="https://github.com/orgs/eclipse-score/discussions/236" target="_blank" rel="noopener">
+      <p class="landing-link-title">Meeting Minutes</p>
+      <p class="landing-link-desc">Infrastructure team meeting notes on GitHub Discussions.</p>
+    </a>
+    <a class="landing-card-link" href="https://sdvworkinggroup.slack.com/archives/C0894QGRZDM" target="_blank" rel="noopener">
+      <p class="landing-link-title">Slack: #score-infrastructure</p>
+      <p class="landing-link-desc">Main channel for infrastructure team discussion.</p>
+    </a>
+    <a class="landing-card-link" href="https://sdvworkinggroup.slack.com/archives/C08RDRKH5FE" target="_blank" rel="noopener">
+      <p class="landing-link-title">Slack: #score-infrastructure-review-requests</p>
+      <p class="landing-link-desc">Drop PR links here for review — no comments, just links.</p>
+    </a>
+    <a class="landing-card-link" href="https://eclipse-score.github.io/.github/" target="_blank" rel="noopener">
+      <p class="landing-link-title">Repository Overview</p>
+      <p class="landing-link-desc">Cross-repo metrics and status across all eclipse-score repositories.</p>
+    </a>
+  </div>
+  <p class="landing-section-label">S-CORE Project</p>
+  <div class="landing-grid landing-grid-2">
+    <a class="landing-card-link" href="https://eclipse.dev/score/" target="_blank" rel="noopener">
+      <p class="landing-link-title">S-CORE Website</p>
+      <p class="landing-link-desc">The main Eclipse S-CORE project website — "Open by Choice. Safe by Design."</p>
+    </a>
+    <a class="landing-card-link" href="https://eclipse-score.github.io/score/main/handbook" target="_blank" rel="noopener">
+      <p class="landing-link-title">S-CORE Handbook</p>
+      <p class="landing-link-desc">Technical handbook — processes, tooling, and contribution model.</p>
+    </a>
+  </div>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
 </section>
 
 
@@ -367,6 +580,15 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="right-next"
+       href="tutorials/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Tutorials</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -377,6 +599,24 @@
                 <dialog id="pst-secondary-sidebar-modal"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-start">Where to start</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-map">Documentation Map</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorials">Tutorials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-guides">How-to Guides</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference">Reference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-links">Quick Links</a></li>
+</ul>
+  </nav></div>
 
   <div class="sidebar-secondary-item">
 
