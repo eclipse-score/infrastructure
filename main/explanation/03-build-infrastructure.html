@@ -1092,6 +1092,60 @@ common --registry=https://bcr.bazel.build
 <li><p><strong>Biggest gap</strong>: no cross-repository process clearly defines who owns toolchain baselines and how changes propagate.</p></li>
 </ul>
 </section>
+<section id="qnx-sdp-provisioning">
+<h3>3.3.5 QNX SDP Provisioning<a class="headerlink" href="#qnx-sdp-provisioning" title="Link to this heading">#</a></h3>
+<p><em>How the QNX Software Development Platform is obtained and made available to Bazel C++ builds.</em></p>
+<p>The QNX SDP — the compiler, headers, and libraries required for QNX cross-compilation — is a commercial artifact distributed separately from the toolchain configuration. Its provisioning path is distinct from the Bazel toolchain registration in <code class="docutils literal notranslate"><span class="pre">bazel_cpp_toolchains</span></code> and determines how reliably builds can acquire the SDP in CI and in local developer environments.</p>
+<p>License on CI:  A separate <a class="reference external" href="https://github.com/eclipse-score/cicd-actions"><code class="docutils literal notranslate"><span class="pre">setup-qnx-sdp</span></code></a> composite action handles license activation only; it does not fetch or unpack the SDP</p>
+<p>License locally: License credentials are injected through environment variables.</p>
+<section id="today">
+<h4>Today<a class="headerlink" href="#today" title="Link to this heading">#</a></h4>
+<p>The SDP is downloaded as a tar archive from QNX.com via a hardcoded dependency URL in Bazel. Forks may overwrite this dependency.</p>
+<pre  class="mermaid">
+        flowchart LR
+    qnxcom([&quot;QNX.com&quot;])
+    sdp_tar[&quot;`QNX SDP
+〈artefact: tar〉`&quot;]
+    env_cfg([&quot;Local Environment variables&quot;])
+    license([&quot;License&quot;])
+    action_setup[&quot;`setup-qnx-sdp
+(license only)`&quot;]
+    bazel[&quot;Bazel build C++&quot;]
+
+    qnxcom --&gt; sdp_tar
+    sdp_tar --&gt;|&quot;hardcoded dependency URL&quot;| bazel
+    action_setup --&gt; license
+    env_cfg --&gt; license
+    
+    license --&gt;|&quot;activates license only&quot;| bazel
+    </pre><p>The license and the SDP fetch are deliberately separate.</p>
+</section>
+<section id="soon-planned">
+<h4>Soon (planned)<a class="headerlink" href="#soon-planned" title="Link to this heading">#</a></h4>
+<p>The target model does not rely on QMX.com, but rather uses the QNX CLI distributed with QNX Software Center to produce a local SDP. That SDP is then stored in bazel cache, on your local computer, in ci cache, on protected eclipse artefact storage, or on company-internal artefact storage — and Bazel receives a user-defined flag that tells it where to find the SDP. For local developer environments the intended invocation is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bazel run //:local_qnx_sdp -- --path=/opt/qnx_sdp
+# or
+local_qnx_sdp.sh --path=/opt/qnx_sdp
+</pre></div>
+</div>
+<pre  class="mermaid">
+        flowchart TD
+    qnx_sc([&quot;QNX Software Center&quot;])
+    qnx_cli[&quot;`QNX CLI
+〈tool〉`&quot;]
+    sdp_dir[&quot;`QNX SDP
+〈artefact: directory tree〉`&quot;]
+    art_store[(&quot;Artefact storage
+eclipse · company-internal · local&quot;)]
+    bazel[&quot;Bazel build C++&quot;]
+
+    qnx_sc -.-&gt; qnx_cli
+    qnx_cli -.-&gt; sdp_dir
+    sdp_dir -.-&gt; art_store
+    art_store -.-&gt;|&quot;user-defined flag&quot;| bazel
+    </pre><p>The central unsolved problem in this model is how we can provide this SDP as a true bazel dependency to qnx-related builds, as it has a <strong>non-deterministic SDP output</strong>. So building the SDP on the fly produces a different archive hash on every invocation. Bazel treats a changed hash as a changed dependency, which invalidates the <strong>entire</strong> C++ build cache and forces a full recompilation of all downstream targets on every run. Until the SDP can be built deterministically using it as a bazel dependency is not practical.</p>
+</section>
+</section>
 </section>
 <section id="build-reproducibility-evidence">
 <h2>3.4 Build Reproducibility &amp; Evidence ⚪<a class="headerlink" href="#build-reproducibility-evidence" title="Link to this heading">#</a></h2>
@@ -1272,6 +1326,11 @@ common --registry=https://bcr.bazel.build
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rust-toolchains">3.3.2 Rust Toolchains</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-toolchains">3.3.3 Python Toolchains</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#toolchain-governance">3.3.4 Toolchain Governance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qnx-sdp-provisioning">3.3.5 QNX SDP Provisioning</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#today">Today</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#soon-planned">Soon (planned)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-reproducibility-evidence">3.4 Build Reproducibility &amp; Evidence ⚪</a><ul class="nav section-nav flex-column">

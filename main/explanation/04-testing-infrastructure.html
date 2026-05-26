@@ -951,12 +951,18 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <pre  class="mermaid">
         graph TD
     bazel[&quot;bazel test //path:my_itf_test&quot;]
-    pytest[&quot;pytest runner\n(py_itf_test macro)&quot;]
-    plugin[&quot;ITF Plugin\n(Docker / QEMU / Hardware)&quot;]
-    target[&quot;Target environment\n(container / VM / device)&quot;]
-    caps[&quot;&#64;requires_capabilities\nskip if not available&quot;]
-    results[&quot;JUnit XML\n($XML_OUTPUT_FILE)&quot;]
-    trace[&quot;&#64;add_test_properties\ntraceability metadata&quot;]
+    pytest[&quot;`pytest runner
+(py_itf_test macro)`&quot;]
+    plugin[&quot;`ITF Plugin
+(Docker / QEMU / Hardware)`&quot;]
+    target[&quot;`Target environment
+(container / VM / device)`&quot;]
+    caps[&quot;`&#64;requires_capabilities
+skip if not available`&quot;]
+    results[&quot;`JUnit XML
+($XML_OUTPUT_FILE)`&quot;]
+    trace[&quot;`&#64;add_test_properties
+traceability metadata`&quot;]
 
     bazel --&gt; pytest
     pytest --&gt; plugin

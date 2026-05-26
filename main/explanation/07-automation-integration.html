@@ -923,13 +923,17 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
     schedule[&quot;Schedule / release trigger&quot;]
 
     subgraph shared[&quot;Shared workflow libraries&quot;]
-        cwf[&quot;`cicd-workflows\non-pr.yml · daily.yml`&quot;]
-        cac[&quot;`cicd-actions\n(composite actions)`&quot;]
+        cwf[&quot;`cicd-workflows
+on-pr.yml · daily.yml`&quot;]
+        cac[&quot;`cicd-actions
+(composite actions)`&quot;]
     end
 
     subgraph runners[&quot;Runners&quot;]
-        cloud[&quot;GitHub-hosted\n(cloud: x86, ARM, KVM)&quot;]
-        hw[&quot;Self-hosted\n(hardware: RPi, automotive SoC)&quot;]
+        cloud[&quot;`GitHub-hosted
+(cloud: x86, ARM, KVM)`&quot;]
+        hw[&quot;`Self-hosted
+(hardware: RPi, automotive SoC)`&quot;]
     end
 
     pr --&gt; cwf
@@ -937,7 +941,8 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
     cwf --&gt; cac
     cac --&gt; cloud
     cac --&gt; hw
-    cloud --&gt; results[&quot;Status checks\nArtifacts / evidence&quot;]
+    cloud --&gt; results[&quot;`Status checks
+Artifacts / evidence`&quot;]
     hw --&gt; results
     results --&gt;|&quot;required checks via otterdog&quot;| pr
     </pre><section id="runners">
