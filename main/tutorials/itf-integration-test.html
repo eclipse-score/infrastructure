@@ -460,14 +460,8 @@
                   
   <section id="tutorial-write-your-first-itf-integration-test">
 <h1>Tutorial: Write Your First ITF Integration Test<a class="headerlink" href="#tutorial-write-your-first-itf-integration-test" title="Link to this heading">#</a></h1>
-<p>This tutorial walks through writing a working integration test using the <a class="reference external" href="https://github.com/eclipse-score/itf">ITF framework</a>. By the end, you will have a test that runs a command inside a Docker container through Bazel, and you will understand why ITF is structured the way it is.</p>
+<p>This tutorial walks through writing a working integration test using the <a class="reference external" href="https://github.com/eclipse-score/itf">ITF framework</a>. By the end, you will have a test that runs a command inside a Docker container through Bazel.</p>
 <p><strong>What you need:</strong> a working devcontainer or local environment with Bazel and Docker available. See <a class="reference internal" href="getting-started.html"><span class="std std-doc">Getting Started</span></a> if you have not set that up yet.</p>
-<hr class="docutils" />
-<section id="what-itf-does">
-<h2>What ITF does<a class="headerlink" href="#what-itf-does" title="Link to this heading">#</a></h2>
-<p>Most S-CORE tests are unit tests: they compile and run inside the Bazel sandbox on the build host. ITF tests are different — they run code against a real environment (a Docker container, a QEMU virtual machine, or a hardware device) through a unified plugin interface. This is the right tool for testing behavior that depends on a real OS, a real network, or a real device.</p>
-<p>The same test file can target different environments. The <code class="docutils literal notranslate"><span class="pre">&#64;requires_capabilities</span></code> decorator tells ITF which environment capabilities a test needs, and the framework skips tests that the active target cannot fulfill. Write once, run on Docker locally and on hardware in CI.</p>
-</section>
 <hr class="docutils" />
 <section id="step-1-add-itf-to-your-workspace">
 <h2>Step 1: Add ITF to your workspace<a class="headerlink" href="#step-1-add-itf-to-your-workspace" title="Link to this heading">#</a></h2>
@@ -515,7 +509,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bazel<span class="w"> </span><span class="nb">test</span><span class="w"> </span>//tests:test_hello<span class="w"> </span>--test_output<span class="o">=</span>all
 </pre></div>
 </div>
-<p>You should see Docker pulling the image (once), the container starting, your <code class="docutils literal notranslate"><span class="pre">echo</span></code> command running, and a green test result. If something goes wrong, <code class="docutils literal notranslate"><span class="pre">--test_output=all</span></code> shows the full pytest output.</p>
+<p>You should see Docker pulling the image (once), the container starting, your <code class="docutils literal notranslate"><span class="pre">echo</span></code> command running, and a green test result.</p>
 <p>To force re-execution even if Bazel cached a previous pass:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bazel<span class="w"> </span><span class="nb">test</span><span class="w"> </span>//tests:test_hello<span class="w"> </span>--nocache_test_results<span class="w"> </span>--test_output<span class="o">=</span>all
 </pre></div>
@@ -524,7 +518,7 @@
 <hr class="docutils" />
 <section id="step-5-make-the-test-portable-with-capability-guards">
 <h2>Step 5: Make the test portable with capability guards<a class="headerlink" href="#step-5-make-the-test-portable-with-capability-guards" title="Link to this heading">#</a></h2>
-<p>Add a second test that uses a capability not all targets provide. Docker supports <code class="docutils literal notranslate"><span class="pre">exec</span></code> and <code class="docutils literal notranslate"><span class="pre">file_transfer</span></code>; QEMU additionally supports <code class="docutils literal notranslate"><span class="pre">ssh</span></code> and <code class="docutils literal notranslate"><span class="pre">sftp</span></code>. Guard tests so they are skipped rather than failed on the wrong target:</p>
+<p>The same test file can run against different target types. Guard tests on the capabilities they actually need so they are skipped rather than failed on targets that do not provide them:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">score.itf.plugins.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">requires_capabilities</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">test_hello</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
@@ -539,39 +533,7 @@
         <span class="k">assert</span> <span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span>
 </pre></div>
 </div>
-<p>Run against the Docker target — <code class="docutils literal notranslate"><span class="pre">test_network_only</span></code> will be skipped because Docker does not expose <code class="docutils literal notranslate"><span class="pre">ssh</span></code>. Switch to a QEMU target and it runs. The same file works in both cases without modification.</p>
-</section>
-<hr class="docutils" />
-<section id="step-6-add-traceability-metadata-optional">
-<h2>Step 6: Add traceability metadata (optional)<a class="headerlink" href="#step-6-add-traceability-metadata-optional" title="Link to this heading">#</a></h2>
-<p>When a test verifies specific requirements, the attribute plugin can write that information into the JUnit XML report so the docs-as-code traceability system can link back to the requirement objects:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">score.itf.plugins.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">requires_capabilities</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">attribute_plugin</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_test_properties</span>
-
-<span class="nd">@add_test_properties</span><span class="p">(</span>
-    <span class="n">fully_verifies</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;REQ-HELLO-001&quot;</span><span class="p">],</span>
-    <span class="n">test_type</span><span class="o">=</span><span class="s2">&quot;requirements-based&quot;</span><span class="p">,</span>
-    <span class="n">derivation_technique</span><span class="o">=</span><span class="s2">&quot;requirements-analysis&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">test_hello</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
-    <span class="n">exit_code</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;echo &#39;Hello from ITF!&#39;&quot;</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span>
-    <span class="k">assert</span> <span class="sa">b</span><span class="s2">&quot;Hello from ITF!&quot;</span> <span class="ow">in</span> <span class="n">output</span>
-</pre></div>
-</div>
-<p>Update the BUILD target to include the attribute plugin:</p>
-<div class="highlight-starlark notranslate"><div class="highlight"><pre><span></span><span class="n">py_itf_test</span><span class="p">(</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;test_hello&quot;</span><span class="p">,</span>
-    <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;test_hello.py&quot;</span><span class="p">],</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;--docker-image=ubuntu:24.04&quot;</span><span class="p">],</span>
-    <span class="n">plugins</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;@score_itf//score/itf/plugins:docker_plugin&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;@score_itf//score/itf/plugins:attribute_plugin&quot;</span><span class="p">,</span>
-    <span class="p">],</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>The metadata appears as JUnit XML attributes on the test case element and can be consumed by Sphinx-based traceability tooling without a separate database or postprocessing step.</p>
+<p>Run against the Docker target — <code class="docutils literal notranslate"><span class="pre">test_network_only</span></code> is skipped because Docker does not expose <code class="docutils literal notranslate"><span class="pre">ssh</span></code>. Switch to a QEMU target and it runs. The same file works in both cases without modification.</p>
 </section>
 <hr class="docutils" />
 <section id="what-you-built">
@@ -581,16 +543,16 @@
 <li><p>runs inside a Docker container through <code class="docutils literal notranslate"><span class="pre">bazel</span> <span class="pre">test</span></code></p></li>
 <li><p>participates in Bazel’s incremental build and result caching</p></li>
 <li><p>guards itself with <code class="docutils literal notranslate"><span class="pre">&#64;requires_capabilities</span></code> so it can run against multiple target types</p></li>
-<li><p>optionally writes requirement traceability into the test result report</p></li>
 </ul>
 </section>
 <hr class="docutils" />
 <section id="next-steps">
 <h2>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="../how-to/testing.html#write-an-itf-integration-test"><span class="std std-ref">Write an ITF test against a QEMU target</span></a> — SSH-based interaction with a VM</p></li>
-<li><p><a class="reference internal" href="../how-to/testing.html#advanced-qnx-unit-tests"><span class="std std-ref">Run QNX unit tests</span></a> — cross-compiled tests in a QNX microvm</p></li>
-<li><p><a class="reference internal" href="../explanation/04-testing-infrastructure.html#itf-framework"><span class="std std-ref">ITF framework explained</span></a> — plugin model, capability system, and traceability integration</p></li>
+<li><p><a class="reference internal" href="../how-to/testing.html#write-an-itf-integration-test"><span class="std std-ref">How-to: Testing</span></a> — DLT log capture, requirement traceability, session-scoped targets</p></li>
+<li><p><a class="reference external" href="https://eclipse-score.github.io/itf/main/how-to/write_tests.html">ITF: Write Tests</a> — QEMU tests, SSH on Docker, full capability reference (upstream docs)</p></li>
+<li><p><a class="reference external" href="https://eclipse-score.github.io/itf/main/how-to/plugins.html">ITF: Using Plugins</a> — all built-in plugins with full CLI args (upstream docs)</p></li>
+<li><p><a class="reference internal" href="../explanation/04-testing-infrastructure.html#itf-framework"><span class="std std-ref">Explanation: ITF Framework</span></a> — plugin model, capability system, and architecture</p></li>
 </ul>
 </section>
 </section>
@@ -642,13 +604,11 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-itf-does">What ITF does</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-add-itf-to-your-workspace">Step 1: Add ITF to your workspace</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-write-the-test">Step 2: Write the test</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-define-the-bazel-target">Step 3: Define the Bazel target</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-run-it">Step 4: Run it</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-make-the-test-portable-with-capability-guards">Step 5: Make the test portable with capability guards</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-add-traceability-metadata-optional">Step 6: Add traceability metadata (optional)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-built">What you built</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
 </ul>

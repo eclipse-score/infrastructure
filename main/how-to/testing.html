@@ -557,59 +557,18 @@
 </section>
 <section id="write-an-itf-integration-test">
 <h2>Write an ITF integration test<a class="headerlink" href="#write-an-itf-integration-test" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://github.com/eclipse-score/itf">ITF</a> runs tests against real environments — Docker containers, QEMU VMs, or hardware — through a unified <code class="docutils literal notranslate"><span class="pre">Target</span></code> interface. The same test file can target different environments using <code class="docutils literal notranslate"><span class="pre">&#64;requires_capabilities</span></code> decorators. See <a class="reference internal" href="../tutorials/itf-integration-test.html"><span class="std std-doc">Tutorial: Write Your First ITF Integration Test</span></a> for a guided introduction.</p>
+<p><a class="reference external" href="https://github.com/eclipse-score/itf">ITF</a> runs tests against real environments — Docker containers, QEMU VMs, or hardware — through a unified <code class="docutils literal notranslate"><span class="pre">Target</span></code> interface. See <a class="reference internal" href="../tutorials/itf-integration-test.html"><span class="std std-doc">Tutorial: Write Your First ITF Integration Test</span></a> for a step-by-step introduction.</p>
 <section id="add-itf-to-your-workspace">
 <h3>Add ITF to your workspace<a class="headerlink" href="#add-itf-to-your-workspace" title="Link to this heading">#</a></h3>
 <p>In <code class="docutils literal notranslate"><span class="pre">MODULE.bazel</span></code>:</p>
 <div class="highlight-starlark notranslate"><div class="highlight"><pre><span></span><span class="n">bazel_dep</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;score_itf&quot;</span><span class="p">,</span> <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.2.0&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="docker-test">
-<h3>Docker test<a class="headerlink" href="#docker-test" title="Link to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_hello</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
-    <span class="n">exit_code</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;echo &#39;Hello from target!&#39;&quot;</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span>
-    <span class="k">assert</span> <span class="sa">b</span><span class="s2">&quot;Hello from target!&quot;</span> <span class="ow">in</span> <span class="n">output</span>
-</pre></div>
-</div>
-<div class="highlight-starlark notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;@score_itf//:defs.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;py_itf_test&quot;</span><span class="p">)</span>
-
-<span class="n">py_itf_test</span><span class="p">(</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;test_hello&quot;</span><span class="p">,</span>
-    <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;test_hello.py&quot;</span><span class="p">],</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;--docker-image=ubuntu:24.04&quot;</span><span class="p">],</span>
-    <span class="n">plugins</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;@score_itf//score/itf/plugins:docker_plugin&quot;</span><span class="p">],</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="qemu-test">
-<h3>QEMU test<a class="headerlink" href="#qemu-test" title="Link to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_qemu_ssh</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
-    <span class="k">with</span> <span class="n">target</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ssh</span><span class="p">:</span>
-        <span class="n">exit_code</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">execute_command</span><span class="p">(</span><span class="s2">&quot;uname -a&quot;</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span>
-</pre></div>
-</div>
-<div class="highlight-starlark notranslate"><div class="highlight"><pre><span></span><span class="n">py_itf_test</span><span class="p">(</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;test_qemu&quot;</span><span class="p">,</span>
-    <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;test_qemu.py&quot;</span><span class="p">],</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;--qemu-image=$(location //path:qemu_image)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;--qemu-config=$(location qemu_config.json)&quot;</span><span class="p">,</span>
-    <span class="p">],</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;//path:qemu_image&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;qemu_config.json&quot;</span><span class="p">,</span>
-    <span class="p">],</span>
-    <span class="n">plugins</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;@score_itf//score/itf/plugins:qemu_plugin&quot;</span><span class="p">],</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>For Docker and QEMU test recipes, see the <a class="reference external" href="https://eclipse-score.github.io/itf/main/how-to/write_tests.html">upstream how-to</a>. For full plugin CLI args and capabilities, see the <a class="reference external" href="https://eclipse-score.github.io/itf/main/how-to/plugins.html">upstream plugin reference</a>.</p>
 </section>
 <section id="capability-guards">
 <h3>Capability guards<a class="headerlink" href="#capability-guards" title="Link to this heading">#</a></h3>
+<p>Tests declare which target capabilities they need. The framework skips tests when the active target does not provide them:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">score.itf.plugins.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">requires_capabilities</span>
 
 <span class="nd">@requires_capabilities</span><span class="p">(</span><span class="s2">&quot;exec&quot;</span><span class="p">)</span>
@@ -864,8 +823,6 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-python-test">Write a Python test</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-an-itf-integration-test">Write an ITF integration test</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-itf-to-your-workspace">Add ITF to your workspace</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-test">Docker test</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qemu-test">QEMU test</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capability-guards">Capability guards</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dlt-log-capture">DLT log capture</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#requirement-traceability">Requirement traceability</a></li>
