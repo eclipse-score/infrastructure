@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Configuration Reference &#8212; S-CORE Infrastructure  documentation</title>
+    <title>Write Your First Test &#8212; S-CORE Infrastructure  documentation</title>
   
   
   
@@ -63,7 +63,7 @@
     <script src="../_static/sphinx-needs/libs/html/datatables.min.js?v=8a4aee21"></script>
     <script src="../_static/sphinx-needs/libs/html/datatables_loader.js?v=a2cae175"></script>
     <script src="../_static/sphinx-needs/libs/html/sphinx_needs_collapse.js?v=dca66431"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/configuration';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/write-a-test';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://eclipse-score.github.io/infrastructure/versions.json';
@@ -75,8 +75,8 @@
     <script src="../_static/js/mindmap.js?v=40886bf0"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="CI &amp; Workflow Reference" href="ci-workflows.html" />
-    <link rel="prev" title="Quick Reference" href="quick-reference.html" />
+    <link rel="next" title="Creating a New Module" href="creating-a-module.html" />
+    <link rel="prev" title="Your First Pull Request" href="first-pull-request.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.1" />
@@ -159,8 +159,8 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../tutorials/index.html">
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
     Tutorials
   </a>
 </li>
@@ -173,8 +173,8 @@
 </li>
 
 
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="index.html">
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
     Reference
   </a>
 </li>
@@ -295,8 +295,8 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../tutorials/index.html">
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
     Tutorials
   </a>
 </li>
@@ -309,8 +309,8 @@
 </li>
 
 
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="index.html">
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
     Reference
   </a>
 </li>
@@ -393,11 +393,11 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick Reference</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Configuration Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ci-workflows.html">CI &amp; Workflow Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tool-versions.html">Tool Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="first-pull-request.html">Your First Pull Request</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Write Your First Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating-a-module.html">Creating a New Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="itf-integration-test.html">Tutorial: Write Your First ITF Integration Test</a></li>
 </ul>
 </div>
 </nav></div>
@@ -439,9 +439,9 @@
       </a>
     </li>
     
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Reference</a></li>
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Tutorials</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Configuration Reference</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Write Your First Test</span></li>
   </ul>
 </nav>
 </div>
@@ -458,185 +458,116 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="configuration-reference">
-<h1>Configuration Reference<a class="headerlink" href="#configuration-reference" title="Link to this heading">#</a></h1>
-<section id="bazelrc">
-<h2>.bazelrc<a class="headerlink" href="#bazelrc" title="Link to this heading">#</a></h2>
-<p>Standard S-CORE registry configuration:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>common --registry=https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/
-common --registry=https://bcr.bazel.build
-</pre></div>
+  <section id="write-your-first-test">
+<h1>Write Your First Test<a class="headerlink" href="#write-your-first-test" title="Link to this heading">#</a></h1>
+<p>This tutorial walks you through writing a C++ unit test, running it with Bazel, and reading the output when it fails. By the end, you will have a passing test and an understanding of the test cycle.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Prerequisites
+Complete <a class="reference internal" href="getting-started.html"><span class="std std-doc">Getting Started</span></a> first. You need a working devcontainer and a successful <code class="docutils literal notranslate"><span class="pre">bazel</span> <span class="pre">build</span> <span class="pre">//...</span></code>.</p>
 </div>
-<p>Registry resolution order: S-CORE registry first, then Bazel Central Registry.</p>
-</section>
-<section id="module-bazel">
-<h2>MODULE.bazel<a class="headerlink" href="#module-bazel" title="Link to this heading">#</a></h2>
-<p>Module metadata and dependency declarations:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">module</span><span class="p">(</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;my_module&quot;</span><span class="p">,</span>
-    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span>
-<span class="p">)</span>
+<section id="add-a-library-target">
+<h2>1. Add a library target<a class="headerlink" href="#add-a-library-target" title="Link to this heading">#</a></h2>
+<p>Create a minimal library to test. In <code class="docutils literal notranslate"><span class="pre">src/BUILD.bazel</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;@rules_cc//cc:defs.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;cc_library&quot;</span><span class="p">)</span>
 
-<span class="n">bazel_dep</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;score_cpp_policies&quot;</span><span class="p">,</span> <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;...&quot;</span><span class="p">)</span>
-<span class="n">bazel_dep</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;bazel_cpp_toolchains&quot;</span><span class="p">,</span> <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;...&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Lock file: <code class="docutils literal notranslate"><span class="pre">MODULE.bazel.lock</span></code> — commit to the repository, refresh via <code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">run</span> <span class="pre">--all-files</span></code>.</p>
-</section>
-<section id="devcontainer">
-<h2>Devcontainer<a class="headerlink" href="#devcontainer" title="Link to this heading">#</a></h2>
-<p>Standard devcontainer configuration in <code class="docutils literal notranslate"><span class="pre">.devcontainer/devcontainer.json</span></code>:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ghcr.io/eclipse-score/devcontainer&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>The image includes: Bazel, Python, pre-commit, C++ and Rust toolchains, documentation tooling.</p>
-<p>Source: <a class="reference external" href="https://github.com/eclipse-score/devcontainer">eclipse-score/devcontainer</a></p>
-</section>
-<section id="pre-commit">
-<h2>Pre-commit<a class="headerlink" href="#pre-commit" title="Link to this heading">#</a></h2>
-<p>S-CORE repositories use <a class="reference external" href="https://pre-commit.com/">pre-commit</a> hooks from two sources: a project-specific hook from <code class="docutils literal notranslate"><span class="pre">eclipse-score/tooling</span></code> and standard ecosystem hooks.</p>
-<section id="s-core-hook">
-<h3>S-CORE hook<a class="headerlink" href="#s-core-hook" title="Link to this heading">#</a></h3>
-<p>Source: <a class="reference external" href="https://github.com/eclipse-score/tooling/blob/main/.pre-commit-hooks.yaml">eclipse-score/tooling</a></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">repos</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/eclipse-score/tooling</span>
-<span class="w">    </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;version&gt;</span>
-<span class="w">    </span><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">copyright</span>
-</pre></div>
-</div>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Hook</p></th>
-<th class="head"><p>What it checks</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">copyright</span></code></p></td>
-<td><p>SPDX license identifier and copyright header presence (via <code class="docutils literal notranslate"><span class="pre">cr_checker</span></code>)</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="ecosystem-hooks">
-<h3>Ecosystem hooks<a class="headerlink" href="#ecosystem-hooks" title="Link to this heading">#</a></h3>
-<p>Formatting, YAML validation, lock file freshness, and other hygiene checks come from standard pre-commit hooks (e.g. <code class="docutils literal notranslate"><span class="pre">pre-commit-hooks</span></code>, <code class="docutils literal notranslate"><span class="pre">mirrors-clang-format</span></code>). Each repository pins these in its own <code class="docutils literal notranslate"><span class="pre">.pre-commit-config.yaml</span></code>.</p>
-<p>The reusable CI workflows in <a class="reference external" href="https://github.com/eclipse-score/cicd-workflows">cicd-workflows</a> include <code class="docutils literal notranslate"><span class="pre">format.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">copyright.yml</span></code> that enforce these checks in CI independently of local hook configuration.</p>
-</section>
-</section>
-<section id="itf-test-targets">
-<h2>ITF Test Targets<a class="headerlink" href="#itf-test-targets" title="Link to this heading">#</a></h2>
-<p>Minimal <code class="docutils literal notranslate"><span class="pre">BUILD</span></code> configuration for an ITF integration test:</p>
-<div class="highlight-starlark notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;@score_itf//:defs.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;py_itf_test&quot;</span><span class="p">)</span>
-
-<span class="n">py_itf_test</span><span class="p">(</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;test_example&quot;</span><span class="p">,</span>
-    <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;test_example.py&quot;</span><span class="p">],</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;--docker-image=ubuntu:24.04&quot;</span><span class="p">],</span>
-    <span class="n">plugins</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;@score_itf//score/itf/plugins:docker_plugin&quot;</span><span class="p">],</span>
+<span class="n">cc_library</span><span class="p">(</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;math&quot;</span><span class="p">,</span>
+    <span class="n">hdrs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;math.h&quot;</span><span class="p">],</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Available plugins:</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Plugin label</p></th>
-<th class="head"><p>Purpose</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;score_itf//score/itf/plugins:docker_plugin</span></code></p></td>
-<td><p>Docker container targets</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;score_itf//score/itf/plugins:qemu_plugin</span></code></p></td>
-<td><p>QEMU virtual machine targets</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;score_itf//score/itf/plugins:dlt_plugin</span></code></p></td>
-<td><p>DLT log capture</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;score_itf//score/itf/plugins:attribute_plugin</span></code></p></td>
-<td><p>Requirement traceability metadata</p></td>
-</tr>
-</tbody>
-</table>
+<p>And <code class="docutils literal notranslate"><span class="pre">src/math.h</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma once</span>
+
+<span class="kr">inline</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
 </div>
-<p>Source: <a class="reference external" href="https://github.com/eclipse-score/itf">eclipse-score/itf</a></p>
 </section>
-<section id="qemu-configuration-itf">
-<h2>QEMU Configuration (ITF)<a class="headerlink" href="#qemu-configuration-itf" title="Link to this heading">#</a></h2>
-<p>QEMU plugin configuration file (<code class="docutils literal notranslate"><span class="pre">qemu_config.json</span></code>):</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;networks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tap0&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;ip_address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;169.254.158.190&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;gateway&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;169.254.21.88&quot;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;ssh_port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;qemu_num_cores&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;qemu_ram_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1G&quot;</span>
+<section id="write-the-test">
+<h2>2. Write the test<a class="headerlink" href="#write-the-test" title="Link to this heading">#</a></h2>
+<p>Create <code class="docutils literal notranslate"><span class="pre">test/math_test.cc</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;gtest/gtest.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;src/math.h&quot;</span>
+
+<span class="n">TEST</span><span class="p">(</span><span class="n">MathTest</span><span class="p">,</span><span class="w"> </span><span class="n">AddsTwoNumbers</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Referenced from <code class="docutils literal notranslate"><span class="pre">BUILD</span></code> via <code class="docutils literal notranslate"><span class="pre">--qemu-config=$(location</span> <span class="pre">qemu_config.json)</span></code>.</p>
-</section>
-<section id="qnx-unit-tests">
-<h2>QNX Unit Tests<a class="headerlink" href="#qnx-unit-tests" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">.bazelrc</span></code> platform configs for QNX cross-compilation:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>build:qnx-x86_64   # Cross-compile for QNX x86_64
-build:qnx-aarch64  # Cross-compile for QNX aarch64
-</pre></div>
-</div>
-<p>Required flag for proper test extraction (prevents Bazel configuration conflicts):</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>build --experimental_retain_test_configuration_across_testonly
-</pre></div>
-</div>
-<p>Source: <a class="reference external" href="https://github.com/eclipse-score/qnx_unit_tests">eclipse-score/qnx_unit_tests</a></p>
-</section>
-<section id="sanitizers">
-<h2>Sanitizers<a class="headerlink" href="#sanitizers" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://github.com/eclipse-score/score_cpp_policies">score_cpp_policies</a> provides the following sanitizer features as Bazel <code class="docutils literal notranslate"><span class="pre">cc_feature</span></code> definitions:</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Sanitizer</p></th>
-<th class="head"><p>Purpose</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>ASan</p></td>
-<td><p>Address errors (buffer overflow, use-after-free)</p></td>
-</tr>
-<tr class="row-odd"><td><p>UBSan</p></td>
-<td><p>Undefined behavior</p></td>
-</tr>
-<tr class="row-even"><td><p>LSan</p></td>
-<td><p>Memory leaks</p></td>
-</tr>
-<tr class="row-odd"><td><p>TSan</p></td>
-<td><p>Data races</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Constraint targets: <code class="docutils literal notranslate"><span class="pre">no_tsan</span></code>, <code class="docutils literal notranslate"><span class="pre">any_sanitizer</span></code> (for conditional compilation via <code class="docutils literal notranslate"><span class="pre">select()</span></code>).</p>
-</section>
-<section id="documentation-docs-as-code">
-<h2>Documentation (docs-as-code)<a class="headerlink" href="#documentation-docs-as-code" title="Link to this heading">#</a></h2>
-<p>Documentation is built with Bazel using the <code class="docutils literal notranslate"><span class="pre">score_docs_as_code</span></code> module. Configuration lives in <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">project</span> <span class="o">=</span> <span class="s2">&quot;S-CORE Infrastructure&quot;</span>
-<span class="n">project_url</span> <span class="o">=</span> <span class="s2">&quot;https://eclipse-score.github.io/infrastructure&quot;</span>
-<span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+<p>And <code class="docutils literal notranslate"><span class="pre">test/BUILD.bazel</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;@rules_cc//cc:defs.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;cc_test&quot;</span><span class="p">)</span>
 
-<span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;score_sphinx_bundle&quot;</span><span class="p">,</span>
-<span class="p">]</span>
+<span class="n">cc_test</span><span class="p">(</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;math_test&quot;</span><span class="p">,</span>
+    <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;math_test.cc&quot;</span><span class="p">],</span>
+    <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;//src:math&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;@googletest//:gtest_main&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">score_sphinx_bundle</span></code> extension bundles MyST parser, Mermaid, PlantUML, sphinx-needs, and the S-CORE theme. The Bazel dependency is declared in <code class="docutils literal notranslate"><span class="pre">MODULE.bazel</span></code>.</p>
+</section>
+<section id="run-the-test">
+<h2>3. Run the test<a class="headerlink" href="#run-the-test" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bazel<span class="w"> </span><span class="nb">test</span><span class="w"> </span>//test:math_test<span class="w"> </span>--test_output<span class="o">=</span>all
+</pre></div>
+</div>
+<p>You should see:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">==========</span><span class="p">]</span> <span class="n">Running</span> <span class="mi">1</span> <span class="n">test</span> <span class="kn">from</span><span class="w"> </span><span class="mi">1</span> <span class="n">test</span> <span class="n">suite</span><span class="o">.</span>
+<span class="p">[</span> <span class="n">RUN</span>      <span class="p">]</span> <span class="n">MathTest</span><span class="o">.</span><span class="n">AddsTwoNumbers</span>
+<span class="p">[</span>       <span class="n">OK</span> <span class="p">]</span> <span class="n">MathTest</span><span class="o">.</span><span class="n">AddsTwoNumbers</span> <span class="p">(</span><span class="mi">0</span> <span class="n">ms</span><span class="p">)</span>
+<span class="p">[</span><span class="o">==========</span><span class="p">]</span> <span class="mi">1</span> <span class="n">test</span> <span class="kn">from</span><span class="w"> </span><span class="mi">1</span> <span class="n">test</span> <span class="n">suite</span> <span class="n">ran</span><span class="o">.</span>
+<span class="p">[</span>  <span class="n">PASSED</span>  <span class="p">]</span> <span class="mi">1</span> <span class="n">test</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="make-it-fail">
+<h2>4. Make it fail<a class="headerlink" href="#make-it-fail" title="Link to this heading">#</a></h2>
+<p>Change the assertion to something wrong:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="mi">99</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Run again:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bazel<span class="w"> </span><span class="nb">test</span><span class="w"> </span>//test:math_test<span class="w"> </span>--test_output<span class="o">=</span>all
+</pre></div>
+</div>
+<p>Bazel shows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">RUN</span>      <span class="p">]</span> <span class="n">MathTest</span><span class="o">.</span><span class="n">AddsTwoNumbers</span>
+<span class="n">test</span><span class="o">/</span><span class="n">math_test</span><span class="o">.</span><span class="n">cc</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span> <span class="n">Failure</span>
+<span class="n">Expected</span> <span class="n">equality</span> <span class="n">of</span> <span class="n">these</span> <span class="n">values</span><span class="p">:</span>
+  <span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">Which</span> <span class="ow">is</span><span class="p">:</span> <span class="mi">5</span>
+  <span class="mi">99</span>
+<span class="p">[</span>  <span class="n">FAILED</span>  <span class="p">]</span> <span class="n">MathTest</span><span class="o">.</span><span class="n">AddsTwoNumbers</span> <span class="p">(</span><span class="mi">0</span> <span class="n">ms</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The failure message tells you the file, the line, and the actual vs. expected values. Fix the assertion back to <code class="docutils literal notranslate"><span class="pre">5</span></code> before continuing.</p>
+</section>
+<section id="run-all-tests">
+<h2>5. Run all tests<a class="headerlink" href="#run-all-tests" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bazel<span class="w"> </span><span class="nb">test</span><span class="w"> </span>//...
+</pre></div>
+</div>
+<p>This runs every test target in the repository. Bazel caches results — only changed targets re-run. Use <code class="docutils literal notranslate"><span class="pre">--nocache_test_results</span></code> to force a full re-run if needed.</p>
+</section>
+<section id="what-you-ve-accomplished">
+<h2>What you’ve accomplished<a class="headerlink" href="#what-you-ve-accomplished" title="Link to this heading">#</a></h2>
+<p>You now know the basic test cycle in S-CORE:</p>
+<ul class="simple">
+<li><p>Define a <code class="docutils literal notranslate"><span class="pre">cc_test</span></code> target with <code class="docutils literal notranslate"><span class="pre">&#64;googletest//:gtest_main</span></code></p></li>
+<li><p>Run a single target with <code class="docutils literal notranslate"><span class="pre">bazel</span> <span class="pre">test</span> <span class="pre">//path:target</span> <span class="pre">--test_output=all</span></code></p></li>
+<li><p>Read GoogleTest failure output</p></li>
+<li><p>Run the full suite with <code class="docutils literal notranslate"><span class="pre">bazel</span> <span class="pre">test</span> <span class="pre">//...</span></code></p></li>
+</ul>
+</section>
+<section id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../how-to/testing.html"><span class="std std-doc">How-to: Testing</span></a> — Rust and Python tests, coverage, sanitizers, QNX</p></li>
+<li><p><a class="reference internal" href="itf-integration-test.html"><span class="std std-doc">Tutorial: Write Your First ITF Integration Test</span></a> — Tests against Docker containers and VMs</p></li>
+</ul>
 </section>
 </section>
 
@@ -651,20 +582,20 @@ build:qnx-aarch64  # Cross-compile for QNX aarch64
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="quick-reference.html"
+       href="first-pull-request.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Quick Reference</p>
+        <p class="prev-next-title">Your First Pull Request</p>
       </div>
     </a>
     <a class="right-next"
-       href="ci-workflows.html"
+       href="creating-a-module.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">CI &amp; Workflow Reference</p>
+        <p class="prev-next-title">Creating a New Module</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -687,19 +618,13 @@ build:qnx-aarch64  # Cross-compile for QNX aarch64
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bazelrc">.bazelrc</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-bazel">MODULE.bazel</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#devcontainer">Devcontainer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-commit">Pre-commit</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#s-core-hook">S-CORE hook</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ecosystem-hooks">Ecosystem hooks</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#itf-test-targets">ITF Test Targets</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qemu-configuration-itf">QEMU Configuration (ITF)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qnx-unit-tests">QNX Unit Tests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sanitizers">Sanitizers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-docs-as-code">Documentation (docs-as-code)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-library-target">1. Add a library target</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-test">2. Write the test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-test">3. Run the test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-it-fail">4. Make it fail</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-all-tests">5. Run all tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-ve-accomplished">What you’ve accomplished</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
 </ul>
   </nav></div>
 
@@ -707,7 +632,7 @@ build:qnx-aarch64  # Cross-compile for QNX aarch64
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/eclipse-score/infrastructure/edit/main/docs/reference/configuration.md">
+    <a href="https://github.com/eclipse-score/infrastructure/edit/main/docs/tutorials/write-a-test.md">
       <i class="fa-solid fa-pencil"></i>
       
       

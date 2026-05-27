@@ -38,11 +38,11 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-data-viewer/jsonview.bundle.css?v=f6ef2277" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/libs/html/datatables.min.css?v=4b4fd840" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/modern.css?v=803738c0" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cf9fcd3f" />
   
@@ -395,6 +395,7 @@
   <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="first-pull-request.html">Your First Pull Request</a></li>
+<li class="toctree-l1"><a class="reference internal" href="write-a-test.html">Write Your First Test</a></li>
 <li class="toctree-l1"><a class="reference internal" href="creating-a-module.html">Creating a New Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="itf-integration-test.html">Tutorial: Write Your First ITF Integration Test</a></li>
 </ul>
@@ -457,14 +458,23 @@
   <section id="tutorials">
 <h1>Tutorials<a class="headerlink" href="#tutorials" title="Link to this heading">#</a></h1>
 <p>Step-by-step lessons for newcomers. Follow along to build understanding.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="first-pull-request.html">Your First Pull Request</a></li>
-<li class="toctree-l1"><a class="reference internal" href="creating-a-module.html">Creating a New Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="itf-integration-test.html">Tutorial: Write Your First ITF Integration Test</a></li>
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="getting-started.html"><span class="std std-doc">Getting Started</span></a> — Set up your environment, build, and run tests</p></li>
+<li><p><a class="reference internal" href="first-pull-request.html"><span class="std std-doc">Your First Pull Request</span></a> — Make a change and get it merged</p></li>
 </ul>
+</section>
+<section id="module-development">
+<h2>Module development<a class="headerlink" href="#module-development" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="write-a-test.html"><span class="std std-doc">Write Your First Test</span></a> — C++ unit test, Bazel test cycle, reading failures</p></li>
+<li><p><a class="reference internal" href="creating-a-module.html"><span class="std std-doc">Creating a New Module</span></a> — Template, registry, first release</p></li>
+<li><p><a class="reference internal" href="itf-integration-test.html"><span class="std std-doc">Write Your First ITF Integration Test</span></a> — Target-oriented tests with Docker and QEMU</p></li>
+</ul>
+<div class="toctree-wrapper compound">
 </div>
+</section>
 </section>
 
 
@@ -505,6 +515,19 @@
                 <dialog id="pst-secondary-sidebar-modal"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-development">Module development</a></li>
+</ul>
+  </nav></div>
 
   <div class="sidebar-secondary-item">
 
