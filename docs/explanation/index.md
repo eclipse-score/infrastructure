@@ -67,11 +67,11 @@ Architecture, design rationale, and maturity assessment of each S-CORE infrastru
 | ↳ [10.2 Infrastructure Monitoring](10-infrastructure-operations.md#infrastructure-monitoring) | ⚪ | Without shared monitoring, systemic problems are detected later and resolved slower. |
 | ↳ [10.3 Infrastructure Maintenance](10-infrastructure-operations.md#infrastructure-maintenance) | ⚪ | Maintenance is not planned consistently, increasing technical debt and surprise work. |
 | ↳ [10.4 Infrastructure Governance](10-infrastructure-operations.md#infrastructure-governance) | ⚪ | Missing governance structure makes cross-repository decisions slower and less predictable. |
-| **[11 Reference Integration](11-reference-integration.md)** | 🟡 | DR-008 architecture is settled, but the two-stage validation pipeline, FIT coverage, and evidence consolidation are all still being built out for v0.8. |
+| **[11 Reference Integration](11-reference-integration.md)** | 🟠 | The workspace exists and DR-008 is settled, but the validation pipeline and evidence model are not built, and the release process is undefined. |
 | ↳ [11.1 Integration Workspace](11-reference-integration.md#integration-workspace) | 🟡 | Multi-module workspace is functional but missing QNX8 aarch64, inconsistent showcase coverage, and an outdated README. |
-| ↳ [11.2 Known-Good Promotion](11-reference-integration.md#known-good-promotion) | 🟡 | Snapshot model is settled, but dependency version management across modules is manual and creates adoption friction. |
-| ↳ [11.3 Validation Pipeline](11-reference-integration.md#validation-pipeline) | 🟠 | DR-008 Option 4 defined but not yet implemented — workflow update, FIT coverage, and module-scoped validation plumbing are all pending. |
-| ↳ [11.4 Integrated Evidence](11-reference-integration.md#integrated-evidence) | 🟠 | Coverage is unreliable for C++ and Rust, Rust test traceability is missing, and evidence remains scattered across CI artifacts. |
+| ↳ [11.2 Known-Good Promotion](11-reference-integration.md#known-good-promotion) | 🟠 | Revision pinning works, but the release process is not defined in DR-008, so the promotion gate has no criteria. |
+| ↳ [11.3 Validation Pipeline](11-reference-integration.md#validation-pipeline) | 🔴 | The DR-008 Option 4 two-stage pipeline is not implemented — no dependency resolution handoff, no module-scoped validation orchestration. |
+| ↳ [11.4 Integrated Evidence](11-reference-integration.md#integrated-evidence) | 🔴 | No evidence schema, no release gate definition, unreliable coverage, and missing traceability properties in Rust test reports. |
 | ↳ [11.5 Operating Model](11-reference-integration.md#operating-model) | 🟡 | Workflow restructuring and CI centralization are in progress for v0.8; `cr_checker` and Bazel profiling are pending. |
 
 <!-- END GENERATED CHAPTER MAP -->
