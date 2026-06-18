@@ -403,6 +403,7 @@
 <li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution 🟠</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">9 Documentation &amp; Traceability 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10-infrastructure-operations.html">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-reference-integration.html">11 Reference Integration 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="decisions.html">Infrastructure Design Decisions</a></li>
 </ul>
 </div>
@@ -531,7 +532,7 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <p><em>Establishing reliable links across repository boundaries and release versions.</em></p>
 <ul class="simple">
 <li><p>Stable links are required if documentation, code, requirements, and release artifacts live in different repositories.</p></li>
-<li><p>For integrated views produced from <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code>, those links should resolve within one explicit <code class="docutils literal notranslate"><span class="pre">known_good</span></code> snapshot rather than silently mixing repository heads.</p></li>
+<li><p>For integrated views produced from <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code>, those links should resolve within one explicit <code class="docutils literal notranslate"><span class="pre">known_good</span></code> snapshot rather than silently mixing repository heads. <a class="reference internal" href="11-reference-integration.html"><span class="std std-doc">Chapter 11</span></a> explains why that snapshot boundary matters.</p></li>
 <li><p><strong>Biggest gap</strong>: no agreed cross-repository linking strategy exists for versioned and unversioned documentation content.</p></li>
 </ul>
 </section>
@@ -566,9 +567,8 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <h3>9.4.2 Known-Good Documentation Snapshots 🔴<a class="headerlink" href="#known-good-documentation-snapshots" title="Link to this heading">#</a></h3>
 <p><em>Tying integrated docs and traceability evidence to one validated cross-repository snapshot.</em></p>
 <p>Cross-repository documentation becomes ambiguous unless readers can tell which combination of component revisions it describes. The <code class="docutils literal notranslate"><span class="pre">known_good</span></code> concept solves that by giving integrated documentation, verification summaries, and traceability views one shared snapshot identifier. A single documentation build in <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> should therefore describe one concrete <code class="docutils literal notranslate"><span class="pre">known_good</span></code> manifest or record, not an unspecified mix of module heads.</p>
-<p>Under the currently assumed but still-undecided Option 2 model, this identifier is also what allows the project to claim that integrated docs and integrated evidence were generated from the same centrally validated stack. If <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> later ends up with a lighter scope, the documentation benefit remains, but the traceability story has to distinguish more clearly between centrally generated pages and evidence linked in from module repositories.</p>
-<p>The important architectural point is that links, release notes, dashboards, and archived evidence should all resolve back to the same <code class="docutils literal notranslate"><span class="pre">known_good</span></code> identifier. <strong>Biggest gap</strong>: S-CORE does not yet have a documented rule for binding integrated documentation and traceability artifacts to one explicit cross-repository snapshot.</p>
-<p>This snapshot-oriented documentation view depends on the same integration model described in <a class="reference external" href="https://eclipse-score.github.io/score/main/design_decisions/DR-002-infra.html">DR-002-Infra</a> and on the still-unsettled <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> scope discussion in <a class="reference external" href="https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1">DR-008-Int</a>.</p>
+<p>The important architectural point is that links, release notes, dashboards, and archived evidence should all resolve back to the same <code class="docutils literal notranslate"><span class="pre">known_good</span></code> identifier. <a class="reference internal" href="11-reference-integration.html"><span class="std std-doc">Chapter 11</span></a> owns the repository-level explanation of that snapshot contract. <strong>Biggest gap</strong>: S-CORE does not yet have a documented rule for binding integrated documentation and traceability artifacts to one explicit cross-repository snapshot.</p>
+<p>This snapshot-oriented documentation view depends on the same integration model described in <a class="reference external" href="https://eclipse-score.github.io/score/main/design_decisions/DR-002-infra.html">DR-002-Infra</a> and on the selected <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> scope in <a class="reference external" href="https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1">DR-008-Int</a>.</p>
 </section>
 </section>
 </section>

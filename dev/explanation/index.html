@@ -403,6 +403,7 @@
 <li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="09-documentation-infrastructure.html">9 Documentation &amp; Traceability 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10-infrastructure-operations.html">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-reference-integration.html">11 Reference Integration 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="decisions.html">Infrastructure Design Decisions</a></li>
 </ul>
 </div>
@@ -688,6 +689,30 @@
 <tr class="row-even"><td><p>↳ <a class="reference internal" href="10-infrastructure-operations.html#infrastructure-governance"><span class="std std-ref">10.4 Infrastructure Governance</span></a></p></td>
 <td><p>⚪</p></td>
 <td><p>Missing governance structure makes cross-repository decisions slower and less predictable.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong><a class="reference internal" href="11-reference-integration.html"><span class="std std-doc">11 Reference Integration</span></a></strong></p></td>
+<td><p>🟠</p></td>
+<td><p>The workspace exists and DR-008 is settled, but the validation pipeline and evidence model are not built, and the release process is undefined.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="11-reference-integration.html#integration-workspace"><span class="std std-ref">11.1 Integration Workspace</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Multi-module workspace is functional but missing QNX8 aarch64, inconsistent showcase coverage, and an outdated README.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="11-reference-integration.html#known-good-promotion"><span class="std std-ref">11.2 Known-Good Promotion</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Revision pinning works, but the release process is not defined in DR-008, so the promotion gate has no criteria.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="11-reference-integration.html#validation-pipeline"><span class="std std-ref">11.3 Validation Pipeline</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>The DR-008 Option 4 two-stage pipeline is not implemented — no dependency resolution handoff, no module-scoped validation orchestration.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="11-reference-integration.html#integrated-evidence"><span class="std std-ref">11.4 Integrated Evidence</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>No evidence schema, no release gate definition, unreliable coverage, and missing traceability properties in Rust test reports.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="11-reference-integration.html#operating-model"><span class="std std-ref">11.5 Operating Model</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Workflow restructuring and CI centralization are in progress for v0.8; <code class="docutils literal notranslate"><span class="pre">cr_checker</span></code> and Bazel profiling are pending.</p></td>
 </tr>
 </tbody>
 </table>
