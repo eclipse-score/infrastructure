@@ -8,12 +8,12 @@ repos:
         pass_filenames: false
         files: ^(docs/explanation/.*\.md|scripts/aggregate_status\.py)$
         exclude: ^docs/explanation/index\.md$
-      - id: generate-mindmap
-        name: Generate infrastructure chapter map
-        entry: python3 scripts/generate_mindmap.py
+      - id: generate-chapter-table
+        name: Generate infrastructure chapter table
+        entry: python3 scripts/generate_chapter_table.py
         language: system
         pass_filenames: false
-        files: ^(docs/explanation/[0-9][0-9]-.*\.md|docs/explanation/index\.md|scripts/generate_mindmap\.py)$
+        files: ^(docs/explanation/[0-9][0-9]-.*\.md|docs/explanation/index\.md|scripts/generate_chapter_table\.py)$
       - id: ruff-check
         name: ruff-check
         entry: scripts/run_tool.sh ruff check --fix

@@ -27,7 +27,7 @@ From a contributor's perspective, the developer environment is the entry point t
 
 In S-CORE, Bazel is the central build system for the actual software stack, but many repositories do not use Bazel as their primary local execution model. This chapter therefore documents the shared local layer that spans both repository types, centered on the common [eclipse-score/devcontainer](https://github.com/eclipse-score/devcontainer). The central devcontainer gives S-CORE a clear anchor for this area, but the repository-facing conventions around it are not yet fully standardized.
 
-## 2.1 Central Devcontainer 🟠
+## 2.1 Central Devcontainer 🟡
 
 *Common local environment for shared development tooling across repository types.*
 
@@ -39,7 +39,7 @@ The design decision behind this approach is documented in [DR-003](https://eclip
 
 The same container image also serves as a CI execution environment, which is important because it means the tools a contributor runs locally and the tools CI runs remotely are the same versions. That alignment is not automatic — it requires that CI workflows explicitly pull the devcontainer image rather than assembling their own tool stack — but when it works, it eliminates a class of "works on my machine" failures.
 
-### 2.1.1 Shared Tool Baseline 🟠
+### 2.1.1 Shared Tool Baseline 🟡
 
 *Defining which surrounding tools are present by default.*
 
@@ -83,6 +83,8 @@ In S-CORE, this auxiliary tooling is currently delivered through a combination o
 
 In S-CORE, custom hooks are published through [eclipse-score/tooling](https://github.com/eclipse-score/tooling/blob/main/.pre-commit-hooks.yaml) and combined with standard ecosystem hooks. Together with the central devcontainer, that gives repositories a shared mechanism for lightweight local validation before CI. Adoption, hook coverage, and enforcement expectations for these fast checks are still inconsistent across the repository landscape.
 
+**Biggest gap**: no alignment on what pre-commit should trigger (system host calls, devcontainer tools, bazel calls, pre-commit hooks, etc).
+
 ### 2.2.2 Boundary To Bazel And CI 🟡
 
 *Clarifying what stays local, what belongs in Bazel, and what remains CI-only.*
@@ -92,3 +94,5 @@ The local auxiliary layer needs a clear boundary or repositories will duplicate 
 In S-CORE, the current practical split is that surrounding-tool checks run directly in the shared devcontainer or via pre-commit, while deeper repository-native validation stays with the repository's main build or test flow and final enforcement stays in CI. For "dependable element" repositories that usually means Bazel, but other repositories may use different local execution paths.
 
 Where repositories use dependency lock files such as `uv.lock` or `MODULE.bazel.lock`, the practical local refresh step may still happen through `pre-commit`, but the lock state itself belongs to the repository's dependency model and is therefore described in [chapter 3](03-build-infrastructure.md#lock-files).
+
+TODO: rewrite this sub-chapter

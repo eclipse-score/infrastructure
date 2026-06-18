@@ -156,73 +156,152 @@
     line-height: 1.45;
 }
 
-.chapter-map-note {
-    margin: 0 0 1rem;
-    color: #5f5f5f;
-}
+/* ── Maturity table ────────────────────────────────────────────────────── */
 
-.chapter-map-note + .mermaid {
-    overflow-x: auto;
-    overflow-y: auto;
-    margin: 1rem 0 2rem;
-    padding: 1rem;
-    min-height: 34rem;
-    border: 1px solid rgba(45, 25, 66, 0.12);
-    border-radius: 14px;
-    background: linear-gradient(180deg, #fffefb, #f8f6f1);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
-}
-
-.chapter-map-note + .mermaid {
-    width: max-content;
-    min-width: 100%;
-}
-
-.chapter-map-note + .mermaid svg {
-    display: block;
-    max-width: none;
-}
-
-.chapter-map-note + .mermaid svg .chapter-map-node-chapter :is(.nodeLabel, .label, foreignObject, div, span, p, text, tspan) {
-    font-weight: 700 !important;
-    fill: #2d1942 !important;
-    color: #2d1942 !important;
-    letter-spacing: 0.01em !important;
-}
-
-.chapter-map-note + .mermaid svg .chapter-map-node-chapter :is(rect, circle, ellipse, polygon, path) {
-    stroke: rgba(45, 25, 66, 0.55) !important;
-    stroke-width: 3px !important;
-    filter: drop-shadow(0 3px 10px rgba(45, 25, 66, 0.16));
-}
-
-.chapter-map-note + .mermaid svg .chapter-map-node-section :is(.nodeLabel, .label, foreignObject, div, span, p, text, tspan) {
-    font-weight: 500 !important;
-    fill: rgba(45, 25, 66, 0.9) !important;
-    color: rgba(45, 25, 66, 0.9) !important;
-}
-
-.chapter-map-note + .mermaid svg .chapter-map-node-section :is(rect, circle, ellipse, polygon, path) {
-    stroke-width: 1.6px;
-    filter: drop-shadow(0 1px 3px rgba(45, 25, 66, 0.05));
-}
-
-.chapter-map-note + .mermaid svg [data-chapter-map-href] {
+/* ── Collapsible toggle: borderless CSS chevron, rotates on expand ─────── */
+.ch-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.45rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--score-accent-soft);
     cursor: pointer;
+    transition: color 150ms ease;
 }
 
-.chapter-map-note + .mermaid svg [data-chapter-map-href]:focus {
+.ch-toggle::before {
+    content: "";
+    display: block;
+    width: 0.38rem;
+    height: 0.38rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(-45deg) translate(1px, -1px);
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms ease;
+}
+
+.ch-toggle[aria-expanded="true"]::before {
+    transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.ch-toggle:hover,
+.ch-toggle:focus-visible {
+    color: var(--score-accent);
     outline: none;
 }
 
-.chapter-map-note + .mermaid svg [data-chapter-map-href] :is(rect, circle, ellipse, polygon, path) {
-    transition: stroke 160ms ease, stroke-width 160ms ease, filter 160ms ease;
+/* Chapter row: pointer cursor, centred flex in first cell */
+#chapter-map table tbody tr[data-chapter] {
+    cursor: pointer;
 }
 
-.chapter-map-note + .mermaid svg [data-chapter-map-href]:is(:hover, :focus-visible) :is(rect, circle, ellipse, polygon, path) {
-    stroke: var(--score-accent);
-    stroke-width: 2.5px;
-    filter: drop-shadow(0 0 6px rgba(124, 77, 170, 0.22));
+#chapter-map table tbody tr[data-chapter] td:first-child {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+/* Expanded sub-section rows: faint purple tint ties them to their chapter */
+#chapter-map table tbody tr.ch-open {
+    background: rgba(124, 77, 170, 0.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ch-toggle,
+    .ch-toggle::before { transition: none; }
+}
+
+#chapter-map table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+#chapter-map table thead tr {
+    border-bottom: 2px solid rgba(45, 25, 66, 0.15);
+}
+
+#chapter-map table thead th {
+    padding: 0.5rem 0.75rem;
+    color: var(--score-accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* All rows: left-bar colour lane */
+#chapter-map table tbody tr {
+    border-left: 3px solid transparent;
+    transition: background 120ms ease;
+}
+
+/* All cells: subtle bottom rule at td level (tr-level borders are unreliable in border-collapse) */
+#chapter-map table tbody tr td {
+    padding: 0.38rem 0.75rem;
+    vertical-align: top;
+    border-bottom: 1px solid rgba(45, 25, 66, 0.06);
+}
+
+/* Chapter rows: heavier weight, separator above — borders on td so collapse is deterministic */
+#chapter-map table tbody tr[data-chapter] {
+    background: rgba(45, 25, 66, 0.025);
+}
+
+#chapter-map table tbody tr[data-chapter] td {
+    border-top: 2px solid rgba(45, 25, 66, 0.10);
+    border-bottom: none;
+    padding-top: 0.55rem;
+    padding-bottom: 0.55rem;
+}
+
+#chapter-map table tbody tr[data-chapter] td:first-child {
+    font-weight: 600;
+}
+
+/* Section rows: indented to show hierarchy */
+#chapter-map table tbody tr:not([data-chapter]) td:first-child {
+    padding-left: 2.5rem;
+    color: rgba(45, 25, 66, 0.8);
+}
+
+/* Maturity column: centred, no-wrap, slightly larger emoji */
+#chapter-map table tbody tr td:nth-child(2) {
+    text-align: center;
+    white-space: nowrap;
+    font-size: 1.05rem;
+    width: 3.5rem;
+}
+
+/* Impact column: muted secondary text */
+#chapter-map table tbody tr td:nth-child(3) {
+    color: #4a4a5a;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+/* Left-bar colours by maturity — chapter rows only */
+#chapter-map table tbody tr[data-chapter][data-maturity="green"]  { border-left-color: #2e9e5b; }
+#chapter-map table tbody tr[data-chapter][data-maturity="yellow"] { border-left-color: #c9960a; }
+#chapter-map table tbody tr[data-chapter][data-maturity="orange"] { border-left-color: #d96c1a; }
+#chapter-map table tbody tr[data-chapter][data-maturity="red"]    { border-left-color: #c0332b; }
+#chapter-map table tbody tr[data-chapter][data-maturity="white"]  { border-left-color: rgba(45, 25, 66, 0.18); }
+
+/* Hover: very light tint matching the bar colour — chapter rows only */
+#chapter-map table tbody tr[data-chapter][data-maturity="green"]:hover  { background: rgba(46, 158, 91, 0.06); }
+#chapter-map table tbody tr[data-chapter][data-maturity="yellow"]:hover { background: rgba(201, 150, 10, 0.07); }
+#chapter-map table tbody tr[data-chapter][data-maturity="orange"]:hover { background: rgba(217, 108, 26, 0.07); }
+#chapter-map table tbody tr[data-chapter][data-maturity="red"]:hover    { background: rgba(192, 51, 43, 0.07); }
+#chapter-map table tbody tr[data-chapter][data-maturity="white"]:hover  { background: rgba(45, 25, 66, 0.04); }
+
+@media (prefers-reduced-motion: reduce) {
+    #chapter-map table tbody tr { transition: none; }
 }
 
 @media screen and (max-width: 900px) {

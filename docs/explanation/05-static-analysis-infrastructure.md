@@ -10,8 +10,6 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 This chapter has not been fully reviewed. Content may be incomplete or inaccurate.
 :::
 
-**S-CORE**
-
 - Static analysis complements testing by finding issues through code and configuration inspection instead of runtime verification.
 - This chapter defines the shared code-analysis capability: analyzer scope, baseline expectations, rule governance, and ownership boundaries across repositories.
 - Local execution and CI gating consume this capability in their own chapters rather than defining separate analyzer baselines.
@@ -24,48 +22,56 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 
 *Defining which static analysis tools are approved, recommended, or required for different S-CORE repository types and languages.*
 
-**S-CORE**
-
 - Code analysis in S-CORE includes linters, type/interface analyzers, style and import checks, and security-oriented analyzers where appropriate.
 - Tool choice is currently influenced by language ecosystems, repository classes, and existing engineering practice.
 - **Biggest gap**: no explicit cross-repository baseline defines which analyzers are expected by default for C++, Rust, Python, and workflow or documentation assets.
 
-### 5.1.1 Tool Selection Criteria
+### 5.1.1 C++ ⚪
 
-*Choosing analyzers that fit S-CORE repository needs and can be maintained at scale.*
+*Static analysis tooling for C++ repositories.*
 
-**S-CORE**
+C++ has the most developed policy infrastructure in S-CORE today. The `score_cpp_policies` module provides a reusable Bazel-integrated rule baseline covering compiler warnings, clang-tidy checks, and formatting expectations. Because policy is decoupled from the toolchain, repositories can adopt updated rule baselines independently of compiler version upgrades. The security-oriented analysis layer for C++ is covered by CodeQL, described in [section 5.4.1](#sast).
 
-- Tooling decisions should favor analyzers that can be shared across repositories, versioned centrally, and consumed consistently by local and automated execution environments.
-- Shared tools should produce machine-readable results where possible so reporting and policy gates can consume them consistently.
-- **Biggest gap**: selection criteria are implicit and repository-specific instead of centrally documented and reviewable.
+**Biggest gap**: the `score_cpp_policies` baseline and its expected adoption scope are not yet documented in a shared, accessible form. Deviation from the baseline is not governed.
 
-### 5.1.2 Repository and Language Baselines
+### 5.1.2 Rust ⚪
 
-*Establishing default analyzer sets for major repository classes and implementation languages.*
+*Static analysis tooling for Rust repositories.*
 
-**S-CORE**
+Rust has native linting via Clippy and formatting via rustfmt, both of which integrate naturally with `rules_rust` in a Bazel build. The `score_rust_policies` module packages shared Clippy and rustfmt configuration as a reusable Bazel module, following the same separation of policy from toolchain used by the C++ path. In practice, Clippy is already used in several Rust repositories but the shared policy baseline is not uniformly adopted.
 
-- Different repository types need different analyzer sets, but the expected baseline should still be centrally defined.
-- Repository-specific additions are valid when justified by language, framework, or safety needs.
-- **Biggest gap**: baseline analyzer bundles and ownership of deviations are not yet described in one shared place.
+**Biggest gap**: Clippy and rustfmt configuration exists in individual repositories, but the shared `score_rust_policies` baseline and its required adoption scope are not yet clearly defined or enforced.
 
-### 5.1.3 Non-Code Asset Analysis
+### 5.1.3 Python ⚪
 
-*Applying analyzers to workflows, documentation, configuration, and other repository assets beyond source code.*
+*Static analysis tooling for Python repositories.*
 
-**S-CORE**
+Python analysis in S-CORE is less standardized than C++ or Rust. Ruff covers linting and formatting in a single fast tool, while mypy or pyright can provide type checking where type annotations are present. Pre-commit integration already runs some checks in development environments, but CI-enforced shared baselines for Python are not in place.
 
-- Repository quality and security depend on more than product code; workflow files, configuration, and documentation assets also need automated inspection.
-- **Biggest gap**: the analyzer baseline for non-code repository assets is even less defined than the baseline for implementation languages.
+**Biggest gap**: no shared Bazel-integrated or CI-enforced Python analyzer baseline exists across S-CORE repositories.
+
+### 5.1.4 Workflow and Configuration Assets ⚪
+
+*Applying analysis to GitHub Actions workflows and YAML configuration.*
+
+GitHub Actions workflow files, YAML configuration, and Bazel `BUILD` files benefit from automated inspection independently of product code. Tools such as actionlint (for workflow files) and yamllint cover the most impactful targets here. Pre-commit runs some of these locally, but CI enforcement for workflow and configuration analysis is not yet a defined part of the S-CORE baseline.
+
+**Biggest gap**: no shared CI-enforced baseline for workflow and configuration asset analysis exists across S-CORE repositories.
+
+### 5.1.5 Documentation Assets ⚪
+
+*Applying analysis to documentation sources such as reStructuredText, Markdown, and prose.*
+
+Documentation repositories and repositories with significant prose content benefit from automated checks for broken links, spelling, and markup validity. Tools such as sphinx-lint, vale, or codespell can be integrated into pre-commit and CI. Currently there is no shared baseline for documentation analysis across S-CORE.
+
+**Biggest gap**: documentation asset analysis is not defined or enforced as part of the shared S-CORE static analysis standard.
+
 
 ---
 
 ## 5.2 Shared Rule Configuration ⚪
 
 *Managing analyzer rules, severities, suppressions, and versioning as shared infrastructure instead of ad-hoc repository detail.*
-
-**S-CORE**
 
 - Shared rule configurations are an important part of repository standards and should be versioned like other infrastructure policy artifacts.
 - Repository overrides should be explicit, limited, and explainable rather than silent drift from the shared baseline.
@@ -76,8 +82,6 @@ In the current S-CORE repository landscape, these shared rules are increasingly 
 
 *Defining centrally maintained defaults for analyzer configuration.*
 
-**S-CORE**
-
 - Central baselines should define default enabled checks, severity handling, and common exclusions.
 - Baselines should be reusable in templates, synchronized configuration, or shared workflow inputs.
 - **Biggest gap**: there is no visible authoritative baseline for static-analysis rules across S-CORE repositories.
@@ -85,8 +89,6 @@ In the current S-CORE repository landscape, these shared rules are increasingly 
 ### 5.2.2 Overrides and Suppressions
 
 *Allowing repository-specific exceptions without losing visibility or governance.*
-
-**S-CORE**
 
 - Overrides and suppressions are sometimes necessary for migration, generated code, third-party constraints, or language-specific false positives.
 - Exceptions should be narrow, reviewable, and traceable so that debt can be reduced over time.
@@ -98,8 +100,6 @@ In the current S-CORE repository landscape, these shared rules are increasingly 
 
 *Defining where and how the shared static-analysis capability should be executed across the engineering flow.*
 
-**S-CORE**
-
 - Static analysis should be executable in multiple contexts, especially local development and CI, without redefining analyzer baselines per context.
 - Different execution contexts can use different subsets or frequencies, but they should all derive from the same shared rules and ownership model.
 - **Biggest gap**: there is no documented execution model that cleanly separates shared analyzer policy from local and CI-specific delivery.
@@ -107,8 +107,6 @@ In the current S-CORE repository landscape, these shared rules are increasingly 
 ### 5.3.1 Local Execution Expectations
 
 *Defining what static analysis should provide before code reaches CI.*
-
-**S-CORE**
 
 - Contributors should be able to run the shared analyzer baseline early enough to catch common issues before opening or updating a pull request.
 - Local execution should favor fast feedback and alignment with the centrally defined ruleset, while the delivery details for shared environments, editor usage, and pre-commit belong in [chapter 2](02-developer-environment.md).
@@ -118,8 +116,6 @@ In the current S-CORE repository landscape, these shared rules are increasingly 
 
 *Defining what CI should enforce from the shared static-analysis capability.*
 
-**S-CORE**
-
 - CI should execute the agreed shared analyzer baseline in a consistent, review-visible way and use its outcomes for merge decisions where appropriate.
 - The workflow, reporting, and branch-protection mechanics belong in [chapter 7](07-automation-integration.md), not in the code-analysis capability definition itself.
 - **Biggest gap**: CI enforcement expectations are not yet clearly separated from workflow implementation details.
@@ -127,8 +123,6 @@ In the current S-CORE repository landscape, these shared rules are increasingly 
 ### 5.3.3 Incremental Adoption
 
 *Rolling out stronger analyzer baselines without blocking repository progress all at once.*
-
-**S-CORE**
 
 - A shared analysis strategy should support migration from weak or inconsistent baselines toward stronger common enforcement.
 - **Biggest gap**: there is no documented rollout model for moving repositories from optional analysis toward required shared baselines.
@@ -139,8 +133,6 @@ In the current S-CORE repository landscape, these shared rules are increasingly 
 
 *Clarifying how code analysis relates to security-oriented scanning of source and repository configuration.*
 
-**S-CORE**
-
 - Code analysis includes both general code-quality checks and security-relevant inspection of source and repository configuration.
 - This chapter is the canonical home for shared tooling, rule configuration, and execution boundaries that are common across analyzer types.
 - **Biggest gap**: the boundary between quality-oriented analyzers and security scanning is not yet described clearly enough to avoid duplication and ownership gaps.
@@ -148,8 +140,6 @@ In the current S-CORE repository landscape, these shared rules are increasingly 
 ### 5.4.1 SAST 🟠
 
 *Static application security testing for S-CORE code and configuration.*
-
-**S-CORE**
 
 SAST tools analyze source code for security vulnerabilities without executing it. For S-CORE, CodeQL is the primary SAST tool because it integrates natively with GitHub through code scanning alerts, supports C/C++ and Python analysis relevant to the S-CORE language landscape, and can run as a standard GitHub Actions workflow. The infrastructure question is not whether CodeQL works — it does — but how it is configured consistently: which query suites are enabled, what severity thresholds gate a merge, and how results are surfaced to maintainers.
 
@@ -161,16 +151,12 @@ A useful SAST configuration has three layers. The query suite defines which vuln
 
 *Detecting secrets inadvertently committed to S-CORE repositories.*
 
-**S-CORE**
-
 - GitHub secret scanning detects common credential patterns in repository history and ongoing changes.
 - **Biggest gap**: custom secret patterns and push-protection configuration are not uniformly enabled.
 
 ### 5.4.3 Repository Configuration Security
 
 *Inspecting workflows and repository configuration for risky patterns before they become incidents.*
-
-**S-CORE**
 
 - Infrastructure repositories depend heavily on workflow configuration, permissions, and automation wiring, so configuration-level analysis is a meaningful part of code-analysis security scanning.
 - **Biggest gap**: configuration-oriented security analysis is not yet described as part of a shared S-CORE baseline.
@@ -181,8 +167,6 @@ A useful SAST configuration has three layers. The query suite defines which vuln
 
 *Managing findings, conformance visibility, and analyzer evolution across repositories.*
 
-**S-CORE**
-
 - Code-analysis infrastructure should provide visibility into adoption, drift, and findings without forcing every repository to invent its own process.
 - Governance includes rule changes, false-positive handling, technical-debt baselines, and measurement of conformance to shared expectations.
 - **Biggest gap**: no cross-repository reporting and governance loop currently shows which repositories run which analyzers, with what deviations and outcomes.
@@ -191,16 +175,12 @@ A useful SAST configuration has three layers. The query suite defines which vuln
 
 *Handling existing findings and noisy rules in a controlled way.*
 
-**S-CORE**
-
 - Migration to stronger analyzers often needs temporary baselines or approved suppressions so repositories can improve incrementally.
 - **Biggest gap**: there is no shared approach for introducing analyzers into repositories with existing finding backlogs.
 
 ### 5.5.2 Cross-Repository Visibility
 
 *Measuring adoption and conformance of static-analysis standards across S-CORE.*
-
-**S-CORE**
 
 - Cross-repository reporting should show baseline adoption, exceptions, and required-check coverage, not just individual CI job output.
 - **Biggest gap**: no common dashboard or conformance report currently summarizes static-analysis coverage across S-CORE.

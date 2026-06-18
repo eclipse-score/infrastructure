@@ -37,9 +37,9 @@ bazel run //:ide_support    # create .venv_docs for IDE integration
 A contribution is not complete until `bazel run //:docs` passes cleanly.
 
 The numbered chapter files under `docs/explanation/` drive the generated
-chapter-map section in `docs/explanation/index.md`. That section is refreshed
+chapter table in `docs/explanation/index.md`. That section is refreshed
 automatically by pre-commit whenever the chapter heading structure changes. If
-you are not using pre-commit, run `python3 scripts/generate_mindmap.py` manually
+you are not using pre-commit, run `python3 scripts/generate_chapter_table.py` manually
 before committing.
 
 If you use pre-commit locally, install the hooks once with:
