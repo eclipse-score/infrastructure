@@ -67,6 +67,11 @@ Architecture, design rationale, and maturity assessment of each S-CORE infrastru
 | ↳ [10.2 Infrastructure Monitoring](10-infrastructure-operations.md#infrastructure-monitoring) | ⚪ | Without shared monitoring, systemic problems are detected later and resolved slower. |
 | ↳ [10.3 Infrastructure Maintenance](10-infrastructure-operations.md#infrastructure-maintenance) | ⚪ | Maintenance is not planned consistently, increasing technical debt and surprise work. |
 | ↳ [10.4 Infrastructure Governance](10-infrastructure-operations.md#infrastructure-governance) | ⚪ | Missing governance structure makes cross-repository decisions slower and less predictable. |
+| **[11 Reference Integration](11-reference-integration.md)** | 🟡 | The integration contract is defined, but the workspace, evidence plumbing, and orchestration details are still maturing. |
+| ↳ [11.1 Integration Workspace](11-reference-integration.md#integration-workspace) | 🟡 | The shared workspace makes cross-repository problems visible, but setup and update mechanics remain more involved than they should be. |
+| ↳ [11.2 Known-Good Promotion](11-reference-integration.md#known-good-promotion) | 🟡 | One explicit snapshot is the right integration unit, and the promotion workflow now has a settled model. |
+| ↳ [11.3 Integrated Evidence](11-reference-integration.md#integrated-evidence) | 🟠 | Evidence can be consolidated around one snapshot, but the schema and publishing model are still fragmented. |
+| ↳ [11.4 Selected Operating Model](11-reference-integration.md#selected-operating-model) | 🟡 | DR-008 Option 4 is selected, but the supporting automation still needs hardening. |
 
 <!-- END GENERATED CHAPTER MAP -->
 
@@ -84,5 +89,6 @@ Architecture, design rationale, and maturity assessment of each S-CORE infrastru
 08-artifact-distribution
 09-documentation-infrastructure
 10-infrastructure-operations
+11-reference-integration
 decisions
 :::
