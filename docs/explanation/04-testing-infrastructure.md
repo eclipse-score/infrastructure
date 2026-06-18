@@ -162,7 +162,7 @@ graph LR
 
 ITF is structured across three Bazel modules. `score_itf` is the open-source core (plugin contract, Bazel rules, pytest integration). Private or proprietary plugins live in separate repositories (e.g. `vsps_itf_plugins` for ETAS-internal targets) and are consumed via `git_override` or `archive_override` in the test consumer's `MODULE.bazel`. This separation means the open-source core can evolve independently from private plugin implementations.
 
-For traceability, the attribute plugin provides an `@add_test_properties` decorator that writes metadata such as `fully_verifies`, `test_type`, and `derivation_technique` into JUnit XML output. This connects ITF test results to the traceability model described in [section 4.2](#test-traceability).
+For traceability, the attribute plugin provides an `@add_test_properties` decorator that writes metadata such as `fully_verifies`, `test_type`, and `derivation_technique` into JUnit XML output. This connects ITF test results to the traceability model described in [section 4.2](#test-execution-dynamic-analysis).
 
 **Biggest gap**: the ITF plugin model and capability system are established, but onboarding guidance for module teams adopting ITF is still thin. The Bazel-side integration for passing traceability metadata from build targets into the attribute plugin is not yet streamlined.
 

@@ -16,58 +16,57 @@ Architecture, design rationale, and maturity assessment of each S-CORE infrastru
 
 | Capability | Maturity | Impact |
 |---|---|---|
-| **[1 Source Code Infrastructure](01-source-code-infrastructure.md)** | 🟠 | Enforcement is missing — standards drift across repos and the current state is invisible until it causes a problem. |
-| ↳ [1.1 Hosting & Organization](01-source-code-infrastructure.md#hosting-organization) | 🟡 | Not implemented — no documented org structure or naming conventions; repository ownership and boundaries are implicit. |
-| ↳ [1.2 Repository Provisioning & Lifecycle](01-source-code-infrastructure.md#repository-provisioning-lifecycle) | 🟡 | Repos are set up manually with no standard template — required configurations are often missing and onboarding overhead varies per repo. |
-| ↳ [1.3 Repository Policy Management](01-source-code-infrastructure.md#repository-policy-management) | 🔴 | Each repo sets its own rules — branch protection varies, merge queues are absent, and there is no shared enforcement baseline. Inconsistent merge practices slow down reviews and make the landscape hard to govern. |
-| ↳ [1.4 Repository Standards](01-source-code-infrastructure.md#repository-standards) | 🟠 | Standards exist on paper but are not enforced — repos drift over time and the extent of non-compliance is not visible. |
-| **[2 Developer Environment](02-developer-environment.md)** | 🟡 | Environment works for common cases but gaps mean some contributors hit setup friction that others don't. |
-| ↳ [2.1 Central Devcontainer](02-developer-environment.md#central-devcontainer) | 🟡 | Devcontainer exists but has known problems — tooling gaps or reliability issues push contributors to work around it rather than through it. |
-| ↳ [2.2 Local Auxiliary Tooling](02-developer-environment.md#local-auxiliary-tooling) | 🟡 | Some local tooling is available but setup varies per machine — contributors may get different results depending on their environment. |
-| **[3 Build & Dependencies](03-build-infrastructure.md)** | 🟠 | Not implemented — no shared build baseline or dependency model exists yet across the project. |
-| ↳ [3.1 Build System](03-build-infrastructure.md#build-system) | 🟢 | Not implemented — Bazel is used in individual repos but no shared build conventions or rule libraries are established. |
-| ↳ [3.2 Dependency Management](03-build-infrastructure.md#dependency-management) | 🟡 | Not implemented — no shared dependency policy; each repo resolves third-party and internal dependencies independently. |
-| ↳ [3.3 Toolchain Management](03-build-infrastructure.md#toolchain-management) | 🟠 | Not implemented — no shared toolchain modules; compiler and language runtime versions are not coordinated across repos. |
-| ↳ [3.4 Build Reproducibility & Evidence](03-build-infrastructure.md#build-reproducibility-evidence) | 🔴 | Not implemented — no reproducibility guarantees or build evidence collected; builds cannot be audited or replayed reliably. |
-| ↳ [3.5 Build Execution Infrastructure](03-build-infrastructure.md#build-execution-infrastructure) | 🔴 | Not implemented — no remote execution or shared caching infrastructure; every build is local and slow. |
-| **[4 Testing](04-testing-infrastructure.md)** | 🟠 | Test infrastructure is in place but has rough edges — confidence in results is limited by gaps in coverage, flakiness, or incomplete reporting. |
-| ↳ [4.1 Test Framework Integration](04-testing-infrastructure.md#test-framework-integration) | 🟡 | Frameworks are integrated but configuration is inconsistent across repos — some tests are missing or poorly structured, reducing coverage confidence. |
-| ↳ [4.2 Test Execution & Dynamic Analysis](04-testing-infrastructure.md#test-execution-dynamic-analysis) | 🟠 | Traceability links exist but are incomplete — not all tests are linked to requirements, making it hard to assess verification coverage. |
-| ↳ [4.4 Test Reporting](04-testing-infrastructure.md#test-reporting) | 🟠 | Reports are produced but not consistently actionable — aggregating results or tracking failures across repos requires manual effort. |
-| **[5 Code Analysis Infrastructure](05-static-analysis-infrastructure.md)** | ⚪ | Not implemented — no shared linting, formatting, or static analysis baseline exists across repos. |
-| ↳ [5.1 Tooling Baseline](05-static-analysis-infrastructure.md#tooling-baseline) | ⚪ | Not implemented — no shared set of analysis tools; each repo chooses its own or skips analysis entirely. |
-| ↳ [5.2 Shared Rule Configuration](05-static-analysis-infrastructure.md#shared-rule-configuration) | ⚪ | Not implemented — no shared lint or policy modules; rule configuration is duplicated or absent across repos. |
-| ↳ [5.3 Execution Model](05-static-analysis-infrastructure.md#execution-model) | ⚪ | Not implemented — no consistent way to run analysis in CI; results are not collected or comparable across repos. |
-| ↳ [5.4 Security Scanning](05-static-analysis-infrastructure.md#security-scanning) | 🟠 | Scanning runs but results are not systematically reviewed or tracked — findings can go unaddressed without a clear triage or ownership process. |
-| ↳ [5.5 Results and Governance](05-static-analysis-infrastructure.md#results-and-governance) | ⚪ | Not implemented — no aggregated view of analysis results; violations accumulate silently with no ownership or escalation path. |
-| **[6 Compliance & Dependency Analysis](06-compliance-infrastructure.md)** | ⚪ | Not implemented — no automated license or dependency compliance checks; open-source obligations are unverified. |
-| ↳ [6.1 File-Level Licensing](06-compliance-infrastructure.md#file-level-licensing) | ⚪ | Not implemented — no automated SPDX header checks; license coverage across files is unknown. |
-| ↳ [6.2 Dependency Analysis](06-compliance-infrastructure.md#dependency-analysis) | ⚪ | Not implemented — no automated inventory of third-party dependencies; transitive licenses are not tracked. |
-| ↳ [6.3 SBOM Scoping and Compliance Evidence](06-compliance-infrastructure.md#sbom-scoping-and-compliance-evidence) | ⚪ | Not implemented — no SBOM generated; cannot demonstrate compliance to consumers or auditors. |
-| ↳ [6.4 License Checks and Compliance](06-compliance-infrastructure.md#license-checks-and-compliance) | ⚪ | Not implemented — no automated license compatibility checks; incompatible licenses could ship undetected. |
-| ↳ [6.5 Monitoring and Governance](06-compliance-infrastructure.md#monitoring-and-governance) | ⚪ | Not implemented — no ongoing monitoring for new compliance violations introduced by dependency updates. |
-| **[7 Automation Infrastructure & Continuous Integration (CI)](07-automation-integration.md)** | ⚪ | Not implemented — no shared CI baseline; each repo builds its own workflows from scratch with no reuse or coordination. |
-| ↳ [7.1 Runners](07-automation-integration.md#runners) | 🟠 | Runners are operational but have known capacity or reliability issues — CI wait times are unpredictable and outages affect all repos simultaneously. |
-| ↳ [7.2 Reusable Workflows](07-automation-integration.md#reusable-workflows) | ⚪ | Not implemented — no shared workflow library; CI logic is copy-pasted across repos and drifts independently. |
-| ↳ [7.3 Cross-Repository Integration](07-automation-integration.md#cross-repository-integration) | ⚪ | Not implemented — no automated integration across repos; breaking changes in one repo are not caught until consumers update manually. |
-| ↳ [7.4 Secrets Management](07-automation-integration.md#secrets-management) | ⚪ | Not implemented — no centralized secrets management; credentials are distributed inconsistently and rotation is manual. |
-| ↳ [7.5 CI Observability](07-automation-integration.md#ci-observability) | ⚪ | Not implemented — no aggregated view of CI health; flakiness, duration trends, and failure patterns are invisible at the project level. |
-| **[8 Release & Distribution](08-artifact-distribution.md)** | ⚪ | Not implemented — no automated release pipeline; publishing is manual, inconsistent, and not reliably reproducible. |
-| ↳ [8.1 Deliverable Types](08-artifact-distribution.md#deliverable-types) | ⚪ | Not implemented — no agreed definition of what constitutes a release artifact per repo type. |
-| ↳ [8.2 Distribution Channels](08-artifact-distribution.md#distribution-channels) | ⚪ | Not implemented — no standardized publishing targets; consumers have no reliable place to find released artifacts. |
-| ↳ [8.3 Release Metadata](08-artifact-distribution.md#release-metadata) | ⚪ | Not implemented — no consistent versioning or changelog generation; consumers cannot determine what changed between releases. |
-| ↳ [8.4 Consumer Access](08-artifact-distribution.md#consumer-access) | ⚪ | Not implemented — no documented or automated path for consumers to adopt a new release. |
-| ↳ [8.5 Post-Release Communication & Response](08-artifact-distribution.md#post-release-communication-response) | ⚪ | Not implemented — no process for announcing releases or responding to post-release issues reported by consumers. |
-| **[9 Documentation & Traceability](09-documentation-infrastructure.md)** | 🟠 | Documentation tooling is deployed but inconsistently adopted — the published landscape is incomplete and some repos are effectively undocumented. |
-| ↳ [9.1 Authoring & Tooling](09-documentation-infrastructure.md#authoring-tooling) | 🟡 | Tooling works but adoption is uneven — some repos use older versions or skip the shared stack, producing an inconsistent documentation experience. |
-| ↳ [9.2 Build, Validation & Publishing](09-documentation-infrastructure.md#build-validation-publishing) | 🟡 | Build and publish pipeline is partially automated but validation is incomplete — broken links or missing content can reach the published site. |
-| ↳ [9.3 Cross-Repository Documentation Integration](09-documentation-infrastructure.md#cross-repository-documentation-integration) | 🔴 | No mechanism pulls documentation from module repos into the main site — contributors must navigate multiple separate locations to get a complete picture. |
-| ↳ [9.4 Engineering Documentation & Traceability](09-documentation-infrastructure.md#engineering-documentation-traceability) | 🟠 | Traceability tooling is deployed but coverage is incomplete — requirement-to-test links are missing across large parts of the codebase. |
-| **[10 Infrastructure Operations](10-infrastructure-operations.md)** | ⚪ | Not implemented — no documented ownership, runbooks, or operational processes for the shared infrastructure. |
-| ↳ [10.1 CI Runner Operations](10-infrastructure-operations.md#ci-runner-operations) | ⚪ | Not implemented — no runbooks or on-call process for runner outages; recovery is ad hoc. |
-| ↳ [10.2 Infrastructure Monitoring](10-infrastructure-operations.md#infrastructure-monitoring) | ⚪ | Not implemented — no monitoring or alerting on infrastructure health; failures are noticed only when contributors report CI problems. |
-| ↳ [10.3 Infrastructure Maintenance](10-infrastructure-operations.md#infrastructure-maintenance) | ⚪ | Not implemented — no scheduled maintenance cadence; updates and security patches are applied reactively. |
-| ↳ [10.4 Infrastructure Governance](10-infrastructure-operations.md#infrastructure-governance) | ⚪ | Not implemented — no defined ownership model or decision process for infrastructure changes affecting all repos. |
+| **[1 Source Code Infrastructure](01-source-code-infrastructure.md)** | 🟠 | Teams can deliver, but inconsistent standards create avoidable delays and make portfolio oversight harder. |
+| ↳ [1.1 Hosting & Organization](01-source-code-infrastructure.md#hosting-organization) | 🟡 | Repositories are harder to find and understand, which slows onboarding and cross-team collaboration. |
+| ↳ [1.2 Repository Provisioning & Lifecycle](01-source-code-infrastructure.md#repository-provisioning-lifecycle) | 🟡 | Ownership is unclear for create/archive/delete decisions, increasing governance and audit risk. |
+| ↳ [1.3 Repository Policy Management](01-source-code-infrastructure.md#repository-policy-management) | 🔴 | Different repositories follow different protection levels, increasing security exposure and review overhead. |
+| ↳ [1.4 Repository Standards](01-source-code-infrastructure.md#repository-standards) | 🟠 | Without measurable conformance, standards are hard to enforce and improvement progress is hard to track. |
+| **[2 Developer Environment](02-developer-environment.md)** | 🟡 | Most contributors can work effectively, but setup differences still reduce productivity and predictability. |
+| ↳ [2.1 Central Devcontainer](02-developer-environment.md#central-devcontainer) | 🟡 | The shared environment helps onboarding, but uneven adoption means teams still lose time on local fixes. |
+| ↳ [2.2 Local Auxiliary Tooling](02-developer-environment.md#local-auxiliary-tooling) | 🟡 | Inconsistent local checks create rework when code moves from laptop to CI. |
+| **[3 Build & Dependencies](03-build-infrastructure.md)** | 🟠 | Build capabilities are strong, but missing shared policies increase delivery risk and coordination cost. |
+| ↳ [3.1 Build System](03-build-infrastructure.md#build-system) | 🟢 | A common build foundation reduces integration friction and supports predictable delivery. |
+| ↳ [3.2 Dependency Management](03-build-infrastructure.md#dependency-management) | 🟡 | Inconsistent dependency decisions raise maintenance effort and can introduce compliance surprises late. |
+| ↳ [3.3 Toolchain Management](03-build-infrastructure.md#toolchain-management) | 🟠 | Progress exists, but uneven rollout means teams do not get the same reliability or support level. |
+| ↳ [3.4 Build Reproducibility & Evidence](03-build-infrastructure.md#build-reproducibility-evidence) | 🔴 | Missing reproducibility evidence limits confidence in releases and weakens audit readiness. |
+| ↳ [3.5 Build Execution Infrastructure](03-build-infrastructure.md#build-execution-infrastructure) | 🔴 | No shared scale-out build infrastructure means slower pipelines and longer feedback loops. |
+| **[4 Testing](04-testing-infrastructure.md)** | 🟠 | Good testing exists, but fragmentation limits leadership visibility into overall product quality. |
+| ↳ [4.1 Test Framework Integration](04-testing-infrastructure.md#test-framework-integration) | 🟡 | Teams use similar tools, but inconsistency still causes duplicated effort and uneven test quality. |
+| ↳ [4.2 Test Execution & Dynamic Analysis](04-testing-infrastructure.md#test-execution-dynamic-analysis) | 🟠 | Advanced test practices are not consistently adopted, leaving quality risk concentrated in some areas. |
+| ↳ [4.4 Test Reporting](04-testing-infrastructure.md#test-reporting) | 🟠 | Reporting is scattered, making it hard to get one management view of risk and trend direction. |
+| **[5 Code Analysis Infrastructure](05-static-analysis-infrastructure.md)** | 🔴 | Quality controls are not standardized, so risk detection depends too much on individual repositories. |
+| ↳ [5.1 Tooling Baseline](05-static-analysis-infrastructure.md#tooling-baseline) | 🔴 | No shared baseline means coverage gaps and inconsistent quality expectations across teams. |
+| ↳ [5.2 Shared Rule Configuration](05-static-analysis-infrastructure.md#shared-rule-configuration) | 🔴 | Without common rules, results are harder to compare and governance decisions are slower. |
+| ↳ [5.3 Incremental Adoption](05-static-analysis-infrastructure.md#incremental-adoption) | 🔴 | No rollout path means improvements are harder to scale across the portfolio. |
+| ↳ [5.4 Security Scanning](05-static-analysis-infrastructure.md#security-scanning) | 🟠 | Security checks exist, but inconsistent gates can let important findings slip through. |
+| **[6 Compliance & Dependency Analysis](06-compliance-infrastructure.md)** | 🔴 | Compliance is not yet reliable end to end, creating audit and release-readiness risk. |
+| ↳ [6.1 File-Level Licensing](06-compliance-infrastructure.md#file-level-licensing) | 🔴 | License labeling is incomplete, increasing legal-review effort and uncertainty. |
+| ↳ [6.2 Dependency Analysis](06-compliance-infrastructure.md#dependency-analysis) | 🔴 | Dependency visibility is partial, so teams may discover compliance issues too late. |
+| ↳ [6.3 SBOM Scoping and Compliance Evidence](06-compliance-infrastructure.md#sbom-scoping-and-compliance-evidence) | 🔴 | Unclear scope rules make compliance outputs hard to trust and hard to compare. |
+| ↳ [6.4 License Checks and Compliance](06-compliance-infrastructure.md#license-checks-and-compliance) | 🔴 | No shared license decision baseline increases release risk and slows approvals. |
+| ↳ [6.5 Monitoring and Governance](06-compliance-infrastructure.md#monitoring-and-governance) | 🔴 | Ongoing compliance health is not actively managed, so issues can remain hidden longer. |
+| **[7 Automation Infrastructure & Continuous Integration (CI)](07-automation-integration.md)** | 🔴 | Automation is improving, but inconsistent workflow coverage still creates uneven delivery performance. |
+| ↳ [7.1 Runners](07-automation-integration.md#runners) | 🟠 | Capacity and reliability limits on runners continue to delay critical feedback. |
+| ↳ [7.2 Reusable Workflows](07-automation-integration.md#reusable-workflows) | 🔴 | Reuse is incomplete, so teams still duplicate CI logic and carry higher maintenance cost. |
+| ↳ [7.3 Cross-Repository Integration](07-automation-integration.md#cross-repository-integration) | 🔴 | Cross-repository breakages can be detected too late, increasing integration and release risk. |
+| ↳ [7.4 Secrets Management](07-automation-integration.md#secrets-management) | 🔴 | Secret handling is not uniformly governed, increasing security and compliance exposure. |
+| ↳ [7.5 CI Observability](07-automation-integration.md#ci-observability) | 🔴 | Leadership lacks a single CI health view, making prioritization and investment decisions harder. |
+| **[8 Release & Distribution](08-artifact-distribution.md)** | 🟠 | Release practices exist, but inconsistent patterns reduce speed, clarity, and consumer confidence. |
+| ↳ [8.1 Deliverable Types](08-artifact-distribution.md#deliverable-types) | 🟠 | No common release package model makes planning and consumer communication harder. |
+| ↳ [8.2 Distribution Channels](08-artifact-distribution.md#distribution-channels) | 🟠 | Channel strategy is unclear, so consumers face inconsistent access across deliverables. |
+| ↳ [8.3 Release Metadata](08-artifact-distribution.md#release-metadata) | 🟠 | Inconsistent metadata reduces transparency about what changed and how safe it is to adopt. |
+| ↳ [8.4 Consumer Access](08-artifact-distribution.md#consumer-access) | ⚪ | Consumer adoption paths are not clearly defined, slowing uptake and support. |
+| ↳ [8.5 Post-Release Communication & Response](08-artifact-distribution.md#post-release-communication-response) | ⚪ | No shared advisory model means slower, less consistent communication when issues arise. |
+| **[9 Documentation & Traceability](09-documentation-infrastructure.md)** | 🟠 | Documentation is improving, but fragmentation limits trust and decision support at program level. |
+| ↳ [9.1 Authoring & Tooling](09-documentation-infrastructure.md#authoring-tooling) | 🟡 | Different authoring setups increase maintenance effort and dilute documentation quality. |
+| ↳ [9.2 Build, Validation & Publishing](09-documentation-infrastructure.md#build-validation-publishing) | 🟡 | Publishing works, but inconsistent validation can let quality issues reach stakeholders. |
+| ↳ [9.3 Cross-Repository Documentation Integration](09-documentation-infrastructure.md#cross-repository-documentation-integration) | 🔴 | No integrated navigation makes it difficult to understand the full system picture quickly. |
+| ↳ [9.4 Engineering Documentation & Traceability](09-documentation-infrastructure.md#engineering-documentation-traceability) | 🟠 | Traceability exists in parts, but not yet enough for consistent impact and change analysis at scale. |
+| **[10 Infrastructure Operations](10-infrastructure-operations.md)** | ⚪ | Operations are mostly reactive, increasing outage risk and recovery uncertainty. |
+| ↳ [10.1 CI Runner Operations](10-infrastructure-operations.md#ci-runner-operations) | ⚪ | Limited operational ownership and transparency increase service continuity risk. |
+| ↳ [10.2 Infrastructure Monitoring](10-infrastructure-operations.md#infrastructure-monitoring) | ⚪ | Without shared monitoring, systemic problems are detected later and resolved slower. |
+| ↳ [10.3 Infrastructure Maintenance](10-infrastructure-operations.md#infrastructure-maintenance) | ⚪ | Maintenance is not planned consistently, increasing technical debt and surprise work. |
+| ↳ [10.4 Infrastructure Governance](10-infrastructure-operations.md#infrastructure-governance) | ⚪ | Missing governance structure makes cross-repository decisions slower and less predictable. |
 
 <!-- END GENERATED CHAPTER MAP -->
 

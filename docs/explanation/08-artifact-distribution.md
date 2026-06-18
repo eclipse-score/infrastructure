@@ -1,4 +1,4 @@
-# 8 Release & Distribution ⚪
+# 8 Release & Distribution 🟠
 
 :::{tip} Looking for practical guides?
 This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [How-to Guides](../how-to/index.md).
@@ -9,8 +9,6 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 :::{warning} Draft
 This chapter has not been fully reviewed. Content may be incomplete or inaccurate.
 :::
-
-**S-CORE**
 
 - GitHub Releases is the primary mechanism for publishing archive-style S-CORE deliverables, while Bazel modules are published through the shared registry at [eclipse-score/bazel_registry](https://github.com/eclipse-score/bazel_registry/).
 - S-CORE delivery can include source releases, prebuilt artifacts, container images, and associated release metadata.
@@ -35,72 +33,58 @@ graph LR
     registry -->|"resolved via .bazelrc"| consumer
 ```
 
-## 8.1 Deliverable Types ⚪
+## 8.1 Deliverable Types 🟠
 
 *Infrastructure defining which kinds of release deliverables S-CORE can publish and support.*
-
-**S-CORE**
 
 - S-CORE repositories may need to publish different deliverable types depending on consumer needs, including source archives, prebuilt packages, and container images.
 - The infrastructure should support describing, versioning, and publishing these deliverables consistently across repositories.
 - **Biggest gap**: no shared capability model defines which deliverable types exist in S-CORE, how they differ, or what infrastructure each type requires.
 
-### 8.1.1 Source Deliverables
+### 8.1.1 Source Deliverables 🟡
 
 *Delivery of source-based release artifacts intended for downstream build or inspection.*
-
-**S-CORE**
 
 - Source delivery can include tagged source archives and related release metadata published from version control.
 - GitHub Releases can act as a distribution point for source-based deliverables.
 - **Biggest gap**: no shared definition exists for which source deliverables are expected, how complete they must be, or which metadata must always accompany them.
 
-### 8.1.2 Prebuilt Deliverables
+### 8.1.2 Prebuilt Deliverables 🟠
 
 *Delivery of compiled or otherwise pre-generated artifacts for direct downstream consumption.*
-
-**S-CORE**
 
 - Prebuilt deliverables can include binaries, archives, packages, generated SDK assets, or other installable outputs attached to a release.
 - GitHub Releases currently provides the most obvious publication mechanism for such assets.
 - **Biggest gap**: no common publication pattern defines which prebuilt deliverables should be release-grade, how they are structured, or how consumers discover them.
 
-### 8.1.3 Image Deliverables
+### 8.1.3 Image Deliverables 🔴
 
 *Delivery of container or VM-style images intended for execution or integration environments.*
-
-**S-CORE**
 
 - Some S-CORE use cases may require deliverables in image form, such as container images for tooling, CI, or runtime integration.
 - Image-based delivery differs from archive-style release assets and usually requires registry-oriented publication and lifecycle handling.
 - **Biggest gap**: no image delivery channel, registry strategy, or publication standard is currently defined for S-CORE.
 
-## 8.2 Distribution Channels ⚪
+## 8.2 Distribution Channels 🟠
 
 *Infrastructure publishing release deliverables to downstream consumers through appropriate channels.*
-
-**S-CORE**
 
 - GitHub Releases is currently the primary public distribution channel for archive-style S-CORE deliverables.
 - The shared Bazel registry is the public distribution channel for S-CORE Bazel modules.
 - Different deliverable types may require different channels, such as release assets, registries, or mirrored repositories.
 - **Biggest gap**: no shared distribution model maps deliverable types to supported publication channels and consumer access patterns.
 
-### 8.2.1 Release Publishing
+### 8.2.1 Release Publishing 🟠
 
 *Publishing release deliverables through release-oriented channels such as GitHub Releases.*
-
-**S-CORE**
 
 - Release pipelines can publish deliverables as GitHub Releases and attach binaries, source bundles, checksums, SBOMs, and related files.
 - This channel is suitable for archive-style release deliverables and public release notes.
 - **Biggest gap**: release publication is not yet standardized across repositories, and release composition is not consistently defined.
 
-### 8.2.2 Registry-Based Distribution
+### 8.2.2 Registry-Based Distribution 🟢
 
 *Publishing deliverables through registries such as package repositories or OCI registries.*
-
-**S-CORE**
 
 This subsection is the main description of how S-CORE publishes and consumes Bazel modules. Other chapters reference it from their own perspective, but the end-to-end registry flow belongs here.
 
@@ -124,36 +108,30 @@ Helpful links:
 - [Registry UI repository](https://github.com/eclipse-score/bazel_registry_ui)
 
 ---
-### 8.2.3 Mirrors & Replication
+### 8.2.3 Mirrors & Replication 🔴
 
 *Replicating important deliverables into secondary channels for resilience, reach, or governance reasons.*
 
 
-## 8.3 Release Metadata ⚪
+## 8.3 Release Metadata 🟠
 
 *Infrastructure attaching the metadata required to identify, verify, and consume released deliverables.*
-
-**S-CORE**
 
 - Released deliverables should be accompanied by metadata such as version identifiers, checksums, SBOMs, provenance, and release notes.
 - Metadata is part of the delivery capability because downstream consumers need it to verify, integrate, and audit releases.
 - **Biggest gap**: no common release metadata baseline defines what every S-CORE release must publish.
 
-### 8.3.1 Versioning & Tagging
+### 8.3.1 Versioning & Tagging 🟡
 
 *Identifying deliverables consistently across repositories and releases.*
-
-**S-CORE**
 
 - Semantic versioning aligned with Git tags is the expected standard across S-CORE repositories.
 - Versioning and tagging identify release deliverables and connect them back to source history.
 - **Biggest gap**: versioning conventions are not uniformly enforced or validated across repositories.
 
-### 8.3.2 Compliance & Traceability Metadata
+### 8.3.2 Compliance & Traceability Metadata 🔴
 
 *Publishing supporting metadata needed for compliance, verification, and supply-chain traceability.*
-
-**S-CORE**
 
 SBOMs, provenance data, signatures, checksums, and release notes should accompany released deliverables where applicable. From the release perspective, the key question is simple: which evidence travels with the published artifact so downstream users can verify and understand it? The harder compliance questions, such as how a repository arrived at that SBOM, how license data was enriched, or whether a dependency belongs in development scope or product scope, belong in [chapter 6](06-compliance-infrastructure.md) and should not be duplicated here.
 
@@ -165,18 +143,14 @@ This metadata still matters here because publication is what makes the evidence 
 
 *Infrastructure making released deliverables discoverable, retrievable, and usable by downstream consumers.*
 
-**S-CORE**
-
 - Consumers need a clear path to discover available deliverables, understand their intended use, and retrieve the correct format.
 - For Bazel modules, consumer access is centered on the shared registry metadata and the registry UI.
 - Consumer access includes naming, discoverability, documentation, and availability of public download or pull mechanisms.
 - **Biggest gap**: no shared consumer-facing model explains where deliverables live, which consumers each format serves, or how access should work across S-CORE.
 
-### 8.4.1 Discoverability
+### 8.4.1 Discoverability ⚪
 
 *Making available deliverables and their purpose visible to downstream users.*
-
-**S-CORE**
 
 GitHub Releases provide basic discoverability for release assets and release notes, but they are not the right starting point for Bazel modules. For modules, users should begin with the [registry UI](https://eclipse-score.github.io/bazel_registry_ui/), which presents the published contents of the shared registry in a way that is easier to browse than the raw repository. The underlying source of truth is still the registry data in [eclipse-score/bazel_registry](https://github.com/eclipse-score/bazel_registry/).
 
@@ -184,11 +158,9 @@ Good discoverability also requires light explanation. Users need to know that th
 
 **Biggest gap**: no consistent discoverability pattern yet spans both GitHub release assets and registry-published modules in one coherent consumer story.
 
-### 8.4.2 Retention, Availability & Rollback
+### 8.4.2 Retention, Availability & Rollback ⚪
 
 *Keeping released deliverables accessible over time and enabling reliable rollback to previous baselines.*
-
-**S-CORE**
 
 Retention and rollback are two sides of the same coin. Retention asks which artifacts stay available and for how long; rollback asks how a consumer or the project itself reverts to a previously baselined release when a newer version turns out to be broken.
 
@@ -200,11 +172,9 @@ A practical rollback strategy therefore needs three properties: durable artifact
 
 **Biggest gap**: no explicit retention policy, rollback procedure, or availability guarantee is defined for S-CORE deliverables. The ability to roll back to a previous integrated baseline is assumed but not documented or tested.
 
-### 8.4.3 Consumer Guidance
+### 8.4.3 Consumer Guidance 🔴
 
 *Helping downstream users choose the right deliverable and understand how it should be consumed.*
-
-**S-CORE**
 
 For Bazel modules, the normal consumer workflow is straightforward. First, browse the [registry UI](https://eclipse-score.github.io/bazel_registry_ui/) to find the module and version you need. Next, configure your repository to use the S-CORE registry as described in [section 3.2.2](03-build-infrastructure.md#internal-module-dependencies). Finally, declare the dependency in `MODULE.bazel` and use the module according to the documentation in its owning repository.
 
@@ -227,35 +197,27 @@ That split is important for keeping the documentation maintainable. This infrast
 
 *Infrastructure for communicating and managing consumer-facing response once issues in distributed artifacts have been identified.*
 
-**S-CORE**
-
 - Dependency analysis, license interpretation, and continuous SBOM monitoring belong in [chapter 6](06-compliance-infrastructure.md).
 - This chapter focuses on what happens on the consumer-facing release side once those issues are known.
 - **Biggest gap**: no shared advisory and remediation communication model is defined for S-CORE deliverables.
 
-### 8.5.1 Consumer Advisories
+### 8.5.1 Consumer Advisories ⚪
 
 *Communicating post-release issues to downstream consumers in a clear and durable way.*
-
-**S-CORE**
 
 - Consumers need a clear advisory path once a relevant issue has been confirmed.
 - **Biggest gap**: there is no shared advisory model for communicating issues affecting S-CORE releases.
 
-### 8.5.2 Affected & Remediated Versions
+### 8.5.2 Affected & Remediated Versions ⚪
 
 *Explaining which released versions are affected and which versions contain remediation.*
-
-**S-CORE**
 
 - Consumer communication should eventually link affected versions, remediated versions, and the relevant release metadata.
 - **Biggest gap**: version-level remediation guidance is not yet standardized across S-CORE releases.
 
-### 8.5.3 Supporting Evidence
+### 8.5.3 Supporting Evidence ⚪
 
 *Linking advisories back to the evidence that supports them.*
-
-**S-CORE**
 
 - Advisories are stronger when they can reference release notes, SBOMs, provenance, and other supporting material already produced elsewhere in the infrastructure flow, including the scoped compliance evidence described in [chapter 6](06-compliance-infrastructure.md).
 - **Biggest gap**: there is no shared pattern for linking consumer advisories back to the supporting release evidence.

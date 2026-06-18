@@ -1,4 +1,4 @@
-# 6 Compliance & Dependency Analysis ⚪
+# 6 Compliance & Dependency Analysis 🔴
 
 :::{tip} Looking for practical guides?
 This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the [How-to Guides](../how-to/index.md).
@@ -67,7 +67,7 @@ flowchart TD
     class governance outcome
 ```
 
-## 6.1 File-Level Licensing ⚪
+## 6.1 File-Level Licensing 🔴
 
 *Classifying repository files as first-party or third-party and attaching machine-readable licensing metadata.*
 
@@ -107,7 +107,7 @@ header`"]
     class out context
 ```
 
-### 6.1.1 Metadata Model
+### 6.1.1 Metadata Model 🔴
 
 *How files carry their licensing information and how first-party content is distinguished from third-party content.*
 
@@ -115,7 +115,7 @@ Every file needs machine-readable licensing metadata in one of two forms: a copy
 
 **Biggest gap**: file-level licensing metadata and first-party versus third-party classification are not yet enforced consistently across repositories.
 
-### 6.1.2 Enforcement
+### 6.1.2 Enforcement 🔴
 
 *Automated enforcement of file-level licensing metadata through local hooks and CI checks.*
 
@@ -123,7 +123,7 @@ Consistent metadata requires two enforcement layers: a pre-commit hook that auto
 
 **Biggest gap**: enforcement coverage is inconsistent across repositories, and the boundary between current header tooling and REUSE-based validation is not yet resolved.
 
-## 6.2 Dependency Analysis ⚪
+## 6.2 Dependency Analysis 🔴
 
 *Discovering what a repository consumes and producing enriched SBOM-format outputs.*
 
@@ -170,7 +170,7 @@ CycloneDX 1.6`"]
     class out context
 ```
 
-### 6.2.1 Discovery and Enrichment
+### 6.2.1 Discovery and Enrichment 🔴
 
 *Collecting dependency information from multiple sources and mapping it to license status.*
 
@@ -180,7 +180,7 @@ For non-Bazel repositories, no equivalent integration exists yet. The same capab
 
 **Biggest gap**: sbom-tool covers Bazel-based repositories as a proof of concept, but the flow is not yet consistently available across all repository types. Coverage for non-Bazel repositories and for C++ license enrichment (where dash-license-scan does not yet work) remains open.
 
-## 6.3 SBOM Scoping and Compliance Evidence ⚪
+## 6.3 SBOM Scoping and Compliance Evidence 🔴
 
 *Deciding what belongs in which SBOM and who consumes the resulting compliance evidence.*
 
@@ -229,15 +229,15 @@ image scan`"]
     class in61,in62,license_checks context
 ```
 
-### 6.3.1 Development vs Product Scope
+### 6.3.1 Development vs Product Scope 🔴
 
 *Distinguishing between build-scope and runtime-scope compliance evidence.*
 
-Some dependencies belong only to building, testing, or the development environment. Others are part of the delivered runtime product. That distinction changes which SBOM is produced, how findings are interpreted, and which consumers care. The same scope model applies to S-CORE's tooling and environment artifacts such as devcontainers — [chapter 3](03-build-infrastructure.md#tooling-environment-sboms-license-evidence) describes how they produce build evidence; this chapter owns the scope decision.
+Some dependencies belong only to building, testing, or the development environment. Others are part of the delivered runtime product. That distinction changes which SBOM is produced, how findings are interpreted, and which consumers care. The same scope model applies to S-CORE's tooling and environment artifacts such as devcontainers — [chapter 3](03-build-infrastructure.md#tooling-and-environment-dependencies) describes how they produce build evidence; this chapter owns the scope decision.
 
 **Biggest gap**: no shared definition yet of which inputs belong in development-scope versus product-scope SBOMs.
 
-### 6.3.2 Compliance Consumers
+### 6.3.2 Compliance Consumers 🔴
 
 *Who uses the scoped evidence and for what purpose.*
 
@@ -245,7 +245,7 @@ Scoped SBOMs serve two immediate audiences before feeding downstream. Internally
 
 **Biggest gap**: no shared model defines which deliverable is the scan target in each compliance situation.
 
-## 6.4 License Checks and Compliance ⚪
+## 6.4 License Checks and Compliance 🔴
 
 *Verifying that dependencies meet S-CORE's license policy and producing a license-enriched SBOM as output.*
 
@@ -278,7 +278,7 @@ SBOM → §6.5`"]
     class in63 context
 ```
 
-### 6.4.1 PR-Scoped License Checking
+### 6.4.1 PR-Scoped License Checking 🔴
 
 *Checking dependency license status as part of the contribution workflow without creating noise.*
 
@@ -286,7 +286,7 @@ Full-repository license scans on every PR produce too much noise. The effective 
 
 **Biggest gap**: PR-scoped dependency license checking is not consistently available across repositories.
 
-### 6.4.2 IP Review and Project Policy
+### 6.4.2 IP Review and Project Policy 🔴
 
 *Routing license findings that require human review and maintaining a shared policy for accepted and rejected licenses.*
 
@@ -294,7 +294,7 @@ Automated checks resolve most license questions, but some dependencies require I
 
 **Biggest gap**: no shared license policy or allowlist is defined at the S-CORE level; individual repositories handle license decisions ad hoc.
 
-## 6.5 Monitoring and Governance ⚪
+## 6.5 Monitoring and Governance 🔴
 
 *Continuous vulnerability monitoring, findings ownership, and cross-repository compliance visibility.*
 
@@ -330,7 +330,7 @@ flowchart TD
     class in64 context
 ```
 
-### 6.5.1 Continuous Vulnerability Monitoring
+### 6.5.1 Continuous Vulnerability Monitoring 🔴
 
 *Using license-enriched SBOMs as ongoing monitoring inputs to detect newly relevant issues over time.*
 
@@ -338,7 +338,7 @@ Uploading SBOMs to systems such as GitHub and Dependency-Track allows the projec
 
 **Biggest gap**: no shared process keeps SBOM uploads fresh or supports impact analysis across S-CORE artifact types.
 
-### 6.5.2 Findings Ownership and Baselines
+### 6.5.2 Findings Ownership and Baselines 🔴
 
 *Clarifying who owns compliance findings and how existing debt is handled.*
 
@@ -346,7 +346,7 @@ Findings come from different parts of the flow, so ownership cannot default to o
 
 **Biggest gap**: no documented ownership model connects findings to the responsible step in the compliance pipeline, and no shared policy defines how exceptions are justified, recorded, and revisited.
 
-### 6.5.3 Cross-Repository Visibility
+### 6.5.3 Cross-Repository Visibility 🔴
 
 *Measuring how completely the compliance flow is implemented across repositories.*
 

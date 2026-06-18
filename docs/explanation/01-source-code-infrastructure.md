@@ -49,8 +49,6 @@ Organization-level repository state is still managed centrally. Desired settings
 
 *Infrastructure for managing and synchronizing repository policies such as branch protection, and application thereof at scale. (Otterdog)*
 
-**S-CORE**
-
 Repository policy covers the organization-level settings that govern how repositories behave: branch protection rules, required status checks, merge strategies, and which GitHub Actions are allowed to run. The infrastructure concern is not each individual rule but the system that makes policy intent explicit, reviewable, and enforceable at scale rather than hidden in per-repository admin pages.
 
 In S-CORE, policy intent is expressed centrally via the infrastructure-as-code tool [otterdog](https://otterdog.readthedocs.io/en/latest/userguide/) in the [S-CORE configuration file](https://github.com/eclipse-score/.eclipsefdn/blob/main/otterdog/eclipse-score.jsonnet). That makes policy changes reviewable as pull requests and exceptions explicit rather than silent. The same mechanism can restrict which GitHub Actions are allowed to run in the organization — an important supply-chain concern because third-party actions execute with the permissions of the workflow that calls them. An allowlist strategy classifies actions as approved, under review, or blocked, and the enforcement mechanism should prevent unapproved actions from running rather than merely warning about them.
@@ -72,8 +70,6 @@ S-CORE has the beginnings of central standards but has not yet closed the loop t
 ### 1.4.1 Repository Metadata 🟠
 
 *Define standard project metadata such as LICENSE, README, and governance files.*
-
-**S-CORE**
 
 Metadata expectations exist, but rollout is not yet complete across repositories. Discoverability and governance depend on consistent metadata being present and kept current.
 
