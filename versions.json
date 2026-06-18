@@ -2,5 +2,9 @@
   {
     "version": "main",
     "url": "https://eclipse-score.github.io/infrastructure/main/"
+  },
+  {
+    "version": "dev",
+    "url": "https://eclipse-score.github.io/infrastructure/dev/"
   }
 ]

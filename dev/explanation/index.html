@@ -1,0 +1,816 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Infrastructure Landscape &#8212; S-CORE Infrastructure  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score.css?v=bb63a8e1" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score_needs.css?v=82a1844f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score_design.css?v=8048e6ee" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-data-viewer/jsonview.bundle.css?v=f6ef2277" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/libs/html/datatables.min.css?v=4b4fd840" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/modern.css?v=803738c0" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d828336e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=7f41d439"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/sphinx-data-viewer/jsonview.bundle.js?v=18cd53c5"></script>
+    <script src="../_static/sphinx-data-viewer/jsonview_loader.js?v=f7ff7e7d"></script>
+    <script src="../_static/sphinx-needs/libs/html/datatables.min.js?v=8a4aee21"></script>
+    <script src="../_static/sphinx-needs/libs/html/datatables_loader.js?v=a2cae175"></script>
+    <script src="../_static/sphinx-needs/libs/html/sphinx_needs_collapse.js?v=dca66431"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explanation/index';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://eclipse-score.github.io/infrastructure/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/js/maturity.js?v=73f0b4b1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1 Source Code Infrastructure 🟠" href="01-source-code-infrastructure.html" />
+    <link rel="prev" title="Glossary" href="../reference/glossary.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Eclipse S-CORE</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how-to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Infrastructure Landscape
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/eclipse-score" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how-to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Infrastructure Landscape
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/eclipse-score" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar"><svg class="pst-icon svg-inline--fa" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-source-code-infrastructure.html">1 Source Code Infrastructure 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-developer-environment.html">2 Developer Environment 🟡</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-testing-infrastructure.html">4 Testing 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-documentation-infrastructure.html">9 Documentation &amp; Traceability 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-infrastructure-operations.html">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decisions.html">Infrastructure Design Decisions</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Infrastructure Landscape</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="infrastructure-landscape">
+<h1>Infrastructure Landscape<a class="headerlink" href="#infrastructure-landscape" title="Link to this heading">#</a></h1>
+<p>Architecture, design rationale, and maturity assessment of each S-CORE infrastructure area. These chapters describe what exists, how it works, and what is still missing.</p>
+<section id="status-legend">
+<h2>Status Legend<a class="headerlink" href="#status-legend" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>🟢 Implemented and fit for purpose</p></li>
+<li><p>🟡 Partially implemented / needs improvement</p></li>
+<li><p>🟠 Implemented but problematic or insufficient</p></li>
+<li><p>🔴 Not started</p></li>
+<li><p>⚪ Unknown / not yet assessed</p></li>
+</ul>
+</section>
+<section id="chapter-map">
+<h2>Chapter Map<a class="headerlink" href="#chapter-map" title="Link to this heading">#</a></h2>
+<!-- BEGIN GENERATED CHAPTER MAP -->
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Capability</p></th>
+<th class="head"><p>Maturity</p></th>
+<th class="head"><p>Impact</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong><a class="reference internal" href="01-source-code-infrastructure.html"><span class="std std-doc">1 Source Code Infrastructure</span></a></strong></p></td>
+<td><p>🟠</p></td>
+<td><p>Teams can deliver, but inconsistent standards create avoidable delays and make portfolio oversight harder.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="01-source-code-infrastructure.html#hosting-organization"><span class="std std-ref">1.1 Hosting &amp; Organization</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Repositories are harder to find and understand, which slows onboarding and cross-team collaboration.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="01-source-code-infrastructure.html#repository-provisioning-lifecycle"><span class="std std-ref">1.2 Repository Provisioning &amp; Lifecycle</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Ownership is unclear for create/archive/delete decisions, increasing governance and audit risk.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="01-source-code-infrastructure.html#repository-policy-management"><span class="std std-ref">1.3 Repository Policy Management</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Different repositories follow different protection levels, increasing security exposure and review overhead.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="01-source-code-infrastructure.html#repository-standards"><span class="std std-ref">1.4 Repository Standards</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Without measurable conformance, standards are hard to enforce and improvement progress is hard to track.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong><a class="reference internal" href="02-developer-environment.html"><span class="std std-doc">2 Developer Environment</span></a></strong></p></td>
+<td><p>🟡</p></td>
+<td><p>Most contributors can work effectively, but setup differences still reduce productivity and predictability.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="02-developer-environment.html#central-devcontainer"><span class="std std-ref">2.1 Central Devcontainer</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>The shared environment helps onboarding, but uneven adoption means teams still lose time on local fixes.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="02-developer-environment.html#local-auxiliary-tooling"><span class="std std-ref">2.2 Local Auxiliary Tooling</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Inconsistent local checks create rework when code moves from laptop to CI.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong><a class="reference internal" href="03-build-infrastructure.html"><span class="std std-doc">3 Build &amp; Dependencies</span></a></strong></p></td>
+<td><p>🟠</p></td>
+<td><p>Build capabilities are strong, but missing shared policies increase delivery risk and coordination cost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="03-build-infrastructure.html#build-system"><span class="std std-ref">3.1 Build System</span></a></p></td>
+<td><p>🟢</p></td>
+<td><p>A common build foundation reduces integration friction and supports predictable delivery.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="03-build-infrastructure.html#dependency-management"><span class="std std-ref">3.2 Dependency Management</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Inconsistent dependency decisions raise maintenance effort and can introduce compliance surprises late.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="03-build-infrastructure.html#toolchain-management"><span class="std std-ref">3.3 Toolchain Management</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Progress exists, but uneven rollout means teams do not get the same reliability or support level.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="03-build-infrastructure.html#build-reproducibility-evidence"><span class="std std-ref">3.4 Build Reproducibility &amp; Evidence</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Missing reproducibility evidence limits confidence in releases and weakens audit readiness.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="03-build-infrastructure.html#build-execution-infrastructure"><span class="std std-ref">3.5 Build Execution Infrastructure</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>No shared scale-out build infrastructure means slower pipelines and longer feedback loops.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong><a class="reference internal" href="04-testing-infrastructure.html"><span class="std std-doc">4 Testing</span></a></strong></p></td>
+<td><p>🟠</p></td>
+<td><p>Good testing exists, but fragmentation limits leadership visibility into overall product quality.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="04-testing-infrastructure.html#test-framework-integration"><span class="std std-ref">4.1 Test Framework Integration</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Teams use similar tools, but inconsistency still causes duplicated effort and uneven test quality.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="04-testing-infrastructure.html#test-execution-dynamic-analysis"><span class="std std-ref">4.2 Test Execution &amp; Dynamic Analysis</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Advanced test practices are not consistently adopted, leaving quality risk concentrated in some areas.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="04-testing-infrastructure.html#test-reporting"><span class="std std-ref">4.4 Test Reporting</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Reporting is scattered, making it hard to get one management view of risk and trend direction.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong><a class="reference internal" href="05-static-analysis-infrastructure.html"><span class="std std-doc">5 Code Analysis Infrastructure</span></a></strong></p></td>
+<td><p>🔴</p></td>
+<td><p>Quality controls are not standardized, so risk detection depends too much on individual repositories.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="05-static-analysis-infrastructure.html#tooling-baseline"><span class="std std-ref">5.1 Tooling Baseline</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>No shared baseline means coverage gaps and inconsistent quality expectations across teams.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="05-static-analysis-infrastructure.html#shared-rule-configuration"><span class="std std-ref">5.2 Shared Rule Configuration</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Without common rules, results are harder to compare and governance decisions are slower.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="05-static-analysis-infrastructure.html#incremental-adoption"><span class="std std-ref">5.3 Incremental Adoption</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>No rollout path means improvements are harder to scale across the portfolio.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="05-static-analysis-infrastructure.html#security-scanning"><span class="std std-ref">5.4 Security Scanning</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Security checks exist, but inconsistent gates can let important findings slip through.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong><a class="reference internal" href="06-compliance-infrastructure.html"><span class="std std-doc">6 Compliance &amp; Dependency Analysis</span></a></strong></p></td>
+<td><p>🔴</p></td>
+<td><p>Compliance is not yet reliable end to end, creating audit and release-readiness risk.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="06-compliance-infrastructure.html#file-level-licensing"><span class="std std-ref">6.1 File-Level Licensing</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>License labeling is incomplete, increasing legal-review effort and uncertainty.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="06-compliance-infrastructure.html#dependency-analysis"><span class="std std-ref">6.2 Dependency Analysis</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Dependency visibility is partial, so teams may discover compliance issues too late.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="06-compliance-infrastructure.html#sbom-scoping-and-compliance-evidence"><span class="std std-ref">6.3 SBOM Scoping and Compliance Evidence</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Unclear scope rules make compliance outputs hard to trust and hard to compare.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="06-compliance-infrastructure.html#license-checks-and-compliance"><span class="std std-ref">6.4 License Checks and Compliance</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>No shared license decision baseline increases release risk and slows approvals.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="06-compliance-infrastructure.html#monitoring-and-governance"><span class="std std-ref">6.5 Monitoring and Governance</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Ongoing compliance health is not actively managed, so issues can remain hidden longer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong><a class="reference internal" href="07-automation-integration.html"><span class="std std-doc">7 Automation Infrastructure &amp; Continuous Integration (CI)</span></a></strong></p></td>
+<td><p>🔴</p></td>
+<td><p>Automation is improving, but inconsistent workflow coverage still creates uneven delivery performance.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="07-automation-integration.html#runners"><span class="std std-ref">7.1 Runners</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Capacity and reliability limits on runners continue to delay critical feedback.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="07-automation-integration.html#reusable-workflows"><span class="std std-ref">7.2 Reusable Workflows</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Reuse is incomplete, so teams still duplicate CI logic and carry higher maintenance cost.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="07-automation-integration.html#cross-repository-integration"><span class="std std-ref">7.3 Cross-Repository Integration</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Cross-repository breakages can be detected too late, increasing integration and release risk.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="07-automation-integration.html#secrets-management"><span class="std std-ref">7.4 Secrets Management</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Secret handling is not uniformly governed, increasing security and compliance exposure.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="07-automation-integration.html#ci-observability"><span class="std std-ref">7.5 CI Observability</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Leadership lacks a single CI health view, making prioritization and investment decisions harder.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong><a class="reference internal" href="08-artifact-distribution.html"><span class="std std-doc">8 Release &amp; Distribution</span></a></strong></p></td>
+<td><p>🟠</p></td>
+<td><p>Release practices exist, but inconsistent patterns reduce speed, clarity, and consumer confidence.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="08-artifact-distribution.html#deliverable-types"><span class="std std-ref">8.1 Deliverable Types</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>No common release package model makes planning and consumer communication harder.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="08-artifact-distribution.html#distribution-channels"><span class="std std-ref">8.2 Distribution Channels</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Channel strategy is unclear, so consumers face inconsistent access across deliverables.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="08-artifact-distribution.html#release-metadata"><span class="std std-ref">8.3 Release Metadata</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Inconsistent metadata reduces transparency about what changed and how safe it is to adopt.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="08-artifact-distribution.html#consumer-access"><span class="std std-ref">8.4 Consumer Access</span></a></p></td>
+<td><p>⚪</p></td>
+<td><p>Consumer adoption paths are not clearly defined, slowing uptake and support.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="08-artifact-distribution.html#post-release-communication-response"><span class="std std-ref">8.5 Post-Release Communication &amp; Response</span></a></p></td>
+<td><p>⚪</p></td>
+<td><p>No shared advisory model means slower, less consistent communication when issues arise.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong><a class="reference internal" href="09-documentation-infrastructure.html"><span class="std std-doc">9 Documentation &amp; Traceability</span></a></strong></p></td>
+<td><p>🟠</p></td>
+<td><p>Documentation is improving, but fragmentation limits trust and decision support at program level.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="09-documentation-infrastructure.html#authoring-tooling"><span class="std std-ref">9.1 Authoring &amp; Tooling</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Different authoring setups increase maintenance effort and dilute documentation quality.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="09-documentation-infrastructure.html#build-validation-publishing"><span class="std std-ref">9.2 Build, Validation &amp; Publishing</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Publishing works, but inconsistent validation can let quality issues reach stakeholders.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="09-documentation-infrastructure.html#cross-repository-documentation-integration"><span class="std std-ref">9.3 Cross-Repository Documentation Integration</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>No integrated navigation makes it difficult to understand the full system picture quickly.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="09-documentation-infrastructure.html#engineering-documentation-traceability"><span class="std std-ref">9.4 Engineering Documentation &amp; Traceability</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Traceability exists in parts, but not yet enough for consistent impact and change analysis at scale.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong><a class="reference internal" href="10-infrastructure-operations.html"><span class="std std-doc">10 Infrastructure Operations</span></a></strong></p></td>
+<td><p>⚪</p></td>
+<td><p>Operations are mostly reactive, increasing outage risk and recovery uncertainty.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="10-infrastructure-operations.html#ci-runner-operations"><span class="std std-ref">10.1 CI Runner Operations</span></a></p></td>
+<td><p>⚪</p></td>
+<td><p>Limited operational ownership and transparency increase service continuity risk.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="10-infrastructure-operations.html#infrastructure-monitoring"><span class="std std-ref">10.2 Infrastructure Monitoring</span></a></p></td>
+<td><p>⚪</p></td>
+<td><p>Without shared monitoring, systemic problems are detected later and resolved slower.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="10-infrastructure-operations.html#infrastructure-maintenance"><span class="std std-ref">10.3 Infrastructure Maintenance</span></a></p></td>
+<td><p>⚪</p></td>
+<td><p>Maintenance is not planned consistently, increasing technical debt and surprise work.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="10-infrastructure-operations.html#infrastructure-governance"><span class="std std-ref">10.4 Infrastructure Governance</span></a></p></td>
+<td><p>⚪</p></td>
+<td><p>Missing governance structure makes cross-repository decisions slower and less predictable.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- END GENERATED CHAPTER MAP -->
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../reference/glossary.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Glossary</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="01-source-code-infrastructure.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">1 Source Code Infrastructure 🟠</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#status-legend">Status Legend</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-map">Chapter Map</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/eclipse-score/infrastructure/edit/main/docs/explanation/index.md">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
