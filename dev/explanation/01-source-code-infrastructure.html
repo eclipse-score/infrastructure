@@ -911,15 +911,19 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <p><em>Infrastructure for hosting and governing repositories consistently across the S-CORE project.</em></p>
 <pre  class="mermaid">
         graph TD
-    eclipsefdn[&quot;`.eclipsefdn`\notterdog config&quot;]
+    eclipsefdn[&quot;`.eclipsefdn`
+otterdog config&quot;]
     otterdog[&quot;otterdog&quot;]
-    github_org[&quot;eclipse-score\nGitHub organization&quot;]
+    github_org[&quot;eclipse-score
+GitHub organization&quot;]
     repos[&quot;Module repositories&quot;]
     template[&quot;`eclipse-score/module_template`&quot;]
-    github_profile[&quot;`.github`\norg profile &amp; conformance&quot;]
+    github_profile[&quot;`.github`
+org profile &amp; conformance&quot;]
 
     eclipsefdn --&gt;|defines org policy| otterdog
-    otterdog --&gt;|applies: branch protection,\nrequired checks, Actions allowlist| github_org
+    otterdog --&gt;|&quot;applies: branch protection,
+required checks, Actions allowlist&quot;| github_org
     github_org --&gt;|hosts| repos
     template --&gt;|bootstraps new| repos
     github_profile -.-&gt;|discovery surface| github_org
