@@ -8,15 +8,19 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 
 ```{mermaid}
 graph TD
-    eclipsefdn["`.eclipsefdn`\notterdog config"]
+    eclipsefdn["`.eclipsefdn`
+otterdog config"]
     otterdog["otterdog"]
-    github_org["eclipse-score\nGitHub organization"]
+    github_org["eclipse-score
+GitHub organization"]
     repos["Module repositories"]
     template["`eclipse-score/module_template`"]
-    github_profile["`.github`\norg profile & conformance"]
+    github_profile["`.github`
+org profile & conformance"]
 
     eclipsefdn -->|defines org policy| otterdog
-    otterdog -->|applies: branch protection,\nrequired checks, Actions allowlist| github_org
+    otterdog -->|"applies: branch protection,
+required checks, Actions allowlist"| github_org
     github_org -->|hosts| repos
     template -->|bootstraps new| repos
     github_profile -.->|discovery surface| github_org
