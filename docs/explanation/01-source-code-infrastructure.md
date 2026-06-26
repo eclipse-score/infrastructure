@@ -55,6 +55,270 @@ In S-CORE, policy intent is expressed centrally via the infrastructure-as-code t
 
 **Biggest gap**: there is no common policy definition or enforcement strategy, and the current state of policy across repositories is not well documented or visible. Few repositories apply policies. GitHub Actions allowlisting is not yet implemented or documented as a security baseline.
 
+### 1.3.1 PR Merge Strategy 🟢
+
+S-CORE repositories use GitHub's **Squash and merge** method when merging pull
+requests into main. The other methods — **Create a merge commit** and **Rebase
+and merge** — are disabled. Exceptions exist.
+
+The guiding principle: the pull request is the unit of review and integration.
+The resulting squash commit is the corresponding unit in the permanent main
+branch history.
+
+:::{important} GitHub merge methods vs. local Git operations
+GitHub's three merge methods are distinct from similarly named local Git operations (`git merge`, `git rebase`, `git rebase -i`).
+
+This policy covers only how an accepted pull request is recorded on main. It
+does not prescribe how many commits a contributor creates locally, whether they
+use merge or rebase during development, or whether fixup commits appear inside
+the PR branch.
+
+After review has started, avoid rewriting published history unless coordinated
+with reviewers — it can invalidate commit-based review context.
+:::
+
+#### The three strategies
+
+| Method | Result on main | PR boundary marker | Intermediate commits land on main |
+|---|---|---|---|
+| Create a merge commit | All PR commits + merge commit | Yes (merge commit) ✅ | Yes ❌ |
+| **Squash and merge** | One new commit | Yes (squash commit) ✅ | No ✅ |
+| Rebase and merge | Each PR commit recreated | No ❌ | Yes ❌ |
+
+##### Create a merge commit
+
+GitHub creates a new commit on main with two parents: the tip of the PR branch
+and the previous tip of main. All PR commits land on main as-is, followed by
+this merge commit. The result is a non-linear history — `git log --graph` shows
+the branch forking off and rejoining.
+
+A PR that synced with main during development (via `Merge branch 'main' into
+feature`) will also have those sync merge commits in the history.
+
+*All these commits end up in main history*
+
+:::{mermaid}
+%%{init: {'themeVariables': {'fontSize': '11px', 'git0': '#2171b5', 'git1': '#6baed6', 'gitInv0': '#fff', 'gitInv1': '#fff'}}}%%
+gitGraph
+   commit id: "prev"
+   branch feature
+   checkout feature
+   commit id: "implement"
+   checkout main
+   commit id: "other PR"
+   checkout feature
+   merge main id: "sync main"
+   commit id: "fix review"
+   commit id: "fix review 2"
+   commit id: "nit"
+   commit id: "address comment"
+   checkout main
+   merge feature id: "Merge #42"
+:::
+
+After merging, main contains all PR commits plus the merge commit. The branch is
+visible as a fork in history.
+
+**Pros**
+
+- Preserves the full commit history exactly as developed, including per-author
+  attribution.
+- The merge commit marks the PR boundary structurally — `git branch -d` detects
+  the branch as merged, `git revert -m 1` reverts the entire PR as a unit, and
+  `git bisect` can narrow to individual commits within the PR.
+- Safe for branches that continue to be used after merging.
+
+**Cons**
+
+- Merge commits from upstream syncs and work-in-progress "fix findings" commits
+  both land on main, weakening `git log` unless authors curate commits before
+  merging.
+- `git bisect` may land on intermediate commits that do not build or pass tests.
+- History becomes non-linear, which some tools and people find harder to follow.
+
+##### Squash and merge
+
+GitHub combines all PR commits into a single new commit and appends it to main
+as a fast-forward. No merge commit is added — main stays linear. The squashed
+commit has a new SHA with no structural link to the original PR branch. The
+original PR commits are not ancestors of main: they remain visible in the GitHub
+PR view but are not part of the permanent Git history and will not be present in
+clones once the branch is deleted.
+
+:::{mermaid}
+%%{init: {'themeVariables': {'fontSize': '11px'}}}%%
+gitGraph
+   commit id: "prev"
+   branch feature
+   checkout feature
+   commit id: "implement"
+   checkout main
+   commit id: "other PR"
+   checkout feature
+   merge main id: "sync main"
+   commit id: "fix review"
+   commit id: "fix review 2"
+   commit id: "nit"
+   commit id: "address comment"
+   checkout main
+   commit id: "squash(#42)"
+:::
+
+After merging, main contains one new commit per PR. Intermediate commits are
+excluded from main history.
+
+**Pros**
+
+- One commit per PR on main — clean, linear, easy to scan and bisect at PR
+  granularity.
+- Work-in-progress and "fix findings" commits are excluded automatically,
+  without requiring local cleanup.
+- `git log`, `git bisect`, and `git revert` all operate at PR granularity — the
+  meaningful unit for this project.
+- No local history curation required before merging.
+
+**Cons**
+
+- The squashed commit has a new SHA — `git branch -d` does not detect the
+  original branch as merged.
+- Individual commits within the PR cannot be bisected or reverted from main.
+- A squash-merged branch should not be reused — start new work from a fresh
+  branch based on the updated main.
+- Detailed development history depends on the GitHub PR record rather than the
+  cloned repository.
+
+To revert a squash-merged PR, use an ordinary revert:
+
+```
+git revert <squash-commit>
+```
+
+##### Rebase and merge
+
+GitHub replays each PR commit one by one onto the tip of main, creating new
+commits with the same content but new SHAs and updated committer information. No
+merge commit is added. The result is a linear history with no structural marker
+for the PR boundary.
+
+:::{mermaid}
+%%{init: {'themeVariables': {'fontSize': '11px'}}}%%
+gitGraph
+   commit id: "prev"
+   branch feature
+   checkout feature
+   commit id: "implement"
+   checkout main
+   commit id: "other PR"
+   checkout feature
+   merge main id: "sync main"
+   commit id: "fix review"
+   commit id: "fix review 2"
+   commit id: "nit"
+   commit id: "address comment"
+   checkout main
+   commit id: "implement '"
+   commit id: "fix review '"
+   commit id: "fix review 2 '"
+   commit id: "nit '"
+   commit id: "address comment '"
+:::
+
+After merging, main contains each PR commit recreated as a new commit (new SHA,
+same content). History is linear but there is no marker for the PR boundary.
+
+**Pros**
+
+- Linear history, with each individual commit landing on main separately.
+- Useful when a PR contains genuinely distinct, independently meaningful
+  changes.
+
+**Cons**
+
+- All intermediate commits — work-in-progress and "fix findings" — land on main,
+  requiring the same local curation discipline as create a merge commit.
+- `git bisect` may land on intermediate commits that do not build or pass tests.
+- Replayed commits get new SHAs — `git branch -d` does not detect the branch as
+  merged, and original commit signatures are not preserved as verified.
+- No structural marker for the PR boundary.
+
+#### Why S-CORE uses squash and merge
+
+The typical S-CORE PR has one substantive commit and several "fix findings"
+follow-ups. Those follow-up commits are review artifacts — they exist so
+reviewers can see what changed in response to feedback. They carry no
+independent value in the permanent history of main.
+
+"Create a merge commit" and "rebase and merge" both land those intermediate
+commits on main. Avoiding this would require every contributor to manually
+curate their branch before merging. Which contradicts reviewability. Squash and
+merge produces the desired result consistently:
+
+- one reviewed change
+- one commit on main
+- one commit to bisect
+- one commit to revert
+- one PR containing the detailed review and development history
+
+This separates two concerns: the pull request records how a change was developed
+and reviewed; the squash commit records the accepted result in the permanent
+project history.
+
+#### Commit message
+
+Because the PR title becomes the squash commit title, it should clearly describe
+the resulting change... as a PR title should anyway. The PR reference (e.g.
+`(#42)`) as added by GitHub should be retained in the final commit title for
+easier tracking.
+
+e.g. *Add Windows platform configuration (#42)*
+
+#### Commit history during review
+
+Contributors are not required to produce a polished commit series inside a PR.
+Adding separate commits to address review comments is encouraged — reviewers can
+then see exactly what changed since the last review round without re-reading the
+full diff.
+
+Before review begins, contributors may freely reorganize their local history.
+After review begins, force-pushed history rewrites should be avoided. No local
+squashing is required - or desired - before merging. GitHub performs the final
+squash after approval.
+
+#### Known limitations
+
+##### Multiple authors
+
+A squash merge replaces the individual PR commits with one new commit on main.
+This does not itself change copyright ownership or licensing. However, if
+attribution is not preserved correctly, it reduces the authorship and
+contribution provenance directly visible in the Git history. This may conflict
+with S-CORE's licensing and attribution requirements, including the information
+maintained in NOTICE files.
+
+Recommendation: In practice, most PRs have one primary author. When multiple
+people contribute to the same PR, preserve their attribution using Git's
+Co-authored-by trailers. GitHub normally adds these automatically when squashing
+commits from multiple authors, but the final commit message should still be
+verified before merging.
+
+Working on the same feature does not automatically mean that copyright is
+shared. Minor, purely mechanical changes, such as correcting a typo, will often
+not constitute a separately copyright-protected contribution.
+
+Existing copyright, DCO, CLA, licensing, and internal IP requirements still
+apply. If attribution cannot be represented adequately in one squash commit,
+resolve this before merging or split the work into separate PRs.
+
+*Note: We have discussed this with lawyers, but we are not lawyers, and this
+documentation is not legal advice. If you have questions about licensing,
+copyright, or other legal matters, consult a qualified legal professional.*
+
+##### Distinct topics
+
+A PR should represent one coherent change.
+When changes need to remain independently identifiable, revertible, or
+releasable, submit them as separate PRs instead.
+
 ---
 
 ## 1.4 Repository Standards 🟠
