@@ -944,6 +944,270 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <p>Repository policy covers the organization-level settings that govern how repositories behave: branch protection rules, required status checks, merge strategies, and which GitHub Actions are allowed to run. The infrastructure concern is not each individual rule but the system that makes policy intent explicit, reviewable, and enforceable at scale rather than hidden in per-repository admin pages.</p>
 <p>In S-CORE, policy intent is expressed centrally via the infrastructure-as-code tool <a class="reference external" href="https://otterdog.readthedocs.io/en/latest/userguide/">otterdog</a> in the <a class="reference external" href="https://github.com/eclipse-score/.eclipsefdn/blob/main/otterdog/eclipse-score.jsonnet">S-CORE configuration file</a>. That makes policy changes reviewable as pull requests and exceptions explicit rather than silent. The same mechanism can restrict which GitHub Actions are allowed to run in the organization — an important supply-chain concern because third-party actions execute with the permissions of the workflow that calls them. An allowlist strategy classifies actions as approved, under review, or blocked, and the enforcement mechanism should prevent unapproved actions from running rather than merely warning about them.</p>
 <p><strong>Biggest gap</strong>: there is no common policy definition or enforcement strategy, and the current state of policy across repositories is not well documented or visible. Few repositories apply policies. GitHub Actions allowlisting is not yet implemented or documented as a security baseline.</p>
+<section id="pr-merge-strategy">
+<h3>1.3.1 PR Merge Strategy 🟢<a class="headerlink" href="#pr-merge-strategy" title="Link to this heading">#</a></h3>
+<p>S-CORE repositories use GitHub’s <strong>Squash and merge</strong> method when merging pull
+requests into main. The other methods — <strong>Create a merge commit</strong> and <strong>Rebase
+and merge</strong> — are disabled. Exceptions exist.</p>
+<p>The guiding principle: the pull request is the unit of review and integration.
+The resulting squash commit is the corresponding unit in the permanent main
+branch history.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>GitHub merge methods vs. local Git operations
+GitHub’s three merge methods are distinct from similarly named local Git operations (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rebase</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rebase</span> <span class="pre">-i</span></code>).</p>
+<p>This policy covers only how an accepted pull request is recorded on main. It
+does not prescribe how many commits a contributor creates locally, whether they
+use merge or rebase during development, or whether fixup commits appear inside
+the PR branch.</p>
+<p>After review has started, avoid rewriting published history unless coordinated
+with reviewers — it can invalidate commit-based review context.</p>
+</div>
+<section id="the-three-strategies">
+<h4>The three strategies<a class="headerlink" href="#the-three-strategies" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Result on main</p></th>
+<th class="head"><p>PR boundary marker</p></th>
+<th class="head"><p>Intermediate commits land on main</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Create a merge commit</p></td>
+<td><p>All PR commits + merge commit</p></td>
+<td><p>Yes (merge commit) ✅</p></td>
+<td><p>Yes ❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Squash and merge</strong></p></td>
+<td><p>One new commit</p></td>
+<td><p>Yes (squash commit) ✅</p></td>
+<td><p>No ✅</p></td>
+</tr>
+<tr class="row-even"><td><p>Rebase and merge</p></td>
+<td><p>Each PR commit recreated</p></td>
+<td><p>No ❌</p></td>
+<td><p>Yes ❌</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="create-a-merge-commit">
+<h5>Create a merge commit<a class="headerlink" href="#create-a-merge-commit" title="Link to this heading">#</a></h5>
+<p>GitHub creates a new commit on main with two parents: the tip of the PR branch
+and the previous tip of main. All PR commits land on main as-is, followed by
+this merge commit. The result is a non-linear history — <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">--graph</span></code> shows
+the branch forking off and rejoining.</p>
+<p>A PR that synced with main during development (via <code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">branch</span> <span class="pre">'main'</span> <span class="pre">into</span> <span class="pre">feature</span></code>) will also have those sync merge commits in the history.</p>
+<p><em>All these commits end up in main history</em></p>
+<pre  class="mermaid">
+        %%{init: {'themeVariables': {'fontSize': '11px', 'git0': '#2171b5', 'git1': '#6baed6', 'gitInv0': '#fff', 'gitInv1': '#fff'}}}%%
+gitGraph
+   commit id: &quot;prev&quot;
+   branch feature
+   checkout feature
+   commit id: &quot;implement&quot;
+   checkout main
+   commit id: &quot;other PR&quot;
+   checkout feature
+   merge main id: &quot;sync main&quot;
+   commit id: &quot;fix review&quot;
+   commit id: &quot;fix review 2&quot;
+   commit id: &quot;nit&quot;
+   commit id: &quot;address comment&quot;
+   checkout main
+   merge feature id: &quot;Merge #42&quot;
+    </pre><p>After merging, main contains all PR commits plus the merge commit. The branch is
+visible as a fork in history.</p>
+<p><strong>Pros</strong></p>
+<ul class="simple">
+<li><p>Preserves the full commit history exactly as developed, including per-author
+attribution.</p></li>
+<li><p>The merge commit marks the PR boundary structurally — <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">branch</span> <span class="pre">-d</span></code> detects
+the branch as merged, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">revert</span> <span class="pre">-m</span> <span class="pre">1</span></code> reverts the entire PR as a unit, and
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">bisect</span></code> can narrow to individual commits within the PR.</p></li>
+<li><p>Safe for branches that continue to be used after merging.</p></li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul class="simple">
+<li><p>Merge commits from upstream syncs and work-in-progress “fix findings” commits
+both land on main, weakening <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span></code> unless authors curate commits before
+merging.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">bisect</span></code> may land on intermediate commits that do not build or pass tests.</p></li>
+<li><p>History becomes non-linear, which some tools and people find harder to follow.</p></li>
+</ul>
+</section>
+<section id="squash-and-merge">
+<h5>Squash and merge<a class="headerlink" href="#squash-and-merge" title="Link to this heading">#</a></h5>
+<p>GitHub combines all PR commits into a single new commit and appends it to main
+as a fast-forward. No merge commit is added — main stays linear. The squashed
+commit has a new SHA with no structural link to the original PR branch. The
+original PR commits are not ancestors of main: they remain visible in the GitHub
+PR view but are not part of the permanent Git history and will not be present in
+clones once the branch is deleted.</p>
+<pre  class="mermaid">
+        %%{init: {'themeVariables': {'fontSize': '11px'}}}%%
+gitGraph
+   commit id: &quot;prev&quot;
+   branch feature
+   checkout feature
+   commit id: &quot;implement&quot;
+   checkout main
+   commit id: &quot;other PR&quot;
+   checkout feature
+   merge main id: &quot;sync main&quot;
+   commit id: &quot;fix review&quot;
+   commit id: &quot;fix review 2&quot;
+   commit id: &quot;nit&quot;
+   commit id: &quot;address comment&quot;
+   checkout main
+   commit id: &quot;squash(#42)&quot;
+    </pre><p>After merging, main contains one new commit per PR. Intermediate commits are
+excluded from main history.</p>
+<p><strong>Pros</strong></p>
+<ul class="simple">
+<li><p>One commit per PR on main — clean, linear, easy to scan and bisect at PR
+granularity.</p></li>
+<li><p>Work-in-progress and “fix findings” commits are excluded automatically,
+without requiring local cleanup.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">bisect</span></code>, and <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">revert</span></code> all operate at PR granularity — the
+meaningful unit for this project.</p></li>
+<li><p>No local history curation required before merging.</p></li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul class="simple">
+<li><p>The squashed commit has a new SHA — <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">branch</span> <span class="pre">-d</span></code> does not detect the
+original branch as merged.</p></li>
+<li><p>Individual commits within the PR cannot be bisected or reverted from main.</p></li>
+<li><p>A squash-merged branch should not be reused — start new work from a fresh
+branch based on the updated main.</p></li>
+<li><p>Detailed development history depends on the GitHub PR record rather than the
+cloned repository.</p></li>
+</ul>
+<p>To revert a squash-merged PR, use an ordinary revert:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">revert</span> <span class="o">&lt;</span><span class="n">squash</span><span class="o">-</span><span class="n">commit</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="rebase-and-merge">
+<h5>Rebase and merge<a class="headerlink" href="#rebase-and-merge" title="Link to this heading">#</a></h5>
+<p>GitHub replays each PR commit one by one onto the tip of main, creating new
+commits with the same content but new SHAs and updated committer information. No
+merge commit is added. The result is a linear history with no structural marker
+for the PR boundary.</p>
+<pre  class="mermaid">
+        %%{init: {'themeVariables': {'fontSize': '11px'}}}%%
+gitGraph
+   commit id: &quot;prev&quot;
+   branch feature
+   checkout feature
+   commit id: &quot;implement&quot;
+   checkout main
+   commit id: &quot;other PR&quot;
+   checkout feature
+   merge main id: &quot;sync main&quot;
+   commit id: &quot;fix review&quot;
+   commit id: &quot;fix review 2&quot;
+   commit id: &quot;nit&quot;
+   commit id: &quot;address comment&quot;
+   checkout main
+   commit id: &quot;implement '&quot;
+   commit id: &quot;fix review '&quot;
+   commit id: &quot;fix review 2 '&quot;
+   commit id: &quot;nit '&quot;
+   commit id: &quot;address comment '&quot;
+    </pre><p>After merging, main contains each PR commit recreated as a new commit (new SHA,
+same content). History is linear but there is no marker for the PR boundary.</p>
+<p><strong>Pros</strong></p>
+<ul class="simple">
+<li><p>Linear history, with each individual commit landing on main separately.</p></li>
+<li><p>Useful when a PR contains genuinely distinct, independently meaningful
+changes.</p></li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul class="simple">
+<li><p>All intermediate commits — work-in-progress and “fix findings” — land on main,
+requiring the same local curation discipline as create a merge commit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">bisect</span></code> may land on intermediate commits that do not build or pass tests.</p></li>
+<li><p>Replayed commits get new SHAs — <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">branch</span> <span class="pre">-d</span></code> does not detect the branch as
+merged, and original commit signatures are not preserved as verified.</p></li>
+<li><p>No structural marker for the PR boundary.</p></li>
+</ul>
+</section>
+</section>
+<section id="why-s-core-uses-squash-and-merge">
+<h4>Why S-CORE uses squash and merge<a class="headerlink" href="#why-s-core-uses-squash-and-merge" title="Link to this heading">#</a></h4>
+<p>The typical S-CORE PR has one substantive commit and several “fix findings”
+follow-ups. Those follow-up commits are review artifacts — they exist so
+reviewers can see what changed in response to feedback. They carry no
+independent value in the permanent history of main.</p>
+<p>“Create a merge commit” and “rebase and merge” both land those intermediate
+commits on main. Avoiding this would require every contributor to manually
+curate their branch before merging. Which contradicts reviewability. Squash and
+merge produces the desired result consistently:</p>
+<ul class="simple">
+<li><p>one reviewed change</p></li>
+<li><p>one commit on main</p></li>
+<li><p>one commit to bisect</p></li>
+<li><p>one commit to revert</p></li>
+<li><p>one PR containing the detailed review and development history</p></li>
+</ul>
+<p>This separates two concerns: the pull request records how a change was developed
+and reviewed; the squash commit records the accepted result in the permanent
+project history.</p>
+</section>
+<section id="commit-message">
+<h4>Commit message<a class="headerlink" href="#commit-message" title="Link to this heading">#</a></h4>
+<p>Because the PR title becomes the squash commit title, it should clearly describe
+the resulting change… as a PR title should anyway. The PR reference (e.g.
+<code class="docutils literal notranslate"><span class="pre">(#42)</span></code>) as added by GitHub should be retained in the final commit title for
+easier tracking.</p>
+<p>e.g. <em>Add Windows platform configuration (#42)</em></p>
+</section>
+<section id="commit-history-during-review">
+<h4>Commit history during review<a class="headerlink" href="#commit-history-during-review" title="Link to this heading">#</a></h4>
+<p>Contributors are not required to produce a polished commit series inside a PR.
+Adding separate commits to address review comments is encouraged — reviewers can
+then see exactly what changed since the last review round without re-reading the
+full diff.</p>
+<p>Before review begins, contributors may freely reorganize their local history.
+After review begins, force-pushed history rewrites should be avoided. No local
+squashing is required - or desired - before merging. GitHub performs the final
+squash after approval.</p>
+</section>
+<section id="known-limitations">
+<h4>Known limitations<a class="headerlink" href="#known-limitations" title="Link to this heading">#</a></h4>
+<section id="multiple-authors">
+<h5>Multiple authors<a class="headerlink" href="#multiple-authors" title="Link to this heading">#</a></h5>
+<p>A squash merge replaces the individual PR commits with one new commit on main.
+This does not itself change copyright ownership or licensing. However, if
+attribution is not preserved correctly, it reduces the authorship and
+contribution provenance directly visible in the Git history. This may conflict
+with S-CORE’s licensing and attribution requirements, including the information
+maintained in NOTICE files.</p>
+<p>Recommendation: In practice, most PRs have one primary author. When multiple
+people contribute to the same PR, preserve their attribution using Git’s
+Co-authored-by trailers. GitHub normally adds these automatically when squashing
+commits from multiple authors, but the final commit message should still be
+verified before merging.</p>
+<p>Working on the same feature does not automatically mean that copyright is
+shared. Minor, purely mechanical changes, such as correcting a typo, will often
+not constitute a separately copyright-protected contribution.</p>
+<p>Existing copyright, DCO, CLA, licensing, and internal IP requirements still
+apply. If attribution cannot be represented adequately in one squash commit,
+resolve this before merging or split the work into separate PRs.</p>
+<p><em>Note: We have discussed this with lawyers, but we are not lawyers, and this
+documentation is not legal advice. If you have questions about licensing,
+copyright, or other legal matters, consult a qualified legal professional.</em></p>
+</section>
+<section id="distinct-topics">
+<h5>Distinct topics<a class="headerlink" href="#distinct-topics" title="Link to this heading">#</a></h5>
+<p>A PR should represent one coherent change.
+When changes need to remain independently identifiable, revertible, or
+releasable, submit them as separate PRs instead.</p>
+</section>
+</section>
+</section>
 </section>
 <hr class="docutils" />
 <section id="repository-standards">
@@ -1039,7 +1303,26 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hosting-organization">1.1 Hosting &amp; Organization 🟡</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-provisioning-lifecycle">1.2 Repository Provisioning &amp; Lifecycle 🟡</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-policy-management">1.3 Repository Policy Management 🔴</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-policy-management">1.3 Repository Policy Management 🔴</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pr-merge-strategy">1.3.1 PR Merge Strategy 🟢</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-three-strategies">The three strategies</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-merge-commit">Create a merge commit</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#squash-and-merge">Squash and merge</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#rebase-and-merge">Rebase and merge</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#why-s-core-uses-squash-and-merge">Why S-CORE uses squash and merge</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-message">Commit message</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-history-during-review">Commit history during review</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#known-limitations">Known limitations</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-authors">Multiple authors</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#distinct-topics">Distinct topics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-standards">1.4 Repository Standards 🟠</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-metadata">1.4.1 Repository Metadata 🟠</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tooling-configuration-standards">1.4.2 Tooling Configuration Standards 🟠</a></li>
