@@ -1,0 +1,1298 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3 Build &amp; Dependencies 🟠 &#8212; S-CORE Infrastructure  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score.css?v=bb63a8e1" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score_needs.css?v=82a1844f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score_design.css?v=8048e6ee" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-data-viewer/jsonview.bundle.css?v=f6ef2277" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/libs/html/datatables.min.css?v=4b4fd840" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/modern.css?v=803738c0" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d828336e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=7f41d439"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/sphinx-data-viewer/jsonview.bundle.js?v=18cd53c5"></script>
+    <script src="../_static/sphinx-data-viewer/jsonview_loader.js?v=f7ff7e7d"></script>
+    <script src="../_static/sphinx-needs/libs/html/datatables.min.js?v=8a4aee21"></script>
+    <script src="../_static/sphinx-needs/libs/html/datatables_loader.js?v=a2cae175"></script>
+    <script src="../_static/sphinx-needs/libs/html/sphinx_needs_collapse.js?v=dca66431"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = `pre.mermaid {
+    /* Same as .mermaid-container > pre */
+    display: block;
+    width: 100%;
+}
+
+pre.mermaid > svg {
+    /* Same as .mermaid-container > pre > svg */
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}`;
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = `.mermaid-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.mermaid-container > pre {
+    display: block;
+    width: 100%;
+}
+
+.mermaid-container > pre > svg {
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.mermaid-fullscreen-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    color: #333;
+}
+
+.mermaid-fullscreen-btn:hover {
+    opacity: 100% !important;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-btn.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-btn.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 95vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999;
+    padding: 20px;
+    overflow: auto;
+}
+
+.mermaid-fullscreen-modal.dark-theme {
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.mermaid-fullscreen-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    max-width: 95vw;
+    max-height: 90vh;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen.dark-theme {
+    background: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+.mermaid-container-fullscreen pre.mermaid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen .mermaid svg {
+    height: 100% !important;
+    width: 100% !important;
+    cursor: grab;
+}
+
+.mermaid-fullscreen-close {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    font-size: 24px;
+    line-height: 1;
+    color: #333;
+}
+
+.mermaid-fullscreen-close:hover {
+    background: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-close.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-close.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
+    display: none !important;
+}`;
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        all_mermaids.forEach((el) => {
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+        await mermaid.run();
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
+
+    if ("False" === "True") {
+        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("");
+            if(all_mermaids.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else if(svgs.size() !== mermaids_to_add_zoom) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else {
+                svgs.each(function() {
+                    var svg = d3.select(this);
+                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+                    var inner = svg.select("g");
+                    var zoom = d3.zoom().on("zoom", function(event) {
+                        inner.attr("transform", event.transform);
+                    });
+                    svg.call(zoom);
+                });
+            }
+        }
+    } else if(all_mermaids.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if ("True" !== "True") return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = '⛶';
+        fullscreenBtn.style.opacity = '50%';
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scroll, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.sdisplay = 'block';
+
+                if ("False" === "True") {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+const load = async () => {
+    initStyles();
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...JSON.parse(
+                    `{"startOnLoad": false}`
+                ),
+                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...JSON.parse(
+        `{"startOnLoad": false}`
+    ),
+    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explanation/03-build-infrastructure';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://eclipse-score.github.io/infrastructure/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/js/maturity.js?v=73f0b4b1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4 Testing 🟠" href="04-testing-infrastructure.html" />
+    <link rel="prev" title="2 Developer Environment 🟡" href="02-developer-environment.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Eclipse S-CORE</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how-to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Infrastructure Landscape
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/eclipse-score" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how-to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Infrastructure Landscape
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/eclipse-score" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar"><svg class="pst-icon svg-inline--fa" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-source-code-infrastructure.html">1 Source Code Infrastructure 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-developer-environment.html">2 Developer Environment 🟡</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3 Build &amp; Dependencies 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-testing-infrastructure.html">4 Testing 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-documentation-infrastructure.html">9 Documentation &amp; Traceability 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-infrastructure-operations.html">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-reference-integration.html">11 Reference Integration 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decisions.html">Infrastructure Design Decisions</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Infrastructure Landscape</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">3 Build &amp; Dependencies 🟠</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="build-dependencies">
+<h1>3 Build &amp; Dependencies 🟠<a class="headerlink" href="#build-dependencies" title="Link to this heading">#</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Looking for practical guides?
+This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the <a class="reference internal" href="../how-to/index.html"><span class="std std-doc">How-to Guides</span></a>.</p>
+</div>
+<p><em>Deterministic, reproducible builds across S-CORE repositories using Bazel as the shared build system, including the dependency and evidence model around those builds.</em></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Draft
+This chapter has not been fully reviewed. Content may be incomplete or inaccurate.</p>
+</div>
+<ul class="simple">
+<li><p>Bazel is the standard build system direction for S-CORE middleware repositories.</p></li>
+<li><p>Shared build rules and toolchain definitions are intended to reduce per-repository configuration duplication.</p></li>
+<li><p>Internal Bazel modules are expected to be distributed through the shared S-CORE registry at <a class="reference external" href="https://github.com/eclipse-score/bazel_registry/">eclipse-score/bazel_registry</a>.</p></li>
+<li><p>Remote caching is available to reduce repeated build work across CI pipelines.</p></li>
+<li><p>Dependency governance, SBOMs, and provenance belong here because they should be derived from normal builds rather than added only at release time.</p></li>
+<li><p>The end-to-end compliance interpretation of those outputs, including license enrichment, development-versus-product SBOM scope, and later monitoring, belongs in <a class="reference internal" href="06-compliance-infrastructure.html"><span class="std std-doc">chapter 6</span></a>, not in the build chapter itself.</p></li>
+<li><p>This scope includes not only middleware outputs, but also self-developed tooling and environment artifacts such as Python tooling packages and devcontainer images when they are built and published by S-CORE.</p></li>
+<li><p>Contributor onboarding, IDE support, and surrounding local tooling guidance for those environments belongs in <a class="reference internal" href="02-developer-environment.html"><span class="std std-doc">chapter 2</span></a>; this chapter owns the build-time model behind them.</p></li>
+<li><p><strong>Biggest gap</strong>: shared build rule libraries, toolchain baselines, dependency policy, and build evidence are not yet consistently available across all S-CORE repositories.</p></li>
+</ul>
+<pre  class="mermaid">
+        graph LR
+    module[&quot;MODULE.bazel\n(bazel_dep declarations)&quot;]
+    score_reg[&quot;`S-CORE registry\neclipse-score/bazel_registry`&quot;]
+    bcr[&quot;Bazel Central Registry\nbcr.bazel.build&quot;]
+    build[&quot;bazel build //...&quot;]
+    cache[&quot;Remote build cache&quot;]
+    toolchains[&quot;Toolchain modules\nbazel_cpp_toolchains\ntoolchains_rust&quot;]
+    policies[&quot;Policy modules\nscore_cpp_policies\nscore_rust_policies&quot;]
+
+    module --&gt;|&quot;1st: resolve S-CORE deps&quot;| score_reg
+    module --&gt;|&quot;2nd: fallback&quot;| bcr
+    score_reg --&gt; build
+    bcr --&gt; build
+    toolchains --&gt; build
+    policies --&gt; build
+    build &lt;--&gt;|&quot;cache hits / writes&quot;| cache
+    </pre><section id="build-system">
+<h2>3.1 Build System 🟢<a class="headerlink" href="#build-system" title="Link to this heading">#</a></h2>
+<p><em>Core build tooling shared across S-CORE repositories.</em></p>
+</section>
+<section id="dependency-management">
+<h2>3.2 Dependency Management 🟡<a class="headerlink" href="#dependency-management" title="Link to this heading">#</a></h2>
+<p><em>Managing external and internal dependencies in a consistent, auditable way across S-CORE repositories.</em></p>
+<ul class="simple">
+<li><p>External dependencies are declared per repository in Bazel workspace files; pinning strategies vary.</p></li>
+<li><p>Internal S-CORE Bazel modules should be consumed through the shared registry instead of ad hoc repository wiring.</p></li>
+<li><p>Build-generated dependency inventories are needed to support licensing, SBOM generation, and the later compliance flow described in <a class="reference internal" href="06-compliance-infrastructure.html"><span class="std std-doc">chapter 6</span></a>.</p></li>
+<li><p>The same dependency-governance expectations should apply to product code, self-developed tooling, and environment artifacts.</p></li>
+<li><p><strong>Biggest gap</strong>: no unified dependency policy or cross-repository version alignment standard exists.</p></li>
+</ul>
+<section id="third-party-dependencies">
+<h3>3.2.1 Third-Party Dependencies 🔴<a class="headerlink" href="#third-party-dependencies" title="Link to this heading">#</a></h3>
+<p><em>Integration and management of external libraries via Bazel.</em></p>
+<ul class="simple">
+<li><p>External libraries are imported via Bazel Central Registry; apart from the shared internal S-CORE registry for first-party modules, no shared third-party registry or approved source list exists.</p></li>
+<li><p>No formal cross-repository dependency policy currently exists.</p></li>
+<li><p>This should cover allowed sources, pinning expectations, version alignment, and license handling.</p></li>
+</ul>
+<p><strong>Biggest gap</strong>: dependency choices are inconsistent and unaudited without policy guardrails.
+<strong>Biggest gap</strong>: 3rd party dependencies are currently pulled directly from modules, not through (our) bazel registry. No shared policy on allowed sources, pinning, version alignment, or license handling exists.</p>
+</section>
+<section id="internal-module-dependencies">
+<h3>3.2.2 Internal Module Dependencies 🟢<a class="headerlink" href="#internal-module-dependencies" title="Link to this heading">#</a></h3>
+<p><em>Managing build-time dependencies between S-CORE repositories.</em></p>
+<p>S-CORE repositories are expected to exchange Bazel modules through the shared registry at <a class="reference external" href="https://github.com/eclipse-score/bazel_registry/">eclipse-score/bazel_registry</a>. From the build perspective, this section is only about consumption: a repository should resolve first-party modules through the registry rather than through ad hoc repository overrides or manual source wiring. The full publication flow, including the coupling between registry entries and GitHub Releases, is described in <a class="reference internal" href="08-artifact-distribution.html#registry-based-distribution"><span class="std std-ref">chapter 8</span></a>.</p>
+<p>For consumers, the practical step is to tell Bazel where to look for modules. The same registry configuration described in <a class="reference internal" href="08-artifact-distribution.html#consumer-guidance"><span class="std std-ref">chapter 8</span></a> applies here:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>common --registry=https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/
+common --registry=https://bcr.bazel.build
+</pre></div>
+</div>
+<p>Once that is in place, dependencies are declared in <code class="docutils literal notranslate"><span class="pre">MODULE.bazel</span></code> with Bazel’s normal module mechanism such as <code class="docutils literal notranslate"><span class="pre">bazel_dep(...)</span></code>. That is enough for the build side. Module discovery, release mechanics, and service ownership are intentionally documented in <a class="reference internal" href="08-artifact-distribution.html#registry-based-distribution"><span class="std std-ref">chapter 8</span></a> and <a class="reference internal" href="10-infrastructure-operations.html#shared-registry-services"><span class="std std-ref">chapter 10</span></a> instead of being repeated here.</p>
+</section>
+<section id="tooling-and-environment-dependencies">
+<h3>3.2.3 Tooling and Environment Dependencies 🟡<a class="headerlink" href="#tooling-and-environment-dependencies" title="Link to this heading">#</a></h3>
+<p><em>Managing dependencies of self-developed tooling and environment artifacts with the same rigor as product builds.</em></p>
+<ul class="simple">
+<li><p>S-CORE-developed tooling, especially Python-based tooling, is also part of the build and dependency landscape even when it is not product code.</p></li>
+<li><p>The same is true for build-relevant environment artifacts such as the devcontainer, because they package dependencies, licenses, and supply-chain choices into something contributors and CI consume directly.</p></li>
+<li><p><strong>Biggest gap</strong>: tooling repositories and environment artifacts are not yet described as first-class citizens of the shared dependency-governance model.</p></li>
+</ul>
+</section>
+<section id="lock-files">
+<h3>3.2.4 Lock Files 🟡<a class="headerlink" href="#lock-files" title="Link to this heading">#</a></h3>
+<p><em>Capturing the resolved dependency graph in version control for reproducible Bazel and <code class="docutils literal notranslate"><span class="pre">uv</span></code> inputs.</em></p>
+<p>Lock files such as <code class="docutils literal notranslate"><span class="pre">MODULE.bazel.lock</span></code> and <code class="docutils literal notranslate"><span class="pre">uv.lock</span></code> make the resolved dependency graph explicit instead of leaving each machine to rediscover it from the high-level declarations. From the build and dependency perspective, that matters because reproducibility depends not only on the declared inputs, but also on the exact resolved result that Bazel or <code class="docutils literal notranslate"><span class="pre">uv</span></code> will consume.</p>
+<p>In the S-CORE repository landscape, this pattern already exists in practice, but not yet consistently across all repositories. Where lock files are used, the practical refresh step is typically handled locally through <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code> and committed together with the dependency declaration change rather than being edited by hand. CI should then treat the committed lock state as authoritative for both Bazel and <code class="docutils literal notranslate"><span class="pre">uv</span></code> flows and fail when the declarations and the lock file no longer match. Current automated updates are also split by source: <code class="docutils literal notranslate"><span class="pre">renovate-bot</span></code> updates dependencies that come through the local S-CORE registry, while Dependabot updates dependencies that come from public registries.</p>
+</section>
+<section id="known-good-integration-sets">
+<h3>3.2.5 Known-Good Integration Sets<a class="headerlink" href="#known-good-integration-sets" title="Link to this heading">#</a></h3>
+<p><em>Capturing the explicit cross-repository integration manifest and metadata used to assemble one S-CORE stack.</em></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">known_good</span></code> manifest identifies which component revisions belong together in one validated S-CORE stack. It sits one level above ordinary Bazel lock files: a lock file captures the resolved dependency graph inside a workspace, while <code class="docutils literal notranslate"><span class="pre">known_good</span></code> is the curated integration selection from which those inputs are generated.</p>
+<p>The architectural context and decision background for this mechanism are documented separately: see <a class="reference internal" href="decisions.html#known-good-architecture-note"><span class="std std-ref">Infrastructure Design Decisions → <code class="docutils literal notranslate"><span class="pre">known_good</span></code> Architecture Note</span></a>.</p>
+<p>TODO: where is the integration chapter?</p>
+</section>
+</section>
+<section id="toolchain-management">
+<h2>3.3 Toolchain Management 🟠<a class="headerlink" href="#toolchain-management" title="Link to this heading">#</a></h2>
+<p><em>Compiler and runtime toolchain configuration for C++, Rust, and Python across S-CORE builds.</em></p>
+<ul class="simple">
+<li><p>Toolchain versions and build-time configuration are owned here, even when contributors access the surrounding local tooling through the shared environment described in <a class="reference internal" href="02-developer-environment.html"><span class="std std-doc">chapter 2</span></a>.</p></li>
+<li><p>Shared toolchain baselines are the main link between the Bazel build model and automated build execution.</p></li>
+</ul>
+<p>S-CORE is increasingly using a deliberate split between language toolchain modules and language policy modules. Toolchain repositories answer “how do we build this language in Bazel?” and therefore own compiler integration, sysroots, templates, registration, and other mechanics needed for reproducible builds. Separate policy repositories answer “which shared rules should repositories follow?” and package lint, warning, formatting, sanitizer, and safety-profile defaults that consumers can adopt without being forced onto a particular compiler rollout at the same time. That separation matters because toolchain upgrades and policy changes have different ownership and should be able to evolve on different cadences. <strong>Biggest gap</strong>: the pattern now exists in the S-CORE repository landscape, but it is not yet documented and adopted consistently enough that consumers can rely on it as the default model.</p>
+<section id="c-toolchains">
+<h3>3.3.1 C++ Toolchains 🟠<a class="headerlink" href="#c-toolchains" title="Link to this heading">#</a></h3>
+<p><em>Compiler and build configuration for C++ components.</em></p>
+<p>The emerging C++ structure follows that split directly. <a class="reference external" href="https://github.com/eclipse-score/bazel_cpp_toolchains">eclipse-score/bazel_cpp_toolchains</a> is the build-facing module: it provides the Bazel C/C++ toolchain configuration layer, templates, package descriptors, and registration logic for Linux and QNX builds. <a class="reference external" href="https://github.com/eclipse-score/score_cpp_policies">eclipse-score/score_cpp_policies</a> is the policy-facing companion: it centralizes reusable <code class="docutils literal notranslate"><span class="pre">cc_feature</span></code> and flag selections such as ASan, UBSan, LSan, and TSan support, <code class="docutils literal notranslate"><span class="pre">debug_symbols</span></code>, runtime environment templates, constraint targets such as <code class="docutils literal notranslate"><span class="pre">no_tsan</span></code> and <code class="docutils literal notranslate"><span class="pre">any_sanitizer</span></code>, and the flag infrastructure that repositories can use in <code class="docutils literal notranslate"><span class="pre">select()</span></code> expressions. That same policy layer is also the natural home for shared warning baselines and later ASIL-oriented safety configurations. The point of the split is that a module should be able to adopt shared C++ policies without being forced onto one specific toolchain release. The runtime purpose and rollout of sanitizers themselves belong in <a class="reference internal" href="04-testing-infrastructure.html#sanitizers-runtime-checks"><span class="std std-ref">chapter 4</span></a>; this subsection only owns the reusable build-side mechanism that makes those checks selectable.</p>
+<p><strong>Biggest gap</strong>: the repository split now exists, but common adoption and governance of shared C++ toolchain and policy baselines are still incomplete across S-CORE.</p>
+</section>
+<section id="rust-toolchains">
+<h3>3.3.2 Rust Toolchains 🟠<a class="headerlink" href="#rust-toolchains" title="Link to this heading">#</a></h3>
+<p><em>Toolchain configuration for Rust components.</em></p>
+<p>Rust already shows the same separation more explicitly. <a class="reference external" href="https://github.com/eclipse-score/toolchains_rust">eclipse-score/toolchains_rust</a> packages the actual Rust toolchains for Bazel, including prebuilt Ferrocene toolchains and the helper extension used to register them. <a class="reference external" href="https://github.com/eclipse-score/score_rust_policies">eclipse-score/score_rust_policies</a> separately packages the shared Clippy and rustfmt defaults that S-CORE projects are expected to consume. In other words, one repository answers how Bazel gets a Rust compiler, while the other answers which Rust lint and formatting rules S-CORE wants to enforce. Keeping those concerns decoupled allows toolchain upgrades and policy tightening to evolve independently instead of being forced into one release stream.</p>
+<p><strong>Biggest gap</strong>: the split is already visible in the repository landscape, but consistent rollout and governance of those shared Rust baselines are still not project-wide.</p>
+</section>
+<section id="python-toolchains">
+<h3>3.3.3 Python Toolchains 🔴<a class="headerlink" href="#python-toolchains" title="Link to this heading">#</a></h3>
+<p><em>Python runtime and tooling configuration for build and test.</em></p>
+<ul class="simple">
+<li><p>Python toolchains vary per repository; no shared Python version baseline is defined.</p></li>
+<li><p><strong>Biggest gap</strong>: no cross-repository Python toolchain standard is enforced.</p></li>
+</ul>
+</section>
+<section id="qnx-sdp-provisioning">
+<h3>3.3.4 QNX SDP Provisioning 🟠<a class="headerlink" href="#qnx-sdp-provisioning" title="Link to this heading">#</a></h3>
+<p><em>How the QNX Software Development Platform is obtained and made available to Bazel C++ builds.</em></p>
+<p>The QNX SDP — the compiler, headers, and libraries required for QNX cross-compilation — is a commercial artifact distributed separately from the toolchain configuration. Its provisioning path is distinct from the Bazel toolchain registration in <code class="docutils literal notranslate"><span class="pre">bazel_cpp_toolchains</span></code> and determines how reliably builds can acquire the SDP in CI and in local developer environments.</p>
+<p>License on CI:  A separate <a class="reference external" href="https://github.com/eclipse-score/cicd-actions"><code class="docutils literal notranslate"><span class="pre">setup-qnx-sdp</span></code></a> composite action handles license activation only; it does not fetch or unpack the SDP</p>
+<p>License locally: License credentials are injected through environment variables.</p>
+<section id="today">
+<h4>Today<a class="headerlink" href="#today" title="Link to this heading">#</a></h4>
+<p>The SDP is downloaded as a tar archive from QNX.com via a hardcoded dependency URL in Bazel. Forks may overwrite this dependency.</p>
+<pre  class="mermaid">
+        flowchart LR
+    qnxcom([&quot;QNX.com&quot;])
+    sdp_tar[&quot;`QNX SDP
+〈artefact: tar〉`&quot;]
+    env_cfg([&quot;Local Environment variables&quot;])
+    license([&quot;License&quot;])
+    action_setup[&quot;`setup-qnx-sdp
+(license only)`&quot;]
+    bazel[&quot;Bazel build C++&quot;]
+
+    qnxcom --&gt; sdp_tar
+    sdp_tar --&gt;|&quot;hardcoded dependency URL&quot;| bazel
+    action_setup --&gt; license
+    env_cfg --&gt; license
+    
+    license --&gt;|&quot;activates license only&quot;| bazel
+    </pre><p>The license and the SDP fetch are deliberately separate.</p>
+</section>
+<section id="soon-planned">
+<h4>Soon (planned)<a class="headerlink" href="#soon-planned" title="Link to this heading">#</a></h4>
+<p>The target model does not rely on QMX.com, but rather uses the QNX CLI distributed with QNX Software Center to produce a local SDP. That SDP is then stored in bazel cache, on your local computer, in ci cache, on protected eclipse artefact storage, or on company-internal artefact storage — and Bazel receives a user-defined flag that tells it where to find the SDP. For local developer environments the intended invocation is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bazel run //:local_qnx_sdp -- --path=/opt/qnx_sdp
+# or
+local_qnx_sdp.sh --path=/opt/qnx_sdp
+</pre></div>
+</div>
+<pre  class="mermaid">
+        flowchart TD
+    qnx_sc([&quot;QNX Software Center&quot;])
+    qnx_cli[&quot;`QNX CLI
+〈tool〉`&quot;]
+    sdp_dir[&quot;`QNX SDP
+〈artefact: directory tree〉`&quot;]
+    art_store[(&quot;Artefact storage
+eclipse · company-internal · local&quot;)]
+    bazel[&quot;Bazel build C++&quot;]
+
+    qnx_sc -.-&gt; qnx_cli
+    qnx_cli -.-&gt; sdp_dir
+    sdp_dir -.-&gt; art_store
+    art_store -.-&gt;|&quot;user-defined flag&quot;| bazel
+    </pre><p>The central unsolved problem in this model is how we can provide this SDP as a true bazel dependency to qnx-related builds, as it has a <strong>non-deterministic SDP output</strong>. So building the SDP on the fly produces a different archive hash on every invocation. Bazel treats a changed hash as a changed dependency, which invalidates the <strong>entire</strong> C++ build cache and forces a full recompilation of all downstream targets on every run. Until the SDP can be built deterministically using it as a bazel dependency is not practical.</p>
+</section>
+</section>
+</section>
+<section id="build-reproducibility-evidence">
+<h2>3.4 Build Reproducibility &amp; Evidence 🔴<a class="headerlink" href="#build-reproducibility-evidence" title="Link to this heading">#</a></h2>
+<p><em>Ensuring builds are deterministic and produce trustworthy evidence from the same inputs.</em></p>
+<ul class="simple">
+<li><p>Bazel’s hermetic execution model is the foundation for reproducibility across S-CORE.</p></li>
+<li><p>SBOMs and provenance should be normal build outputs, while publication of that evidence belongs in <a class="reference internal" href="08-artifact-distribution.html"><span class="std std-doc">chapter 8</span></a>.</p></li>
+<li><p>Once generated, those SBOMs become inputs to the compliance flow in <a class="reference internal" href="06-compliance-infrastructure.html"><span class="std std-doc">chapter 6</span></a>, which decides their scope, enriches them, and feeds later monitoring.</p></li>
+<li><p>The same expectation should hold for self-developed tooling and dev environment artifacts where S-CORE builds and distributes them.</p></li>
+<li><p>This evidence model belongs here because it is about built artifacts, not the contributor workflow described in <a class="reference internal" href="02-developer-environment.html"><span class="std std-doc">chapter 2</span></a>.</p></li>
+<li><p><strong>Biggest gap</strong>: hermetic build compliance, reproducibility verification, and build-derived evidence are not yet generated or enforced uniformly across repositories.</p></li>
+</ul>
+<section id="hermetic-builds">
+<h3>3.4.1 Hermetic Builds 🟠<a class="headerlink" href="#hermetic-builds" title="Link to this heading">#</a></h3>
+<p><em>Isolating builds from host environments to ensure reproducibility.</em></p>
+<ul class="simple">
+<li><p>The devcontainer provides a stable, isolated build environment for CI and local builds.</p></li>
+<li><p><strong>Biggest gap</strong>: full hermetic compliance (no host toolchain leakage) is not uniformly verified.</p></li>
+</ul>
+</section>
+<section id="deterministic-artifacts">
+<h3>3.4.2 Deterministic Artifacts 🔴<a class="headerlink" href="#deterministic-artifacts" title="Link to this heading">#</a></h3>
+<p><em>Ensuring builds produce identical artifacts from the same inputs.</em></p>
+<ul class="simple">
+<li><p>Bazel’s action graph model is designed for determinism; actual reproducibility is not validated at scale.</p></li>
+<li><p><strong>Biggest gap</strong>: no cross-repository determinism validation pipeline exists.</p></li>
+</ul>
+</section>
+<section id="rebuild-verification">
+<h3>3.4.3 Rebuild Verification 🔴<a class="headerlink" href="#rebuild-verification" title="Link to this heading">#</a></h3>
+<p><em>Checking whether reproducibility claims hold over time and across execution contexts.</em></p>
+<ul class="simple">
+<li><p>Rebuild verification would expose hidden toolchain changes, archive drift, and environmental assumptions.</p></li>
+<li><p><strong>Biggest gap</strong>: reproducibility is desirable, but not yet verified through a shared repeatable process.</p></li>
+</ul>
+</section>
+</section>
+<section id="build-execution-infrastructure">
+<h2>3.5 Build Execution Infrastructure 🔴<a class="headerlink" href="#build-execution-infrastructure" title="Link to this heading">#</a></h2>
+<p><em>Infrastructure for executing Bazel builds efficiently across local work and CI pipelines.</em></p>
+<ul class="simple">
+<li><p>Builds run on GitHub Actions using GitHub-hosted and self-hosted runners.</p></li>
+<li><p>A shared Bazel remote cache reduces redundant compile work across pipeline runs.</p></li>
+<li><p><strong>Biggest gap</strong>: remote build execution and shared performance visibility are not yet available project-wide.</p></li>
+</ul>
+<section id="cache">
+<h3>3.5.1 Cache 🔴<a class="headerlink" href="#cache" title="Link to this heading">#</a></h3>
+<p><em>Sharing Bazel build outputs between pipeline runs to reduce rebuild time.</em></p>
+<p>A shared Bazel cache should be available to S-CORE CI pipelines.</p>
+</section>
+<section id="remote-build-execution">
+<h3>3.5.2 Remote Build Execution 🔴<a class="headerlink" href="#remote-build-execution" title="Link to this heading">#</a></h3>
+<p><em>Executing Bazel build actions on remote compute resources.</em></p>
+<p>Remote Build Execution (RBE) offloads Bazel’s action graph to a cluster of workers so that parallelism is no longer bound by the CPU and memory of a single runner. For S-CORE, the practical value is twofold: CI builds that currently serialize on a single GitHub Actions runner could fan out across remote workers, and developers running Bazel locally could optionally delegate heavy compilations to remote infrastructure while keeping the edit-build-test cycle on their own machine.</p>
+<p>The infrastructure involves three layers. First, a backend service that implements the Bazel Remote Execution API — candidates range from open-source solutions such as Buildbarn and BuildBuddy Community to managed commercial services. Second, the CI and local <code class="docutils literal notranslate"><span class="pre">.bazelrc</span></code> configuration that enables remote execution for the right subset of actions without breaking platform-specific builds. Third, authentication and access control so that the backend serves authorized S-CORE builds without exposing the cluster to uncontrolled workloads.</p>
+<p>A related Bazel mechanism is dynamic execution, which lets Bazel race a local and a remote execution of the same action and take whichever finishes first. This can smooth the transition period where some actions run faster locally and others benefit from remote workers, but it adds complexity to the configuration and requires the backend to tolerate speculative cancellations.</p>
+<p>For hardware-oriented testing, RBE intersects with the hardware runner story in <a class="reference internal" href="07-automation-integration.html#hardware-test-runners"><span class="std std-ref">section 7.1.2</span></a>. If lab-attached devices such as Raspberry Pi boards are registered as RBE workers, Bazel could schedule test execution on real hardware as part of a normal <code class="docutils literal notranslate"><span class="pre">bazel</span> <span class="pre">test</span></code> invocation, avoiding a separate deployment step. This is an advanced pattern that depends on both the RBE backend and the hardware provisioning model being in place.</p>
+<p><strong>Biggest gap</strong>: no RBE backend is available; builds are constrained to single-runner execution. Provider evaluation criteria, architecture decisions, and authentication model are not yet documented.</p>
+</section>
+<section id="build-performance-visibility">
+<h3>3.5.3 Build Performance Visibility 🔴<a class="headerlink" href="#build-performance-visibility" title="Link to this heading">#</a></h3>
+<p><em>Understanding where build time goes and where infrastructure work has the highest payoff.</em></p>
+<p>Shared build performance visibility should include queue times, cache effectiveness, and critical-path behavior.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02-developer-environment.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">2 Developer Environment 🟡</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="04-testing-infrastructure.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">4 Testing 🟠</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-system">3.1 Build System 🟢</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-management">3.2 Dependency Management 🟡</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#third-party-dependencies">3.2.1 Third-Party Dependencies 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#internal-module-dependencies">3.2.2 Internal Module Dependencies 🟢</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tooling-and-environment-dependencies">3.2.3 Tooling and Environment Dependencies 🟡</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-files">3.2.4 Lock Files 🟡</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#known-good-integration-sets">3.2.5 Known-Good Integration Sets</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toolchain-management">3.3 Toolchain Management 🟠</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-toolchains">3.3.1 C++ Toolchains 🟠</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rust-toolchains">3.3.2 Rust Toolchains 🟠</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-toolchains">3.3.3 Python Toolchains 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qnx-sdp-provisioning">3.3.4 QNX SDP Provisioning 🟠</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#today">Today</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#soon-planned">Soon (planned)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-reproducibility-evidence">3.4 Build Reproducibility &amp; Evidence 🔴</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hermetic-builds">3.4.1 Hermetic Builds 🟠</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deterministic-artifacts">3.4.2 Deterministic Artifacts 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rebuild-verification">3.4.3 Rebuild Verification 🔴</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-execution-infrastructure">3.5 Build Execution Infrastructure 🔴</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cache">3.5.1 Cache 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remote-build-execution">3.5.2 Remote Build Execution 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-performance-visibility">3.5.3 Build Performance Visibility 🔴</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/eclipse-score/infrastructure/edit/main/docs/explanation/03-build-infrastructure.md">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
