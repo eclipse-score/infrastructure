@@ -31,4 +31,4 @@ bazel run //:docs_check
 ```
 ## Security Guides
 
-- [GitHub Actions secrets from forks](docs/github-actions-secrets-from-forks.md) — when to use `pull_request_target` vs environments, with security constraints.
+- [GitHub Actions secrets from forks](docs/how-to/github-actions-secrets-from-forks.md) — when to use `pull_request_target` vs environments, with security constraints.
