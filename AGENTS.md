@@ -17,7 +17,7 @@ The site uses the [Divio documentation system](https://docs.divio.com/documentat
 | `docs/reference/` | Reference | Factual lookup material (repos, config, versions) |
 | `docs/explanation/` | Explanation | Architecture, design rationale, maturity assessment |
 
-The explanation quadrant contains the numbered landscape chapters (`01-source-code-infrastructure.md` through `10-infrastructure-operations.md`) plus an index page with an interactive mindmap.
+The explanation quadrant contains the numbered landscape chapters (`01-source-code-infrastructure.md` through `10-infrastructure-operations.md`) plus an index page with a capability/maturity/impact table.
 
 `docs/index.md` is the landing page with a Divio grid, quadrant link lists, and team quick links.
 
@@ -85,13 +85,13 @@ A change is not complete until `bazel run //:docs` passes cleanly.
 Two hooks auto-update generated content in the explanation quadrant:
 
 - `aggregate-status` — rolls up subsection maturity markers (🟢🟡🟠🔴⚪) to section and chapter headings
-- `generate-mindmap` — regenerates the chapter map in `docs/explanation/index.md` from chapter headings
+- `generate-chapter-table` — regenerates the chapter table in `docs/explanation/index.md` from chapter headings
 
 If not using pre-commit, run manually:
 
 ```bash
 python3 scripts/aggregate_status.py
-python3 scripts/generate_mindmap.py
+python3 scripts/generate_chapter_table.py
 ```
 
 # Navigation

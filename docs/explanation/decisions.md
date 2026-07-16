@@ -42,16 +42,13 @@ Key architectural decisions that shape the S-CORE infrastructure. Each entry sum
 
 ---
 
-## DR-008-Int — `reference_integration` Scope (Open)
+## DR-008-Int — `reference_integration` Scope
 
-**Status**: Not yet decided.
+**Status**: Decided. Option 4 was selected.
 
-**Problem**: Two options are under discussion for the scope of `reference_integration`:
+**Decision**: Use a stable `known_good` baseline with module-scoped validation. `reference_integration` promotes one explicit integrated stack, runs the integration-scoped checks on that stack, and validates module repositories against the dependency set resolved by the integrated baseline.
 
-- **Option 2** (stronger central ownership): `reference_integration` rebuilds and re-tests the full integrated stack for every `known_good` promotion. All cross-repository verification evidence is produced centrally.
-- **Lighter scope**: `reference_integration` assembles and promotes `known_good` but delegates more verification to individual component repositories. Some evidence stays per-module.
-
-**Effect on docs**: Several sections in [Chapter 3](03-build-infrastructure.md) and [Chapter 7](07-automation-integration.md) note where their architecture description assumes Option 2 and where it would change under a lighter scope.
+**Effect on docs**: Chapter [7](07-automation-integration.md) describes the CI promotion flow against the selected baseline. Chapter [11](11-reference-integration.md) is the canonical explanation of the integration workspace, promotion model, and evidence boundary.
 
 **Full DR**: [DR-008-Int](https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1)
 
@@ -66,6 +63,6 @@ This section was formerly part of [Chapter 3 § 3.2.7](03-build-infrastructure.m
 - A **lock file** (`MODULE.bazel.lock`, `uv.lock`) captures the resolved dependency graph that a concrete Bazel workspace consumes.
 - A **`known_good` manifest** is the curated integration selection from which Bazel-facing inputs can be generated. It can also carry automation metadata such as timestamps, suite identity, and which branch should be followed for automated CI refreshes.
 
-Regardless of whether the project eventually adopts Option 2 or a lighter `reference_integration` scope, `known_good` should be version-controlled, diffable, reproducible, and clearly distinct from generated Bazel lock data. The concrete file format matters less than that behavior.
+`known_good` should be version-controlled, diffable, reproducible, and clearly distinct from generated Bazel lock data. The concrete file format matters less than that behavior.
 
 **Decision background**: [DR-001-Strat](https://eclipse-score.github.io/score/main/design_decisions/DR-001-strat.html) · [DR-002-Infra](https://eclipse-score.github.io/score/main/design_decisions/DR-002-infra.html) · [DR-008-Int](https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1)

@@ -19,6 +19,7 @@ on:
   push:
     branches:
       - main
+      - dev
   merge_group:
     types: [checks_requested]
   release:
@@ -26,6 +27,7 @@ on:
 
 permissions:
   contents: read
+  actions: write
 
 jobs:
   docs-build:

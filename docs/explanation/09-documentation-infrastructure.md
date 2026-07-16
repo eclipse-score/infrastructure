@@ -6,8 +6,6 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 
 *Infrastructure supporting engineering documentation across S-CORE repositories.*
 
-**S-CORE**
-
 - Documentation infrastructure in S-CORE currently spans repository documentation sites and engineering-focused docs-as-code capabilities.
 - Documentation is published through CI-driven static site generation and hosting.
 - Engineering traceability (requirements, architecture, design, implementation, tests) is a target capability for functional safety compliance.
@@ -17,8 +15,6 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 
 *Capabilities for writing, structuring, and maintaining documentation in repositories.*
 
-**S-CORE**
-
 - Documentation is authored in version-controlled repositories alongside source code.
 - Markdown and rST are the primary input formats.
 - **Biggest gap**: authoring conventions and required documentation structure are not yet standardized across S-CORE repositories.
@@ -26,8 +22,6 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 ### 9.1.1 Docs-As-Code Tooling 🟡
 
 *Shared documentation build infrastructure across S-CORE repositories.*
-
-**S-CORE**
 
 [eclipse-score/docs-as-code](https://github.com/eclipse-score/docs-as-code) provides the shared documentation build tooling consumed across S-CORE. It packages Sphinx with MyST parser, the pydata-sphinx-theme with S-CORE branding, traceability support via sphinx-needs, and related documentation infrastructure into a versioned Bazel module. Repositories declare a dependency on `docs-as-code` to get a consistent documentation build experience without assembling their own toolchain.
 
@@ -41,8 +35,6 @@ Adoption is uneven: recent module repositories use `docs-as-code` v4.x, while ol
 
 *Infrastructure for builds, quality checks, and publication of documentation sites.*
 
-**S-CORE**
-
 Documentation build infrastructure should be versioned, reproducible, and reviewable like any other engineering toolchain. [eclipse-score/docs-as-code](https://github.com/eclipse-score/docs-as-code) is the shared build tooling that most module repositories are expected to consume. It is distributed through the Bazel registry and provides Sphinx-based documentation builds including traceability extensions. The CI side is handled by the reusable `docs.yml` and `docs-verify.yml` workflows in [eclipse-score/cicd-workflows](https://github.com/eclipse-score/cicd-workflows).
 
 This infrastructure documentation site uses `docs-as-code` with the standard Bazel-based Sphinx build, consistent with the rest of the S-CORE ecosystem. While it does not currently define traceability need objects, the infrastructure is in place to add them when needed.
@@ -53,16 +45,12 @@ This infrastructure documentation site uses `docs-as-code` with the standard Baz
 
 *Ensuring reproducible documentation output across local and CI environments.*
 
-**S-CORE**
-
 - Tooling and site configuration should live in version control so contributors can reproduce the published result locally and in CI.
 - **Biggest gap**: documentation toolchain choices and configuration practices are not yet aligned across S-CORE documentation surfaces.
 
 ### 9.2.2 Validation, Previews, and Publishing 🟡
 
 *Providing contributor feedback before merge through fast preview and validation workflows.*
-
-**S-CORE**
 
 Documentation quality depends on catching structural problems before they reach the published site. Strict builds are the first line of defense: running the site generator in strict mode surfaces broken internal links, invalid markup, and missing navigation entries during CI rather than after publication. Beyond strict builds, dedicated structural checks can validate concerns that the site generator itself does not enforce, such as external link reachability, heading hierarchy consistency, required metadata fields, and naming conventions for files or anchors.
 
@@ -78,8 +66,6 @@ Publishing should be an explicit, reproducible stage of the docs pipeline rather
 
 *Connecting documentation across repositories with stable linking and navigation patterns.*
 
-**S-CORE**
-
 - Contributors and stakeholders should be able to move across repository boundaries without losing context.
 - **Biggest gap**: there is no shared information architecture for how repository-local documentation fits into a broader S-CORE documentation landscape.
 
@@ -87,17 +73,13 @@ Publishing should be an explicit, reproducible stage of the docs pipeline rather
 
 *Establishing reliable links across repository boundaries and release versions.*
 
-**S-CORE**
-
 - Stable links are required if documentation, code, requirements, and release artifacts live in different repositories.
-- For integrated views produced from `reference_integration`, those links should resolve within one explicit `known_good` snapshot rather than silently mixing repository heads.
+- For integrated views produced from `reference_integration`, those links should resolve within one explicit `known_good` snapshot rather than silently mixing repository heads. [Chapter 11](11-reference-integration.md) explains why that snapshot boundary matters.
 - **Biggest gap**: no agreed cross-repository linking strategy exists for versioned and unversioned documentation content.
 
 ### 9.3.2 Shared Navigation and Discovery 🔴
 
 *Making documentation content easier to discover across repository-specific sites.*
-
-**S-CORE**
 
 When documentation is spread across repository-specific sites, the first problem is knowing where to look. A contributor searching for "how do I add a Bazel module" should not need to guess whether the answer lives in the platform documentation, the build infrastructure site, or a module repository's own pages. The same applies to consumers who want to understand what S-CORE offers before they start integrating.
 
@@ -113,8 +95,6 @@ For S-CORE, the practical starting point is the main [eclipse-score.github.io](h
 
 *Infrastructure supporting requirements, architecture, design, and links to implementation and tests.*
 
-**S-CORE**
-
 - Engineering documentation (requirements, architecture, detailed design) is required for process compliance (e.g. ISO 26262, ASPICE).
 - Architecture visualization and code integration are target capabilities to connect documentation with implementation artifacts.
 - Test evidence itself is produced in [chapter 4](04-testing-infrastructure.md); this chapter focuses on the documentation and traceability structures that should consume that evidence.
@@ -124,13 +104,11 @@ For S-CORE, the practical starting point is the main [eclipse-score.github.io](h
 
 *Linking requirements, design, code, and verification artifacts to support impact analysis.*
 
-**S-CORE**
-
 Traceability needs explicit object models and stable identifiers, not just linked prose. In a docs-as-code setting, that means requirements, design decisions, and verification references should be machine-readable documentation objects with typed relationships rather than free-form text that happens to mention a requirement ID.
 
 The Sphinx ecosystem provides this through extensions that let authors declare typed objects directly in documentation source and express relationships between them. Those objects can then be queried, filtered, and rendered as traceability matrices, coverage tables, or impact analysis views without maintaining a separate database. The important property is that the traceability data lives in version control alongside the prose, follows the same review process, and can be validated during the documentation build.
 
-For S-CORE, the practical value is that test evidence produced in [chapter 4](04-testing-infrastructure.md#test-traceability) can be linked back to requirement objects in documentation, creating a verification chain from requirement through implementation to test result. When requirements change between releases, the same object model makes it possible to identify which links break, which tests need re-evaluation, and which verification evidence is stale. That is the versioning dimension: requirement objects should carry version identity so that a documentation build for one `known_good` snapshot can show the requirement state at that point, while a diff between snapshots shows what changed.
+For S-CORE, the practical value is that test evidence produced in [chapter 4](04-testing-infrastructure.md#test-execution-dynamic-analysis) can be linked back to requirement objects in documentation, creating a verification chain from requirement through implementation to test result. When requirements change between releases, the same object model makes it possible to identify which links break, which tests need re-evaluation, and which verification evidence is stale. That is the versioning dimension: requirement objects should carry version identity so that a documentation build for one `known_good` snapshot can show the requirement state at that point, while a diff between snapshots shows what changed.
 
 **Biggest gap**: the tooling direction for docs-as-code traceability exists but is not yet named, standardized, or integrated into the documentation build pipeline across S-CORE repositories. Requirement versioning across releases is not yet addressed.
 
@@ -138,12 +116,8 @@ For S-CORE, the practical value is that test evidence produced in [chapter 4](04
 
 *Tying integrated docs and traceability evidence to one validated cross-repository snapshot.*
 
-**S-CORE**
-
 Cross-repository documentation becomes ambiguous unless readers can tell which combination of component revisions it describes. The `known_good` concept solves that by giving integrated documentation, verification summaries, and traceability views one shared snapshot identifier. A single documentation build in `reference_integration` should therefore describe one concrete `known_good` manifest or record, not an unspecified mix of module heads.
 
-Under the currently assumed but still-undecided Option 2 model, this identifier is also what allows the project to claim that integrated docs and integrated evidence were generated from the same centrally validated stack. If `reference_integration` later ends up with a lighter scope, the documentation benefit remains, but the traceability story has to distinguish more clearly between centrally generated pages and evidence linked in from module repositories.
+The important architectural point is that links, release notes, dashboards, and archived evidence should all resolve back to the same `known_good` identifier. [Chapter 11](11-reference-integration.md) owns the repository-level explanation of that snapshot contract. **Biggest gap**: S-CORE does not yet have a documented rule for binding integrated documentation and traceability artifacts to one explicit cross-repository snapshot.
 
-The important architectural point is that links, release notes, dashboards, and archived evidence should all resolve back to the same `known_good` identifier. **Biggest gap**: S-CORE does not yet have a documented rule for binding integrated documentation and traceability artifacts to one explicit cross-repository snapshot.
-
-This snapshot-oriented documentation view depends on the same integration model described in [DR-002-Infra](https://eclipse-score.github.io/score/main/design_decisions/DR-002-infra.html) and on the still-unsettled `reference_integration` scope discussion in [DR-008-Int](https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1).
+This snapshot-oriented documentation view depends on the same integration model described in [DR-002-Infra](https://eclipse-score.github.io/score/main/design_decisions/DR-002-infra.html) and on the selected `reference_integration` scope in [DR-008-Int](https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1).
