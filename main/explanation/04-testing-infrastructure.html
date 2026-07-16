@@ -38,13 +38,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-data-viewer/jsonview.bundle.css?v=f6ef2277" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/libs/html/datatables.min.css?v=4b4fd840" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/modern.css?v=803738c0" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cf9fcd3f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d828336e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
@@ -508,11 +508,11 @@ window.runMermaid = runMermaid;</script>
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/js/mindmap.js?v=40886bf0"></script>
+    <script src="../_static/js/maturity.js?v=73f0b4b1"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5 Code Analysis Infrastructure ⚪" href="05-static-analysis-infrastructure.html" />
-    <link rel="prev" title="3 Build &amp; Dependencies ⚪" href="03-build-infrastructure.html" />
+    <link rel="next" title="5 Code Analysis Infrastructure 🔴" href="05-static-analysis-infrastructure.html" />
+    <link rel="prev" title="3 Build &amp; Dependencies 🟠" href="03-build-infrastructure.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.1" />
@@ -831,14 +831,15 @@ window.runMermaid = runMermaid;</script>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01-source-code-infrastructure.html">1 Source Code Infrastructure 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02-developer-environment.html">2 Developer Environment 🟡</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies 🟠</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">4 Testing 🟠</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="09-documentation-infrastructure.html">9 Documentation &amp; Traceability 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10-infrastructure-operations.html">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-reference-integration.html">11 Reference Integration 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="decisions.html">Infrastructure Design Decisions</a></li>
 </ul>
 </div>
@@ -908,44 +909,33 @@ window.runMermaid = runMermaid;</script>
 This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the <a class="reference internal" href="../how-to/index.html"><span class="std std-doc">How-to Guides</span></a>.</p>
 </div>
 <p><em>Infrastructure supporting automated testing across S-CORE repositories, including dynamic analysis and verification evidence generation.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>Testing infrastructure in S-CORE is centered on executable Bazel test targets, shared framework integration, traceability metadata, and reporting that can be consumed as verification evidence. The verification process may still use named levels such as unit, component integration, feature integration, and platform tests, but that taxonomy belongs to process guidance rather than this chapter. From the infrastructure perspective, the practical distinction is simpler: lower-level tests usually live in module repositories, while broader scenario-driven and target-oriented execution increasingly collects around shared environments such as <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> and ITF.</p>
-<p>That scope also explains why coverage, sanitizers, fuzzing, and profiling belong here. They are runtime techniques that depend on executing software, even when their outputs are later consumed by documentation, compliance, or CI chapters. <strong>Biggest gap</strong>: testing capability already exists in several strong islands, but shared conventions for framework packaging, traceability, aggregation, dashboards, and advanced runtime analysis are still incomplete across S-CORE.</p>
+<p>That scope also explains why coverage, sanitizers, fuzzing, and profiling belong here. They are runtime techniques that depend on executing software, even when their outputs are later consumed by documentation, compliance, or CI chapters.</p>
+<p><strong>Biggest gap</strong>: testing capability already exists in several strong islands, but shared conventions for framework packaging, traceability, aggregation, dashboards, and advanced runtime analysis are still incomplete across S-CORE.</p>
+<p>TODO: where is this discussion about putting tests in a seperate module?</p>
 <section id="test-framework-integration">
-<h2>4.1 Test Framework Integration 🟠<a class="headerlink" href="#test-framework-integration" title="Link to this heading">#</a></h2>
-<p><em>Integrating language-specific and target-specific test frameworks with the Bazel build system.</em></p>
-<p><strong>S-CORE</strong></p>
-<p>S-CORE already has a workable multi-language testing base. Repositories define Bazel <code class="docutils literal notranslate"><span class="pre">*_test</span></code> targets for C++, Rust, and Python, and higher-level integration environments layer scenario support and target orchestration on top. What is still missing is a clearer shared baseline for how those frameworks are packaged, versioned, and reused so that repositories converge on similar patterns instead of each building a local interpretation. <strong>Biggest gap</strong>: no single shared framework baseline or packaging model is yet defined across all S-CORE repositories.</p>
-<section id="c-test-frameworks">
-<h3>4.1.1 C++ Test Frameworks 🟡<a class="headerlink" href="#c-test-frameworks" title="Link to this heading">#</a></h3>
-<p><em>Infrastructure supporting C++ testing frameworks.</em></p>
-<p><strong>S-CORE</strong></p>
-<p>C++ testing is one of the most mature paths today. Bazel-integrated frameworks such as GoogleTest already support ordinary unit-style execution well, and existing C++ flows are also ahead on coverage and evidence generation. The remaining issue is consistency: framework versions and Bazel rule setup still vary per repository. <strong>Biggest gap</strong>: framework versioning and Bazel rule configuration are not yet aligned across S-CORE.</p>
+<h2>4.1 Test Framework Integration 🟡<a class="headerlink" href="#test-framework-integration" title="Link to this heading">#</a></h2>
+<p><em>Integrating language-specific and target-specific test frameworks with the Bazel build system. Incl Traceability.</em></p>
+<p>S-CORE already has a workable multi-language testing base. Repositories define Bazel <code class="docutils literal notranslate"><span class="pre">*_test</span></code> targets for C++, Rust, and Python, and higher-level integration environments layer scenario support and target orchestration on top. What is still missing is a clearer shared baseline for how those frameworks are packaged, versioned, and reused so that repositories converge on similar patterns instead of each building a local interpretation.</p>
+<section id="c-unit-test-framework">
+<h3>4.1.1 C++ Unit-Test Framework 🟡<a class="headerlink" href="#c-unit-test-framework" title="Link to this heading">#</a></h3>
+<p><em>Infrastructure supporting C++ unit testing frameworks.</em></p>
+<p>C++ testing is one of the most mature paths today. Bazel-integrated frameworks such as GoogleTest already support ordinary unit-style execution well, and existing C++ flows are also ahead on coverage and evidence generation.</p>
+<p><strong>Biggest gap</strong>: The remaining issue is consistency: framework versions and Bazel rule setup still vary per repository.</p>
 </section>
-<section id="rust-test-frameworks">
-<h3>4.1.2 Rust Test Frameworks 🟠<a class="headerlink" href="#rust-test-frameworks" title="Link to this heading">#</a></h3>
-<p><em>Infrastructure supporting Rust testing frameworks.</em></p>
-<p><strong>S-CORE</strong></p>
-<p>Rust tests typically use the native Rust test model through <code class="docutils literal notranslate"><span class="pre">rules_rust</span></code>, which fits well with the Bazel-centered infrastructure direction. The capability exists, but it is less even than the established C++ path, especially around reporting, coverage integration, and traceability metadata. <strong>Biggest gap</strong>: consistent <code class="docutils literal notranslate"><span class="pre">rules_rust</span></code> versioning and reporting support are not yet uniformly available.</p>
+<section id="rust-unit-test-framework">
+<h3>4.1.2 Rust Unit-Test Framework ⚪<a class="headerlink" href="#rust-unit-test-framework" title="Link to this heading">#</a></h3>
+<p><em>Infrastructure supporting Rust unit testing frameworks.</em></p>
+<p>Rust tests typically use the native Rust test model through <code class="docutils literal notranslate"><span class="pre">rules_rust</span></code>, which fits well with the Bazel-centered infrastructure direction. The capability exists, but it is less even than the established C++ path, especially around reporting, coverage integration, and traceability metadata.</p>
 </section>
 <section id="python-test-frameworks">
-<h3>4.1.3 Python Test Frameworks 🟠<a class="headerlink" href="#python-test-frameworks" title="Link to this heading">#</a></h3>
+<h3>4.1.3 Python Test Frameworks 🟡<a class="headerlink" href="#python-test-frameworks" title="Link to this heading">#</a></h3>
 <p><em>Infrastructure supporting Python testing frameworks.</em></p>
-<p><strong>S-CORE</strong></p>
-<p>Python tests generally rely on pytest-style execution integrated through Bazel’s Python rules. Python also matters beyond unit tests because it often acts as the orchestration layer for higher-level scenarios and target interaction, which is why ITF (<a class="reference internal" href="#itf-framework">section 4.1.5</a>) is itself pytest-based.</p>
-<p>For repositories that use pytest, the infrastructure question is not whether pytest works — it does — but whether repositories converge on a shared baseline for plugin selection, fixture patterns, and result output. Without that, each repository assembles its own pytest configuration, and shared tooling that consumes test results (reporting in <a class="reference internal" href="#test-reporting">section 4.4</a>, traceability in <a class="reference internal" href="#test-traceability">section 4.2</a>) has to account for divergent output formats and metadata conventions. A shared pytest baseline would define which plugins are expected by default, how results are formatted for downstream consumption, and how system-level tests that need target interaction relate to the ITF plugin model.</p>
-<p>The rollout challenge is that pytest is used at multiple levels: lightweight unit-style tests in module repositories, orchestration-heavy system tests in integration environments, and ITF-based target tests. A shared baseline must be useful across those levels without forcing a one-size-fits-all configuration. <strong>Biggest gap</strong>: there is no shared Python test framework and plugin baseline across repositories, and the boundary between plain pytest usage and ITF-managed execution is not yet clearly drawn.</p>
-</section>
-<section id="scenario-test-framework">
-<h3>4.1.4 Scenario Test Framework 🟠<a class="headerlink" href="#scenario-test-framework" title="Link to this heading">#</a></h3>
-<p><em>Infrastructure supporting scenario-based testing for C++ and Rust.</em></p>
-<p><strong>S-CORE</strong></p>
-<p>Scenario-style execution matters once testing spans modules, services, or richer system behavior. S-CORE already uses scenario-based approaches to exercise common flows across languages and repositories, which is especially relevant when <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> assembles modules into shared environments. The tradeoff is that scenario logic can be split across orchestration code and implementation-specific backends, which makes ownership and failure diagnosis harder. <strong>Biggest gap</strong>: scenario support exists, but it is not yet packaged as a uniformly reusable cross-repository capability.</p>
+<p>Python tests generally rely on pytest-style execution. Either directly (via uv) or through Bazel’s Python rules. Note that contrary to C++ and Rust, Pythons pytests are used on all testing levels including for higher-level integration and scenario testing rather than just unit tests.</p>
 </section>
 <section id="itf-framework">
-<h3>4.1.5 ITF Framework 🟡<a class="headerlink" href="#itf-framework" title="Link to this heading">#</a></h3>
+<h3>4.1.4 ITF Framework 🟠<a class="headerlink" href="#itf-framework" title="Link to this heading">#</a></h3>
 <p><em>Infrastructure supporting target-oriented integration and system-like testing.</em></p>
-<p><strong>S-CORE</strong></p>
 <p><a class="reference external" href="https://github.com/eclipse-score/itf">ITF</a> is the clearest example of target-oriented higher-level testing infrastructure in the current landscape. It is pytest-based, designed for ECU-oriented testing, and built around a target-agnostic plugin model covering environments such as Docker, QEMU, and real hardware, along with concerns like DLT handling.</p>
 <p>The execution pipeline for ITF tests follows a layered model. Bazel invokes a pytest runner through the <code class="docutils literal notranslate"><span class="pre">py_itf_test</span></code> symbolic macro, which uses ITF plugins to manage the target environment — starting a Docker container, launching a QEMU instance, or connecting to a hardware device. The test code then interacts with the system under test through the environment that the plugin provides. Results flow back through pytest into Bazel’s test result model as JUnit XML written to <code class="docutils literal notranslate"><span class="pre">$XML_OUTPUT_FILE</span></code>. This pipeline means that ITF tests can be triggered as ordinary <code class="docutils literal notranslate"><span class="pre">bazel</span> <span class="pre">test</span></code> targets while the execution complexity is hidden inside the plugin layer. Because the <code class="docutils literal notranslate"><span class="pre">py_itf_test</span></code> macro produces a standard <code class="docutils literal notranslate"><span class="pre">py_test</span></code> binary that bundles test code and all plugin dependencies, ITF tests participate fully in Bazel’s incremental build and caching: a test is only re-run if its source, dependencies, or configuration changes.</p>
 <pre  class="mermaid">
@@ -1067,22 +1057,13 @@ traceability metadata`&quot;]
     style RASPI fill:#ccc,color:#666,stroke:#999,stroke-dasharray: 5 5
     style QUALCOMM fill:#ccc,color:#666,stroke:#999,stroke-dasharray: 5 5
     </pre><p>ITF is structured across three Bazel modules. <code class="docutils literal notranslate"><span class="pre">score_itf</span></code> is the open-source core (plugin contract, Bazel rules, pytest integration). Private or proprietary plugins live in separate repositories (e.g. <code class="docutils literal notranslate"><span class="pre">vsps_itf_plugins</span></code> for ETAS-internal targets) and are consumed via <code class="docutils literal notranslate"><span class="pre">git_override</span></code> or <code class="docutils literal notranslate"><span class="pre">archive_override</span></code> in the test consumer’s <code class="docutils literal notranslate"><span class="pre">MODULE.bazel</span></code>. This separation means the open-source core can evolve independently from private plugin implementations.</p>
-<p>For traceability, the attribute plugin provides an <code class="docutils literal notranslate"><span class="pre">&#64;add_test_properties</span></code> decorator that writes metadata such as <code class="docutils literal notranslate"><span class="pre">fully_verifies</span></code>, <code class="docutils literal notranslate"><span class="pre">test_type</span></code>, and <code class="docutils literal notranslate"><span class="pre">derivation_technique</span></code> into JUnit XML output. This connects ITF test results to the traceability model described in <a class="reference internal" href="#test-traceability">section 4.2</a>.</p>
+<p>For traceability, the attribute plugin provides an <code class="docutils literal notranslate"><span class="pre">&#64;add_test_properties</span></code> decorator that writes metadata such as <code class="docutils literal notranslate"><span class="pre">fully_verifies</span></code>, <code class="docutils literal notranslate"><span class="pre">test_type</span></code>, and <code class="docutils literal notranslate"><span class="pre">derivation_technique</span></code> into JUnit XML output. This connects ITF test results to the traceability model described in <a class="reference internal" href="#test-execution-dynamic-analysis">section 4.2</a>.</p>
 <p><strong>Biggest gap</strong>: the ITF plugin model and capability system are established, but onboarding guidance for module teams adopting ITF is still thin. The Bazel-side integration for passing traceability metadata from build targets into the attribute plugin is not yet streamlined.</p>
 </section>
 </section>
-<section id="test-traceability">
-<h2>4.2 Test Traceability 🟠<a class="headerlink" href="#test-traceability" title="Link to this heading">#</a></h2>
-<p><em>Infrastructure for tracking traceability between test cases, requirements, and verification evidence.</em></p>
-<p><strong>S-CORE</strong></p>
-<p>Test traceability is one of the parts of the testing stack that already shows a clear end-to-end shape. Test implementations can add requirement information to reports, and the docs-as-code flow can consume those reports to create links back into requirements and verification artifacts. Tests therefore behave as first-class evidence objects, even when they are represented differently from textual requirements. Higher-level traceability in <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> is already moving in the same direction.</p>
-<p>The concrete mechanism for ITF-based tests is the attribute plugin’s <code class="docutils literal notranslate"><span class="pre">&#64;add_test_properties</span></code> decorator, which writes structured metadata into the JUnit XML report. The supported fields include <code class="docutils literal notranslate"><span class="pre">fully_verifies</span></code> (list of requirement identifiers the test covers), <code class="docutils literal notranslate"><span class="pre">test_type</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">requirements-based</span></code>), and <code class="docutils literal notranslate"><span class="pre">derivation_technique</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">requirements-analysis</span></code>). Sphinx-based documentation tooling can then consume these JUnit XML reports to create bidirectional traceability between test results and requirement objects. This creates a verification chain from requirement through implementation to test result, which is especially valuable when requirements change between releases and the documentation build needs to identify which links break.</p>
-<p><strong>Biggest gap</strong>: Rust targets and some higher-level frameworks still cannot carry the same degree of traceability metadata as the more mature C++-centric and ITF-based flows.</p>
-</section>
 <section id="test-execution-dynamic-analysis">
-<h2>4.3 Test Execution &amp; Dynamic Analysis 🟠<a class="headerlink" href="#test-execution-dynamic-analysis" title="Link to this heading">#</a></h2>
+<h2>4.2 Test Execution &amp; Dynamic Analysis 🟠<a class="headerlink" href="#test-execution-dynamic-analysis" title="Link to this heading">#</a></h2>
 <p><em>Infrastructure for executing automated tests and runtime-driven analysis via the build system.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>At execution time, the common model is straightforward: tests are Bazel targets and normally run through <code class="docutils literal notranslate"><span class="pre">bazel</span> <span class="pre">test</span></code>, which provides isolation and incremental reuse of previous results. When re-execution must be forced, <code class="docutils literal notranslate"><span class="pre">--nocache_test_results</span></code> is available, and coverage collection already follows the stricter rule of always re-running with instrumentation. This section also owns the runtime-oriented techniques that depend on executing software rather than inspecting it statically. That includes coverage, sanitizers, fuzzing, stress testing, profiling, and performance benchmarking, even when their outputs later feed other chapters. In practice, this mostly shows up as a deployment pattern: lower-level execution stays inside module repositories, while cross-repository and target-oriented execution increasingly relies on shared environments such as <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> and ITF.</p>
 <p>An important special case is cross-compiled test execution. S-CORE supports building for multiple target platforms through its toolchain infrastructure, but building a test binary and executing it are separate problems when the target platform differs from the build host. QNX is the clearest current example: <a class="reference internal" href="03-build-infrastructure.html#c-toolchains"><span class="std std-ref">section 3.3.1</span></a> describes how <code class="docutils literal notranslate"><span class="pre">bazel_cpp_toolchains</span></code> provides toolchain configuration for QNX builds, but running the resulting <code class="docutils literal notranslate"><span class="pre">cc_test</span></code> or <code class="docutils literal notranslate"><span class="pre">rust_test</span></code> binaries requires a QNX-capable execution environment.</p>
 <p>The <a class="reference external" href="https://github.com/eclipse-score/qnx_unit_tests">qnx_unit_tests</a> module (<code class="docutils literal notranslate"><span class="pre">score_qnx_unit_tests</span></code>) solves this with a QEMU microvm approach. The <code class="docutils literal notranslate"><span class="pre">cc_test_qnx</span></code> and <code class="docutils literal notranslate"><span class="pre">rust_test_qnx</span></code> macros wrap standard Bazel test targets for execution inside QEMU running QNX 8. The execution pipeline packages the test binary and its runfiles into a tar archive, builds a QNX IFS boot image containing the kernel and startup scripts, boots QEMU with the IFS image, mounts the test archive via a custom virtio-9p resource manager for host-guest file sharing, executes the test, and extracts results (XML, coverage) from the shared directory. This supports both x86_64 and aarch64 target architectures and requires QEMU with KVM access for practical performance. QNX SDP 8.0 credentials are needed for the toolchain download.</p>
@@ -1091,7 +1072,6 @@ traceability metadata`&quot;]
 <section id="coverage-runtime-instrumentation">
 <h3>4.3.1 Coverage &amp; Runtime Instrumentation 🟠<a class="headerlink" href="#coverage-runtime-instrumentation" title="Link to this heading">#</a></h3>
 <p><em>Measuring exercised code and collecting instrumentation data during tests.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>Coverage is already part of the verification-evidence story in several places, which makes it one of the more concrete dynamic-analysis capabilities in S-CORE today. The missing piece is not the idea of coverage itself, but shared expectations around when it is required, how it is produced, and which result formats downstream tooling should rely on.</p>
 <p>For C++, Bazel can collect coverage using <code class="docutils literal notranslate"><span class="pre">bazel</span> <span class="pre">coverage</span></code> with the <code class="docutils literal notranslate"><span class="pre">--combined_report</span></code> flag, producing LCOV output that downstream tools can consume. The toolchain-level support comes from <code class="docutils literal notranslate"><span class="pre">bazel_cpp_toolchains</span></code> (<a class="reference internal" href="03-build-infrastructure.html#c-toolchains"><span class="std std-ref">section 3.3.1</span></a>), which configures the compiler instrumentation flags. The infrastructure gap is not the mechanism but the conventions: which targets should produce coverage, what minimum coverage expectations exist, and how results are aggregated across a module’s test suite into a single report that CI can publish as an artifact.</p>
 <p>For Rust, <code class="docutils literal notranslate"><span class="pre">rules_rust</span></code> supports coverage through similar Bazel instrumentation, but the tooling maturity is lower than for C++. Source-based coverage via LLVM’s <code class="docutils literal notranslate"><span class="pre">llvm-cov</span></code> is the preferred approach because it produces accurate line and region coverage without the branch-level noise of gcov-style instrumentation. The same LCOV output format should be used so that downstream reporting does not need language-specific parsers.</p>
@@ -1101,19 +1081,16 @@ traceability metadata`&quot;]
 <section id="sanitizers-runtime-checks">
 <h3>4.3.2 Sanitizers &amp; Runtime Checks 🟠<a class="headerlink" href="#sanitizers-runtime-checks" title="Link to this heading">#</a></h3>
 <p><em>Detecting runtime problems such as memory misuse, undefined behavior, or concurrency issues.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>Sanitizers and similar runtime checks can surface memory misuse, undefined behavior, or concurrency problems far earlier than system-level debugging. They are especially valuable for C and C++ heavy repositories, but they need common support and expectations if they are to become shared infrastructure rather than ad hoc local practice. The ownership boundary should stay explicit: <a class="reference internal" href="03-build-infrastructure.html#toolchain-management"><span class="std std-ref">chapter 3</span></a> owns how toolchains and Bazel features make sanitizers available, and <a class="reference internal" href="05-static-analysis-infrastructure.html#shared-rule-configuration"><span class="std std-ref">chapter 5</span></a> owns shared policy modules when they package reusable sanitizer feature sets or defaults. The moment those capabilities are executed against runnable targets and interpreted as verification evidence, however, they belong in the testing story here.</p>
 </section>
 <section id="fuzzing-stress-profiling">
 <h3>4.3.3 Fuzzing, Stress &amp; Profiling 🔴<a class="headerlink" href="#fuzzing-stress-profiling" title="Link to this heading">#</a></h3>
 <p><em>Using generated inputs, stress techniques, and runtime diagnostics to expose robustness and performance issues.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>Fuzzing, stress execution, and profiling sit naturally next to the rest of the test execution story because they also depend on runnable targets, special harnesses, and result handling that differs from ordinary regression tests. They are relevant to robustness and performance, but they are still described more as possibilities than as reusable S-CORE capabilities. <strong>Biggest gap</strong>: advanced dynamic-analysis techniques beyond basic coverage are not yet defined as shared infrastructure.</p>
 </section>
 <section id="performance-benchmark-testing">
 <h3>4.3.4 Performance &amp; Benchmark Testing 🔴<a class="headerlink" href="#performance-benchmark-testing" title="Link to this heading">#</a></h3>
 <p><em>Infrastructure for measuring and tracking runtime performance of S-CORE components on representative targets.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>Performance testing differs from functional testing in that the result is a measurement rather than a pass/fail verdict. A benchmark run produces timing data, throughput numbers, or resource consumption figures that only become meaningful when compared against a previous baseline or an agreed budget. That comparison model is what turns raw profiling output into actionable infrastructure.</p>
 <p>For S-CORE, the practical need comes from two directions. Module repositories want to detect performance regressions early, ideally as part of the normal Bazel test flow on cloud runners. Integration-level testing wants to measure representative workloads on real hardware targets such as embedded boards and automotive-grade SoCs, where host-based emulation cannot reproduce the actual timing and resource behavior.</p>
 <p>The infrastructure challenge is therefore layered. Cloud-based benchmark targets can reuse the existing runner and Bazel execution model, but they need stable machine baselines and a way to compare results across runs without being dominated by runner variance. Hardware-based benchmarks additionally need target provisioning, deployment, and result collection infrastructure that extends the hardware runner story described in <a class="reference internal" href="07-automation-integration.html#hardware-test-runners"><span class="std std-ref">section 7.1.2</span></a>. The concrete hardware targets that matter today include Raspberry Pi boards for lightweight integration-level benchmarks and automotive-grade SoCs such as the Qualcomm SA8650P for representative platform performance measurement. Each target class has different provisioning and deployment requirements, but the result model — durable storage, baseline comparison, trend visualization — should be uniform. In both cases, results should be stored durably and presented as trend data rather than one-shot artifacts.</p>
@@ -1123,18 +1100,15 @@ traceability metadata`&quot;]
 <section id="test-reporting">
 <h2>4.4 Test Reporting 🟠<a class="headerlink" href="#test-reporting" title="Link to this heading">#</a></h2>
 <p><em>Infrastructure for collecting, aggregating, and presenting test results as verification evidence across S-CORE.</em></p>
-<p><strong>S-CORE</strong></p>
-<p>Test results are already visible in several places, but they do not yet form one consistent project-wide reporting layer. GitHub Actions exposes outcomes per pipeline run, release flows can aggregate and attach selected test and coverage artifacts, and some repositories already publish dashboard-style views for traceability or unit-test summaries. <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> also plays an important role in collecting higher-level evidence once modules are assembled and exercised together. The infrastructure direction is therefore visible: reporting should turn execution results into durable evidence that can be reviewed per run, per release, and eventually across repositories. <strong>Biggest gap</strong>: no centralized project-wide dashboard or durable cross-repository reporting model yet spans all of S-CORE.</p>
+<p>Test results are already visible in several places, but they do not yet form one consistent project-wide reporting layer. GitHub Actions exposes outcomes per pipeline run, release flows can aggregate and attach selected test and coverage artifacts, and some repositories already publish dashboard-style views for traceability or unit-test summaries. <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> is one of the main places where higher-level evidence is collected once modules are assembled and exercised together; <a class="reference internal" href="11-reference-integration.html"><span class="std std-doc">chapter 11</span></a> explains why that snapshot boundary matters. The infrastructure direction is therefore visible: reporting should turn execution results into durable evidence that can be reviewed per run, per release, and eventually across repositories. <strong>Biggest gap</strong>: no centralized project-wide dashboard or durable cross-repository reporting model yet spans all of S-CORE.</p>
 <section id="result-aggregation">
 <h3>4.4.1 Result Aggregation 🟠<a class="headerlink" href="#result-aggregation" title="Link to this heading">#</a></h3>
 <p><em>Infrastructure aggregating test results across CI pipeline runs.</em></p>
-<p><strong>S-CORE</strong></p>
-<p>Aggregation already exists in pieces. CI runs produce artifacts, and release-oriented flows can combine selected outputs into something closer to a reusable evidence package. For higher integration levels, <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> is an especially important aggregation point because it collects results after cross-repository assembly and scenario execution. To stay meaningful, those aggregated results should be keyed to a concrete <code class="docutils literal notranslate"><span class="pre">known_good</span></code> manifest or record rather than to a vague notion of “current main”. The fast integration subset can provide early feedback against a candidate manifest, but the deeper post-merge or scheduled suite is what should advance the stored known-good baseline. <strong>Biggest gap</strong>: aggregation works for some release flows, but continuous project-wide aggregation across repositories is still incomplete.</p>
+<p>Aggregation already exists in pieces. CI runs produce artifacts, and release-oriented flows can combine selected outputs into something closer to a reusable evidence package. For higher integration levels, <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> is an especially important aggregation point because it collects results after cross-repository assembly and scenario execution. To stay meaningful, those aggregated results should be keyed to a concrete <code class="docutils literal notranslate"><span class="pre">known_good</span></code> manifest or record rather than to a vague notion of “current main”. The fast integration subset can provide early feedback against a candidate manifest, but the deeper post-merge or scheduled suite is what should advance the stored known-good baseline. <a class="reference internal" href="11-reference-integration.html"><span class="std std-doc">Chapter 11</span></a> describes the control model behind that boundary. <strong>Biggest gap</strong>: aggregation works for some release flows, but continuous project-wide aggregation across repositories is still incomplete.</p>
 </section>
 <section id="test-dashboards">
 <h3>4.4.2 Test Dashboards 🔴<a class="headerlink" href="#test-dashboards" title="Link to this heading">#</a></h3>
 <p><em>Infrastructure providing dashboards for monitoring test results and trends.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>Some repositories already expose dashboard-like views for narrow concerns such as coverage or traceability, which shows the value of making test health visible beyond raw CI logs. What is missing is the shared layer that would let maintainers understand testing coverage and trends across repositories and execution styles without opening each repository separately. <strong>Biggest gap</strong>: test health visibility across S-CORE repositories is still fragmented.</p>
 </section>
 </section>
@@ -1156,7 +1130,7 @@ traceability metadata`&quot;]
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">3 Build &amp; Dependencies ⚪</p>
+        <p class="prev-next-title">3 Build &amp; Dependencies 🟠</p>
       </div>
     </a>
     <a class="right-next"
@@ -1164,7 +1138,7 @@ traceability metadata`&quot;]
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">5 Code Analysis Infrastructure ⚪</p>
+        <p class="prev-next-title">5 Code Analysis Infrastructure 🔴</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1187,16 +1161,14 @@ traceability metadata`&quot;]
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-framework-integration">4.1 Test Framework Integration 🟠</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-test-frameworks">4.1.1 C++ Test Frameworks 🟡</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rust-test-frameworks">4.1.2 Rust Test Frameworks 🟠</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-test-frameworks">4.1.3 Python Test Frameworks 🟠</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-test-framework">4.1.4 Scenario Test Framework 🟠</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#itf-framework">4.1.5 ITF Framework 🟡</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-framework-integration">4.1 Test Framework Integration 🟡</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-unit-test-framework">4.1.1 C++ Unit-Test Framework 🟡</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rust-unit-test-framework">4.1.2 Rust Unit-Test Framework ⚪</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-test-frameworks">4.1.3 Python Test Frameworks 🟡</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#itf-framework">4.1.4 ITF Framework 🟠</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-traceability">4.2 Test Traceability 🟠</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-execution-dynamic-analysis">4.3 Test Execution &amp; Dynamic Analysis 🟠</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-execution-dynamic-analysis">4.2 Test Execution &amp; Dynamic Analysis 🟠</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coverage-runtime-instrumentation">4.3.1 Coverage &amp; Runtime Instrumentation 🟠</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sanitizers-runtime-checks">4.3.2 Sanitizers &amp; Runtime Checks 🟠</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fuzzing-stress-profiling">4.3.3 Fuzzing, Stress &amp; Profiling 🔴</a></li>

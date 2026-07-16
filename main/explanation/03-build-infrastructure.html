@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>3 Build &amp; Dependencies ⚪ &#8212; S-CORE Infrastructure  documentation</title>
+    <title>3 Build &amp; Dependencies 🟠 &#8212; S-CORE Infrastructure  documentation</title>
   
   
   
@@ -38,13 +38,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-data-viewer/jsonview.bundle.css?v=f6ef2277" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/libs/html/datatables.min.css?v=4b4fd840" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/modern.css?v=803738c0" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cf9fcd3f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d828336e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
@@ -508,7 +508,7 @@ window.runMermaid = runMermaid;</script>
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/js/mindmap.js?v=40886bf0"></script>
+    <script src="../_static/js/maturity.js?v=73f0b4b1"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4 Testing 🟠" href="04-testing-infrastructure.html" />
@@ -831,14 +831,15 @@ window.runMermaid = runMermaid;</script>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01-source-code-infrastructure.html">1 Source Code Infrastructure 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02-developer-environment.html">2 Developer Environment 🟡</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">3 Build &amp; Dependencies ⚪</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3 Build &amp; Dependencies 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04-testing-infrastructure.html">4 Testing 🟠</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="09-documentation-infrastructure.html">9 Documentation &amp; Traceability 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10-infrastructure-operations.html">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-reference-integration.html">11 Reference Integration 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="decisions.html">Infrastructure Design Decisions</a></li>
 </ul>
 </div>
@@ -883,7 +884,7 @@ window.runMermaid = runMermaid;</script>
     
     <li class="breadcrumb-item"><a href="index.html" class="nav-link">Infrastructure Landscape</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">3 Build &amp; Dependencies ⚪</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">3 Build &amp; Dependencies 🟠</span></li>
   </ul>
 </nav>
 </div>
@@ -901,7 +902,7 @@ window.runMermaid = runMermaid;</script>
                 <article class="bd-article">
                   
   <section id="build-dependencies">
-<h1>3 Build &amp; Dependencies ⚪<a class="headerlink" href="#build-dependencies" title="Link to this heading">#</a></h1>
+<h1>3 Build &amp; Dependencies 🟠<a class="headerlink" href="#build-dependencies" title="Link to this heading">#</a></h1>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Looking for practical guides?
@@ -913,7 +914,6 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <p>Draft
 This chapter has not been fully reviewed. Content may be incomplete or inaccurate.</p>
 </div>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Bazel is the standard build system direction for S-CORE middleware repositories.</p></li>
 <li><p>Shared build rules and toolchain definitions are intended to reduce per-repository configuration duplication.</p></li>
@@ -943,46 +943,12 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
     policies --&gt; build
     build &lt;--&gt;|&quot;cache hits / writes&quot;| cache
     </pre><section id="build-system">
-<h2>3.1 Build System ⚪<a class="headerlink" href="#build-system" title="Link to this heading">#</a></h2>
-<p><em>Core build tooling and workspace conventions shared across S-CORE repositories.</em></p>
-<p><strong>S-CORE</strong></p>
-<ul class="simple">
-<li><p>Bazel workspaces are the standard unit of build organization across S-CORE middleware repositories.</p></li>
-<li><p>Shared Bazel rules are provided via the <a class="reference external" href="https://github.com/eclipse-score/tooling">eclipse-score/tooling</a> repository.</p></li>
-<li><p><strong>Biggest gap</strong>: workspace structure conventions and target naming standards are not formally defined or enforced cross-repository.</p></li>
-</ul>
-<section id="project-structure">
-<h3>3.1.1 Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading">#</a></h3>
-<p><em>Standard organization of Bazel workspaces across S-CORE repositories.</em></p>
-<p><strong>S-CORE</strong></p>
-<ul class="simple">
-<li><p>Repository layout conventions emerge from shared rule usage but are not yet formally standardized.</p></li>
-<li><p><strong>Biggest gap</strong>: no centrally enforced or documented reference workspace structure exists.</p></li>
-</ul>
-</section>
-<section id="build-rule-libraries">
-<h3>3.1.2 Build Rule Libraries<a class="headerlink" href="#build-rule-libraries" title="Link to this heading">#</a></h3>
-<p><em>Reusable Bazel rules and macros shared across S-CORE repositories.</em></p>
-<p><strong>S-CORE</strong></p>
-<ul class="simple">
-<li><p>Shared Bazel macros and rules are provided via <a class="reference external" href="https://github.com/eclipse-score/tooling">eclipse-score/tooling</a>.</p></li>
-<li><p><strong>Biggest gap</strong>: rule coverage is incomplete; not all repository types have suitable shared rules.</p></li>
-</ul>
-</section>
-<section id="build-conventions">
-<h3>3.1.3 Build Conventions<a class="headerlink" href="#build-conventions" title="Link to this heading">#</a></h3>
-<p><em>Shared target naming and repository layout conventions.</em></p>
-<p><strong>S-CORE</strong></p>
-<ul class="simple">
-<li><p>Naming and layout conventions are expected from shared rule usage but not yet formally documented.</p></li>
-<li><p><strong>Biggest gap</strong>: no cross-repository convention enforcement mechanism exists.</p></li>
-</ul>
-</section>
+<h2>3.1 Build System 🟢<a class="headerlink" href="#build-system" title="Link to this heading">#</a></h2>
+<p><em>Core build tooling shared across S-CORE repositories.</em></p>
 </section>
 <section id="dependency-management">
-<h2>3.2 Dependency Management ⚪<a class="headerlink" href="#dependency-management" title="Link to this heading">#</a></h2>
+<h2>3.2 Dependency Management 🟡<a class="headerlink" href="#dependency-management" title="Link to this heading">#</a></h2>
 <p><em>Managing external and internal dependencies in a consistent, auditable way across S-CORE repositories.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>External dependencies are declared per repository in Bazel workspace files; pinning strategies vary.</p></li>
 <li><p>Internal S-CORE Bazel modules should be consumed through the shared registry instead of ad hoc repository wiring.</p></li>
@@ -991,18 +957,19 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <li><p><strong>Biggest gap</strong>: no unified dependency policy or cross-repository version alignment standard exists.</p></li>
 </ul>
 <section id="third-party-dependencies">
-<h3>3.2.1 Third-Party Dependencies<a class="headerlink" href="#third-party-dependencies" title="Link to this heading">#</a></h3>
+<h3>3.2.1 Third-Party Dependencies 🔴<a class="headerlink" href="#third-party-dependencies" title="Link to this heading">#</a></h3>
 <p><em>Integration and management of external libraries via Bazel.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>External libraries are imported via Bazel Central Registry; apart from the shared internal S-CORE registry for first-party modules, no shared third-party registry or approved source list exists.</p></li>
-<li><p><strong>Biggest gap</strong>: duplicate declarations and version drift across repositories are unmitigated.</p></li>
+<li><p>No formal cross-repository dependency policy currently exists.</p></li>
+<li><p>This should cover allowed sources, pinning expectations, version alignment, and license handling.</p></li>
 </ul>
+<p><strong>Biggest gap</strong>: dependency choices are inconsistent and unaudited without policy guardrails.
+<strong>Biggest gap</strong>: 3rd party dependencies are currently pulled directly from modules, not through (our) bazel registry. No shared policy on allowed sources, pinning, version alignment, or license handling exists.</p>
 </section>
 <section id="internal-module-dependencies">
-<h3>3.2.2 Internal Module Dependencies<a class="headerlink" href="#internal-module-dependencies" title="Link to this heading">#</a></h3>
+<h3>3.2.2 Internal Module Dependencies 🟢<a class="headerlink" href="#internal-module-dependencies" title="Link to this heading">#</a></h3>
 <p><em>Managing build-time dependencies between S-CORE repositories.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>S-CORE repositories are expected to exchange Bazel modules through the shared registry at <a class="reference external" href="https://github.com/eclipse-score/bazel_registry/">eclipse-score/bazel_registry</a>. From the build perspective, this section is only about consumption: a repository should resolve first-party modules through the registry rather than through ad hoc repository overrides or manual source wiring. The full publication flow, including the coupling between registry entries and GitHub Releases, is described in <a class="reference internal" href="08-artifact-distribution.html#registry-based-distribution"><span class="std std-ref">chapter 8</span></a>.</p>
 <p>For consumers, the practical step is to tell Bazel where to look for modules. The same registry configuration described in <a class="reference internal" href="08-artifact-distribution.html#consumer-guidance"><span class="std std-ref">chapter 8</span></a> applies here:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>common --registry=https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/
@@ -1011,28 +978,9 @@ common --registry=https://bcr.bazel.build
 </div>
 <p>Once that is in place, dependencies are declared in <code class="docutils literal notranslate"><span class="pre">MODULE.bazel</span></code> with Bazel’s normal module mechanism such as <code class="docutils literal notranslate"><span class="pre">bazel_dep(...)</span></code>. That is enough for the build side. Module discovery, release mechanics, and service ownership are intentionally documented in <a class="reference internal" href="08-artifact-distribution.html#registry-based-distribution"><span class="std std-ref">chapter 8</span></a> and <a class="reference internal" href="10-infrastructure-operations.html#shared-registry-services"><span class="std std-ref">chapter 10</span></a> instead of being repeated here.</p>
 </section>
-<section id="dependency-policies">
-<h3>3.2.3 Dependency Policies<a class="headerlink" href="#dependency-policies" title="Link to this heading">#</a></h3>
-<p><em>Rules governing allowed dependencies across S-CORE.</em></p>
-<p><strong>S-CORE</strong></p>
-<ul class="simple">
-<li><p>No formal cross-repository dependency policy currently exists.</p></li>
-<li><p>This should cover allowed sources, pinning expectations, version alignment, and license handling.</p></li>
-<li><p><strong>Biggest gap</strong>: dependency choices are inconsistent and unaudited without policy guardrails.</p></li>
-</ul>
-</section>
-<section id="dependency-inventories">
-<h3>3.2.4 Dependency Inventories<a class="headerlink" href="#dependency-inventories" title="Link to this heading">#</a></h3>
-<p><em>Tracking the dependencies present in builds and why they are there.</em></p>
-<p><strong>S-CORE</strong></p>
-<ul class="simple">
-<li><p>Dependency inventories should be derived from the real build graph rather than maintained manually.</p></li>
-</ul>
-</section>
 <section id="tooling-and-environment-dependencies">
-<h3>3.2.5 Tooling and Environment Dependencies<a class="headerlink" href="#tooling-and-environment-dependencies" title="Link to this heading">#</a></h3>
+<h3>3.2.3 Tooling and Environment Dependencies 🟡<a class="headerlink" href="#tooling-and-environment-dependencies" title="Link to this heading">#</a></h3>
 <p><em>Managing dependencies of self-developed tooling and environment artifacts with the same rigor as product builds.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>S-CORE-developed tooling, especially Python-based tooling, is also part of the build and dependency landscape even when it is not product code.</p></li>
 <li><p>The same is true for build-relevant environment artifacts such as the devcontainer, because they package dependencies, licenses, and supply-chain choices into something contributors and CI consume directly.</p></li>
@@ -1040,60 +988,49 @@ common --registry=https://bcr.bazel.build
 </ul>
 </section>
 <section id="lock-files">
-<h3>3.2.6 Lock Files<a class="headerlink" href="#lock-files" title="Link to this heading">#</a></h3>
+<h3>3.2.4 Lock Files 🟡<a class="headerlink" href="#lock-files" title="Link to this heading">#</a></h3>
 <p><em>Capturing the resolved dependency graph in version control for reproducible Bazel and <code class="docutils literal notranslate"><span class="pre">uv</span></code> inputs.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>Lock files such as <code class="docutils literal notranslate"><span class="pre">MODULE.bazel.lock</span></code> and <code class="docutils literal notranslate"><span class="pre">uv.lock</span></code> make the resolved dependency graph explicit instead of leaving each machine to rediscover it from the high-level declarations. From the build and dependency perspective, that matters because reproducibility depends not only on the declared inputs, but also on the exact resolved result that Bazel or <code class="docutils literal notranslate"><span class="pre">uv</span></code> will consume.</p>
 <p>In the S-CORE repository landscape, this pattern already exists in practice, but not yet consistently across all repositories. Where lock files are used, the practical refresh step is typically handled locally through <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code> and committed together with the dependency declaration change rather than being edited by hand. CI should then treat the committed lock state as authoritative for both Bazel and <code class="docutils literal notranslate"><span class="pre">uv</span></code> flows and fail when the declarations and the lock file no longer match. Current automated updates are also split by source: <code class="docutils literal notranslate"><span class="pre">renovate-bot</span></code> updates dependencies that come through the local S-CORE registry, while Dependabot updates dependencies that come from public registries.</p>
 </section>
 <section id="known-good-integration-sets">
-<h3>3.2.7 Known-Good Integration Sets<a class="headerlink" href="#known-good-integration-sets" title="Link to this heading">#</a></h3>
+<h3>3.2.5 Known-Good Integration Sets<a class="headerlink" href="#known-good-integration-sets" title="Link to this heading">#</a></h3>
 <p><em>Capturing the explicit cross-repository integration manifest and metadata used to assemble one S-CORE stack.</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">known_good</span></code> manifest identifies which component revisions belong together in one validated S-CORE stack. It sits one level above ordinary Bazel lock files: a lock file captures the resolved dependency graph inside a workspace, while <code class="docutils literal notranslate"><span class="pre">known_good</span></code> is the curated integration selection from which those inputs are generated.</p>
 <p>The architectural context and decision background for this mechanism are documented separately: see <a class="reference internal" href="decisions.html#known-good-architecture-note"><span class="std std-ref">Infrastructure Design Decisions → <code class="docutils literal notranslate"><span class="pre">known_good</span></code> Architecture Note</span></a>.</p>
+<p>TODO: where is the integration chapter?</p>
 </section>
 </section>
 <section id="toolchain-management">
-<h2>3.3 Toolchain Management ⚪<a class="headerlink" href="#toolchain-management" title="Link to this heading">#</a></h2>
+<h2>3.3 Toolchain Management 🟠<a class="headerlink" href="#toolchain-management" title="Link to this heading">#</a></h2>
 <p><em>Compiler and runtime toolchain configuration for C++, Rust, and Python across S-CORE builds.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Toolchain versions and build-time configuration are owned here, even when contributors access the surrounding local tooling through the shared environment described in <a class="reference internal" href="02-developer-environment.html"><span class="std std-doc">chapter 2</span></a>.</p></li>
 <li><p>Shared toolchain baselines are the main link between the Bazel build model and automated build execution.</p></li>
 </ul>
 <p>S-CORE is increasingly using a deliberate split between language toolchain modules and language policy modules. Toolchain repositories answer “how do we build this language in Bazel?” and therefore own compiler integration, sysroots, templates, registration, and other mechanics needed for reproducible builds. Separate policy repositories answer “which shared rules should repositories follow?” and package lint, warning, formatting, sanitizer, and safety-profile defaults that consumers can adopt without being forced onto a particular compiler rollout at the same time. That separation matters because toolchain upgrades and policy changes have different ownership and should be able to evolve on different cadences. <strong>Biggest gap</strong>: the pattern now exists in the S-CORE repository landscape, but it is not yet documented and adopted consistently enough that consumers can rely on it as the default model.</p>
 <section id="c-toolchains">
-<h3>3.3.1 C++ Toolchains<a class="headerlink" href="#c-toolchains" title="Link to this heading">#</a></h3>
+<h3>3.3.1 C++ Toolchains 🟠<a class="headerlink" href="#c-toolchains" title="Link to this heading">#</a></h3>
 <p><em>Compiler and build configuration for C++ components.</em></p>
-<p><strong>S-CORE</strong></p>
-<p>The emerging C++ structure follows that split directly. <a class="reference external" href="https://github.com/eclipse-score/bazel_cpp_toolchains">eclipse-score/bazel_cpp_toolchains</a> is the build-facing module: it provides the Bazel C/C++ toolchain configuration layer, templates, package descriptors, and registration logic for Linux and QNX builds. <a class="reference external" href="https://github.com/eclipse-score/score_cpp_policies">eclipse-score/score_cpp_policies</a> is the policy-facing companion: it centralizes reusable <code class="docutils literal notranslate"><span class="pre">cc_feature</span></code> and flag selections such as ASan, UBSan, LSan, and TSan support, <code class="docutils literal notranslate"><span class="pre">debug_symbols</span></code>, runtime environment templates, constraint targets such as <code class="docutils literal notranslate"><span class="pre">no_tsan</span></code> and <code class="docutils literal notranslate"><span class="pre">any_sanitizer</span></code>, and the flag infrastructure that repositories can use in <code class="docutils literal notranslate"><span class="pre">select()</span></code> expressions. That same policy layer is also the natural home for shared warning baselines and later ASIL-oriented safety configurations. The point of the split is that a module should be able to adopt shared C++ policies without being forced onto one specific toolchain release. The runtime purpose and rollout of sanitizers themselves belong in <a class="reference internal" href="04-testing-infrastructure.html#sanitizers-runtime-checks"><span class="std std-ref">chapter 4</span></a>; this subsection only owns the reusable build-side mechanism that makes those checks selectable. <strong>Biggest gap</strong>: the repository split now exists, but common adoption and governance of shared C++ toolchain and policy baselines are still incomplete across S-CORE.</p>
+<p>The emerging C++ structure follows that split directly. <a class="reference external" href="https://github.com/eclipse-score/bazel_cpp_toolchains">eclipse-score/bazel_cpp_toolchains</a> is the build-facing module: it provides the Bazel C/C++ toolchain configuration layer, templates, package descriptors, and registration logic for Linux and QNX builds. <a class="reference external" href="https://github.com/eclipse-score/score_cpp_policies">eclipse-score/score_cpp_policies</a> is the policy-facing companion: it centralizes reusable <code class="docutils literal notranslate"><span class="pre">cc_feature</span></code> and flag selections such as ASan, UBSan, LSan, and TSan support, <code class="docutils literal notranslate"><span class="pre">debug_symbols</span></code>, runtime environment templates, constraint targets such as <code class="docutils literal notranslate"><span class="pre">no_tsan</span></code> and <code class="docutils literal notranslate"><span class="pre">any_sanitizer</span></code>, and the flag infrastructure that repositories can use in <code class="docutils literal notranslate"><span class="pre">select()</span></code> expressions. That same policy layer is also the natural home for shared warning baselines and later ASIL-oriented safety configurations. The point of the split is that a module should be able to adopt shared C++ policies without being forced onto one specific toolchain release. The runtime purpose and rollout of sanitizers themselves belong in <a class="reference internal" href="04-testing-infrastructure.html#sanitizers-runtime-checks"><span class="std std-ref">chapter 4</span></a>; this subsection only owns the reusable build-side mechanism that makes those checks selectable.</p>
+<p><strong>Biggest gap</strong>: the repository split now exists, but common adoption and governance of shared C++ toolchain and policy baselines are still incomplete across S-CORE.</p>
 </section>
 <section id="rust-toolchains">
-<h3>3.3.2 Rust Toolchains<a class="headerlink" href="#rust-toolchains" title="Link to this heading">#</a></h3>
+<h3>3.3.2 Rust Toolchains 🟠<a class="headerlink" href="#rust-toolchains" title="Link to this heading">#</a></h3>
 <p><em>Toolchain configuration for Rust components.</em></p>
-<p><strong>S-CORE</strong></p>
-<p>Rust already shows the same separation more explicitly. <a class="reference external" href="https://github.com/eclipse-score/toolchains_rust">eclipse-score/toolchains_rust</a> packages the actual Rust toolchains for Bazel, including prebuilt Ferrocene toolchains and the helper extension used to register them. <a class="reference external" href="https://github.com/eclipse-score/score_rust_policies">eclipse-score/score_rust_policies</a> separately packages the shared Clippy and rustfmt defaults that S-CORE projects are expected to consume. In other words, one repository answers how Bazel gets a Rust compiler, while the other answers which Rust lint and formatting rules S-CORE wants to enforce. Keeping those concerns decoupled allows toolchain upgrades and policy tightening to evolve independently instead of being forced into one release stream. <strong>Biggest gap</strong>: the split is already visible in the repository landscape, but consistent rollout and governance of those shared Rust baselines are still not project-wide.</p>
+<p>Rust already shows the same separation more explicitly. <a class="reference external" href="https://github.com/eclipse-score/toolchains_rust">eclipse-score/toolchains_rust</a> packages the actual Rust toolchains for Bazel, including prebuilt Ferrocene toolchains and the helper extension used to register them. <a class="reference external" href="https://github.com/eclipse-score/score_rust_policies">eclipse-score/score_rust_policies</a> separately packages the shared Clippy and rustfmt defaults that S-CORE projects are expected to consume. In other words, one repository answers how Bazel gets a Rust compiler, while the other answers which Rust lint and formatting rules S-CORE wants to enforce. Keeping those concerns decoupled allows toolchain upgrades and policy tightening to evolve independently instead of being forced into one release stream.</p>
+<p><strong>Biggest gap</strong>: the split is already visible in the repository landscape, but consistent rollout and governance of those shared Rust baselines are still not project-wide.</p>
 </section>
 <section id="python-toolchains">
-<h3>3.3.3 Python Toolchains<a class="headerlink" href="#python-toolchains" title="Link to this heading">#</a></h3>
+<h3>3.3.3 Python Toolchains 🔴<a class="headerlink" href="#python-toolchains" title="Link to this heading">#</a></h3>
 <p><em>Python runtime and tooling configuration for build and test.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Python toolchains vary per repository; no shared Python version baseline is defined.</p></li>
 <li><p><strong>Biggest gap</strong>: no cross-repository Python toolchain standard is enforced.</p></li>
 </ul>
 </section>
-<section id="toolchain-governance">
-<h3>3.3.4 Toolchain Governance<a class="headerlink" href="#toolchain-governance" title="Link to this heading">#</a></h3>
-<p><em>Managing how shared toolchain baselines are selected and rolled out.</em></p>
-<p><strong>S-CORE</strong></p>
-<ul class="simple">
-<li><p>Shared toolchains need visible ownership and an upgrade cadence or repositories will drift again.</p></li>
-<li><p><strong>Biggest gap</strong>: no cross-repository process clearly defines who owns toolchain baselines and how changes propagate.</p></li>
-</ul>
-</section>
 <section id="qnx-sdp-provisioning">
-<h3>3.3.5 QNX SDP Provisioning<a class="headerlink" href="#qnx-sdp-provisioning" title="Link to this heading">#</a></h3>
+<h3>3.3.4 QNX SDP Provisioning 🟠<a class="headerlink" href="#qnx-sdp-provisioning" title="Link to this heading">#</a></h3>
 <p><em>How the QNX Software Development Platform is obtained and made available to Bazel C++ builds.</em></p>
 <p>The QNX SDP — the compiler, headers, and libraries required for QNX cross-compilation — is a commercial artifact distributed separately from the toolchain configuration. Its provisioning path is distinct from the Bazel toolchain registration in <code class="docutils literal notranslate"><span class="pre">bazel_cpp_toolchains</span></code> and determines how reliably builds can acquire the SDP in CI and in local developer environments.</p>
 <p>License on CI:  A separate <a class="reference external" href="https://github.com/eclipse-score/cicd-actions"><code class="docutils literal notranslate"><span class="pre">setup-qnx-sdp</span></code></a> composite action handles license activation only; it does not fetch or unpack the SDP</p>
@@ -1148,9 +1085,8 @@ eclipse · company-internal · local&quot;)]
 </section>
 </section>
 <section id="build-reproducibility-evidence">
-<h2>3.4 Build Reproducibility &amp; Evidence ⚪<a class="headerlink" href="#build-reproducibility-evidence" title="Link to this heading">#</a></h2>
+<h2>3.4 Build Reproducibility &amp; Evidence 🔴<a class="headerlink" href="#build-reproducibility-evidence" title="Link to this heading">#</a></h2>
 <p><em>Ensuring builds are deterministic and produce trustworthy evidence from the same inputs.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Bazel’s hermetic execution model is the foundation for reproducibility across S-CORE.</p></li>
 <li><p>SBOMs and provenance should be normal build outputs, while publication of that evidence belongs in <a class="reference internal" href="08-artifact-distribution.html"><span class="std std-doc">chapter 8</span></a>.</p></li>
@@ -1160,49 +1096,24 @@ eclipse · company-internal · local&quot;)]
 <li><p><strong>Biggest gap</strong>: hermetic build compliance, reproducibility verification, and build-derived evidence are not yet generated or enforced uniformly across repositories.</p></li>
 </ul>
 <section id="hermetic-builds">
-<h3>3.4.1 Hermetic Builds<a class="headerlink" href="#hermetic-builds" title="Link to this heading">#</a></h3>
+<h3>3.4.1 Hermetic Builds 🟠<a class="headerlink" href="#hermetic-builds" title="Link to this heading">#</a></h3>
 <p><em>Isolating builds from host environments to ensure reproducibility.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>The devcontainer provides a stable, isolated build environment for CI and local builds.</p></li>
 <li><p><strong>Biggest gap</strong>: full hermetic compliance (no host toolchain leakage) is not uniformly verified.</p></li>
 </ul>
 </section>
 <section id="deterministic-artifacts">
-<h3>3.4.2 Deterministic Artifacts<a class="headerlink" href="#deterministic-artifacts" title="Link to this heading">#</a></h3>
+<h3>3.4.2 Deterministic Artifacts 🔴<a class="headerlink" href="#deterministic-artifacts" title="Link to this heading">#</a></h3>
 <p><em>Ensuring builds produce identical artifacts from the same inputs.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Bazel’s action graph model is designed for determinism; actual reproducibility is not validated at scale.</p></li>
 <li><p><strong>Biggest gap</strong>: no cross-repository determinism validation pipeline exists.</p></li>
 </ul>
 </section>
-<section id="build-traceability">
-<h3>3.4.3 Build Traceability<a class="headerlink" href="#build-traceability" title="Link to this heading">#</a></h3>
-<p><em>Tracking build inputs, outputs, and provenance metadata.</em></p>
-<p><strong>S-CORE</strong></p>
-<ul class="simple">
-<li><p>Build provenance and SBOM generation are target capabilities and should become routine outputs of normal builds so that later release and compliance steps consume real build evidence instead of reconstructed paperwork.</p></li>
-<li><p>In cross-repository integration flows, that provenance should identify not only the local repository revision but also the <code class="docutils literal notranslate"><span class="pre">known_good</span></code> set or equivalent manifest that defined the integrated stack.</p></li>
-<li><p><strong>Biggest gap</strong>: no build pipeline currently produces SBOMs and provenance consistently across repository types.</p></li>
-</ul>
-</section>
-<section id="tooling-environment-sboms-license-evidence">
-<h3>3.4.4 Tooling, Environment SBOMs &amp; License Evidence<a class="headerlink" href="#tooling-environment-sboms-license-evidence" title="Link to this heading">#</a></h3>
-<p><em>Generating SBOMs and license/compliance evidence for S-CORE-developed tooling and environment artifacts.</em></p>
-<p><strong>S-CORE</strong></p>
-<ul class="simple">
-<li><p>Internally developed tools and dev environment artifacts also need SBOMs and license visibility, not only the main product build outputs.</p></li>
-<li><p>For contributors and CI, a devcontainer image is effectively a distributed engineering artifact and should therefore carry the same evidence expectations around dependencies and license compliance.</p></li>
-<li><p>Once those artifacts have been built, <a class="reference internal" href="06-compliance-infrastructure.html"><span class="std std-doc">chapter 6</span></a> should treat them the same way as other compliance inputs, including scope decisions and monitoring, rather than leaving them outside the shared flow.</p></li>
-<li><p>The fact that contributors enter that environment through the workflow described in <a class="reference internal" href="02-developer-environment.html"><span class="std std-doc">chapter 2</span></a> does not change that its evidence model belongs with the other build outputs here.</p></li>
-<li><p><strong>Biggest gap</strong>: SBOM and license-compliance treatment for tooling artifacts and environment images is not yet described as part of the normal build-evidence flow.</p></li>
-</ul>
-</section>
 <section id="rebuild-verification">
-<h3>3.4.5 Rebuild Verification<a class="headerlink" href="#rebuild-verification" title="Link to this heading">#</a></h3>
+<h3>3.4.3 Rebuild Verification 🔴<a class="headerlink" href="#rebuild-verification" title="Link to this heading">#</a></h3>
 <p><em>Checking whether reproducibility claims hold over time and across execution contexts.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Rebuild verification would expose hidden toolchain changes, archive drift, and environmental assumptions.</p></li>
 <li><p><strong>Biggest gap</strong>: reproducibility is desirable, but not yet verified through a shared repeatable process.</p></li>
@@ -1210,50 +1121,31 @@ eclipse · company-internal · local&quot;)]
 </section>
 </section>
 <section id="build-execution-infrastructure">
-<h2>3.5 Build Execution Infrastructure ⚪<a class="headerlink" href="#build-execution-infrastructure" title="Link to this heading">#</a></h2>
+<h2>3.5 Build Execution Infrastructure 🔴<a class="headerlink" href="#build-execution-infrastructure" title="Link to this heading">#</a></h2>
 <p><em>Infrastructure for executing Bazel builds efficiently across local work and CI pipelines.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Builds run on GitHub Actions using GitHub-hosted and self-hosted runners.</p></li>
 <li><p>A shared Bazel remote cache reduces redundant compile work across pipeline runs.</p></li>
 <li><p><strong>Biggest gap</strong>: remote build execution and shared performance visibility are not yet available project-wide.</p></li>
 </ul>
-<section id="remote-cache">
-<h3>3.5.1 Remote Cache<a class="headerlink" href="#remote-cache" title="Link to this heading">#</a></h3>
+<section id="cache">
+<h3>3.5.1 Cache 🔴<a class="headerlink" href="#cache" title="Link to this heading">#</a></h3>
 <p><em>Sharing Bazel build outputs between pipeline runs to reduce rebuild time.</em></p>
-<p><strong>S-CORE</strong></p>
-<ul class="simple">
-<li><p>A shared Bazel remote cache is available to S-CORE CI pipelines.</p></li>
-<li><p><strong>Biggest gap</strong>: remote cache connectivity and configuration are not uniformly set up across all repositories.</p></li>
-</ul>
+<p>A shared Bazel cache should be available to S-CORE CI pipelines.</p>
 </section>
 <section id="remote-build-execution">
-<h3>3.5.2 Remote Build Execution<a class="headerlink" href="#remote-build-execution" title="Link to this heading">#</a></h3>
+<h3>3.5.2 Remote Build Execution 🔴<a class="headerlink" href="#remote-build-execution" title="Link to this heading">#</a></h3>
 <p><em>Executing Bazel build actions on remote compute resources.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>Remote Build Execution (RBE) offloads Bazel’s action graph to a cluster of workers so that parallelism is no longer bound by the CPU and memory of a single runner. For S-CORE, the practical value is twofold: CI builds that currently serialize on a single GitHub Actions runner could fan out across remote workers, and developers running Bazel locally could optionally delegate heavy compilations to remote infrastructure while keeping the edit-build-test cycle on their own machine.</p>
 <p>The infrastructure involves three layers. First, a backend service that implements the Bazel Remote Execution API — candidates range from open-source solutions such as Buildbarn and BuildBuddy Community to managed commercial services. Second, the CI and local <code class="docutils literal notranslate"><span class="pre">.bazelrc</span></code> configuration that enables remote execution for the right subset of actions without breaking platform-specific builds. Third, authentication and access control so that the backend serves authorized S-CORE builds without exposing the cluster to uncontrolled workloads.</p>
 <p>A related Bazel mechanism is dynamic execution, which lets Bazel race a local and a remote execution of the same action and take whichever finishes first. This can smooth the transition period where some actions run faster locally and others benefit from remote workers, but it adds complexity to the configuration and requires the backend to tolerate speculative cancellations.</p>
 <p>For hardware-oriented testing, RBE intersects with the hardware runner story in <a class="reference internal" href="07-automation-integration.html#hardware-test-runners"><span class="std std-ref">section 7.1.2</span></a>. If lab-attached devices such as Raspberry Pi boards are registered as RBE workers, Bazel could schedule test execution on real hardware as part of a normal <code class="docutils literal notranslate"><span class="pre">bazel</span> <span class="pre">test</span></code> invocation, avoiding a separate deployment step. This is an advanced pattern that depends on both the RBE backend and the hardware provisioning model being in place.</p>
 <p><strong>Biggest gap</strong>: no RBE backend is available; builds are constrained to single-runner execution. Provider evaluation criteria, architecture decisions, and authentication model are not yet documented.</p>
 </section>
-<section id="build-resource-scheduling">
-<h3>3.5.3 Build Resource Scheduling<a class="headerlink" href="#build-resource-scheduling" title="Link to this heading">#</a></h3>
-<p><em>Scheduling and allocating compute resources for build workloads.</em></p>
-<p><strong>S-CORE</strong></p>
-<ul class="simple">
-<li><p>CI runner allocation is handled via GitHub-hosted and self-hosted runner scheduling.</p></li>
-<li><p><strong>Biggest gap</strong>: no build-aware resource scheduling or prioritization mechanism is in place.</p></li>
-</ul>
-</section>
 <section id="build-performance-visibility">
-<h3>3.5.4 Build Performance Visibility<a class="headerlink" href="#build-performance-visibility" title="Link to this heading">#</a></h3>
+<h3>3.5.3 Build Performance Visibility 🔴<a class="headerlink" href="#build-performance-visibility" title="Link to this heading">#</a></h3>
 <p><em>Understanding where build time goes and where infrastructure work has the highest payoff.</em></p>
-<p><strong>S-CORE</strong></p>
-<ul class="simple">
-<li><p>Shared visibility should include queue times, cache effectiveness, and critical-path behavior.</p></li>
-<li><p><strong>Biggest gap</strong>: build performance data is not yet aggregated into a shared view for project-wide prioritization.</p></li>
-</ul>
+<p>Shared build performance visibility should include queue times, cache effectiveness, and critical-path behavior.</p>
 </section>
 </section>
 </section>
@@ -1305,47 +1197,36 @@ eclipse · company-internal · local&quot;)]
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-system">3.1 Build System ⚪</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#project-structure">3.1.1 Project Structure</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-rule-libraries">3.1.2 Build Rule Libraries</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-conventions">3.1.3 Build Conventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-system">3.1 Build System 🟢</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-management">3.2 Dependency Management 🟡</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#third-party-dependencies">3.2.1 Third-Party Dependencies 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#internal-module-dependencies">3.2.2 Internal Module Dependencies 🟢</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tooling-and-environment-dependencies">3.2.3 Tooling and Environment Dependencies 🟡</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-files">3.2.4 Lock Files 🟡</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#known-good-integration-sets">3.2.5 Known-Good Integration Sets</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-management">3.2 Dependency Management ⚪</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#third-party-dependencies">3.2.1 Third-Party Dependencies</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#internal-module-dependencies">3.2.2 Internal Module Dependencies</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-policies">3.2.3 Dependency Policies</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-inventories">3.2.4 Dependency Inventories</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tooling-and-environment-dependencies">3.2.5 Tooling and Environment Dependencies</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-files">3.2.6 Lock Files</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#known-good-integration-sets">3.2.7 Known-Good Integration Sets</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toolchain-management">3.3 Toolchain Management ⚪</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-toolchains">3.3.1 C++ Toolchains</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rust-toolchains">3.3.2 Rust Toolchains</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-toolchains">3.3.3 Python Toolchains</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#toolchain-governance">3.3.4 Toolchain Governance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qnx-sdp-provisioning">3.3.5 QNX SDP Provisioning</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toolchain-management">3.3 Toolchain Management 🟠</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-toolchains">3.3.1 C++ Toolchains 🟠</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rust-toolchains">3.3.2 Rust Toolchains 🟠</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-toolchains">3.3.3 Python Toolchains 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qnx-sdp-provisioning">3.3.4 QNX SDP Provisioning 🟠</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#today">Today</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#soon-planned">Soon (planned)</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-reproducibility-evidence">3.4 Build Reproducibility &amp; Evidence ⚪</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hermetic-builds">3.4.1 Hermetic Builds</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deterministic-artifacts">3.4.2 Deterministic Artifacts</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-traceability">3.4.3 Build Traceability</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tooling-environment-sboms-license-evidence">3.4.4 Tooling, Environment SBOMs &amp; License Evidence</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rebuild-verification">3.4.5 Rebuild Verification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-reproducibility-evidence">3.4 Build Reproducibility &amp; Evidence 🔴</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hermetic-builds">3.4.1 Hermetic Builds 🟠</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deterministic-artifacts">3.4.2 Deterministic Artifacts 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rebuild-verification">3.4.3 Rebuild Verification 🔴</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-execution-infrastructure">3.5 Build Execution Infrastructure ⚪</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remote-cache">3.5.1 Remote Cache</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remote-build-execution">3.5.2 Remote Build Execution</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-resource-scheduling">3.5.3 Build Resource Scheduling</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-performance-visibility">3.5.4 Build Performance Visibility</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-execution-infrastructure">3.5 Build Execution Infrastructure 🔴</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cache">3.5.1 Cache 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remote-build-execution">3.5.2 Remote Build Execution 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-performance-visibility">3.5.3 Build Performance Visibility 🔴</a></li>
 </ul>
 </li>
 </ul>

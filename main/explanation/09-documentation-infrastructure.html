@@ -38,13 +38,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-data-viewer/jsonview.bundle.css?v=f6ef2277" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/libs/html/datatables.min.css?v=4b4fd840" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/modern.css?v=803738c0" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cf9fcd3f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d828336e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
@@ -72,11 +72,11 @@
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/js/mindmap.js?v=40886bf0"></script>
+    <script src="../_static/js/maturity.js?v=73f0b4b1"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="10 Infrastructure Operations ⚪" href="10-infrastructure-operations.html" />
-    <link rel="prev" title="8 Release &amp; Distribution ⚪" href="08-artifact-distribution.html" />
+    <link rel="prev" title="8 Release &amp; Distribution 🟠" href="08-artifact-distribution.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.1" />
@@ -395,14 +395,15 @@
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01-source-code-infrastructure.html">1 Source Code Infrastructure 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02-developer-environment.html">2 Developer Environment 🟡</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04-testing-infrastructure.html">4 Testing 🟠</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution 🟠</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">9 Documentation &amp; Traceability 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10-infrastructure-operations.html">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-reference-integration.html">11 Reference Integration 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="decisions.html">Infrastructure Design Decisions</a></li>
 </ul>
 </div>
@@ -472,7 +473,6 @@
 This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the <a class="reference internal" href="../how-to/index.html"><span class="std std-doc">How-to Guides</span></a>.</p>
 </div>
 <p><em>Infrastructure supporting engineering documentation across S-CORE repositories.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Documentation infrastructure in S-CORE currently spans repository documentation sites and engineering-focused docs-as-code capabilities.</p></li>
 <li><p>Documentation is published through CI-driven static site generation and hosting.</p></li>
@@ -482,7 +482,6 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <section id="authoring-tooling">
 <h2>9.1 Authoring &amp; Tooling 🟡<a class="headerlink" href="#authoring-tooling" title="Link to this heading">#</a></h2>
 <p><em>Capabilities for writing, structuring, and maintaining documentation in repositories.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Documentation is authored in version-controlled repositories alongside source code.</p></li>
 <li><p>Markdown and rST are the primary input formats.</p></li>
@@ -491,7 +490,6 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <section id="docs-as-code-tooling">
 <h3>9.1.1 Docs-As-Code Tooling 🟡<a class="headerlink" href="#docs-as-code-tooling" title="Link to this heading">#</a></h3>
 <p><em>Shared documentation build infrastructure across S-CORE repositories.</em></p>
-<p><strong>S-CORE</strong></p>
 <p><a class="reference external" href="https://github.com/eclipse-score/docs-as-code">eclipse-score/docs-as-code</a> provides the shared documentation build tooling consumed across S-CORE. It packages Sphinx with MyST parser, the pydata-sphinx-theme with S-CORE branding, traceability support via sphinx-needs, and related documentation infrastructure into a versioned Bazel module. Repositories declare a dependency on <code class="docutils literal notranslate"><span class="pre">docs-as-code</span></code> to get a consistent documentation build experience without assembling their own toolchain.</p>
 <p>Adoption is uneven: recent module repositories use <code class="docutils literal notranslate"><span class="pre">docs-as-code</span></code> v4.x, while older repositories still reference v1.x–v3.x or do not use the shared tooling at all. This version spread mirrors the broader synchronization challenge described in <a class="reference internal" href="01-source-code-infrastructure.html#synchronization-mechanisms"><span class="std std-ref">chapter 1</span></a>. Good documentation infrastructure should also let contributors preview and validate changes without waiting for a remote publishing pipeline.</p>
 <p><strong>Biggest gap</strong>: <code class="docutils literal notranslate"><span class="pre">docs-as-code</span></code> version adoption is fragmented, and fast local preview and validation workflows are not yet consistently documented across documentation-producing repositories.</p>
@@ -501,14 +499,12 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <section id="build-validation-publishing">
 <h2>9.2 Build, Validation &amp; Publishing 🟡<a class="headerlink" href="#build-validation-publishing" title="Link to this heading">#</a></h2>
 <p><em>Infrastructure for builds, quality checks, and publication of documentation sites.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>Documentation build infrastructure should be versioned, reproducible, and reviewable like any other engineering toolchain. <a class="reference external" href="https://github.com/eclipse-score/docs-as-code">eclipse-score/docs-as-code</a> is the shared build tooling that most module repositories are expected to consume. It is distributed through the Bazel registry and provides Sphinx-based documentation builds including traceability extensions. The CI side is handled by the reusable <code class="docutils literal notranslate"><span class="pre">docs.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">docs-verify.yml</span></code> workflows in <a class="reference external" href="https://github.com/eclipse-score/cicd-workflows">eclipse-score/cicd-workflows</a>.</p>
 <p>This infrastructure documentation site uses <code class="docutils literal notranslate"><span class="pre">docs-as-code</span></code> with the standard Bazel-based Sphinx build, consistent with the rest of the S-CORE ecosystem. While it does not currently define traceability need objects, the infrastructure is in place to add them when needed.</p>
 <p><strong>Biggest gap</strong>: not all documentation-producing repositories follow one shared toolchain and publication pattern. The <code class="docutils literal notranslate"><span class="pre">docs-as-code</span></code> version spread (v1.x through v4.x across repositories) means repositories do not reliably share the same documentation capabilities.</p>
 <section id="deterministic-build-and-configuration">
 <h3>9.2.1 Deterministic Build and Configuration 🟡<a class="headerlink" href="#deterministic-build-and-configuration" title="Link to this heading">#</a></h3>
 <p><em>Ensuring reproducible documentation output across local and CI environments.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Tooling and site configuration should live in version control so contributors can reproduce the published result locally and in CI.</p></li>
 <li><p><strong>Biggest gap</strong>: documentation toolchain choices and configuration practices are not yet aligned across S-CORE documentation surfaces.</p></li>
@@ -517,7 +513,6 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <section id="validation-previews-and-publishing">
 <h3>9.2.2 Validation, Previews, and Publishing 🟡<a class="headerlink" href="#validation-previews-and-publishing" title="Link to this heading">#</a></h3>
 <p><em>Providing contributor feedback before merge through fast preview and validation workflows.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>Documentation quality depends on catching structural problems before they reach the published site. Strict builds are the first line of defense: running the site generator in strict mode surfaces broken internal links, invalid markup, and missing navigation entries during CI rather than after publication. Beyond strict builds, dedicated structural checks can validate concerns that the site generator itself does not enforce, such as external link reachability, heading hierarchy consistency, required metadata fields, and naming conventions for files or anchors.</p>
 <p>These checks should run as part of the normal pull-request workflow so that contributors get feedback before merge. The important design choice is where the check definitions live. Checks that apply to all S-CORE documentation repositories belong in shared reusable workflows described in <a class="reference internal" href="07-automation-integration.html#reusable-workflows"><span class="std std-ref">section 7.2</span></a>, while repository-specific validation rules can stay local. Both should produce clear, actionable output rather than noisy warnings that contributors learn to ignore.</p>
 <p>Publishing should be an explicit, reproducible stage of the docs pipeline rather than an undocumented side effect. A contributor should be able to run the same validation locally before pushing, so the tooling must not depend on CI-only infrastructure.</p>
@@ -528,7 +523,6 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <section id="cross-repository-documentation-integration">
 <h2>9.3 Cross-Repository Documentation Integration 🔴<a class="headerlink" href="#cross-repository-documentation-integration" title="Link to this heading">#</a></h2>
 <p><em>Connecting documentation across repositories with stable linking and navigation patterns.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Contributors and stakeholders should be able to move across repository boundaries without losing context.</p></li>
 <li><p><strong>Biggest gap</strong>: there is no shared information architecture for how repository-local documentation fits into a broader S-CORE documentation landscape.</p></li>
@@ -536,17 +530,15 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <section id="cross-repository-linking">
 <h3>9.3.1 Cross-Repository Linking 🔴<a class="headerlink" href="#cross-repository-linking" title="Link to this heading">#</a></h3>
 <p><em>Establishing reliable links across repository boundaries and release versions.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Stable links are required if documentation, code, requirements, and release artifacts live in different repositories.</p></li>
-<li><p>For integrated views produced from <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code>, those links should resolve within one explicit <code class="docutils literal notranslate"><span class="pre">known_good</span></code> snapshot rather than silently mixing repository heads.</p></li>
+<li><p>For integrated views produced from <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code>, those links should resolve within one explicit <code class="docutils literal notranslate"><span class="pre">known_good</span></code> snapshot rather than silently mixing repository heads. <a class="reference internal" href="11-reference-integration.html"><span class="std std-doc">Chapter 11</span></a> explains why that snapshot boundary matters.</p></li>
 <li><p><strong>Biggest gap</strong>: no agreed cross-repository linking strategy exists for versioned and unversioned documentation content.</p></li>
 </ul>
 </section>
 <section id="shared-navigation-and-discovery">
 <h3>9.3.2 Shared Navigation and Discovery 🔴<a class="headerlink" href="#shared-navigation-and-discovery" title="Link to this heading">#</a></h3>
 <p><em>Making documentation content easier to discover across repository-specific sites.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>When documentation is spread across repository-specific sites, the first problem is knowing where to look. A contributor searching for “how do I add a Bazel module” should not need to guess whether the answer lives in the platform documentation, the build infrastructure site, or a module repository’s own pages. The same applies to consumers who want to understand what S-CORE offers before they start integrating.</p>
 <p>Shared entry points address this by giving readers a starting location that links outward. The simplest version is an overview page or hub site that indexes the major documentation surfaces and describes what each one covers. A more structured version adds cross-site navigation elements — shared headers, breadcrumbs, or sidebar links — so that readers who land on one repository’s site can see where related content lives without returning to the hub. The design choice is how tightly to couple this: a lightweight hub with stable links is easy to maintain, while deeper navigation integration requires coordination whenever a repository restructures its pages.</p>
 <p>For S-CORE, the practical starting point is the main <a class="reference external" href="https://eclipse-score.github.io/score">eclipse-score.github.io</a> site, which already serves as a project-level entry. But the path from that entry to repository-specific documentation is not yet systematic: some repositories are linked, others are not, and the reader has no way to know what exists without browsing GitHub directly. A shared navigation pattern would define which documentation surfaces are expected to appear, how they are categorized, and where the canonical index lives so that new repositories automatically become discoverable when they follow the pattern.</p>
@@ -557,7 +549,6 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <section id="engineering-documentation-traceability">
 <h2>9.4 Engineering Documentation &amp; Traceability 🟠<a class="headerlink" href="#engineering-documentation-traceability" title="Link to this heading">#</a></h2>
 <p><em>Infrastructure supporting requirements, architecture, design, and links to implementation and tests.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Engineering documentation (requirements, architecture, detailed design) is required for process compliance (e.g. ISO 26262, ASPICE).</p></li>
 <li><p>Architecture visualization and code integration are target capabilities to connect documentation with implementation artifacts.</p></li>
@@ -567,20 +558,17 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <section id="traceability-code-integration-and-impact-analysis">
 <h3>9.4.1 Traceability, Code Integration, and Impact Analysis 🟠<a class="headerlink" href="#traceability-code-integration-and-impact-analysis" title="Link to this heading">#</a></h3>
 <p><em>Linking requirements, design, code, and verification artifacts to support impact analysis.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>Traceability needs explicit object models and stable identifiers, not just linked prose. In a docs-as-code setting, that means requirements, design decisions, and verification references should be machine-readable documentation objects with typed relationships rather than free-form text that happens to mention a requirement ID.</p>
 <p>The Sphinx ecosystem provides this through extensions that let authors declare typed objects directly in documentation source and express relationships between them. Those objects can then be queried, filtered, and rendered as traceability matrices, coverage tables, or impact analysis views without maintaining a separate database. The important property is that the traceability data lives in version control alongside the prose, follows the same review process, and can be validated during the documentation build.</p>
-<p>For S-CORE, the practical value is that test evidence produced in <a class="reference internal" href="04-testing-infrastructure.html#test-traceability"><span class="std std-ref">chapter 4</span></a> can be linked back to requirement objects in documentation, creating a verification chain from requirement through implementation to test result. When requirements change between releases, the same object model makes it possible to identify which links break, which tests need re-evaluation, and which verification evidence is stale. That is the versioning dimension: requirement objects should carry version identity so that a documentation build for one <code class="docutils literal notranslate"><span class="pre">known_good</span></code> snapshot can show the requirement state at that point, while a diff between snapshots shows what changed.</p>
+<p>For S-CORE, the practical value is that test evidence produced in <a class="reference internal" href="04-testing-infrastructure.html#test-execution-dynamic-analysis"><span class="std std-ref">chapter 4</span></a> can be linked back to requirement objects in documentation, creating a verification chain from requirement through implementation to test result. When requirements change between releases, the same object model makes it possible to identify which links break, which tests need re-evaluation, and which verification evidence is stale. That is the versioning dimension: requirement objects should carry version identity so that a documentation build for one <code class="docutils literal notranslate"><span class="pre">known_good</span></code> snapshot can show the requirement state at that point, while a diff between snapshots shows what changed.</p>
 <p><strong>Biggest gap</strong>: the tooling direction for docs-as-code traceability exists but is not yet named, standardized, or integrated into the documentation build pipeline across S-CORE repositories. Requirement versioning across releases is not yet addressed.</p>
 </section>
 <section id="known-good-documentation-snapshots">
 <h3>9.4.2 Known-Good Documentation Snapshots 🔴<a class="headerlink" href="#known-good-documentation-snapshots" title="Link to this heading">#</a></h3>
 <p><em>Tying integrated docs and traceability evidence to one validated cross-repository snapshot.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>Cross-repository documentation becomes ambiguous unless readers can tell which combination of component revisions it describes. The <code class="docutils literal notranslate"><span class="pre">known_good</span></code> concept solves that by giving integrated documentation, verification summaries, and traceability views one shared snapshot identifier. A single documentation build in <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> should therefore describe one concrete <code class="docutils literal notranslate"><span class="pre">known_good</span></code> manifest or record, not an unspecified mix of module heads.</p>
-<p>Under the currently assumed but still-undecided Option 2 model, this identifier is also what allows the project to claim that integrated docs and integrated evidence were generated from the same centrally validated stack. If <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> later ends up with a lighter scope, the documentation benefit remains, but the traceability story has to distinguish more clearly between centrally generated pages and evidence linked in from module repositories.</p>
-<p>The important architectural point is that links, release notes, dashboards, and archived evidence should all resolve back to the same <code class="docutils literal notranslate"><span class="pre">known_good</span></code> identifier. <strong>Biggest gap</strong>: S-CORE does not yet have a documented rule for binding integrated documentation and traceability artifacts to one explicit cross-repository snapshot.</p>
-<p>This snapshot-oriented documentation view depends on the same integration model described in <a class="reference external" href="https://eclipse-score.github.io/score/main/design_decisions/DR-002-infra.html">DR-002-Infra</a> and on the still-unsettled <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> scope discussion in <a class="reference external" href="https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1">DR-008-Int</a>.</p>
+<p>The important architectural point is that links, release notes, dashboards, and archived evidence should all resolve back to the same <code class="docutils literal notranslate"><span class="pre">known_good</span></code> identifier. <a class="reference internal" href="11-reference-integration.html"><span class="std std-doc">Chapter 11</span></a> owns the repository-level explanation of that snapshot contract. <strong>Biggest gap</strong>: S-CORE does not yet have a documented rule for binding integrated documentation and traceability artifacts to one explicit cross-repository snapshot.</p>
+<p>This snapshot-oriented documentation view depends on the same integration model described in <a class="reference external" href="https://eclipse-score.github.io/score/main/design_decisions/DR-002-infra.html">DR-002-Infra</a> and on the selected <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> scope in <a class="reference external" href="https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1">DR-008-Int</a>.</p>
 </section>
 </section>
 </section>
@@ -601,7 +589,7 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">8 Release &amp; Distribution ⚪</p>
+        <p class="prev-next-title">8 Release &amp; Distribution 🟠</p>
       </div>
     </a>
     <a class="right-next"

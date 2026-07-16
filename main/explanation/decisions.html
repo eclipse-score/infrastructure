@@ -38,13 +38,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-data-viewer/jsonview.bundle.css?v=f6ef2277" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/libs/html/datatables.min.css?v=4b4fd840" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/modern.css?v=803738c0" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cf9fcd3f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d828336e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
@@ -72,10 +72,10 @@
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/js/mindmap.js?v=40886bf0"></script>
+    <script src="../_static/js/maturity.js?v=73f0b4b1"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="10 Infrastructure Operations ⚪" href="10-infrastructure-operations.html" />
+    <link rel="prev" title="11 Reference Integration 🟠" href="11-reference-integration.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.1" />
@@ -394,14 +394,15 @@
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01-source-code-infrastructure.html">1 Source Code Infrastructure 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02-developer-environment.html">2 Developer Environment 🟡</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04-testing-infrastructure.html">4 Testing 🟠</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="09-documentation-infrastructure.html">9 Documentation &amp; Traceability 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10-infrastructure-operations.html">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-reference-integration.html">11 Reference Integration 🟠</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Infrastructure Design Decisions</a></li>
 </ul>
 </div>
@@ -492,15 +493,11 @@
 <p><strong>Full DR</strong>: <a class="reference external" href="https://eclipse-score.github.io/score/main/design_decisions/DR-002-infra.html">DR-002-Infra</a></p>
 </section>
 <hr class="docutils" />
-<section id="dr-008-int-reference-integration-scope-open">
-<h2>DR-008-Int — <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> Scope (Open)<a class="headerlink" href="#dr-008-int-reference-integration-scope-open" title="Link to this heading">#</a></h2>
-<p><strong>Status</strong>: Not yet decided.</p>
-<p><strong>Problem</strong>: Two options are under discussion for the scope of <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code>:</p>
-<ul class="simple">
-<li><p><strong>Option 2</strong> (stronger central ownership): <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> rebuilds and re-tests the full integrated stack for every <code class="docutils literal notranslate"><span class="pre">known_good</span></code> promotion. All cross-repository verification evidence is produced centrally.</p></li>
-<li><p><strong>Lighter scope</strong>: <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> assembles and promotes <code class="docutils literal notranslate"><span class="pre">known_good</span></code> but delegates more verification to individual component repositories. Some evidence stays per-module.</p></li>
-</ul>
-<p><strong>Effect on docs</strong>: Several sections in <a class="reference internal" href="03-build-infrastructure.html"><span class="std std-doc">Chapter 3</span></a> and <a class="reference internal" href="07-automation-integration.html"><span class="std std-doc">Chapter 7</span></a> note where their architecture description assumes Option 2 and where it would change under a lighter scope.</p>
+<section id="dr-008-int-reference-integration-scope">
+<h2>DR-008-Int — <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> Scope<a class="headerlink" href="#dr-008-int-reference-integration-scope" title="Link to this heading">#</a></h2>
+<p><strong>Status</strong>: Decided. Option 4 was selected.</p>
+<p><strong>Decision</strong>: Use a stable <code class="docutils literal notranslate"><span class="pre">known_good</span></code> baseline with module-scoped validation. <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> promotes one explicit integrated stack, runs the integration-scoped checks on that stack, and validates module repositories against the dependency set resolved by the integrated baseline.</p>
+<p><strong>Effect on docs</strong>: Chapter <a class="reference internal" href="07-automation-integration.html"><span class="std std-doc">7</span></a> describes the CI promotion flow against the selected baseline. Chapter <a class="reference internal" href="11-reference-integration.html"><span class="std std-doc">11</span></a> is the canonical explanation of the integration workspace, promotion model, and evidence boundary.</p>
 <p><strong>Full DR</strong>: <a class="reference external" href="https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1">DR-008-Int</a></p>
 </section>
 <hr class="docutils" />
@@ -512,7 +509,7 @@
 <li><p>A <strong>lock file</strong> (<code class="docutils literal notranslate"><span class="pre">MODULE.bazel.lock</span></code>, <code class="docutils literal notranslate"><span class="pre">uv.lock</span></code>) captures the resolved dependency graph that a concrete Bazel workspace consumes.</p></li>
 <li><p>A <strong><code class="docutils literal notranslate"><span class="pre">known_good</span></code> manifest</strong> is the curated integration selection from which Bazel-facing inputs can be generated. It can also carry automation metadata such as timestamps, suite identity, and which branch should be followed for automated CI refreshes.</p></li>
 </ul>
-<p>Regardless of whether the project eventually adopts Option 2 or a lighter <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> scope, <code class="docutils literal notranslate"><span class="pre">known_good</span></code> should be version-controlled, diffable, reproducible, and clearly distinct from generated Bazel lock data. The concrete file format matters less than that behavior.</p>
+<p><code class="docutils literal notranslate"><span class="pre">known_good</span></code> should be version-controlled, diffable, reproducible, and clearly distinct from generated Bazel lock data. The concrete file format matters less than that behavior.</p>
 <p><strong>Decision background</strong>: <a class="reference external" href="https://eclipse-score.github.io/score/main/design_decisions/DR-001-strat.html">DR-001-Strat</a> · <a class="reference external" href="https://eclipse-score.github.io/score/main/design_decisions/DR-002-infra.html">DR-002-Infra</a> · <a class="reference external" href="https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1">DR-008-Int</a></p>
 </section>
 </section>
@@ -528,12 +525,12 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="10-infrastructure-operations.html"
+       href="11-reference-integration.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">10 Infrastructure Operations ⚪</p>
+        <p class="prev-next-title">11 Reference Integration 🟠</p>
       </div>
     </a>
 </div>
@@ -558,7 +555,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dr-003-devcontainer-monolithic-image-vs-multi-container">DR-003 — Devcontainer: Monolithic Image vs. Multi-Container</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dr-001-strat-consistent-stack-direction">DR-001-Strat — Consistent Stack Direction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dr-002-infra-distributed-monolith-integration-model">DR-002-Infra — Distributed-Monolith Integration Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dr-008-int-reference-integration-scope-open">DR-008-Int — <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> Scope (Open)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dr-008-int-reference-integration-scope">DR-008-Int — <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> Scope</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-good-architecture-note"><code class="docutils literal notranslate"><span class="pre">known_good</span></code> Architecture Note</a></li>
 </ul>
   </nav></div>

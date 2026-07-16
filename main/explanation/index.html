@@ -38,13 +38,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-data-viewer/jsonview.bundle.css?v=f6ef2277" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/libs/html/datatables.min.css?v=4b4fd840" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/modern.css?v=803738c0" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cf9fcd3f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d828336e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
@@ -63,442 +63,6 @@
     <script src="../_static/sphinx-needs/libs/html/datatables.min.js?v=8a4aee21"></script>
     <script src="../_static/sphinx-needs/libs/html/datatables_loader.js?v=a2cae175"></script>
     <script src="../_static/sphinx-needs/libs/html/sphinx_needs_collapse.js?v=dca66431"></script>
-    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.esm.min.mjs";
-
-
-
-
-
-const initStyles = () => {
-    const defaultStyle = document.createElement('style');
-    defaultStyle.textContent = `pre.mermaid {
-    /* Same as .mermaid-container > pre */
-    display: block;
-    width: 100%;
-}
-
-pre.mermaid > svg {
-    /* Same as .mermaid-container > pre > svg */
-    height: 500px;
-    width: 100%;
-    max-width: 100% !important;
-}`;
-    document.head.appendChild(defaultStyle);
-
-    const fullscreenStyle = document.createElement('style');
-    fullscreenStyle.textContent = `.mermaid-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
-.mermaid-container > pre {
-    display: block;
-    width: 100%;
-}
-
-.mermaid-container > pre > svg {
-    height: 500px;
-    width: 100%;
-    max-width: 100% !important;
-}
-
-.mermaid-fullscreen-btn {
-    width: 28px;
-    height: 28px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    font-size: 14px;
-    line-height: 1;
-    padding: 0;
-    color: #333;
-}
-
-.mermaid-fullscreen-btn:hover {
-    opacity: 100% !important;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    transform: scale(1.1);
-}
-
-.mermaid-fullscreen-btn.dark-theme {
-    background: rgba(50, 50, 50, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #e0e0e0;
-}
-
-.mermaid-fullscreen-btn.dark-theme:hover {
-    background: rgba(60, 60, 60, 1);
-    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
-}
-
-.mermaid-fullscreen-modal {
-    display: none;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 95vw;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.98);
-    z-index: 9999;
-    padding: 20px;
-    overflow: auto;
-}
-
-.mermaid-fullscreen-modal.dark-theme {
-    background: rgba(0, 0, 0, 0.98);
-}
-
-.mermaid-fullscreen-modal.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen {
-    position: relative;
-    width: 95vw;
-    height: 90vh;
-    max-width: 95vw;
-    max-height: 90vh;
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    overflow: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen.dark-theme {
-    background: #1a1a1a;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-}
-
-.mermaid-container-fullscreen pre.mermaid {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen .mermaid svg {
-    height: 100% !important;
-    width: 100% !important;
-    cursor: grab;
-}
-
-.mermaid-fullscreen-close {
-    position: fixed !important;
-    top: 20px !important;
-    right: 20px !important;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: all 0.2s;
-    font-size: 24px;
-    line-height: 1;
-    color: #333;
-}
-
-.mermaid-fullscreen-close:hover {
-    background: white;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-    transform: scale(1.1);
-}
-
-.mermaid-fullscreen-close.dark-theme {
-    background: rgba(50, 50, 50, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #e0e0e0;
-}
-
-.mermaid-fullscreen-close.dark-theme:hover {
-    background: rgba(60, 60, 60, 1);
-    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
-}
-
-.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
-    display: none !important;
-}`;
-    document.head.appendChild(fullscreenStyle);
-}
-
-// Detect if page has dark background
-const isDarkTheme = () => {
-    // We use a set of heuristics:
-    // 1. Check for common dark mode classes or attributes
-    // 2. Check computed background color brightness
-    if (document.documentElement.classList.contains('dark') ||
-        document.documentElement.getAttribute('data-theme') === 'dark' ||
-        document.body.classList.contains('dark') ||
-        document.body.getAttribute('data-theme') === 'dark') {
-        // console.log("Dark theme detected via class/attribute");
-        return true;
-    }
-    if (document.documentElement.classList.contains('light') ||
-        document.documentElement.getAttribute('data-theme') === 'light' ||
-        document.body.classList.contains('light') ||
-        document.body.getAttribute('data-theme') === 'light') {
-        // console.log("Light theme detected via class/attribute");
-        return false;
-    }
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        // console.log("Dark theme detected via prefers-color-scheme");
-        return true;
-    }
-    const bgColor = window.getComputedStyle(document.body).backgroundColor;
-    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
-    if (match) {
-        const r = parseInt(match[1]);
-        const g = parseInt(match[2]);
-        const b = parseInt(match[3]);
-        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-        // console.log("Background color brightness:", brightness);
-        return brightness < 128;
-    }
-    // console.log("No dark or light theme detected, defaulting to light theme");
-    return false;
-};
-
-let darkTheme = isDarkTheme();
-let modal = null;
-let modalContent = null;
-let previousScrollOffset = [window.scrollX, window.scrollY];
-
-const runMermaid = async (rerun) => {
-    console.log("Running mermaid diagrams, rerun =", rerun);
-    // clear all existing mermaid charts
-    let all_mermaids = document.querySelectorAll(".mermaid");
-
-    if (rerun) {
-        all_mermaids.forEach((el) => {
-            if(!el.hasAttribute("data-original-code")) {
-                // store original code
-                // console.log(`Storing original code for first run: `, el.innerHTML);
-                el.setAttribute('data-original-code', el.innerHTML);
-            }
-            if(el.getAttribute("data-processed") === "true") {
-                // remove and restore original
-                el.removeAttribute("data-processed");
-                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
-                el.innerHTML = el.getAttribute('data-original-code');
-            } else {
-                // store original code
-                // console.log(`Storing original code for re-run: `, el.innerHTML);
-                el.setAttribute('data-original-code', el.innerHTML);
-            }
-        });
-        await mermaid.run();
-    }
-
-    all_mermaids = document.querySelectorAll(".mermaid");
-    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
-
-    if ("False" === "True") {
-        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
-        if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll("");
-            if(all_mermaids.length !== mermaids_processed.length) {
-                setTimeout(() => runMermaid(false), 200);
-                return;
-            } else if(svgs.size() !== mermaids_to_add_zoom) {
-                setTimeout(() => runMermaid(false), 200);
-                return;
-            } else {
-                svgs.each(function() {
-                    var svg = d3.select(this);
-                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
-                    var inner = svg.select("g");
-                    var zoom = d3.zoom().on("zoom", function(event) {
-                        inner.attr("transform", event.transform);
-                    });
-                    svg.call(zoom);
-                });
-            }
-        }
-    } else if(all_mermaids.length !== mermaids_processed.length) {
-        // Wait for mermaid to process all diagrams
-        setTimeout(() => runMermaid(false), 200);
-        return;
-    }
-
-    // Stop here if not adding fullscreen capability
-    if ("True" !== "True") return;
-
-    if (modal !== null ) {
-        // Destroy existing modal
-        modal.remove();
-        modal = null;
-        modalContent = null;
-    }
-
-    modal = document.createElement('div');
-    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
-    modal.setAttribute('role', 'dialog');
-    modal.setAttribute('aria-modal', 'true');
-    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
-    modal.innerHTML = `
-        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
-        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
-    `;
-    document.body.appendChild(modal);
-
-    modalContent = modal.querySelector('.mermaid-container-fullscreen');
-    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
-
-    const closeModal = () => {
-        modal.classList.remove('active');
-        modalContent.innerHTML = '';
-        document.body.style.overflow = ''
-        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
-    };
-
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
-        }
-    });
-
-    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
-        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
-            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
-            // Already processed, adjust button class if needed
-            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
-            if (existingBtn) {
-                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
-            }
-            return;
-        }
-
-        const container = document.createElement('div');
-        container.className = 'mermaid-container';
-        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
-        container.appendChild(mermaidDiv);
-
-        const fullscreenBtn = document.createElement('button');
-        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
-        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
-        fullscreenBtn.textContent = '⛶';
-        fullscreenBtn.style.opacity = '50%';
-
-        // Calculate dynamic position based on diagram's margin and padding
-        const diagramStyle = window.getComputedStyle(mermaidDiv);
-        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
-        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
-        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
-        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
-        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
-        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
-
-        fullscreenBtn.addEventListener('click', () => {
-            previousScrollOffset = [window.scroll, window.scrollY];
-            const clone = mermaidDiv.cloneNode(true);
-            modalContent.innerHTML = '';
-            modalContent.appendChild(clone);
-
-            const svg = clone.querySelector('svg');
-            if (svg) {
-                svg.removeAttribute('width');
-                svg.removeAttribute('height');
-                svg.style.width = '100%';
-                svg.style.height = 'auto';
-                svg.style.maxWidth = '100%';
-                svg.style.sdisplay = 'block';
-
-                if ("False" === "True") {
-                    setTimeout(() => {
-                        const g = svg.querySelector('g');
-                        if (g) {
-                            var svgD3 = d3.select(svg);
-                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
-                            var inner = svgD3.select("g");
-                            var zoom = d3.zoom().on("zoom", function(event) {
-                                inner.attr("transform", event.transform);
-                            });
-                            svgD3.call(zoom);
-                        }
-                    }, 100);
-                }
-            }
-
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-        container.appendChild(fullscreenBtn);
-    });
-};
-
-const load = async () => {
-    initStyles();
-
-    await runMermaid(true);
-
-    const reRunIfThemeChanges = async () => {
-        const newDarkTheme = isDarkTheme();
-        if (newDarkTheme !== darkTheme) {
-            darkTheme = newDarkTheme;
-            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
-            await mermaid.initialize(
-                {...JSON.parse(
-                    `{"startOnLoad": false}`
-                ),
-                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
-                }
-            );
-            await runMermaid(true);
-        }
-    };
-
-    // Update theme classes when theme changes
-    const themeObserver = new MutationObserver(reRunIfThemeChanges);
-    themeObserver.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class', 'style', 'data-theme']
-    });
-    themeObserver.observe(document.body, {
-        attributes: true,
-        attributeFilter: ['class', 'style', 'data-theme']
-    });
-};
-
-
-
-
-
-console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
-mermaid.initialize(
-    {...JSON.parse(
-        `{"startOnLoad": false}`
-    ),
-    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
-    }
-);
-
-window.addEventListener("load", load);
-window.runMermaid = runMermaid;</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'explanation/index';</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
@@ -508,7 +72,7 @@ window.runMermaid = runMermaid;</script>
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/js/mindmap.js?v=40886bf0"></script>
+    <script src="../_static/js/maturity.js?v=73f0b4b1"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="1 Source Code Infrastructure 🟠" href="01-source-code-infrastructure.html" />
@@ -831,14 +395,15 @@ window.runMermaid = runMermaid;</script>
   <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01-source-code-infrastructure.html">1 Source Code Infrastructure 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02-developer-environment.html">2 Developer Environment 🟡</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04-testing-infrastructure.html">4 Testing 🟠</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="09-documentation-infrastructure.html">9 Documentation &amp; Traceability 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10-infrastructure-operations.html">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-reference-integration.html">11 Reference Integration 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="decisions.html">Infrastructure Design Decisions</a></li>
 </ul>
 </div>
@@ -900,23 +465,10 @@ window.runMermaid = runMermaid;</script>
   <section id="infrastructure-landscape">
 <h1>Infrastructure Landscape<a class="headerlink" href="#infrastructure-landscape" title="Link to this heading">#</a></h1>
 <p>Architecture, design rationale, and maturity assessment of each S-CORE infrastructure area. These chapters describe what exists, how it works, and what is still missing.</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="01-source-code-infrastructure.html"><span class="std std-doc">1. Source Code Infrastructure</span></a></p></li>
-<li><p><a class="reference internal" href="02-developer-environment.html"><span class="std std-doc">2. Developer Environment</span></a></p></li>
-<li><p><a class="reference internal" href="03-build-infrastructure.html"><span class="std std-doc">3. Build &amp; Dependencies</span></a></p></li>
-<li><p><a class="reference internal" href="04-testing-infrastructure.html"><span class="std std-doc">4. Testing</span></a></p></li>
-<li><p><a class="reference internal" href="05-static-analysis-infrastructure.html"><span class="std std-doc">5. Code Analysis Infrastructure</span></a></p></li>
-<li><p><a class="reference internal" href="06-compliance-infrastructure.html"><span class="std std-doc">6. Compliance &amp; Dependency Analysis</span></a></p></li>
-<li><p><a class="reference internal" href="07-automation-integration.html"><span class="std std-doc">7. Automation &amp; CI</span></a></p></li>
-<li><p><a class="reference internal" href="08-artifact-distribution.html"><span class="std std-doc">8. Release &amp; Distribution</span></a></p></li>
-<li><p><a class="reference internal" href="09-documentation-infrastructure.html"><span class="std std-doc">9. Documentation &amp; Traceability</span></a></p></li>
-<li><p><a class="reference internal" href="10-infrastructure-operations.html"><span class="std std-doc">10. Infrastructure Operations</span></a></p></li>
-<li><p><a class="reference internal" href="decisions.html"><span class="std std-doc">Infrastructure Design Decisions</span></a></p></li>
-</ul>
 <section id="status-legend">
 <h2>Status Legend<a class="headerlink" href="#status-legend" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>🟢 Implemented and effective</p></li>
+<li><p>🟢 Implemented and fit for purpose</p></li>
 <li><p>🟡 Partially implemented / needs improvement</p></li>
 <li><p>🟠 Implemented but problematic or insufficient</p></li>
 <li><p>🔴 Not started</p></li>
@@ -926,633 +478,245 @@ window.runMermaid = runMermaid;</script>
 <section id="chapter-map">
 <h2>Chapter Map<a class="headerlink" href="#chapter-map" title="Link to this heading">#</a></h2>
 <!-- BEGIN GENERATED CHAPTER MAP -->
-<p class="chapter-map-note">This chapter map is generated from the `#` and `##` headings in the numbered chapter files. Click any chapter or section box to open it.</p>
-<pre  class="mermaid">
-        mindmap
-  root((S-CORE Infrastructure))
-    node_001[&quot;`1 Source Code
-Infrastructure 🟠`&quot;]
-      node_002[&quot;`1.1 Hosting &amp; Organization
-⚪`&quot;]
-      node_003[&quot;`1.2 Repository
-Provisioning &amp; Lifecycle 🟡`&quot;]
-      node_004[&quot;`1.3 Repository Policy
-Management 🔴`&quot;]
-      node_005[&quot;1.4 Repository Standards 🟠&quot;]
-    node_006[&quot;`2 Developer Environment
-🟡`&quot;]
-      node_007[&quot;2.1 Central Devcontainer 🟠&quot;]
-      node_008[&quot;`2.2 Local Auxiliary
-Tooling 🟡`&quot;]
-    node_009[&quot;3 Build &amp; Dependencies ⚪&quot;]
-      node_010[&quot;3.1 Build System ⚪&quot;]
-      node_011[&quot;`3.2 Dependency Management
-⚪`&quot;]
-      node_012[&quot;3.3 Toolchain Management ⚪&quot;]
-      node_013[&quot;`3.4 Build Reproducibility
-&amp; Evidence ⚪`&quot;]
-      node_014[&quot;`3.5 Build Execution
-Infrastructure ⚪`&quot;]
-    node_015[&quot;4 Testing 🟠&quot;]
-      node_016[&quot;`4.1 Test Framework
-Integration 🟠`&quot;]
-      node_017[&quot;4.2 Test Traceability 🟠&quot;]
-      node_018[&quot;`4.3 Test Execution &amp;
-Dynamic Analysis 🟠`&quot;]
-      node_019[&quot;4.4 Test Reporting 🟠&quot;]
-    node_020[&quot;`5 Code Analysis
-Infrastructure ⚪`&quot;]
-      node_021[&quot;5.1 Tooling Baseline ⚪&quot;]
-      node_022[&quot;`5.2 Shared Rule
-Configuration ⚪`&quot;]
-      node_023[&quot;5.3 Execution Model ⚪&quot;]
-      node_024[&quot;5.4 Security Scanning 🟠&quot;]
-      node_025[&quot;`5.5 Results and Governance
-⚪`&quot;]
-    node_026[&quot;`6 Compliance &amp;
-Dependency Analysis ⚪`&quot;]
-      node_027[&quot;6.1 File-Level Licensing ⚪&quot;]
-      node_028[&quot;6.2 Dependency Analysis ⚪&quot;]
-      node_029[&quot;`6.3 SBOM Scoping and
-Compliance Evidence ⚪`&quot;]
-      node_030[&quot;`6.4 License Checks and
-Compliance ⚪`&quot;]
-      node_031[&quot;`6.5 Monitoring and
-Governance ⚪`&quot;]
-    node_032[&quot;`7 Automation
-Infrastructure &amp;
-Continuous Integration
-(CI) ⚪`&quot;]
-      node_033[&quot;7.1 Runners 🟠&quot;]
-      node_034[&quot;7.2 Reusable Workflows ⚪&quot;]
-      node_035[&quot;`7.3 Cross-Repository
-Integration ⚪`&quot;]
-      node_036[&quot;7.4 Secrets Management ⚪&quot;]
-      node_037[&quot;7.5 CI Observability ⚪&quot;]
-    node_038[&quot;`8 Release &amp; Distribution
-⚪`&quot;]
-      node_039[&quot;8.1 Deliverable Types ⚪&quot;]
-      node_040[&quot;`8.2 Distribution Channels
-⚪`&quot;]
-      node_041[&quot;8.3 Release Metadata ⚪&quot;]
-      node_042[&quot;8.4 Consumer Access ⚪&quot;]
-      node_043[&quot;`8.5 Post-Release
-Communication &amp; Response ⚪`&quot;]
-    node_044[&quot;`9 Documentation &amp;
-Traceability 🟠`&quot;]
-      node_045[&quot;9.1 Authoring &amp; Tooling 🟡&quot;]
-      node_046[&quot;`9.2 Build, Validation &amp;
-Publishing 🟡`&quot;]
-      node_047[&quot;`9.3 Cross-Repository
-Documentation Integration
-🔴`&quot;]
-      node_048[&quot;`9.4 Engineering
-Documentation &amp;
-Traceability 🟠`&quot;]
-    node_049[&quot;`10 Infrastructure
-Operations ⚪`&quot;]
-      node_050[&quot;`10.1 CI Runner Operations
-⚪`&quot;]
-      node_051[&quot;`10.2 Infrastructure
-Monitoring ⚪`&quot;]
-      node_052[&quot;`10.3 Infrastructure
-Maintenance ⚪`&quot;]
-      node_053[&quot;`10.4 Infrastructure
-Governance ⚪`&quot;]
-    </pre><script type="application/json" class="chapter-map-links-data">
-[
-  {
-    "id": "node_001",
-    "kind": "chapter",
-    "href": "01-source-code-infrastructure/",
-    "title": "1 Source Code Infrastructure",
-    "match_texts": [
-      "1 Source Code Infrastructure 🟠",
-      "1 Source Code Infrastructure"
-    ]
-  },
-  {
-    "id": "node_002",
-    "kind": "section",
-    "href": "01-source-code-infrastructure/#hosting-organization",
-    "title": "1.1 Hosting & Organization",
-    "match_texts": [
-      "1.1 Hosting & Organization ⚪",
-      "1.1 Hosting & Organization"
-    ]
-  },
-  {
-    "id": "node_003",
-    "kind": "section",
-    "href": "01-source-code-infrastructure/#repository-provisioning-lifecycle",
-    "title": "1.2 Repository Provisioning & Lifecycle",
-    "match_texts": [
-      "1.2 Repository Provisioning & Lifecycle 🟡",
-      "1.2 Repository Provisioning & Lifecycle"
-    ]
-  },
-  {
-    "id": "node_004",
-    "kind": "section",
-    "href": "01-source-code-infrastructure/#repository-policy-management",
-    "title": "1.3 Repository Policy Management",
-    "match_texts": [
-      "1.3 Repository Policy Management 🔴",
-      "1.3 Repository Policy Management"
-    ]
-  },
-  {
-    "id": "node_005",
-    "kind": "section",
-    "href": "01-source-code-infrastructure/#repository-standards",
-    "title": "1.4 Repository Standards",
-    "match_texts": [
-      "1.4 Repository Standards 🟠",
-      "1.4 Repository Standards"
-    ]
-  },
-  {
-    "id": "node_006",
-    "kind": "chapter",
-    "href": "02-developer-environment/",
-    "title": "2 Developer Environment",
-    "match_texts": [
-      "2 Developer Environment 🟡",
-      "2 Developer Environment"
-    ]
-  },
-  {
-    "id": "node_007",
-    "kind": "section",
-    "href": "02-developer-environment/#central-devcontainer",
-    "title": "2.1 Central Devcontainer",
-    "match_texts": [
-      "2.1 Central Devcontainer 🟠",
-      "2.1 Central Devcontainer"
-    ]
-  },
-  {
-    "id": "node_008",
-    "kind": "section",
-    "href": "02-developer-environment/#local-auxiliary-tooling",
-    "title": "2.2 Local Auxiliary Tooling",
-    "match_texts": [
-      "2.2 Local Auxiliary Tooling 🟡",
-      "2.2 Local Auxiliary Tooling"
-    ]
-  },
-  {
-    "id": "node_009",
-    "kind": "chapter",
-    "href": "03-build-infrastructure/",
-    "title": "3 Build & Dependencies",
-    "match_texts": [
-      "3 Build & Dependencies ⚪",
-      "3 Build & Dependencies"
-    ]
-  },
-  {
-    "id": "node_010",
-    "kind": "section",
-    "href": "03-build-infrastructure/#build-system",
-    "title": "3.1 Build System",
-    "match_texts": [
-      "3.1 Build System ⚪",
-      "3.1 Build System"
-    ]
-  },
-  {
-    "id": "node_011",
-    "kind": "section",
-    "href": "03-build-infrastructure/#dependency-management",
-    "title": "3.2 Dependency Management",
-    "match_texts": [
-      "3.2 Dependency Management ⚪",
-      "3.2 Dependency Management"
-    ]
-  },
-  {
-    "id": "node_012",
-    "kind": "section",
-    "href": "03-build-infrastructure/#toolchain-management",
-    "title": "3.3 Toolchain Management",
-    "match_texts": [
-      "3.3 Toolchain Management ⚪",
-      "3.3 Toolchain Management"
-    ]
-  },
-  {
-    "id": "node_013",
-    "kind": "section",
-    "href": "03-build-infrastructure/#build-reproducibility-evidence",
-    "title": "3.4 Build Reproducibility & Evidence",
-    "match_texts": [
-      "3.4 Build Reproducibility & Evidence ⚪",
-      "3.4 Build Reproducibility & Evidence"
-    ]
-  },
-  {
-    "id": "node_014",
-    "kind": "section",
-    "href": "03-build-infrastructure/#build-execution-infrastructure",
-    "title": "3.5 Build Execution Infrastructure",
-    "match_texts": [
-      "3.5 Build Execution Infrastructure ⚪",
-      "3.5 Build Execution Infrastructure"
-    ]
-  },
-  {
-    "id": "node_015",
-    "kind": "chapter",
-    "href": "04-testing-infrastructure/",
-    "title": "4 Testing",
-    "match_texts": [
-      "4 Testing 🟠",
-      "4 Testing"
-    ]
-  },
-  {
-    "id": "node_016",
-    "kind": "section",
-    "href": "04-testing-infrastructure/#test-framework-integration",
-    "title": "4.1 Test Framework Integration",
-    "match_texts": [
-      "4.1 Test Framework Integration 🟠",
-      "4.1 Test Framework Integration"
-    ]
-  },
-  {
-    "id": "node_017",
-    "kind": "section",
-    "href": "04-testing-infrastructure/#test-traceability",
-    "title": "4.2 Test Traceability",
-    "match_texts": [
-      "4.2 Test Traceability 🟠",
-      "4.2 Test Traceability"
-    ]
-  },
-  {
-    "id": "node_018",
-    "kind": "section",
-    "href": "04-testing-infrastructure/#test-execution-dynamic-analysis",
-    "title": "4.3 Test Execution & Dynamic Analysis",
-    "match_texts": [
-      "4.3 Test Execution & Dynamic Analysis 🟠",
-      "4.3 Test Execution & Dynamic Analysis"
-    ]
-  },
-  {
-    "id": "node_019",
-    "kind": "section",
-    "href": "04-testing-infrastructure/#test-reporting",
-    "title": "4.4 Test Reporting",
-    "match_texts": [
-      "4.4 Test Reporting 🟠",
-      "4.4 Test Reporting"
-    ]
-  },
-  {
-    "id": "node_020",
-    "kind": "chapter",
-    "href": "05-static-analysis-infrastructure/",
-    "title": "5 Code Analysis Infrastructure",
-    "match_texts": [
-      "5 Code Analysis Infrastructure ⚪",
-      "5 Code Analysis Infrastructure"
-    ]
-  },
-  {
-    "id": "node_021",
-    "kind": "section",
-    "href": "05-static-analysis-infrastructure/#tooling-baseline",
-    "title": "5.1 Tooling Baseline",
-    "match_texts": [
-      "5.1 Tooling Baseline ⚪",
-      "5.1 Tooling Baseline"
-    ]
-  },
-  {
-    "id": "node_022",
-    "kind": "section",
-    "href": "05-static-analysis-infrastructure/#shared-rule-configuration",
-    "title": "5.2 Shared Rule Configuration",
-    "match_texts": [
-      "5.2 Shared Rule Configuration ⚪",
-      "5.2 Shared Rule Configuration"
-    ]
-  },
-  {
-    "id": "node_023",
-    "kind": "section",
-    "href": "05-static-analysis-infrastructure/#execution-model",
-    "title": "5.3 Execution Model",
-    "match_texts": [
-      "5.3 Execution Model ⚪",
-      "5.3 Execution Model"
-    ]
-  },
-  {
-    "id": "node_024",
-    "kind": "section",
-    "href": "05-static-analysis-infrastructure/#security-scanning",
-    "title": "5.4 Security Scanning",
-    "match_texts": [
-      "5.4 Security Scanning 🟠",
-      "5.4 Security Scanning"
-    ]
-  },
-  {
-    "id": "node_025",
-    "kind": "section",
-    "href": "05-static-analysis-infrastructure/#results-and-governance",
-    "title": "5.5 Results and Governance",
-    "match_texts": [
-      "5.5 Results and Governance ⚪",
-      "5.5 Results and Governance"
-    ]
-  },
-  {
-    "id": "node_026",
-    "kind": "chapter",
-    "href": "06-compliance-infrastructure/",
-    "title": "6 Compliance & Dependency Analysis",
-    "match_texts": [
-      "6 Compliance & Dependency Analysis ⚪",
-      "6 Compliance & Dependency Analysis"
-    ]
-  },
-  {
-    "id": "node_027",
-    "kind": "section",
-    "href": "06-compliance-infrastructure/#file-level-licensing",
-    "title": "6.1 File-Level Licensing",
-    "match_texts": [
-      "6.1 File-Level Licensing ⚪",
-      "6.1 File-Level Licensing"
-    ]
-  },
-  {
-    "id": "node_028",
-    "kind": "section",
-    "href": "06-compliance-infrastructure/#dependency-analysis",
-    "title": "6.2 Dependency Analysis",
-    "match_texts": [
-      "6.2 Dependency Analysis ⚪",
-      "6.2 Dependency Analysis"
-    ]
-  },
-  {
-    "id": "node_029",
-    "kind": "section",
-    "href": "06-compliance-infrastructure/#sbom-scoping-and-compliance-evidence",
-    "title": "6.3 SBOM Scoping and Compliance Evidence",
-    "match_texts": [
-      "6.3 SBOM Scoping and Compliance Evidence ⚪",
-      "6.3 SBOM Scoping and Compliance Evidence"
-    ]
-  },
-  {
-    "id": "node_030",
-    "kind": "section",
-    "href": "06-compliance-infrastructure/#license-checks-and-compliance",
-    "title": "6.4 License Checks and Compliance",
-    "match_texts": [
-      "6.4 License Checks and Compliance ⚪",
-      "6.4 License Checks and Compliance"
-    ]
-  },
-  {
-    "id": "node_031",
-    "kind": "section",
-    "href": "06-compliance-infrastructure/#monitoring-and-governance",
-    "title": "6.5 Monitoring and Governance",
-    "match_texts": [
-      "6.5 Monitoring and Governance ⚪",
-      "6.5 Monitoring and Governance"
-    ]
-  },
-  {
-    "id": "node_032",
-    "kind": "chapter",
-    "href": "07-automation-integration/",
-    "title": "7 Automation Infrastructure & Continuous Integration (CI)",
-    "match_texts": [
-      "7 Automation Infrastructure & Continuous Integration (CI) ⚪",
-      "7 Automation Infrastructure & Continuous Integration (CI)"
-    ]
-  },
-  {
-    "id": "node_033",
-    "kind": "section",
-    "href": "07-automation-integration/#runners",
-    "title": "7.1 Runners",
-    "match_texts": [
-      "7.1 Runners 🟠",
-      "7.1 Runners"
-    ]
-  },
-  {
-    "id": "node_034",
-    "kind": "section",
-    "href": "07-automation-integration/#reusable-workflows",
-    "title": "7.2 Reusable Workflows",
-    "match_texts": [
-      "7.2 Reusable Workflows ⚪",
-      "7.2 Reusable Workflows"
-    ]
-  },
-  {
-    "id": "node_035",
-    "kind": "section",
-    "href": "07-automation-integration/#cross-repository-integration",
-    "title": "7.3 Cross-Repository Integration",
-    "match_texts": [
-      "7.3 Cross-Repository Integration ⚪",
-      "7.3 Cross-Repository Integration"
-    ]
-  },
-  {
-    "id": "node_036",
-    "kind": "section",
-    "href": "07-automation-integration/#secrets-management",
-    "title": "7.4 Secrets Management",
-    "match_texts": [
-      "7.4 Secrets Management ⚪",
-      "7.4 Secrets Management"
-    ]
-  },
-  {
-    "id": "node_037",
-    "kind": "section",
-    "href": "07-automation-integration/#ci-observability",
-    "title": "7.5 CI Observability",
-    "match_texts": [
-      "7.5 CI Observability ⚪",
-      "7.5 CI Observability"
-    ]
-  },
-  {
-    "id": "node_038",
-    "kind": "chapter",
-    "href": "08-artifact-distribution/",
-    "title": "8 Release & Distribution",
-    "match_texts": [
-      "8 Release & Distribution ⚪",
-      "8 Release & Distribution"
-    ]
-  },
-  {
-    "id": "node_039",
-    "kind": "section",
-    "href": "08-artifact-distribution/#deliverable-types",
-    "title": "8.1 Deliverable Types",
-    "match_texts": [
-      "8.1 Deliverable Types ⚪",
-      "8.1 Deliverable Types"
-    ]
-  },
-  {
-    "id": "node_040",
-    "kind": "section",
-    "href": "08-artifact-distribution/#distribution-channels",
-    "title": "8.2 Distribution Channels",
-    "match_texts": [
-      "8.2 Distribution Channels ⚪",
-      "8.2 Distribution Channels"
-    ]
-  },
-  {
-    "id": "node_041",
-    "kind": "section",
-    "href": "08-artifact-distribution/#release-metadata",
-    "title": "8.3 Release Metadata",
-    "match_texts": [
-      "8.3 Release Metadata ⚪",
-      "8.3 Release Metadata"
-    ]
-  },
-  {
-    "id": "node_042",
-    "kind": "section",
-    "href": "08-artifact-distribution/#consumer-access",
-    "title": "8.4 Consumer Access",
-    "match_texts": [
-      "8.4 Consumer Access ⚪",
-      "8.4 Consumer Access"
-    ]
-  },
-  {
-    "id": "node_043",
-    "kind": "section",
-    "href": "08-artifact-distribution/#post-release-communication-response",
-    "title": "8.5 Post-Release Communication & Response",
-    "match_texts": [
-      "8.5 Post-Release Communication & Response ⚪",
-      "8.5 Post-Release Communication & Response"
-    ]
-  },
-  {
-    "id": "node_044",
-    "kind": "chapter",
-    "href": "09-documentation-infrastructure/",
-    "title": "9 Documentation & Traceability",
-    "match_texts": [
-      "9 Documentation & Traceability 🟠",
-      "9 Documentation & Traceability"
-    ]
-  },
-  {
-    "id": "node_045",
-    "kind": "section",
-    "href": "09-documentation-infrastructure/#authoring-tooling",
-    "title": "9.1 Authoring & Tooling",
-    "match_texts": [
-      "9.1 Authoring & Tooling 🟡",
-      "9.1 Authoring & Tooling"
-    ]
-  },
-  {
-    "id": "node_046",
-    "kind": "section",
-    "href": "09-documentation-infrastructure/#build-validation-publishing",
-    "title": "9.2 Build, Validation & Publishing",
-    "match_texts": [
-      "9.2 Build, Validation & Publishing 🟡",
-      "9.2 Build, Validation & Publishing"
-    ]
-  },
-  {
-    "id": "node_047",
-    "kind": "section",
-    "href": "09-documentation-infrastructure/#cross-repository-documentation-integration",
-    "title": "9.3 Cross-Repository Documentation Integration",
-    "match_texts": [
-      "9.3 Cross-Repository Documentation Integration 🔴",
-      "9.3 Cross-Repository Documentation Integration"
-    ]
-  },
-  {
-    "id": "node_048",
-    "kind": "section",
-    "href": "09-documentation-infrastructure/#engineering-documentation-traceability",
-    "title": "9.4 Engineering Documentation & Traceability",
-    "match_texts": [
-      "9.4 Engineering Documentation & Traceability 🟠",
-      "9.4 Engineering Documentation & Traceability"
-    ]
-  },
-  {
-    "id": "node_049",
-    "kind": "chapter",
-    "href": "10-infrastructure-operations/",
-    "title": "10 Infrastructure Operations",
-    "match_texts": [
-      "10 Infrastructure Operations ⚪",
-      "10 Infrastructure Operations"
-    ]
-  },
-  {
-    "id": "node_050",
-    "kind": "section",
-    "href": "10-infrastructure-operations/#ci-runner-operations",
-    "title": "10.1 CI Runner Operations",
-    "match_texts": [
-      "10.1 CI Runner Operations ⚪",
-      "10.1 CI Runner Operations"
-    ]
-  },
-  {
-    "id": "node_051",
-    "kind": "section",
-    "href": "10-infrastructure-operations/#infrastructure-monitoring",
-    "title": "10.2 Infrastructure Monitoring",
-    "match_texts": [
-      "10.2 Infrastructure Monitoring ⚪",
-      "10.2 Infrastructure Monitoring"
-    ]
-  },
-  {
-    "id": "node_052",
-    "kind": "section",
-    "href": "10-infrastructure-operations/#infrastructure-maintenance",
-    "title": "10.3 Infrastructure Maintenance",
-    "match_texts": [
-      "10.3 Infrastructure Maintenance ⚪",
-      "10.3 Infrastructure Maintenance"
-    ]
-  },
-  {
-    "id": "node_053",
-    "kind": "section",
-    "href": "10-infrastructure-operations/#infrastructure-governance",
-    "title": "10.4 Infrastructure Governance",
-    "match_texts": [
-      "10.4 Infrastructure Governance ⚪",
-      "10.4 Infrastructure Governance"
-    ]
-  }
-]
-</script>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Capability</p></th>
+<th class="head"><p>Maturity</p></th>
+<th class="head"><p>Impact</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong><a class="reference internal" href="01-source-code-infrastructure.html"><span class="std std-doc">1 Source Code Infrastructure</span></a></strong></p></td>
+<td><p>🟠</p></td>
+<td><p>Teams can deliver, but inconsistent standards create avoidable delays and make portfolio oversight harder.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="01-source-code-infrastructure.html#hosting-organization"><span class="std std-ref">1.1 Hosting &amp; Organization</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Repositories are harder to find and understand, which slows onboarding and cross-team collaboration.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="01-source-code-infrastructure.html#repository-provisioning-lifecycle"><span class="std std-ref">1.2 Repository Provisioning &amp; Lifecycle</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Ownership is unclear for create/archive/delete decisions, increasing governance and audit risk.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="01-source-code-infrastructure.html#repository-policy-management"><span class="std std-ref">1.3 Repository Policy Management</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Different repositories follow different protection levels, increasing security exposure and review overhead.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="01-source-code-infrastructure.html#repository-standards"><span class="std std-ref">1.4 Repository Standards</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Without measurable conformance, standards are hard to enforce and improvement progress is hard to track.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong><a class="reference internal" href="02-developer-environment.html"><span class="std std-doc">2 Developer Environment</span></a></strong></p></td>
+<td><p>🟡</p></td>
+<td><p>Most contributors can work effectively, but setup differences still reduce productivity and predictability.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="02-developer-environment.html#central-devcontainer"><span class="std std-ref">2.1 Central Devcontainer</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>The shared environment helps onboarding, but uneven adoption means teams still lose time on local fixes.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="02-developer-environment.html#local-auxiliary-tooling"><span class="std std-ref">2.2 Local Auxiliary Tooling</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Inconsistent local checks create rework when code moves from laptop to CI.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong><a class="reference internal" href="03-build-infrastructure.html"><span class="std std-doc">3 Build &amp; Dependencies</span></a></strong></p></td>
+<td><p>🟠</p></td>
+<td><p>Build capabilities are strong, but missing shared policies increase delivery risk and coordination cost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="03-build-infrastructure.html#build-system"><span class="std std-ref">3.1 Build System</span></a></p></td>
+<td><p>🟢</p></td>
+<td><p>A common build foundation reduces integration friction and supports predictable delivery.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="03-build-infrastructure.html#dependency-management"><span class="std std-ref">3.2 Dependency Management</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Inconsistent dependency decisions raise maintenance effort and can introduce compliance surprises late.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="03-build-infrastructure.html#toolchain-management"><span class="std std-ref">3.3 Toolchain Management</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Progress exists, but uneven rollout means teams do not get the same reliability or support level.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="03-build-infrastructure.html#build-reproducibility-evidence"><span class="std std-ref">3.4 Build Reproducibility &amp; Evidence</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Missing reproducibility evidence limits confidence in releases and weakens audit readiness.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="03-build-infrastructure.html#build-execution-infrastructure"><span class="std std-ref">3.5 Build Execution Infrastructure</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>No shared scale-out build infrastructure means slower pipelines and longer feedback loops.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong><a class="reference internal" href="04-testing-infrastructure.html"><span class="std std-doc">4 Testing</span></a></strong></p></td>
+<td><p>🟠</p></td>
+<td><p>Good testing exists, but fragmentation limits leadership visibility into overall product quality.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="04-testing-infrastructure.html#test-framework-integration"><span class="std std-ref">4.1 Test Framework Integration</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Teams use similar tools, but inconsistency still causes duplicated effort and uneven test quality.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="04-testing-infrastructure.html#test-execution-dynamic-analysis"><span class="std std-ref">4.2 Test Execution &amp; Dynamic Analysis</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Advanced test practices are not consistently adopted, leaving quality risk concentrated in some areas.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="04-testing-infrastructure.html#test-reporting"><span class="std std-ref">4.4 Test Reporting</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Reporting is scattered, making it hard to get one management view of risk and trend direction.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong><a class="reference internal" href="05-static-analysis-infrastructure.html"><span class="std std-doc">5 Code Analysis Infrastructure</span></a></strong></p></td>
+<td><p>🔴</p></td>
+<td><p>Quality controls are not standardized, so risk detection depends too much on individual repositories.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="05-static-analysis-infrastructure.html#tooling-baseline"><span class="std std-ref">5.1 Tooling Baseline</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>No shared baseline means coverage gaps and inconsistent quality expectations across teams.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="05-static-analysis-infrastructure.html#shared-rule-configuration"><span class="std std-ref">5.2 Shared Rule Configuration</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Without common rules, results are harder to compare and governance decisions are slower.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="05-static-analysis-infrastructure.html#incremental-adoption"><span class="std std-ref">5.3 Incremental Adoption</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>No rollout path means improvements are harder to scale across the portfolio.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="05-static-analysis-infrastructure.html#security-scanning"><span class="std std-ref">5.4 Security Scanning</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Security checks exist, but inconsistent gates can let important findings slip through.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong><a class="reference internal" href="06-compliance-infrastructure.html"><span class="std std-doc">6 Compliance &amp; Dependency Analysis</span></a></strong></p></td>
+<td><p>🔴</p></td>
+<td><p>Compliance is not yet reliable end to end, creating audit and release-readiness risk.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="06-compliance-infrastructure.html#file-level-licensing"><span class="std std-ref">6.1 File-Level Licensing</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>License labeling is incomplete, increasing legal-review effort and uncertainty.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="06-compliance-infrastructure.html#dependency-analysis"><span class="std std-ref">6.2 Dependency Analysis</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Dependency visibility is partial, so teams may discover compliance issues too late.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="06-compliance-infrastructure.html#sbom-scoping-and-compliance-evidence"><span class="std std-ref">6.3 SBOM Scoping and Compliance Evidence</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Unclear scope rules make compliance outputs hard to trust and hard to compare.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="06-compliance-infrastructure.html#license-checks-and-compliance"><span class="std std-ref">6.4 License Checks and Compliance</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>No shared license decision baseline increases release risk and slows approvals.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="06-compliance-infrastructure.html#monitoring-and-governance"><span class="std std-ref">6.5 Monitoring and Governance</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Ongoing compliance health is not actively managed, so issues can remain hidden longer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong><a class="reference internal" href="07-automation-integration.html"><span class="std std-doc">7 Automation Infrastructure &amp; Continuous Integration (CI)</span></a></strong></p></td>
+<td><p>🔴</p></td>
+<td><p>Automation is improving, but inconsistent workflow coverage still creates uneven delivery performance.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="07-automation-integration.html#runners"><span class="std std-ref">7.1 Runners</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Capacity and reliability limits on runners continue to delay critical feedback.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="07-automation-integration.html#reusable-workflows"><span class="std std-ref">7.2 Reusable Workflows</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Reuse is incomplete, so teams still duplicate CI logic and carry higher maintenance cost.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="07-automation-integration.html#cross-repository-integration"><span class="std std-ref">7.3 Cross-Repository Integration</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Cross-repository breakages can be detected too late, increasing integration and release risk.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="07-automation-integration.html#secrets-management"><span class="std std-ref">7.4 Secrets Management</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Secret handling is not uniformly governed, increasing security and compliance exposure.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="07-automation-integration.html#ci-observability"><span class="std std-ref">7.5 CI Observability</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>Leadership lacks a single CI health view, making prioritization and investment decisions harder.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong><a class="reference internal" href="08-artifact-distribution.html"><span class="std std-doc">8 Release &amp; Distribution</span></a></strong></p></td>
+<td><p>🟠</p></td>
+<td><p>Release practices exist, but inconsistent patterns reduce speed, clarity, and consumer confidence.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="08-artifact-distribution.html#deliverable-types"><span class="std std-ref">8.1 Deliverable Types</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>No common release package model makes planning and consumer communication harder.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="08-artifact-distribution.html#distribution-channels"><span class="std std-ref">8.2 Distribution Channels</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Channel strategy is unclear, so consumers face inconsistent access across deliverables.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="08-artifact-distribution.html#release-metadata"><span class="std std-ref">8.3 Release Metadata</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Inconsistent metadata reduces transparency about what changed and how safe it is to adopt.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="08-artifact-distribution.html#consumer-access"><span class="std std-ref">8.4 Consumer Access</span></a></p></td>
+<td><p>⚪</p></td>
+<td><p>Consumer adoption paths are not clearly defined, slowing uptake and support.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="08-artifact-distribution.html#post-release-communication-response"><span class="std std-ref">8.5 Post-Release Communication &amp; Response</span></a></p></td>
+<td><p>⚪</p></td>
+<td><p>No shared advisory model means slower, less consistent communication when issues arise.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong><a class="reference internal" href="09-documentation-infrastructure.html"><span class="std std-doc">9 Documentation &amp; Traceability</span></a></strong></p></td>
+<td><p>🟠</p></td>
+<td><p>Documentation is improving, but fragmentation limits trust and decision support at program level.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="09-documentation-infrastructure.html#authoring-tooling"><span class="std std-ref">9.1 Authoring &amp; Tooling</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Different authoring setups increase maintenance effort and dilute documentation quality.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="09-documentation-infrastructure.html#build-validation-publishing"><span class="std std-ref">9.2 Build, Validation &amp; Publishing</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Publishing works, but inconsistent validation can let quality issues reach stakeholders.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="09-documentation-infrastructure.html#cross-repository-documentation-integration"><span class="std std-ref">9.3 Cross-Repository Documentation Integration</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>No integrated navigation makes it difficult to understand the full system picture quickly.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="09-documentation-infrastructure.html#engineering-documentation-traceability"><span class="std std-ref">9.4 Engineering Documentation &amp; Traceability</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Traceability exists in parts, but not yet enough for consistent impact and change analysis at scale.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong><a class="reference internal" href="10-infrastructure-operations.html"><span class="std std-doc">10 Infrastructure Operations</span></a></strong></p></td>
+<td><p>⚪</p></td>
+<td><p>Operations are mostly reactive, increasing outage risk and recovery uncertainty.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="10-infrastructure-operations.html#ci-runner-operations"><span class="std std-ref">10.1 CI Runner Operations</span></a></p></td>
+<td><p>⚪</p></td>
+<td><p>Limited operational ownership and transparency increase service continuity risk.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="10-infrastructure-operations.html#infrastructure-monitoring"><span class="std std-ref">10.2 Infrastructure Monitoring</span></a></p></td>
+<td><p>⚪</p></td>
+<td><p>Without shared monitoring, systemic problems are detected later and resolved slower.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="10-infrastructure-operations.html#infrastructure-maintenance"><span class="std std-ref">10.3 Infrastructure Maintenance</span></a></p></td>
+<td><p>⚪</p></td>
+<td><p>Maintenance is not planned consistently, increasing technical debt and surprise work.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="10-infrastructure-operations.html#infrastructure-governance"><span class="std std-ref">10.4 Infrastructure Governance</span></a></p></td>
+<td><p>⚪</p></td>
+<td><p>Missing governance structure makes cross-repository decisions slower and less predictable.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong><a class="reference internal" href="11-reference-integration.html"><span class="std std-doc">11 Reference Integration</span></a></strong></p></td>
+<td><p>🟠</p></td>
+<td><p>The workspace exists and DR-008 is settled, but the validation pipeline and evidence model are not built, and the release process is undefined.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="11-reference-integration.html#integration-workspace"><span class="std std-ref">11.1 Integration Workspace</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Multi-module workspace is functional but missing QNX8 aarch64, inconsistent showcase coverage, and an outdated README.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="11-reference-integration.html#known-good-promotion"><span class="std std-ref">11.2 Known-Good Promotion</span></a></p></td>
+<td><p>🟠</p></td>
+<td><p>Revision pinning works, but the release process is not defined in DR-008, so the promotion gate has no criteria.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="11-reference-integration.html#validation-pipeline"><span class="std std-ref">11.3 Validation Pipeline</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>The DR-008 Option 4 two-stage pipeline is not implemented — no dependency resolution handoff, no module-scoped validation orchestration.</p></td>
+</tr>
+<tr class="row-odd"><td><p>↳ <a class="reference internal" href="11-reference-integration.html#integrated-evidence"><span class="std std-ref">11.4 Integrated Evidence</span></a></p></td>
+<td><p>🔴</p></td>
+<td><p>No evidence schema, no release gate definition, unreliable coverage, and missing traceability properties in Rust test reports.</p></td>
+</tr>
+<tr class="row-even"><td><p>↳ <a class="reference internal" href="11-reference-integration.html#operating-model"><span class="std std-ref">11.5 Operating Model</span></a></p></td>
+<td><p>🟡</p></td>
+<td><p>Workflow restructuring and CI centralization are in progress for v0.8; <code class="docutils literal notranslate"><span class="pre">cr_checker</span></code> and Bazel profiling are pending.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <!-- END GENERATED CHAPTER MAP -->
 <div class="toctree-wrapper compound">
 </div>

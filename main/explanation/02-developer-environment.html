@@ -38,13 +38,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-data-viewer/jsonview.bundle.css?v=f6ef2277" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/libs/html/datatables.min.css?v=4b4fd840" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/modern.css?v=803738c0" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cf9fcd3f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d828336e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
@@ -508,10 +508,10 @@ window.runMermaid = runMermaid;</script>
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/js/mindmap.js?v=40886bf0"></script>
+    <script src="../_static/js/maturity.js?v=73f0b4b1"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3 Build &amp; Dependencies ⚪" href="03-build-infrastructure.html" />
+    <link rel="next" title="3 Build &amp; Dependencies 🟠" href="03-build-infrastructure.html" />
     <link rel="prev" title="1 Source Code Infrastructure 🟠" href="01-source-code-infrastructure.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -831,14 +831,15 @@ window.runMermaid = runMermaid;</script>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01-source-code-infrastructure.html">1 Source Code Infrastructure 🟠</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">2 Developer Environment 🟡</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04-testing-infrastructure.html">4 Testing 🟠</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="09-documentation-infrastructure.html">9 Documentation &amp; Traceability 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10-infrastructure-operations.html">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-reference-integration.html">11 Reference Integration 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="decisions.html">Infrastructure Design Decisions</a></li>
 </ul>
 </div>
@@ -925,14 +926,14 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <p>From a contributor’s perspective, the developer environment is the entry point to every other infrastructure capability. A new contributor opens a devcontainer, gets a working editor and shell, and from there reaches into the build system (<a class="reference internal" href="03-build-infrastructure.html"><span class="std std-doc">chapter 3</span></a>), runs tests (<a class="reference internal" href="04-testing-infrastructure.html"><span class="std std-doc">chapter 4</span></a>), triggers local analysis (<a class="reference internal" href="05-static-analysis-infrastructure.html"><span class="std std-doc">chapter 5</span></a>), and eventually pushes a change that CI validates (<a class="reference internal" href="07-automation-integration.html"><span class="std std-doc">chapter 7</span></a>). Each of those chapters owns its own deep tooling, but the developer environment is where they all surface as a day-to-day experience. If the environment does not present those capabilities in a discoverable, consistent way, contributors end up reading CI logs to learn what they could have caught locally.</p>
 <p>In S-CORE, Bazel is the central build system for the actual software stack, but many repositories do not use Bazel as their primary local execution model. This chapter therefore documents the shared local layer that spans both repository types, centered on the common <a class="reference external" href="https://github.com/eclipse-score/devcontainer">eclipse-score/devcontainer</a>. The central devcontainer gives S-CORE a clear anchor for this area, but the repository-facing conventions around it are not yet fully standardized.</p>
 <section id="central-devcontainer">
-<h2>2.1 Central Devcontainer 🟠<a class="headerlink" href="#central-devcontainer" title="Link to this heading">#</a></h2>
+<h2>2.1 Central Devcontainer 🟡<a class="headerlink" href="#central-devcontainer" title="Link to this heading">#</a></h2>
 <p><em>Common local environment for shared development tooling across repository types.</em></p>
 <p>Multi-repository development needs one repeatable local environment for the tools that are not naturally delivered by each repository’s own build or test flow. Without that, editor support, formatting, documentation tooling, YAML or workflow linting, and similar surrounding capabilities become repository-specific setup problems instead of shared infrastructure.</p>
 <p>S-CORE solves this primarily through the central <a class="reference external" href="https://github.com/eclipse-score/devcontainer">eclipse-score/devcontainer</a> repository. It builds, tests, and publishes pre-built development-container images, with pinned and preconfigured tools, so repositories can consume one shared local environment instead of maintaining their own setup stacks.</p>
 <p>The design decision behind this approach is documented in <a class="reference external" href="https://eclipse-score.github.io/score/main/design_decisions/DR-003-infra.html">DR-003</a>. The key tradeoff is between a single monolithic image that carries all shared tools and a multi-container setup using Docker Compose where each concern (build toolchain, documentation, linting) gets its own image. S-CORE chose the monolithic path because it keeps the contributor entry point simple — one container, one <code class="docutils literal notranslate"><span class="pre">devcontainer.json</span></code> — and avoids the orchestration complexity of managing multiple containers for what is ultimately a development-time convenience layer. The tradeoff is that the image is larger than any individual contributor needs, but pre-built images and layer caching keep startup fast enough in practice.</p>
 <p>The same container image also serves as a CI execution environment, which is important because it means the tools a contributor runs locally and the tools CI runs remotely are the same versions. That alignment is not automatic — it requires that CI workflows explicitly pull the devcontainer image rather than assembling their own tool stack — but when it works, it eliminates a class of “works on my machine” failures.</p>
 <section id="shared-tool-baseline">
-<h3>2.1.1 Shared Tool Baseline 🟠<a class="headerlink" href="#shared-tool-baseline" title="Link to this heading">#</a></h3>
+<h3>2.1.1 Shared Tool Baseline 🟡<a class="headerlink" href="#shared-tool-baseline" title="Link to this heading">#</a></h3>
 <p><em>Defining which surrounding tools are present by default.</em></p>
 <p>The shared base should contain the local-only and supporting tools that recur across the S-CORE repository landscape. Typical examples are language servers, formatters, YAML and Markdown validators, workflow checks, documentation helpers, and other tools that improve development ergonomics but do not belong to the primary build toolchain model.</p>
 <p>In S-CORE, that baseline is currently expressed through the published <code class="docutils literal notranslate"><span class="pre">ghcr.io/eclipse-score/devcontainer</span></code> image family. The central devcontainer repository defines the included tools, pins their versions, and preconfigures them for Eclipse S-CORE development.</p>
@@ -962,6 +963,7 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <p><em>Providing quick validation for repository hygiene and non-build assets.</em></p>
 <p><a class="reference external" href="https://pre-commit.com/">pre-commit</a> is a good fit for checks that should fail quickly and early: formatting, text hygiene, YAML validation, workflow checks, and similar lightweight tasks. This is important because such checks are often the first things to drift when repositories have no shared local enforcement path.</p>
 <p>In S-CORE, custom hooks are published through <a class="reference external" href="https://github.com/eclipse-score/tooling/blob/main/.pre-commit-hooks.yaml">eclipse-score/tooling</a> and combined with standard ecosystem hooks. Together with the central devcontainer, that gives repositories a shared mechanism for lightweight local validation before CI. Adoption, hook coverage, and enforcement expectations for these fast checks are still inconsistent across the repository landscape.</p>
+<p><strong>Biggest gap</strong>: no alignment on what pre-commit should trigger (system host calls, devcontainer tools, bazel calls, pre-commit hooks, etc).</p>
 </section>
 <section id="boundary-to-bazel-and-ci">
 <h3>2.2.2 Boundary To Bazel And CI 🟡<a class="headerlink" href="#boundary-to-bazel-and-ci" title="Link to this heading">#</a></h3>
@@ -969,6 +971,7 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <p>The local auxiliary layer needs a clear boundary or repositories will duplicate checks, force unsuitable tasks through lightweight hooks, or blur the line between convenience and authoritative enforcement. The infrastructure question here is not to make every check identical, but to define the right delivery layer for each kind of check.</p>
 <p>In S-CORE, the current practical split is that surrounding-tool checks run directly in the shared devcontainer or via pre-commit, while deeper repository-native validation stays with the repository’s main build or test flow and final enforcement stays in CI. For “dependable element” repositories that usually means Bazel, but other repositories may use different local execution paths.</p>
 <p>Where repositories use dependency lock files such as <code class="docutils literal notranslate"><span class="pre">uv.lock</span></code> or <code class="docutils literal notranslate"><span class="pre">MODULE.bazel.lock</span></code>, the practical local refresh step may still happen through <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code>, but the lock state itself belongs to the repository’s dependency model and is therefore described in <a class="reference internal" href="03-build-infrastructure.html#lock-files"><span class="std std-ref">chapter 3</span></a>.</p>
+<p>TODO: rewrite this sub-chapter</p>
 </section>
 </section>
 </section>
@@ -997,7 +1000,7 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">3 Build &amp; Dependencies ⚪</p>
+        <p class="prev-next-title">3 Build &amp; Dependencies 🟠</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1020,8 +1023,8 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#central-devcontainer">2.1 Central Devcontainer 🟠</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shared-tool-baseline">2.1.1 Shared Tool Baseline 🟠</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#central-devcontainer">2.1 Central Devcontainer 🟡</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shared-tool-baseline">2.1.1 Shared Tool Baseline 🟡</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-consumption">2.1.2 Repository Consumption 🟡</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ide-and-shell-integration">2.1.3 IDE And Shell Integration 🟠</a></li>
 </ul>

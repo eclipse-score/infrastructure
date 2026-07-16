@@ -38,13 +38,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-data-viewer/jsonview.bundle.css?v=f6ef2277" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/libs/html/datatables.min.css?v=4b4fd840" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/modern.css?v=803738c0" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cf9fcd3f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d828336e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
@@ -72,10 +72,10 @@
             false;
         </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/js/mindmap.js?v=40886bf0"></script>
+    <script src="../_static/js/maturity.js?v=73f0b4b1"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Infrastructure Design Decisions" href="decisions.html" />
+    <link rel="next" title="11 Reference Integration 🟠" href="11-reference-integration.html" />
     <link rel="prev" title="9 Documentation &amp; Traceability 🟠" href="09-documentation-infrastructure.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -395,14 +395,15 @@
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01-source-code-infrastructure.html">1 Source Code Infrastructure 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02-developer-environment.html">2 Developer Environment 🟡</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04-testing-infrastructure.html">4 Testing 🟠</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) ⚪</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="09-documentation-infrastructure.html">9 Documentation &amp; Traceability 🟠</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-reference-integration.html">11 Reference Integration 🟠</a></li>
 <li class="toctree-l1"><a class="reference internal" href="decisions.html">Infrastructure Design Decisions</a></li>
 </ul>
 </div>
@@ -477,7 +478,6 @@ This chapter is part of the infrastructure landscape assessment. For step-by-ste
 <p>Draft
 This chapter has not been fully reviewed. Content may be incomplete or inaccurate.</p>
 </div>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Infrastructure operations covers runner operations, monitoring, dependency maintenance, governance, and upkeep of shared services such as the Bazel registry and its UI.</p></li>
 <li><p>Some of the shared services used by S-CORE are operated by external providers or teams, especially in the runner space.</p></li>
@@ -487,7 +487,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="ci-runner-operations">
 <h2>10.1 CI Runner Operations ⚪<a class="headerlink" href="#ci-runner-operations" title="Link to this heading">#</a></h2>
 <p><em>Operating CI execution environments for S-CORE pipelines.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Self-hosted runner infrastructure may be operated outside the public S-CORE project, while public S-CORE CI also relies on GitHub-hosted runners.</p></li>
 <li><p><strong>Biggest gap</strong>: dependency on external runner operations creates a gap in public contributor autonomy and visibility.</p></li>
@@ -495,7 +494,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="github-public-runners">
 <h3>10.1.1 GitHub Public Runners<a class="headerlink" href="#github-public-runners" title="Link to this heading">#</a></h3>
 <p><em>GitHub-hosted runners used by S-CORE CI pipelines.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>GitHub-hosted runners are the default execution environment for public S-CORE CI.</p></li>
 <li><p><strong>Biggest gap</strong>: GitHub-hosted runner capacity and feature availability are outside S-CORE control.</p></li>
@@ -504,7 +502,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="runner-configuration">
 <h3>10.1.2 Runner Configuration<a class="headerlink" href="#runner-configuration" title="Link to this heading">#</a></h3>
 <p><em>Managing runner environment configuration.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Runner configuration is managed through workflow YAML files and, for self-hosted runners, by external operating teams.</p></li>
 <li><p><strong>Biggest gap</strong>: runner environment consistency and configuration documentation are not maintained in a central, public location.</p></li>
@@ -513,7 +510,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="ownership-boundaries">
 <h3>10.1.3 Ownership &amp; Boundaries<a class="headerlink" href="#ownership-boundaries" title="Link to this heading">#</a></h3>
 <p><em>Clarifying which parts of runner operations are owned inside S-CORE and which are external dependencies.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Contributors need a clearer model for which infrastructure concerns they can change directly and which depend on GitHub or external operators.</p></li>
 <li><p><strong>Biggest gap</strong>: the operational boundary between project-owned configuration and externally operated execution services is not yet documented clearly enough.</p></li>
@@ -524,7 +520,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="infrastructure-monitoring">
 <h2>10.2 Infrastructure Monitoring ⚪<a class="headerlink" href="#infrastructure-monitoring" title="Link to this heading">#</a></h2>
 <p><em>Monitoring CI usage, failures, and infrastructure health across S-CORE.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>CI pipeline failures are visible via GitHub Actions; no proactive monitoring or alerting spans S-CORE repositories.</p></li>
 <li><p>Shared service monitoring should eventually include the Bazel registry publication path and the registry UI, not only CI pipelines.</p></li>
@@ -533,7 +528,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="ci-usage-monitoring">
 <h3>10.2.1 CI Usage Monitoring<a class="headerlink" href="#ci-usage-monitoring" title="Link to this heading">#</a></h3>
 <p><em>Monitoring CI usage patterns and capacity across S-CORE pipelines.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>GitHub Actions provides per-repository usage metrics; no aggregated cross-repository view exists.</p></li>
 <li><p><strong>Biggest gap</strong>: S-CORE-wide CI usage visibility and capacity planning are not operationalized.</p></li>
@@ -542,7 +536,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="failure-monitoring">
 <h3>10.2.2 Failure Monitoring<a class="headerlink" href="#failure-monitoring" title="Link to this heading">#</a></h3>
 <p><em>Monitoring failures across S-CORE infrastructure systems.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Pipeline failures are surfaced per repository via GitHub; no S-CORE-wide failure tracking dashboard exists.</p></li>
 <li><p>Failures affecting the shared Bazel registry, its validation workflows, or the registry UI would block module publication or discovery across repositories.</p></li>
@@ -552,7 +545,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="incident-coordination">
 <h3>10.2.3 Incident Coordination<a class="headerlink" href="#incident-coordination" title="Link to this heading">#</a></h3>
 <p><em>Coordinating response when infrastructure failures affect multiple repositories or teams.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Cross-repository incidents need lightweight coordination so contributors do not diagnose the same infrastructure problem independently.</p></li>
 <li><p><strong>Biggest gap</strong>: there is no shared incident coordination and communication pattern for project-wide infrastructure problems.</p></li>
@@ -563,7 +555,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="infrastructure-maintenance">
 <h2>10.3 Infrastructure Maintenance ⚪<a class="headerlink" href="#infrastructure-maintenance" title="Link to this heading">#</a></h2>
 <p><em>Keeping S-CORE infrastructure tooling and dependencies up to date.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Dependabot automates version and SHA updates for infrastructure dependencies across S-CORE repositories.</p></li>
 <li><p><strong>Biggest gap</strong>: proactive maintenance beyond Dependabot (e.g. major tool upgrades, deprecation handling) is not yet structured.</p></li>
@@ -571,7 +562,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="tool-updates">
 <h3>10.3.1 Tool Updates<a class="headerlink" href="#tool-updates" title="Link to this heading">#</a></h3>
 <p><em>Updating shared infrastructure tools across S-CORE repositories.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Tool upgrades (e.g. Bazel, docs-as-code, runner images) are performed reactively on a per-repository basis.</p></li>
 <li><p><strong>Biggest gap</strong>: no coordinated tool update process or shared upgrade playbook exists across S-CORE.</p></li>
@@ -580,7 +570,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="dependency-updates">
 <h3>10.3.2 Dependency Updates<a class="headerlink" href="#dependency-updates" title="Link to this heading">#</a></h3>
 <p><em>Updating infrastructure dependencies across S-CORE repositories.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/dependabot">Dependabot</a> automatically opens pull requests to bump dependency versions and SHA hashes.</p></li>
 <li><p><strong>Biggest gap</strong>: Dependabot coverage is limited to supported dependency file types; non-standard lockfiles are not auto-updated.</p></li>
@@ -589,7 +578,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="deprecation-lifecycle-management">
 <h3>10.3.3 Deprecation &amp; Lifecycle Management<a class="headerlink" href="#deprecation-lifecycle-management" title="Link to this heading">#</a></h3>
 <p><em>Retiring outdated infrastructure components before they become operational risk.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Operational maintenance includes responding to upstream deprecations before they create outages.</p></li>
 <li><p><strong>Biggest gap</strong>: there is no shared deprecation tracking and migration planning process for infrastructure components.</p></li>
@@ -598,7 +586,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="shared-registry-services">
 <h3>10.3.4 Shared Registry Services<a class="headerlink" href="#shared-registry-services" title="Link to this heading">#</a></h3>
 <p><em>Maintaining the shared Bazel module registry and its consumer UI as part of S-CORE infrastructure.</em></p>
-<p><strong>S-CORE</strong></p>
 <p>The shared Bazel registry at <a class="reference external" href="https://github.com/eclipse-score/bazel_registry/">eclipse-score/bazel_registry</a> and the registry UI at <a class="reference external" href="https://eclipse-score.github.io/bazel_registry_ui/">eclipse-score.github.io/bazel_registry_ui</a> are part of the live infrastructure surface for cross-repository dependency management. The full publication and consumption flow is described in <a class="reference internal" href="08-artifact-distribution.html#registry-based-distribution"><span class="std std-ref">chapter 8</span></a>; this section is only about operating that service reliably.</p>
 <p>Infrastructure maintainers therefore need to keep the registry repository, the automation that validates and publishes registry updates, the raw GitHub-hosted content that Bazel reads, and the GitHub Pages deployment of the companion <a class="reference external" href="https://github.com/eclipse-score/bazel_registry_ui">eclipse-score/bazel_registry_ui</a> project working together. If the registry data is wrong, if validation breaks, or if the UI deployment is stale, module publication and discovery degrade across the project.</p>
 <p>The <a class="reference external" href="https://github.com/eclipse-score/bazel_registry/blob/main/README.md">registry README</a> should remain the canonical contributor guide for adding or updating module versions. Operations documentation should complement it with service ownership, monitoring, incident handling, and recovery guidance rather than copying the contributor workflow.</p>
@@ -608,7 +595,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="infrastructure-governance">
 <h2>10.4 Infrastructure Governance ⚪<a class="headerlink" href="#infrastructure-governance" title="Link to this heading">#</a></h2>
 <p><em>Guiding and recording the evolution of S-CORE infrastructure.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Infrastructure decisions and policies are expected to be documented and version-controlled.</p></li>
 <li><p><strong>Biggest gap</strong>: a structured decision record process and central policy repository are not yet operational across S-CORE.</p></li>
@@ -616,7 +602,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="infrastructure-policies">
 <h3>10.4.1 Infrastructure Policies<a class="headerlink" href="#infrastructure-policies" title="Link to this heading">#</a></h3>
 <p><em>Defining policies governing S-CORE infrastructure usage.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Infrastructure usage policies (runner selection, dependency constraints, tooling standards) are not yet formally documented.</p></li>
 <li><p><strong>Biggest gap</strong>: no central, versioned policy document set governs S-CORE infrastructure choices.</p></li>
@@ -625,7 +610,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="infrastructure-decision-records">
 <h3>10.4.2 Infrastructure Decision Records<a class="headerlink" href="#infrastructure-decision-records" title="Link to this heading">#</a></h3>
 <p><em>Documenting major S-CORE infrastructure decisions.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Architecture Decision Records (ADRs) are a target practice for documenting significant infrastructure decisions.</p></li>
 <li><p><strong>Biggest gap</strong>: no ADR process or repository is established for S-CORE infrastructure decisions.</p></li>
@@ -634,7 +618,6 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
 <section id="change-rollout-communication">
 <h3>10.4.3 Change Rollout &amp; Communication<a class="headerlink" href="#change-rollout-communication" title="Link to this heading">#</a></h3>
 <p><em>Explaining how infrastructure changes are communicated across repositories.</em></p>
-<p><strong>S-CORE</strong></p>
 <ul class="simple">
 <li><p>Some cross-repository changes need more than a merged pull request; they also need timing and migration communication.</p></li>
 <li><p><strong>Biggest gap</strong>: there is no documented rollout-and-communication model for changes that affect multiple S-CORE repositories.</p></li>
@@ -663,11 +646,11 @@ This chapter has not been fully reviewed. Content may be incomplete or inaccurat
       </div>
     </a>
     <a class="right-next"
-       href="decisions.html"
+       href="11-reference-integration.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Infrastructure Design Decisions</p>
+        <p class="prev-next-title">11 Reference Integration 🟠</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
