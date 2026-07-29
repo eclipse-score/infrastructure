@@ -2,89 +2,136 @@
 
 ## Background
 
-Workflows triggered by `pull_request` for PRs from forks do not have access to repository secrets by default.  
-This is a security protection to prevent untrusted code from exfiltrating secrets.
+Workflows triggered by `pull_request` for pull requests from forks do **not** have access to repository secrets by default.  
+This is a security control to prevent untrusted code from exfiltrating secrets.
 
-This guide explains when to use:
-1. `pull_request_target`
-2. Environments (with protection rules / approvals)
+This guide defines when to use each of the following options:
+
+1. `pull_request` (unprivileged validation)
+2. `pull_request_target` (metadata/policy automation only)
+3. Environment-gated privileged jobs
+4. Fork code with immediate secret access (**not allowed**)
 
 ---
 
 ## Threat model
 
-Fork PR code is untrusted until reviewed.  
-If untrusted code executes in a context that has secrets, those secrets can be leaked through logs, artifacts, network calls, or modified scripts.
+Code from a fork PR is untrusted until maintainers review and trust it.
+
+If untrusted code runs in a context that has secrets, secrets can be leaked via:
+- logs,
+- uploaded artifacts,
+- network calls,
+- modified scripts/actions.
 
 **Rule 1:** Never run untrusted fork code in a job that has access to secrets.  
-**Rule 2:** Secret access must be gated by explicit trust/approval controls.
+**Rule 2:** Secret access must be gated by explicit trust and approval controls.  
+**Rule 3:** Use least privilege for both `permissions:` and secret scope.
 
 ---
 
-## Option A: `pull_request_target`
+## Option 1: `pull_request` (unprivileged validation)
 
-`pull_request_target` runs in the context of the base repository (not the fork), so secrets can be available.
+`pull_request` is the default trigger for validating fork PR code safely, without secrets.
 
 ### Use when
 
-- You need to run metadata/policy checks on PRs from forks.
-- You can perform actions without checking out and executing fork code.
-- You can strictly separate “trusted logic” from “untrusted code execution”.
+- Running linting, formatting, unit tests, static analysis.
+- Executing contributor code is necessary.
+- No repository/environment secret is required.
 
 ### Risks
 
-- High risk if workflow checks out PR head (`github.event.pull_request.head.sha`) and then runs scripts with secrets.
-- Any step that executes contributor-controlled code can leak secrets.
+- Limited coverage for tests requiring protected credentials or external private services.
+- Teams may try unsafe workarounds to “enable secrets”.
 
 ### Hard constraints
 
-- Do not execute fork code in secret-bearing jobs.
-- Avoid `actions/checkout` of PR head in privileged jobs.
-- Use minimal `permissions:` at workflow/job level.
-- Keep privileged steps narrowly scoped.
+- Keep this path secret-free.
+- Use minimal `permissions:` (typically `contents: read`).
+- Do not add privileged operations here.
 
 ---
 
-## Option B: Environments
+## Option 2: `pull_request_target` (metadata/policy automation only)
 
-Environments allow protection rules such as required reviewers before jobs can access environment secrets.
+`pull_request_target` runs in the context of the base repository, so secrets can be available.
 
 ### Use when
 
-- A job requires secrets (deploy, publish, integration against protected services).
-- You need a human approval gate before secret use.
-- You want explicit, auditable secret access decisions.
+- Running trusted automation on PR metadata/policy:
+  - title/body/label validation,
+  - comment automation,
+  - non-code policy checks.
+- You can avoid checking out and executing fork PR code.
 
 ### Risks
 
-- If approval is granted before validating what will run, untrusted code may still execute with secrets.
-- Overly broad environment reuse can expose too many secrets.
+- **High risk** if the workflow checks out PR head (`github.event.pull_request.head.sha`) and runs it with secrets.
+- Any execution of contributor-controlled code in this context may leak secrets.
+
+### Hard constraints
+
+- Do **not** execute fork code in secret-bearing jobs.
+- Avoid `actions/checkout` of PR head in privileged contexts.
+- Keep permissions minimal and steps narrowly scoped.
+
+---
+
+## Option 3: Environment-gated privileged jobs
+
+Environments provide protection rules (for example, required reviewers) before jobs can access environment secrets.
+
+### Use when
+
+- A job requires secrets (deploy, publish, privileged integration tests).
+- You need explicit human approval before secret usage.
+- You want auditable access controls.
+
+### Risks
+
+- If approval is granted without validating what will run, untrusted code may still run with secrets.
+- Overly broad environment design can overexpose secrets.
 
 ### Hard constraints
 
 - Require reviewers on sensitive environments.
-- Scope secrets per environment and per purpose.
-- Run untrusted checks first (`pull_request`, no secrets), then gated trusted job.
+- Scope secrets per environment and purpose.
+- Run untrusted checks first (`pull_request`), then run gated privileged jobs.
 
 ---
 
-## Decision matrix
+## Option 4: Fork code + immediate secret access (disallowed)
 
-| Scenario | Recommended trigger/pattern |
-|---|---|
-| Lint/unit checks for fork PRs without secrets | `pull_request` |
-| PR labeling/commenting/metadata checks only | `pull_request_target` (no fork code execution) |
-| Secret-required jobs (deploy/integration/publish) | Environment-gated job with required reviewers |
-| Need to run fork code + secrets immediately | **Do not do this** |
+This means executing untrusted fork code directly in a secret-bearing context without trust gates.
+
+### Status
+
+**Do not use.**
+
+### Why disallowed
+
+- This is the direct path to secret exfiltration.
+- It defeats the security boundary for fork contributions.
 
 ---
 
-## Recommended standard
+## Decision matrix and repository standard
 
-1. Use `pull_request` for all untrusted fork validation (no secrets).
-2. Use environments with required reviewers for secret-dependent jobs.
-3. Use `pull_request_target` only for trusted automation that does not execute fork code.
-4. Keep `permissions:` least-privilege and never print secret values.
+| Option | Typical use case | Fork PR | Secrets needed | Runs untrusted fork code | Gate / control | Recommendation |
+|---|---|---|---|---|---|---|
+| **1. `pull_request` (unprivileged)** | Lint, unit tests, static analysis | Yes | No | Yes | No secrets, minimal `permissions` | **Default for fork PR validation** |
+| **2. `pull_request_target` (metadata/policy only)** | Labeling, commenting, policy checks | Yes | Sometimes | **No** | Never checkout/execute PR head in privileged jobs | **Use only for trusted automation** |
+| **3. Environment-gated job** | Deploy/publish/integration with secrets | Yes/No | Yes | Only after trust decision | Required reviewers + scoped environment secrets | **Preferred for secret-dependent execution** |
+| **4. Fork code + immediate secrets** | Run contributor code directly with secrets | Yes | Yes | Yes | N/A | **Do not use** |
+
+### Repository standard
+
+1. Use `pull_request` for all untrusted validation without secrets.
+2. Use `pull_request_target` only for trusted metadata/policy automation that does not run fork code.
+3. Use environment protection rules for all secret-dependent jobs.
+4. Never run untrusted fork code in any secret-bearing context.
+5. Apply least privilege to `permissions:` and secret scope in every workflow.
 
 ---
 
@@ -110,7 +157,7 @@ jobs:
           echo "run safe checks"
 ```
 
-### 2) Privileged workflow logic without running fork code
+### 2) Trusted metadata automation (`pull_request_target`) without running fork code
 
 ```yaml
 name: PR metadata checks
@@ -156,14 +203,17 @@ jobs:
 
 ## Common mistakes to avoid
 
-- Using `pull_request_target` + checkout of fork head + secret usage.
+- Using `pull_request_target` and checking out PR head, then using secrets.
 - Granting broad `permissions: write-all`.
 - Reusing one environment for unrelated secrets.
-- Logging command output that can contain sensitive values.
+- Approving privileged jobs before validating what code will run.
+- Printing sensitive values or secret-derived output to logs.
 
 ---
 
 ## Acceptance criteria mapping
 
-- **Provide guide when to use which approach**: Decision matrix + “Use when” sections.
-- **Focus on constraints and security implications**: Threat model, risks, hard constraints, and anti-patterns.
+- **Provide guide when to use which approach**:  
+  Covered by the 4-option model, per-option “Use when”, and the decision matrix.
+- **Focus on constraints and security implications**:  
+  Covered by threat model, risks, hard constraints, disallowed pattern, and anti-patterns.
