@@ -3,8 +3,8 @@ bazel-*
 
 # Docs
 /.venv*
-/_build*
-docs/ubproject.toml
+_build
+ubproject.toml
 
 # Python
 __pycache__/
@@ -13,5 +13,3 @@ __pycache__/
 # AI
 /.claude
 /.codex
-_build
-ubproject.toml
