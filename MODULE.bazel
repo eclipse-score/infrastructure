@@ -35,7 +35,7 @@ python.toolchain(
 #
 ###############################################################################
 bazel_dep(name = "rules_java", version = "8.15.1")
-bazel_dep(name = "score_docs_as_code", version = "6.0.0")
+bazel_dep(name = "score_docs_as_code", version = "7.0.1")
 
 #################################################################################
 #
