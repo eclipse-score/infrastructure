@@ -43,4 +43,4 @@ bazel_dep(name = "score_docs_as_code", version = "7.0.1")
 #
 #################################################################################
 # Provide the tools from the devcontainer to Bazel
-bazel_dep(name = "score_devcontainer", version = "1.9.2")
+bazel_dep(name = "score_devcontainer", version = "1.10.0")
