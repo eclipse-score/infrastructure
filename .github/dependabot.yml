@@ -26,20 +26,6 @@ updates:
           # update-types: not used by intention
           # When using a non-release version of cicd-workflows a lot of PRs will be created by dependabot otherwise
 
-  - package-ecosystem: pip
-    directory: /
-    schedule:
-      interval: daily
-    commit-message:
-      prefix: chore
-      include: scope
-    groups:
-      pip:
-        patterns:
-          - "*"
-        update-types:
-          - "minor"
-          - "patch"
 
   - package-ecosystem: bazel
     directory: /
