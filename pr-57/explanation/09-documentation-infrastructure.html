@@ -1,0 +1,708 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>9 Documentation &amp; Traceability 🟠 &#8212; S-CORE Infrastructure  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score.css?v=bb63a8e1" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score_needs.css?v=82a1844f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score_design.css?v=8048e6ee" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-data-viewer/jsonview.bundle.css?v=f6ef2277" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/libs/html/datatables.min.css?v=4b4fd840" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/modern.css?v=803738c0" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d828336e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=7f41d439"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/sphinx-data-viewer/jsonview.bundle.js?v=18cd53c5"></script>
+    <script src="../_static/sphinx-data-viewer/jsonview_loader.js?v=f7ff7e7d"></script>
+    <script src="../_static/sphinx-needs/libs/html/datatables.min.js?v=8a4aee21"></script>
+    <script src="../_static/sphinx-needs/libs/html/datatables_loader.js?v=a2cae175"></script>
+    <script src="../_static/sphinx-needs/libs/html/sphinx_needs_collapse.js?v=dca66431"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explanation/09-documentation-infrastructure';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://eclipse-score.github.io/infrastructure/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/js/maturity.js?v=73f0b4b1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10 Infrastructure Operations ⚪" href="10-infrastructure-operations.html" />
+    <link rel="prev" title="8 Release &amp; Distribution 🟠" href="08-artifact-distribution.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Eclipse S-CORE</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how-to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Infrastructure Landscape
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/eclipse-score" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how-to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Infrastructure Landscape
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/eclipse-score" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar"><svg class="pst-icon svg-inline--fa" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-source-code-infrastructure.html">1 Source Code Infrastructure 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-developer-environment.html">2 Developer Environment 🟡</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-testing-infrastructure.html">4 Testing 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution 🟠</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">9 Documentation &amp; Traceability 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-infrastructure-operations.html">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-reference-integration.html">11 Reference Integration 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decisions.html">Infrastructure Design Decisions</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Infrastructure Landscape</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">9 Documentation &amp; Traceability 🟠</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="documentation-traceability">
+<h1>9 Documentation &amp; Traceability 🟠<a class="headerlink" href="#documentation-traceability" title="Link to this heading">#</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Looking for practical guides?
+This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the <a class="reference internal" href="../how-to/index.html"><span class="std std-doc">How-to Guides</span></a>.</p>
+</div>
+<p><em>Infrastructure supporting engineering documentation across S-CORE repositories.</em></p>
+<ul class="simple">
+<li><p>Documentation infrastructure in S-CORE currently spans repository documentation sites and engineering-focused docs-as-code capabilities.</p></li>
+<li><p>Documentation is published through CI-driven static site generation and hosting.</p></li>
+<li><p>Engineering traceability (requirements, architecture, design, implementation, tests) is a target capability for functional safety compliance.</p></li>
+<li><p><strong>Biggest gap</strong>: shared documentation conventions, cross-repository navigation, and traceability integration are not yet defined as one coherent project-wide capability.</p></li>
+</ul>
+<section id="authoring-tooling">
+<h2>9.1 Authoring &amp; Tooling 🟡<a class="headerlink" href="#authoring-tooling" title="Link to this heading">#</a></h2>
+<p><em>Capabilities for writing, structuring, and maintaining documentation in repositories.</em></p>
+<ul class="simple">
+<li><p>Documentation is authored in version-controlled repositories alongside source code.</p></li>
+<li><p>Markdown and rST are the primary input formats.</p></li>
+<li><p><strong>Biggest gap</strong>: authoring conventions and required documentation structure are not yet standardized across S-CORE repositories.</p></li>
+</ul>
+<section id="docs-as-code-tooling">
+<h3>9.1.1 Docs-As-Code Tooling 🟡<a class="headerlink" href="#docs-as-code-tooling" title="Link to this heading">#</a></h3>
+<p><em>Shared documentation build infrastructure across S-CORE repositories.</em></p>
+<p><a class="reference external" href="https://github.com/eclipse-score/docs-as-code">eclipse-score/docs-as-code</a> provides the shared documentation build tooling consumed across S-CORE. It packages Sphinx with MyST parser, the pydata-sphinx-theme with S-CORE branding, traceability support via sphinx-needs, and related documentation infrastructure into a versioned Bazel module. Repositories declare a dependency on <code class="docutils literal notranslate"><span class="pre">docs-as-code</span></code> to get a consistent documentation build experience without assembling their own toolchain.</p>
+<p>Adoption is uneven: recent module repositories use <code class="docutils literal notranslate"><span class="pre">docs-as-code</span></code> v4.x, while older repositories still reference v1.x–v3.x or do not use the shared tooling at all. This version spread mirrors the broader synchronization challenge described in <a class="reference internal" href="01-source-code-infrastructure.html#synchronization-mechanisms"><span class="std std-ref">chapter 1</span></a>. Good documentation infrastructure should also let contributors preview and validate changes without waiting for a remote publishing pipeline.</p>
+<p><strong>Biggest gap</strong>: <code class="docutils literal notranslate"><span class="pre">docs-as-code</span></code> version adoption is fragmented, and fast local preview and validation workflows are not yet consistently documented across documentation-producing repositories.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="build-validation-publishing">
+<h2>9.2 Build, Validation &amp; Publishing 🟡<a class="headerlink" href="#build-validation-publishing" title="Link to this heading">#</a></h2>
+<p><em>Infrastructure for builds, quality checks, and publication of documentation sites.</em></p>
+<p>Documentation build infrastructure should be versioned, reproducible, and reviewable like any other engineering toolchain. <a class="reference external" href="https://github.com/eclipse-score/docs-as-code">eclipse-score/docs-as-code</a> is the shared build tooling that most module repositories are expected to consume. It is distributed through the Bazel registry and provides Sphinx-based documentation builds including traceability extensions. The CI side is handled by the reusable <code class="docutils literal notranslate"><span class="pre">docs.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">docs-verify.yml</span></code> workflows in <a class="reference external" href="https://github.com/eclipse-score/cicd-workflows">eclipse-score/cicd-workflows</a>.</p>
+<p>This infrastructure documentation site uses <code class="docutils literal notranslate"><span class="pre">docs-as-code</span></code> with the standard Bazel-based Sphinx build, consistent with the rest of the S-CORE ecosystem. While it does not currently define traceability need objects, the infrastructure is in place to add them when needed.</p>
+<p><strong>Biggest gap</strong>: not all documentation-producing repositories follow one shared toolchain and publication pattern. The <code class="docutils literal notranslate"><span class="pre">docs-as-code</span></code> version spread (v1.x through v4.x across repositories) means repositories do not reliably share the same documentation capabilities.</p>
+<section id="deterministic-build-and-configuration">
+<h3>9.2.1 Deterministic Build and Configuration 🟡<a class="headerlink" href="#deterministic-build-and-configuration" title="Link to this heading">#</a></h3>
+<p><em>Ensuring reproducible documentation output across local and CI environments.</em></p>
+<ul class="simple">
+<li><p>Tooling and site configuration should live in version control so contributors can reproduce the published result locally and in CI.</p></li>
+<li><p><strong>Biggest gap</strong>: documentation toolchain choices and configuration practices are not yet aligned across S-CORE documentation surfaces.</p></li>
+</ul>
+</section>
+<section id="validation-previews-and-publishing">
+<h3>9.2.2 Validation, Previews, and Publishing 🟡<a class="headerlink" href="#validation-previews-and-publishing" title="Link to this heading">#</a></h3>
+<p><em>Providing contributor feedback before merge through fast preview and validation workflows.</em></p>
+<p>Documentation quality depends on catching structural problems before they reach the published site. Strict builds are the first line of defense: running the site generator in strict mode surfaces broken internal links, invalid markup, and missing navigation entries during CI rather than after publication. Beyond strict builds, dedicated structural checks can validate concerns that the site generator itself does not enforce, such as external link reachability, heading hierarchy consistency, required metadata fields, and naming conventions for files or anchors.</p>
+<p>These checks should run as part of the normal pull-request workflow so that contributors get feedback before merge. The important design choice is where the check definitions live. Checks that apply to all S-CORE documentation repositories belong in shared reusable workflows described in <a class="reference internal" href="07-automation-integration.html#reusable-workflows"><span class="std std-ref">section 7.2</span></a>, while repository-specific validation rules can stay local. Both should produce clear, actionable output rather than noisy warnings that contributors learn to ignore.</p>
+<p>Publishing should be an explicit, reproducible stage of the docs pipeline rather than an undocumented side effect. A contributor should be able to run the same validation locally before pushing, so the tooling must not depend on CI-only infrastructure.</p>
+<p><strong>Biggest gap</strong>: validation depth, preview availability, and publishing ownership are not yet consistent across repositories. Structural checks beyond strict builds are not yet defined as a shared capability.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="cross-repository-documentation-integration">
+<h2>9.3 Cross-Repository Documentation Integration 🔴<a class="headerlink" href="#cross-repository-documentation-integration" title="Link to this heading">#</a></h2>
+<p><em>Connecting documentation across repositories with stable linking and navigation patterns.</em></p>
+<ul class="simple">
+<li><p>Contributors and stakeholders should be able to move across repository boundaries without losing context.</p></li>
+<li><p><strong>Biggest gap</strong>: there is no shared information architecture for how repository-local documentation fits into a broader S-CORE documentation landscape.</p></li>
+</ul>
+<section id="cross-repository-linking">
+<h3>9.3.1 Cross-Repository Linking 🔴<a class="headerlink" href="#cross-repository-linking" title="Link to this heading">#</a></h3>
+<p><em>Establishing reliable links across repository boundaries and release versions.</em></p>
+<ul class="simple">
+<li><p>Stable links are required if documentation, code, requirements, and release artifacts live in different repositories.</p></li>
+<li><p>For integrated views produced from <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code>, those links should resolve within one explicit <code class="docutils literal notranslate"><span class="pre">known_good</span></code> snapshot rather than silently mixing repository heads. <a class="reference internal" href="11-reference-integration.html"><span class="std std-doc">Chapter 11</span></a> explains why that snapshot boundary matters.</p></li>
+<li><p><strong>Biggest gap</strong>: no agreed cross-repository linking strategy exists for versioned and unversioned documentation content.</p></li>
+</ul>
+</section>
+<section id="shared-navigation-and-discovery">
+<h3>9.3.2 Shared Navigation and Discovery 🔴<a class="headerlink" href="#shared-navigation-and-discovery" title="Link to this heading">#</a></h3>
+<p><em>Making documentation content easier to discover across repository-specific sites.</em></p>
+<p>When documentation is spread across repository-specific sites, the first problem is knowing where to look. A contributor searching for “how do I add a Bazel module” should not need to guess whether the answer lives in the platform documentation, the build infrastructure site, or a module repository’s own pages. The same applies to consumers who want to understand what S-CORE offers before they start integrating.</p>
+<p>Shared entry points address this by giving readers a starting location that links outward. The simplest version is an overview page or hub site that indexes the major documentation surfaces and describes what each one covers. A more structured version adds cross-site navigation elements — shared headers, breadcrumbs, or sidebar links — so that readers who land on one repository’s site can see where related content lives without returning to the hub. The design choice is how tightly to couple this: a lightweight hub with stable links is easy to maintain, while deeper navigation integration requires coordination whenever a repository restructures its pages.</p>
+<p>For S-CORE, the practical starting point is the main <a class="reference external" href="https://eclipse-score.github.io/score">eclipse-score.github.io</a> site, which already serves as a project-level entry. But the path from that entry to repository-specific documentation is not yet systematic: some repositories are linked, others are not, and the reader has no way to know what exists without browsing GitHub directly. A shared navigation pattern would define which documentation surfaces are expected to appear, how they are categorized, and where the canonical index lives so that new repositories automatically become discoverable when they follow the pattern.</p>
+<p><strong>Biggest gap</strong>: repository-specific sites still feel isolated because no common navigation and discovery pattern ties them together. There is no defined standard for how new documentation surfaces register themselves in a project-wide index.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="engineering-documentation-traceability">
+<h2>9.4 Engineering Documentation &amp; Traceability 🟠<a class="headerlink" href="#engineering-documentation-traceability" title="Link to this heading">#</a></h2>
+<p><em>Infrastructure supporting requirements, architecture, design, and links to implementation and tests.</em></p>
+<ul class="simple">
+<li><p>Engineering documentation (requirements, architecture, detailed design) is required for process compliance (e.g. ISO 26262, ASPICE).</p></li>
+<li><p>Architecture visualization and code integration are target capabilities to connect documentation with implementation artifacts.</p></li>
+<li><p>Test evidence itself is produced in <a class="reference internal" href="04-testing-infrastructure.html"><span class="std std-doc">chapter 4</span></a>; this chapter focuses on the documentation and traceability structures that should consume that evidence.</p></li>
+<li><p><strong>Biggest gap</strong>: traceability and engineering evidence exist in parts, but the supporting model and tooling are not yet standardized across repositories and verification flows.</p></li>
+</ul>
+<section id="traceability-code-integration-and-impact-analysis">
+<h3>9.4.1 Traceability, Code Integration, and Impact Analysis 🟠<a class="headerlink" href="#traceability-code-integration-and-impact-analysis" title="Link to this heading">#</a></h3>
+<p><em>Linking requirements, design, code, and verification artifacts to support impact analysis.</em></p>
+<p>Traceability needs explicit object models and stable identifiers, not just linked prose. In a docs-as-code setting, that means requirements, design decisions, and verification references should be machine-readable documentation objects with typed relationships rather than free-form text that happens to mention a requirement ID.</p>
+<p>The Sphinx ecosystem provides this through extensions that let authors declare typed objects directly in documentation source and express relationships between them. Those objects can then be queried, filtered, and rendered as traceability matrices, coverage tables, or impact analysis views without maintaining a separate database. The important property is that the traceability data lives in version control alongside the prose, follows the same review process, and can be validated during the documentation build.</p>
+<p>For S-CORE, the practical value is that test evidence produced in <a class="reference internal" href="04-testing-infrastructure.html#test-execution-dynamic-analysis"><span class="std std-ref">chapter 4</span></a> can be linked back to requirement objects in documentation, creating a verification chain from requirement through implementation to test result. When requirements change between releases, the same object model makes it possible to identify which links break, which tests need re-evaluation, and which verification evidence is stale. That is the versioning dimension: requirement objects should carry version identity so that a documentation build for one <code class="docutils literal notranslate"><span class="pre">known_good</span></code> snapshot can show the requirement state at that point, while a diff between snapshots shows what changed.</p>
+<p><strong>Biggest gap</strong>: the tooling direction for docs-as-code traceability exists but is not yet named, standardized, or integrated into the documentation build pipeline across S-CORE repositories. Requirement versioning across releases is not yet addressed.</p>
+</section>
+<section id="known-good-documentation-snapshots">
+<h3>9.4.2 Known-Good Documentation Snapshots 🔴<a class="headerlink" href="#known-good-documentation-snapshots" title="Link to this heading">#</a></h3>
+<p><em>Tying integrated docs and traceability evidence to one validated cross-repository snapshot.</em></p>
+<p>Cross-repository documentation becomes ambiguous unless readers can tell which combination of component revisions it describes. The <code class="docutils literal notranslate"><span class="pre">known_good</span></code> concept solves that by giving integrated documentation, verification summaries, and traceability views one shared snapshot identifier. A single documentation build in <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> should therefore describe one concrete <code class="docutils literal notranslate"><span class="pre">known_good</span></code> manifest or record, not an unspecified mix of module heads.</p>
+<p>The important architectural point is that links, release notes, dashboards, and archived evidence should all resolve back to the same <code class="docutils literal notranslate"><span class="pre">known_good</span></code> identifier. <a class="reference internal" href="11-reference-integration.html"><span class="std std-doc">Chapter 11</span></a> owns the repository-level explanation of that snapshot contract. <strong>Biggest gap</strong>: S-CORE does not yet have a documented rule for binding integrated documentation and traceability artifacts to one explicit cross-repository snapshot.</p>
+<p>This snapshot-oriented documentation view depends on the same integration model described in <a class="reference external" href="https://eclipse-score.github.io/score/main/design_decisions/DR-002-infra.html">DR-002-Infra</a> and on the selected <code class="docutils literal notranslate"><span class="pre">reference_integration</span></code> scope in <a class="reference external" href="https://github.com/qorix-group/score/blob/da4ea900f1eece5c8e795697d71e277446dca84e/docs/design_decisions/DR-008-int.rst?plain=1">DR-008-Int</a>.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="08-artifact-distribution.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">8 Release &amp; Distribution 🟠</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="10-infrastructure-operations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">10 Infrastructure Operations ⚪</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authoring-tooling">9.1 Authoring &amp; Tooling 🟡</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docs-as-code-tooling">9.1.1 Docs-As-Code Tooling 🟡</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-validation-publishing">9.2 Build, Validation &amp; Publishing 🟡</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deterministic-build-and-configuration">9.2.1 Deterministic Build and Configuration 🟡</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-previews-and-publishing">9.2.2 Validation, Previews, and Publishing 🟡</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-repository-documentation-integration">9.3 Cross-Repository Documentation Integration 🔴</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-repository-linking">9.3.1 Cross-Repository Linking 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shared-navigation-and-discovery">9.3.2 Shared Navigation and Discovery 🔴</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#engineering-documentation-traceability">9.4 Engineering Documentation &amp; Traceability 🟠</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#traceability-code-integration-and-impact-analysis">9.4.1 Traceability, Code Integration, and Impact Analysis 🟠</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#known-good-documentation-snapshots">9.4.2 Known-Good Documentation Snapshots 🔴</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/eclipse-score/infrastructure/edit/main//home/runner/work/infrastructure/infrastructure/docs/explanation/09-documentation-infrastructure.md">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

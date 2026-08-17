@@ -1,0 +1,1361 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>6 Compliance &amp; Dependency Analysis 🔴 &#8212; S-CORE Infrastructure  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score.css?v=bb63a8e1" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score_needs.css?v=82a1844f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score_design.css?v=8048e6ee" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-data-viewer/jsonview.bundle.css?v=f6ef2277" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/libs/html/datatables.min.css?v=4b4fd840" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/modern.css?v=803738c0" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d828336e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=7f41d439"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/sphinx-data-viewer/jsonview.bundle.js?v=18cd53c5"></script>
+    <script src="../_static/sphinx-data-viewer/jsonview_loader.js?v=f7ff7e7d"></script>
+    <script src="../_static/sphinx-needs/libs/html/datatables.min.js?v=8a4aee21"></script>
+    <script src="../_static/sphinx-needs/libs/html/datatables_loader.js?v=a2cae175"></script>
+    <script src="../_static/sphinx-needs/libs/html/sphinx_needs_collapse.js?v=dca66431"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = `pre.mermaid {
+    /* Same as .mermaid-container > pre */
+    display: block;
+    width: 100%;
+}
+
+pre.mermaid > svg {
+    /* Same as .mermaid-container > pre > svg */
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}`;
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = `.mermaid-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.mermaid-container > pre {
+    display: block;
+    width: 100%;
+}
+
+.mermaid-container > pre > svg {
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.mermaid-fullscreen-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    color: #333;
+}
+
+.mermaid-fullscreen-btn:hover {
+    opacity: 100% !important;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-btn.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-btn.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 95vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999;
+    padding: 20px;
+    overflow: auto;
+}
+
+.mermaid-fullscreen-modal.dark-theme {
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.mermaid-fullscreen-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    max-width: 95vw;
+    max-height: 90vh;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen.dark-theme {
+    background: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+.mermaid-container-fullscreen pre.mermaid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen .mermaid svg {
+    height: 100% !important;
+    width: 100% !important;
+    cursor: grab;
+}
+
+.mermaid-fullscreen-close {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    font-size: 24px;
+    line-height: 1;
+    color: #333;
+}
+
+.mermaid-fullscreen-close:hover {
+    background: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-close.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-close.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
+    display: none !important;
+}`;
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        all_mermaids.forEach((el) => {
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+        await mermaid.run();
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
+
+    if ("True" === "True") {
+        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll(".mermaid svg");
+            if(all_mermaids.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else if(svgs.size() !== mermaids_to_add_zoom) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else {
+                svgs.each(function() {
+                    var svg = d3.select(this);
+                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+                    var inner = svg.select("g");
+                    var zoom = d3.zoom().on("zoom", function(event) {
+                        inner.attr("transform", event.transform);
+                    });
+                    svg.call(zoom);
+                });
+            }
+        }
+    } else if(all_mermaids.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if ("True" !== "True") return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = '⛶';
+        fullscreenBtn.style.opacity = '50%';
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scroll, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.sdisplay = 'block';
+
+                if ("True" === "True") {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+const load = async () => {
+    initStyles();
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...JSON.parse(
+                    `{"startOnLoad": false}`
+                ),
+                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...JSON.parse(
+        `{"startOnLoad": false}`
+    ),
+    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explanation/06-compliance-infrastructure';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://eclipse-score.github.io/infrastructure/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/js/maturity.js?v=73f0b4b1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴" href="07-automation-integration.html" />
+    <link rel="prev" title="5 Code Analysis Infrastructure 🔴" href="05-static-analysis-infrastructure.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Eclipse S-CORE</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how-to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Infrastructure Landscape
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/eclipse-score" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how-to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Infrastructure Landscape
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/eclipse-score" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar"><svg class="pst-icon svg-inline--fa" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-source-code-infrastructure.html">1 Source Code Infrastructure 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-developer-environment.html">2 Developer Environment 🟡</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-testing-infrastructure.html">4 Testing 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure 🔴</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6 Compliance &amp; Dependency Analysis 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-artifact-distribution.html">8 Release &amp; Distribution 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-documentation-infrastructure.html">9 Documentation &amp; Traceability 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-infrastructure-operations.html">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-reference-integration.html">11 Reference Integration 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decisions.html">Infrastructure Design Decisions</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Infrastructure Landscape</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">6 Compliance &amp; Dependency Analysis 🔴</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="compliance-dependency-analysis">
+<h1>6 Compliance &amp; Dependency Analysis 🔴<a class="headerlink" href="#compliance-dependency-analysis" title="Link to this heading">#</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Looking for practical guides?
+This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the <a class="reference internal" href="../how-to/index.html"><span class="std std-doc">How-to Guides</span></a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not yet assessed
+All sections in this chapter are marked ⚪ (not yet assessed). The content describes the target architecture and known gaps, not the current state of implementation.</p>
+</div>
+<p><em>Infrastructure for turning repository files, dependency declarations, and build outputs into licensing evidence, SBOMs, and ongoing compliance and vulnerability monitoring across S-CORE.</em></p>
+<p>The compliance flow has five stages. File-level licensing (§6.1) classifies every file as first-party or third-party. Dependency analysis (§6.2) discovers what each repository consumes and produces enriched SBOMs. SBOM scoping (§6.3) decides which evidence belongs in which SBOM and who receives it. License checks (§6.4) verify that the license profile is acceptable and produce a license-enriched SBOM. Monitoring and governance (§6.5) uses that artifact for ongoing vulnerability detection and compliance oversight.</p>
+<p><a class="reference internal" href="03-build-infrastructure.html"><span class="std std-doc">Chapter 3</span></a> owns generating raw build evidence. <a class="reference internal" href="07-automation-integration.html"><span class="std std-doc">Chapter 7</span></a> owns CI orchestration. <a class="reference internal" href="08-artifact-distribution.html"><span class="std std-doc">Chapter 8</span></a> owns artifact publication. This chapter owns interpreting, enriching, scoping, and checking compliance evidence.</p>
+<p>The tooling landscape for this area is still early-stage. <a class="reference external" href="https://github.com/eclipse-score/sbom-tool">eclipse-score/sbom-tool</a> is a proof-of-concept Bazel rule set that integrates SBOM generation into the build, using dash-license-scan and cdxgen as data sources for license enrichment. It belongs entirely to this chapter: it consumes build outputs as inputs but owns discovery, enrichment, and SBOM generation — all compliance concerns. The remaining gaps are around scope decisions, non-Bazel repositories, monitoring, and governance — which is what this chapter describes.</p>
+<pre  class="mermaid">
+        flowchart TD
+    subgraph s61 [&quot;§ 6.1  File-Level Licensing&quot;]
+        repo_files[&quot;Repository files&quot;]
+        file_class[&quot;File classification\n(first / third-party)&quot;]
+        repo_files --&gt; file_class
+    end
+
+    subgraph s62 [&quot;§ 6.2  Dependency Analysis&quot;]
+        dep_sources[&quot;`Dependency manifests
++ build graphs`&quot;]
+        enriched_sboms[&quot;Enriched SBOMs&quot;]
+        dep_sources --&gt; enriched_sboms
+    end
+
+    subgraph s63 [&quot;§ 6.3  SBOM Scoping and Compliance Evidence&quot;]
+        scope{&quot;`Scope decision
+(dev / product)`&quot;}
+        scoped_sboms[&quot;Scoped SBOMs&quot;]
+        scope --&gt; scoped_sboms
+    end
+
+    subgraph s64 [&quot;§ 6.4  License Checks and Compliance&quot;]
+        license_check[&quot;License checking\n(Dash / IP review)&quot;]
+        license_sbom[&quot;License-enriched SBOM&quot;]
+        license_check --&gt; license_sbom
+    end
+
+    subgraph s65 [&quot;§ 6.5  Monitoring and Governance&quot;]
+        monitoring[&quot;Vulnerability monitoring&quot;]
+        governance[&quot;Findings &amp; coverage&quot;]
+    end
+
+    file_class --&gt; scope
+    enriched_sboms --&gt; scope
+    scoped_sboms --&gt; license_check
+    license_sbom --&gt; monitoring
+    license_sbom --&gt; governance
+    monitoring --&gt; governance
+
+    classDef artifact fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1
+    classDef action fill:#E8F5E9,stroke:#43A047,color:#1B5E20
+    classDef decision fill:#FFF3E0,stroke:#FB8C00,color:#E65100
+    classDef outcome fill:#F3E5F5,stroke:#8E24AA,color:#4A148C
+
+    class repo_files,dep_sources,file_class,enriched_sboms,scoped_sboms,license_sbom artifact
+    class scope decision
+    class license_check,monitoring action
+    class governance outcome
+    </pre><section id="file-level-licensing">
+<h2>6.1 File-Level Licensing 🔴<a class="headerlink" href="#file-level-licensing" title="Link to this heading">#</a></h2>
+<p><em>Classifying repository files as first-party or third-party and attaching machine-readable licensing metadata.</em></p>
+<pre  class="mermaid">
+        flowchart LR
+    file[&quot;Repository files&quot;]
+    header_ok{&quot;`Supports
+inline header?`&quot;}
+    header[&quot;`Copyright + SPDX
+header`&quot;]
+    sidecar[&quot;.license sidecar&quot;]
+    owner{&quot;`Copyright holder
+= S-CORE?`&quot;}
+    first[&quot;First-party&quot;]
+    third[&quot;Third-party&quot;]
+    out[&quot;`File classification
+→ §6.3`&quot;]
+
+    file --&gt; header_ok
+    header_ok --&gt;|Yes| header
+    header_ok --&gt;|No| sidecar
+    header --&gt; owner
+    sidecar --&gt; owner
+    owner --&gt;|Yes| first
+    owner --&gt;|No| third
+    first --&gt; out
+    third --&gt; out
+
+    classDef artifact fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1
+    classDef action fill:#E8F5E9,stroke:#43A047,color:#1B5E20
+    classDef decision fill:#FFF3E0,stroke:#FB8C00,color:#E65100
+    classDef context fill:#F5F5F5,stroke:#BDBDBD,color:#757575
+
+    class file,first,third artifact
+    class header,sidecar action
+    class header_ok,owner decision
+    class out context
+    </pre><section id="metadata-model">
+<h3>6.1.1 Metadata Model 🔴<a class="headerlink" href="#metadata-model" title="Link to this heading">#</a></h3>
+<p><em>How files carry their licensing information and how first-party content is distinguished from third-party content.</em></p>
+<p>Every file needs machine-readable licensing metadata in one of two forms: a copyright notice and SPDX license identifier in the file header, or a sidecar <code class="docutils literal notranslate"><span class="pre">.license</span></code> file for formats that cannot carry inline headers. This metadata is what allows tooling to distinguish first-party S-CORE material from third-party imports. Third-party files need to stay visible as externally sourced so they reach later license-compliance steps.</p>
+<p><strong>Biggest gap</strong>: file-level licensing metadata and first-party versus third-party classification are not yet enforced consistently across repositories.</p>
+</section>
+<section id="enforcement">
+<h3>6.1.2 Enforcement 🔴<a class="headerlink" href="#enforcement" title="Link to this heading">#</a></h3>
+<p><em>Automated enforcement of file-level licensing metadata through local hooks and CI checks.</em></p>
+<p>Consistent metadata requires two enforcement layers: a pre-commit hook that auto-adds the correct header to new first-party files, and a CI check that verifies all files carry required metadata. Both should share the same configuration so local and remote enforcement agree. REUSE-style validation is the likely long-term consolidation point. Copyright tooling from <a class="reference external" href="https://github.com/eclipse-score/tooling">eclipse-score/tooling</a> currently provides a pre-commit hook and PR check.</p>
+<p><strong>Biggest gap</strong>: enforcement coverage is inconsistent across repositories, and the boundary between current header tooling and REUSE-based validation is not yet resolved.</p>
+</section>
+</section>
+<section id="dependency-analysis">
+<h2>6.2 Dependency Analysis 🔴<a class="headerlink" href="#dependency-analysis" title="Link to this heading">#</a></h2>
+<p><em>Discovering what a repository consumes and producing enriched SBOM-format outputs.</em></p>
+<p>This path requires three distinct capabilities: dependency discovery, license enrichment, and SBOM-format output. In Bazel-based repositories, <a class="reference external" href="https://github.com/eclipse-score/sbom-tool">eclipse-score/sbom-tool</a> already integrates all three as a Bazel rule. It uses the Bazel module graph and aspects for discovery, dash-license-scan for Rust license data, cdxgen for C++ license data, and produces SPDX 2.3 / CycloneDX 1.6 output — so these tools are data sources within one orchestrated build step, not competing alternatives.</p>
+<pre  class="mermaid">
+        flowchart LR
+    subgraph inputs [&quot;Build inputs&quot;]
+        direction TB
+        lockfiles[&quot;Lock files&quot;]
+        modulegraph[&quot;`Bazel module graph
++ aspects`&quot;]
+        manual[&quot;`Manual
+declarations`&quot;]
+    end
+
+    subgraph enrichment [&quot;License data sources&quot;]
+        direction TB
+        dash[&quot;`dash-license-scan
+(Rust)`&quot;]
+        cdxgen[&quot;`cdxgen
+(C++)`&quot;]
+    end
+
+    sbom_tool[&quot;`SBOM generator
+(sbom-tool)`&quot;]
+    sbom_output[&quot;`SPDX 2.3
+CycloneDX 1.6`&quot;]
+    out[&quot;`Enriched SBOMs
+→ §6.3`&quot;]
+
+    inputs --&gt; sbom_tool
+    enrichment --&gt; sbom_tool
+    sbom_tool --&gt; sbom_output --&gt; out
+
+    classDef artifact fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1
+    classDef action fill:#E8F5E9,stroke:#43A047,color:#1B5E20
+    classDef transparent fill:none,stroke:#ccc
+    classDef context fill:#F5F5F5,stroke:#BDBDBD,color:#757575
+
+    class lockfiles,modulegraph,manual,sbom_output artifact
+    class dash,cdxgen,sbom_tool action
+    class inputs,enrichment transparent
+    class out context
+    </pre><section id="discovery-and-enrichment">
+<h3>6.2.1 Discovery and Enrichment 🔴<a class="headerlink" href="#discovery-and-enrichment" title="Link to this heading">#</a></h3>
+<p><em>Collecting dependency information from multiple sources and mapping it to license status.</em></p>
+<p>For Bazel-based repositories, <a class="reference external" href="https://github.com/eclipse-score/sbom-tool">sbom-tool</a> already combines these sources: the Bazel module graph provides structural dependency data, lock files provide version and checksum data, dash-license-scan enriches Rust crate licenses via the Eclipse Dash License Tool, and cdxgen scans C++ dependencies. Manual declarations cover vendored content and transitive relationships that automated sources miss. The result is a merged, enriched SBOM produced as a normal build output.</p>
+<p>For non-Bazel repositories, no equivalent integration exists yet. The same capabilities are needed — discovery, enrichment, output — but the tooling path is undefined.</p>
+<p><strong>Biggest gap</strong>: sbom-tool covers Bazel-based repositories as a proof of concept, but the flow is not yet consistently available across all repository types. Coverage for non-Bazel repositories and for C++ license enrichment (where dash-license-scan does not yet work) remains open.</p>
+</section>
+</section>
+<section id="sbom-scoping-and-compliance-evidence">
+<h2>6.3 SBOM Scoping and Compliance Evidence 🔴<a class="headerlink" href="#sbom-scoping-and-compliance-evidence" title="Link to this heading">#</a></h2>
+<p><em>Deciding what belongs in which SBOM and who consumes the resulting compliance evidence.</em></p>
+<p>This is where the two input paths converge. One repository does not produce one SBOM — it produces inputs to a scope decision that determines which evidence goes where and to whom.</p>
+<pre  class="mermaid">
+        flowchart TD
+    in61[&quot;`File classification
+← §6.1`&quot;]
+    in62[&quot;`Enriched SBOMs
+← §6.2`&quot;]
+
+    scope{&quot;`Scope
+decision`&quot;}
+
+    dev_sbom[&quot;`Development SBOM
+(build scope)`&quot;]
+    prod_sbom[&quot;`Product SBOM
+(runtime scope)`&quot;]
+
+    license_checks[&quot;`License checks
+→ §6.4`&quot;]
+    distributor_source[&quot;`Distributor: source
+release scan`&quot;]
+    distributor_runtime[&quot;`Distributor: runtime
+image scan`&quot;]
+
+    in61 --&gt; scope
+    in62 --&gt; scope
+    scope --&gt; dev_sbom
+    scope --&gt; prod_sbom
+
+    dev_sbom --&gt; license_checks
+    prod_sbom --&gt; license_checks
+    prod_sbom --&gt; distributor_source
+    prod_sbom --&gt; distributor_runtime
+
+    classDef artifact fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1
+    classDef decision fill:#FFF3E0,stroke:#FB8C00,color:#E65100
+    classDef consumer fill:#F3E5F5,stroke:#8E24AA,color:#4A148C
+    classDef context fill:#F5F5F5,stroke:#BDBDBD,color:#757575
+
+    class dev_sbom,prod_sbom artifact
+    class scope decision
+    class distributor_source,distributor_runtime consumer
+    class in61,in62,license_checks context
+    </pre><section id="development-vs-product-scope">
+<h3>6.3.1 Development vs Product Scope 🔴<a class="headerlink" href="#development-vs-product-scope" title="Link to this heading">#</a></h3>
+<p><em>Distinguishing between build-scope and runtime-scope compliance evidence.</em></p>
+<p>Some dependencies belong only to building, testing, or the development environment. Others are part of the delivered runtime product. That distinction changes which SBOM is produced, how findings are interpreted, and which consumers care. The same scope model applies to S-CORE’s tooling and environment artifacts such as devcontainers — <a class="reference internal" href="03-build-infrastructure.html#tooling-and-environment-dependencies"><span class="std std-ref">chapter 3</span></a> describes how they produce build evidence; this chapter owns the scope decision.</p>
+<p><strong>Biggest gap</strong>: no shared definition yet of which inputs belong in development-scope versus product-scope SBOMs.</p>
+</section>
+<section id="compliance-consumers">
+<h3>6.3.2 Compliance Consumers 🔴<a class="headerlink" href="#compliance-consumers" title="Link to this heading">#</a></h3>
+<p><em>Who uses the scoped evidence and for what purpose.</em></p>
+<p>Scoped SBOMs serve two immediate audiences before feeding downstream. Internally, they are the input to §6.4 License Checks and Compliance. For downstream distributors, they support OSS scans whose scope varies by deliverable type: a source release, a runtime image, and a redistributed tool are different scan targets with different questions. Vulnerability monitoring (§6.5) sits downstream of §6.4 and receives the license-enriched SBOM, not the scoped SBOM directly.</p>
+<p><strong>Biggest gap</strong>: no shared model defines which deliverable is the scan target in each compliance situation.</p>
+</section>
+</section>
+<section id="license-checks-and-compliance">
+<h2>6.4 License Checks and Compliance 🔴<a class="headerlink" href="#license-checks-and-compliance" title="Link to this heading">#</a></h2>
+<p><em>Verifying that dependencies meet S-CORE’s license policy and producing a license-enriched SBOM as output.</em></p>
+<p>Scoped SBOMs from §6.3 carry dependency metadata but license status may still be unresolved or incomplete. This section runs the actual license checks — automated via Dash and manual via IP review — and resolves those gaps. The result is a <strong>license-enriched SBOM</strong> with verified license status for every component. That artifact is what §6.5 uses for vulnerability monitoring and governance; it is a richer input than the scoped SBOM from §6.3.</p>
+<pre  class="mermaid">
+        flowchart LR
+    in63[&quot;`Scoped SBOMs
+← §6.3`&quot;]
+
+    pr_check[&quot;`PR-scoped
+check`&quot;]
+    ip_review[&quot;`IP review &amp;
+policy`&quot;]
+
+    license_sbom[&quot;`License-enriched
+SBOM → §6.5`&quot;]
+
+    in63 --&gt; pr_check
+    in63 --&gt; ip_review
+    pr_check --&gt; license_sbom
+    ip_review --&gt; license_sbom
+
+    classDef artifact fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1
+    classDef action fill:#E8F5E9,stroke:#43A047,color:#1B5E20
+    classDef context fill:#F5F5F5,stroke:#BDBDBD,color:#757575
+
+    class license_sbom artifact
+    class pr_check,ip_review action
+    class in63 context
+    </pre><section id="pr-scoped-license-checking">
+<h3>6.4.1 PR-Scoped License Checking 🔴<a class="headerlink" href="#pr-scoped-license-checking" title="Link to this heading">#</a></h3>
+<p><em>Checking dependency license status as part of the contribution workflow without creating noise.</em></p>
+<p>Full-repository license scans on every PR produce too much noise. The effective model is scoped checking: run only when dependency changes are detected, surface results only when new license questions arise. This pattern matters regardless of which tool implements it — the check should be scoped to changes, produce structured output, and integrate into PR review.</p>
+<p><strong>Biggest gap</strong>: PR-scoped dependency license checking is not consistently available across repositories.</p>
+</section>
+<section id="ip-review-and-project-policy">
+<h3>6.4.2 IP Review and Project Policy 🔴<a class="headerlink" href="#ip-review-and-project-policy" title="Link to this heading">#</a></h3>
+<p><em>Routing license findings that require human review and maintaining a shared policy for accepted and rejected licenses.</em></p>
+<p>Automated checks resolve most license questions, but some dependencies require IP review. The project also needs a shared license policy — allowlists for accepted licenses and a clear escalation path for non-standard situations. That policy should be machine-readable enough to feed back into automated checks rather than living only in documents.</p>
+<p><strong>Biggest gap</strong>: no shared license policy or allowlist is defined at the S-CORE level; individual repositories handle license decisions ad hoc.</p>
+</section>
+</section>
+<section id="monitoring-and-governance">
+<h2>6.5 Monitoring and Governance 🔴<a class="headerlink" href="#monitoring-and-governance" title="Link to this heading">#</a></h2>
+<p><em>Continuous vulnerability monitoring, findings ownership, and cross-repository compliance visibility.</em></p>
+<p>The compliance flow becomes useful infrastructure only when SBOMs stay fresh, findings can be owned, and coverage gaps stay visible.</p>
+<pre  class="mermaid">
+        flowchart TD
+    in64[&quot;`License-enriched SBOM
+← §6.4`&quot;]
+
+    upload[&quot;`Upload to GitHub
+/ Dependency-Track`&quot;]
+    vuln[&quot;Vulnerability findings&quot;]
+
+    ownership[&quot;Findings ownership&quot;]
+    baselines[&quot;Baselines &amp; exceptions&quot;]
+    visibility[&quot;Cross-repo coverage visibility&quot;]
+
+    in64 --&gt; upload --&gt; vuln
+    vuln --&gt; ownership
+    vuln --&gt; baselines
+    ownership --&gt; visibility
+    baselines --&gt; visibility
+
+    classDef artifact fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1
+    classDef action fill:#E8F5E9,stroke:#43A047,color:#1B5E20
+    classDef outcome fill:#F3E5F5,stroke:#8E24AA,color:#4A148C
+    classDef context fill:#F5F5F5,stroke:#BDBDBD,color:#757575
+
+    class vuln artifact
+    class upload action
+    class ownership,baselines,visibility outcome
+    class in64 context
+    </pre><section id="continuous-vulnerability-monitoring">
+<h3>6.5.1 Continuous Vulnerability Monitoring 🔴<a class="headerlink" href="#continuous-vulnerability-monitoring" title="Link to this heading">#</a></h3>
+<p><em>Using license-enriched SBOMs as ongoing monitoring inputs to detect newly relevant issues over time.</em></p>
+<p>Uploading SBOMs to systems such as GitHub and Dependency-Track allows the project to detect vulnerabilities after the initial build. sbom-tool already includes an SPDX-to-GitHub-snapshot converter for this purpose, though it is not yet integrated into a cross-repository upload flow. Monitoring is also the basis for impact analysis — mapping a newly disclosed vulnerability back to affected artifact versions and repository owners. This only works if uploads stay fresh; a stale SBOM gives a false sense of coverage.</p>
+<p><strong>Biggest gap</strong>: no shared process keeps SBOM uploads fresh or supports impact analysis across S-CORE artifact types.</p>
+</section>
+<section id="findings-ownership-and-baselines">
+<h3>6.5.2 Findings Ownership and Baselines 🔴<a class="headerlink" href="#findings-ownership-and-baselines" title="Link to this heading">#</a></h3>
+<p><em>Clarifying who owns compliance findings and how existing debt is handled.</em></p>
+<p>Findings come from different parts of the flow, so ownership cannot default to one team. A missing header belongs to a repository maintainer; a broken enrichment step belongs to tooling owners; a vulnerability in a distributed artifact belongs to whoever publishes it. Not every issue can be fixed immediately — temporary baselines are acceptable as long as exceptions remain visible, justified, and reviewable.</p>
+<p><strong>Biggest gap</strong>: no documented ownership model connects findings to the responsible step in the compliance pipeline, and no shared policy defines how exceptions are justified, recorded, and revisited.</p>
+</section>
+<section id="cross-repository-visibility">
+<h3>6.5.3 Cross-Repository Visibility 🔴<a class="headerlink" href="#cross-repository-visibility" title="Link to this heading">#</a></h3>
+<p><em>Measuring how completely the compliance flow is implemented across repositories.</em></p>
+<p>Visibility should show not just current findings but also coverage: which repositories classify files, which produce scoped SBOMs, which upload to monitoring, and where enrichment is still missing.</p>
+<p><strong>Biggest gap</strong>: no conformance report shows how completely the compliance flow is implemented across S-CORE.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="05-static-analysis-infrastructure.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">5 Code Analysis Infrastructure 🔴</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="07-automation-integration.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-level-licensing">6.1 File-Level Licensing 🔴</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metadata-model">6.1.1 Metadata Model 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enforcement">6.1.2 Enforcement 🔴</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-analysis">6.2 Dependency Analysis 🔴</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discovery-and-enrichment">6.2.1 Discovery and Enrichment 🔴</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sbom-scoping-and-compliance-evidence">6.3 SBOM Scoping and Compliance Evidence 🔴</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#development-vs-product-scope">6.3.1 Development vs Product Scope 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compliance-consumers">6.3.2 Compliance Consumers 🔴</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license-checks-and-compliance">6.4 License Checks and Compliance 🔴</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pr-scoped-license-checking">6.4.1 PR-Scoped License Checking 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ip-review-and-project-policy">6.4.2 IP Review and Project Policy 🔴</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-and-governance">6.5 Monitoring and Governance 🔴</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#continuous-vulnerability-monitoring">6.5.1 Continuous Vulnerability Monitoring 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#findings-ownership-and-baselines">6.5.2 Findings Ownership and Baselines 🔴</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-repository-visibility">6.5.3 Cross-Repository Visibility 🔴</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/eclipse-score/infrastructure/edit/main//home/runner/work/infrastructure/infrastructure/docs/explanation/06-compliance-infrastructure.md">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
