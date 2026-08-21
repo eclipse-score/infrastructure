@@ -1,0 +1,1199 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>8 Release &amp; Distribution 🟠 &#8212; S-CORE Infrastructure  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score.css?v=bb63a8e1" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score_needs.css?v=82a1844f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/score_design.css?v=8048e6ee" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-data-viewer/jsonview.bundle.css?v=f6ef2277" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/libs/html/datatables.min.css?v=4b4fd840" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_style.css?v=92936fa5" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/needstable.css?v=5e1b6797" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_toggle.css?v=5c6620df" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_core.css?v=f5b60a78" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/common_css/need_links.css?v=2150a916" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-needs/modern.css?v=803738c0" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d828336e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=7f41d439"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/sphinx-data-viewer/jsonview.bundle.js?v=18cd53c5"></script>
+    <script src="../_static/sphinx-data-viewer/jsonview_loader.js?v=f7ff7e7d"></script>
+    <script src="../_static/sphinx-needs/libs/html/datatables.min.js?v=8a4aee21"></script>
+    <script src="../_static/sphinx-needs/libs/html/datatables_loader.js?v=a2cae175"></script>
+    <script src="../_static/sphinx-needs/libs/html/sphinx_needs_collapse.js?v=dca66431"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.esm.min.mjs";
+
+
+import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs"
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+let closeModal = () => {};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
+        all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if (true) {
+                                        addZoomToSvgs(d3.selectAll(".mermaid").select(function() {
+                                            return this.querySelector("svg");
+                                        }));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
+
+    if (true) {
+        const mermaids_to_add_zoom = -1 === -1 ? mermaids_active.length : -1;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll(".mermaid").select(function() {
+                return this.querySelector("svg");
+            });
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            }
+            addZoomToSvgs(svgs);
+        }
+    } else if(mermaids_active.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if (!true) return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = "\u26f6";
+        fullscreenBtn.style.opacity = "50%";
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scrollX, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.display = 'block';
+
+                if (true) {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+
+
+const load = async () => {
+    initStyles();
+
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...{"startOnLoad": false},
+                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+mermaid.registerLayoutLoaders(elkLayouts);
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...{"startOnLoad": false},
+    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'explanation/08-artifact-distribution';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.20.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://eclipse-score.github.io/infrastructure/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/js/maturity.js?v=73f0b4b1"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9 Documentation &amp; Traceability 🟠" href="09-documentation-infrastructure.html" />
+    <link rel="prev" title="7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴" href="07-automation-integration.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Eclipse S-CORE</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how-to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Infrastructure Landscape
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/eclipse-score" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../how-to/index.html">
+    How-to Guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    Reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Infrastructure Landscape
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/eclipse-score" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-source-code-infrastructure.html">1 Source Code Infrastructure 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-developer-environment.html">2 Developer Environment 🟡</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-build-infrastructure.html">3 Build &amp; Dependencies 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-testing-infrastructure.html">4 Testing 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-static-analysis-infrastructure.html">5 Code Analysis Infrastructure 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-compliance-infrastructure.html">6 Compliance &amp; Dependency Analysis 🔴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-automation-integration.html">7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">8 Release &amp; Distribution 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-documentation-infrastructure.html">9 Documentation &amp; Traceability 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-infrastructure-operations.html">10 Infrastructure Operations ⚪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-reference-integration.html">11 Reference Integration 🟠</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decisions.html">Infrastructure Design Decisions</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Infrastructure Landscape</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">8 Release &amp; Distribution 🟠</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="release-distribution">
+<h1>8 Release &amp; Distribution 🟠<a class="headerlink" href="#release-distribution" title="Link to this heading">#</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Looking for practical guides?
+This chapter is part of the infrastructure landscape assessment. For step-by-step how-tos and quick references, see the <a class="reference internal" href="../how-to/index.html"><span class="std std-doc">How-to Guides</span></a>.</p>
+</div>
+<p><em>Infrastructure managing released deliverables, versioning, publication, and consumer access across S-CORE.</em></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Draft
+This chapter has not been fully reviewed. Content may be incomplete or inaccurate.</p>
+</div>
+<ul class="simple">
+<li><p>GitHub Releases is the primary mechanism for publishing archive-style S-CORE deliverables, while Bazel modules are published through the shared registry at <a class="reference external" href="https://github.com/eclipse-score/bazel_registry/">eclipse-score/bazel_registry</a>.</p></li>
+<li><p>S-CORE delivery can include source releases, prebuilt artifacts, container images, and associated release metadata.</p></li>
+<li><p>The registry UI at <a class="reference external" href="https://eclipse-score.github.io/bazel_registry_ui/">eclipse-score.github.io/bazel_registry_ui</a> is the intended discovery surface for published Bazel modules.</p></li>
+<li><p>Artifact versioning follows semantic versioning aligned with Git tagging.</p></li>
+<li><p>SBOM and provenance data should be generated during builds and accompany released deliverables.</p></li>
+<li><p>This chapter covers publishing that evidence with releases, while <a class="reference internal" href="06-compliance-infrastructure.html"><span class="std std-doc">chapter 6</span></a> is the canonical home for how SBOMs are scoped, interpreted, and monitored once they exist.</p></li>
+</ul>
+<pre  class="mermaid">
+        graph LR
+    code[&quot;Module repository\n(source + tests)&quot;]
+    tag[&quot;Git tag\n(v1.2.3)&quot;]
+    release[&quot;GitHub Release\n(source archive + assets)&quot;]
+    registry[&quot;`eclipse-score/bazel_registry\n(registry entry)`&quot;]
+    ui[&quot;`Registry UI\nbazel_registry_ui`&quot;]
+    consumer[&quot;Consumer MODULE.bazel\nbazel_dep(name, version)&quot;]
+
+    code --&gt;|&quot;git tag + push&quot;| tag
+    tag --&gt;|&quot;GitHub Release workflow&quot;| release
+    release --&gt;|&quot;PR to add registry entry&quot;| registry
+    registry --&gt; ui
+    registry --&gt;|&quot;resolved via .bazelrc&quot;| consumer
+    </pre><section id="deliverable-types">
+<h2>8.1 Deliverable Types 🟠<a class="headerlink" href="#deliverable-types" title="Link to this heading">#</a></h2>
+<p><em>Infrastructure defining which kinds of release deliverables S-CORE can publish and support.</em></p>
+<ul class="simple">
+<li><p>S-CORE repositories may need to publish different deliverable types depending on consumer needs, including source archives, prebuilt packages, and container images.</p></li>
+<li><p>The infrastructure should support describing, versioning, and publishing these deliverables consistently across repositories.</p></li>
+<li><p><strong>Biggest gap</strong>: no shared capability model defines which deliverable types exist in S-CORE, how they differ, or what infrastructure each type requires.</p></li>
+</ul>
+<section id="source-deliverables">
+<h3>8.1.1 Source Deliverables 🟡<a class="headerlink" href="#source-deliverables" title="Link to this heading">#</a></h3>
+<p><em>Delivery of source-based release artifacts intended for downstream build or inspection.</em></p>
+<ul class="simple">
+<li><p>Source delivery can include tagged source archives and related release metadata published from version control.</p></li>
+<li><p>GitHub Releases can act as a distribution point for source-based deliverables.</p></li>
+<li><p><strong>Biggest gap</strong>: no shared definition exists for which source deliverables are expected, how complete they must be, or which metadata must always accompany them.</p></li>
+</ul>
+</section>
+<section id="prebuilt-deliverables">
+<h3>8.1.2 Prebuilt Deliverables 🟠<a class="headerlink" href="#prebuilt-deliverables" title="Link to this heading">#</a></h3>
+<p><em>Delivery of compiled or otherwise pre-generated artifacts for direct downstream consumption.</em></p>
+<ul class="simple">
+<li><p>Prebuilt deliverables can include binaries, archives, packages, generated SDK assets, or other installable outputs attached to a release.</p></li>
+<li><p>GitHub Releases currently provides the most obvious publication mechanism for such assets.</p></li>
+<li><p><strong>Biggest gap</strong>: no common publication pattern defines which prebuilt deliverables should be release-grade, how they are structured, or how consumers discover them.</p></li>
+</ul>
+</section>
+<section id="image-deliverables">
+<h3>8.1.3 Image Deliverables 🔴<a class="headerlink" href="#image-deliverables" title="Link to this heading">#</a></h3>
+<p><em>Delivery of container or VM-style images intended for execution or integration environments.</em></p>
+<ul class="simple">
+<li><p>Some S-CORE use cases may require deliverables in image form, such as container images for tooling, CI, or runtime integration.</p></li>
+<li><p>Image-based delivery differs from archive-style release assets and usually requires registry-oriented publication and lifecycle handling.</p></li>
+<li><p><strong>Biggest gap</strong>: no image delivery channel, registry strategy, or publication standard is currently defined for S-CORE.</p></li>
+</ul>
+</section>
+</section>
+<section id="distribution-channels">
+<h2>8.2 Distribution Channels 🟠<a class="headerlink" href="#distribution-channels" title="Link to this heading">#</a></h2>
+<p><em>Infrastructure publishing release deliverables to downstream consumers through appropriate channels.</em></p>
+<ul class="simple">
+<li><p>GitHub Releases is currently the primary public distribution channel for archive-style S-CORE deliverables.</p></li>
+<li><p>The shared Bazel registry is the public distribution channel for S-CORE Bazel modules.</p></li>
+<li><p>Different deliverable types may require different channels, such as release assets, registries, or mirrored repositories.</p></li>
+<li><p><strong>Biggest gap</strong>: no shared distribution model maps deliverable types to supported publication channels and consumer access patterns.</p></li>
+</ul>
+<section id="release-publishing">
+<h3>8.2.1 Release Publishing 🟠<a class="headerlink" href="#release-publishing" title="Link to this heading">#</a></h3>
+<p><em>Publishing release deliverables through release-oriented channels such as GitHub Releases.</em></p>
+<ul class="simple">
+<li><p>Release pipelines can publish deliverables as GitHub Releases and attach binaries, source bundles, checksums, SBOMs, and related files.</p></li>
+<li><p>This channel is suitable for archive-style release deliverables and public release notes.</p></li>
+<li><p><strong>Biggest gap</strong>: release publication is not yet standardized across repositories, and release composition is not consistently defined.</p></li>
+</ul>
+</section>
+<section id="registry-based-distribution">
+<h3>8.2.2 Registry-Based Distribution 🟢<a class="headerlink" href="#registry-based-distribution" title="Link to this heading">#</a></h3>
+<p><em>Publishing deliverables through registries such as package repositories or OCI registries.</em></p>
+<p>This subsection is the main description of how S-CORE publishes and consumes Bazel modules. Other chapters reference it from their own perspective, but the end-to-end registry flow belongs here.</p>
+<p>For S-CORE Bazel modules, the custom registry is the release channel that matters. GitHub Releases are still useful for archives, binaries, checksums, and release notes, but Bazel itself consumes module metadata from the shared registry at <a class="reference external" href="https://github.com/eclipse-score/bazel_registry/">eclipse-score/bazel_registry</a>. In other words, if a module version should be usable as a dependency by another S-CORE repository, it needs to be present in the registry.</p>
+<p>In S-CORE, the registry and GitHub Releases are deliberately coupled. The useful mental model is that the registry is Bazel’s view of a released module version. A maintainer creates a GitHub release in the module repository, the registry imports that release as described in the <a class="reference external" href="https://github.com/eclipse-score/bazel_registry/blob/main/README.md">registry README</a>, and downstream repositories then resolve that version through Bazel. That coupling is why the split between “release” and “dependency resolution” can feel artificial: conceptually it is one publication pipeline, even though different infrastructure chapters look at it from different angles.</p>
+<p>This also means module maintainers publish their modules by making a proper repository release and then adding the corresponding version to the registry, rather than inventing a repository-specific distribution pattern. The exact mechanics belong in the <a class="reference external" href="https://github.com/eclipse-score/bazel_registry/blob/main/README.md">registry README</a>, which should remain the maintained source of truth. This infrastructure guide explains the role of the registry and the end-to-end flow, but it deliberately avoids copying the details so that the workflow stays defined in one place.</p>
+<p>For module users, the easiest entry point is the registry UI at <a class="reference external" href="https://eclipse-score.github.io/bazel_registry_ui/">eclipse-score.github.io/bazel_registry_ui</a>. It provides a browseable view of the modules and versions published in the registry and is backed by the data in <a class="reference external" href="https://github.com/eclipse-score/bazel_registry_ui">eclipse-score/bazel_registry_ui</a>. If there is ever any doubt, the registry repository itself remains authoritative because it is the actual input to Bazel.</p>
+<p>The end-to-end flow is therefore simple. A module maintainer cuts a GitHub release in the module repository. The registry records that released version and the metadata Bazel needs to fetch it. Module users discover the version through the registry UI or the registry repository itself. Consumer repositories then resolve that version through <code class="docutils literal notranslate"><span class="pre">MODULE.bazel</span></code> and the registry configuration described in <a class="reference internal" href="03-build-infrastructure.html"><span class="std std-doc">chapter 3</span></a>. Infrastructure maintainers, finally, operate the registry, its validation, and the UI as described in <a class="reference internal" href="10-infrastructure-operations.html"><span class="std std-doc">chapter 10</span></a>.</p>
+<p>This chapter is the best place to understand that overall publication flow. <a class="reference internal" href="03-build-infrastructure.html"><span class="std std-doc">Chapter 3</span></a> covers how consumers point Bazel at the registry, while <a class="reference internal" href="10-infrastructure-operations.html"><span class="std std-doc">chapter 10</span></a> covers how the registry and UI are run as shared services.</p>
+<p>Helpful links:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/eclipse-score/bazel_registry/">S-CORE Bazel registry</a></p></li>
+<li><p><a class="reference external" href="https://github.com/eclipse-score/bazel_registry/blob/main/README.md">Registry README</a></p></li>
+<li><p><a class="reference external" href="https://eclipse-score.github.io/bazel_registry_ui/">Registry UI</a></p></li>
+<li><p><a class="reference external" href="https://github.com/eclipse-score/bazel_registry_ui">Registry UI repository</a></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="mirrors-replication">
+<h3>8.2.3 Mirrors &amp; Replication 🔴<a class="headerlink" href="#mirrors-replication" title="Link to this heading">#</a></h3>
+<p><em>Replicating important deliverables into secondary channels for resilience, reach, or governance reasons.</em></p>
+</section>
+</section>
+<section id="release-metadata">
+<h2>8.3 Release Metadata 🟠<a class="headerlink" href="#release-metadata" title="Link to this heading">#</a></h2>
+<p><em>Infrastructure attaching the metadata required to identify, verify, and consume released deliverables.</em></p>
+<ul class="simple">
+<li><p>Released deliverables should be accompanied by metadata such as version identifiers, checksums, SBOMs, provenance, and release notes.</p></li>
+<li><p>Metadata is part of the delivery capability because downstream consumers need it to verify, integrate, and audit releases.</p></li>
+<li><p><strong>Biggest gap</strong>: no common release metadata baseline defines what every S-CORE release must publish.</p></li>
+</ul>
+<section id="versioning-tagging">
+<h3>8.3.1 Versioning &amp; Tagging 🟡<a class="headerlink" href="#versioning-tagging" title="Link to this heading">#</a></h3>
+<p><em>Identifying deliverables consistently across repositories and releases.</em></p>
+<ul class="simple">
+<li><p>Semantic versioning aligned with Git tags is the expected standard across S-CORE repositories.</p></li>
+<li><p>Versioning and tagging identify release deliverables and connect them back to source history.</p></li>
+<li><p><strong>Biggest gap</strong>: versioning conventions are not uniformly enforced or validated across repositories.</p></li>
+</ul>
+</section>
+<section id="compliance-traceability-metadata">
+<h3>8.3.2 Compliance &amp; Traceability Metadata 🔴<a class="headerlink" href="#compliance-traceability-metadata" title="Link to this heading">#</a></h3>
+<p><em>Publishing supporting metadata needed for compliance, verification, and supply-chain traceability.</em></p>
+<p>SBOMs, provenance data, signatures, checksums, and release notes should accompany released deliverables where applicable. From the release perspective, the key question is simple: which evidence travels with the published artifact so downstream users can verify and understand it? The harder compliance questions, such as how a repository arrived at that SBOM, how license data was enriched, or whether a dependency belongs in development scope or product scope, belong in <a class="reference internal" href="06-compliance-infrastructure.html"><span class="std std-doc">chapter 6</span></a> and should not be duplicated here.</p>
+<p>This metadata still matters here because publication is what makes the evidence durable and consumer-visible. A release artifact without its supporting evidence is harder to audit, trust, and respond to later when issues are disclosed. <strong>Biggest gap</strong>: no standardized process ensures that compliance and traceability metadata is generated and published with each release.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="consumer-access">
+<h2>8.4 Consumer Access ⚪<a class="headerlink" href="#consumer-access" title="Link to this heading">#</a></h2>
+<p><em>Infrastructure making released deliverables discoverable, retrievable, and usable by downstream consumers.</em></p>
+<ul class="simple">
+<li><p>Consumers need a clear path to discover available deliverables, understand their intended use, and retrieve the correct format.</p></li>
+<li><p>For Bazel modules, consumer access is centered on the shared registry metadata and the registry UI.</p></li>
+<li><p>Consumer access includes naming, discoverability, documentation, and availability of public download or pull mechanisms.</p></li>
+<li><p><strong>Biggest gap</strong>: no shared consumer-facing model explains where deliverables live, which consumers each format serves, or how access should work across S-CORE.</p></li>
+</ul>
+<section id="discoverability">
+<h3>8.4.1 Discoverability ⚪<a class="headerlink" href="#discoverability" title="Link to this heading">#</a></h3>
+<p><em>Making available deliverables and their purpose visible to downstream users.</em></p>
+<p>GitHub Releases provide basic discoverability for release assets and release notes, but they are not the right starting point for Bazel modules. For modules, users should begin with the <a class="reference external" href="https://eclipse-score.github.io/bazel_registry_ui/">registry UI</a>, which presents the published contents of the shared registry in a way that is easier to browse than the raw repository. The underlying source of truth is still the registry data in <a class="reference external" href="https://github.com/eclipse-score/bazel_registry/">eclipse-score/bazel_registry</a>.</p>
+<p>Good discoverability also requires light explanation. Users need to know that the registry answers the question “which module versions exist?” while the owning repository answers “how do I use this module once I depend on it?” Those two layers complement each other and should stay linked.</p>
+<p><strong>Biggest gap</strong>: no consistent discoverability pattern yet spans both GitHub release assets and registry-published modules in one coherent consumer story.</p>
+</section>
+<section id="retention-availability-rollback">
+<h3>8.4.2 Retention, Availability &amp; Rollback ⚪<a class="headerlink" href="#retention-availability-rollback" title="Link to this heading">#</a></h3>
+<p><em>Keeping released deliverables accessible over time and enabling reliable rollback to previous baselines.</em></p>
+<p>Retention and rollback are two sides of the same coin. Retention asks which artifacts stay available and for how long; rollback asks how a consumer or the project itself reverts to a previously baselined release when a newer version turns out to be broken.</p>
+<p>For S-CORE, the retention picture depends on the publication channel. GitHub Releases retain release assets indefinitely by default, which means source archives, binaries, and attached metadata remain accessible as long as the repository exists. The Bazel registry retains module entries permanently because they are committed files in a Git repository. GitHub Actions artifacts, by contrast, are ephemeral and disappear after a configurable retention window, which makes them unsuitable as the only home for anything that needs to survive beyond a single CI run.</p>
+<p>Rollback requires more than artifact availability. A consumer who needs to revert to a previous module version can do so through the registry by pinning <code class="docutils literal notranslate"><span class="pre">bazel_dep</span></code> to the older version, which is straightforward as long as the older version is still present in the registry and the release assets it references are still available. For integrated baselines that span multiple modules, rollback means returning to a previous <code class="docutils literal notranslate"><span class="pre">known_good</span></code> manifest rather than individually downgrading components, because the combination of module versions matters as much as any single version. The <code class="docutils literal notranslate"><span class="pre">known_good</span></code> model described in <a class="reference internal" href="07-automation-integration.html#known-good-promotion"><span class="std std-ref">section 7.3.4</span></a> provides the identifier, but the ability to rebuild and redeploy from that identifier depends on all referenced artifacts, toolchain versions, and environment images still being retrievable.</p>
+<p>A practical rollback strategy therefore needs three properties: durable artifact storage so that nothing disappears before it is no longer needed, manifest-level version identity so that “go back to the previous known-good” is an unambiguous operation, and a tested procedure so that rollback is a routine operation rather than an emergency improvisation.</p>
+<p><strong>Biggest gap</strong>: no explicit retention policy, rollback procedure, or availability guarantee is defined for S-CORE deliverables. The ability to roll back to a previous integrated baseline is assumed but not documented or tested.</p>
+</section>
+<section id="consumer-guidance">
+<h3>8.4.3 Consumer Guidance 🔴<a class="headerlink" href="#consumer-guidance" title="Link to this heading">#</a></h3>
+<p><em>Helping downstream users choose the right deliverable and understand how it should be consumed.</em></p>
+<p>For Bazel modules, the normal consumer workflow is straightforward. First, browse the <a class="reference external" href="https://eclipse-score.github.io/bazel_registry_ui/">registry UI</a> to find the module and version you need. Next, configure your repository to use the S-CORE registry as described in <a class="reference internal" href="03-build-infrastructure.html#internal-module-dependencies"><span class="std std-ref">section 3.2.2</span></a>. Finally, declare the dependency in <code class="docutils literal notranslate"><span class="pre">MODULE.bazel</span></code> and use the module according to the documentation in its owning repository.</p>
+<p>Because registry entries are coupled to GitHub Releases, users can usually think of a registry version as the Bazel-consumable form of a repository release. The registry tells you which versions exist and how Bazel should fetch them. The owning repository tells you what the release contains and how to use the module once you depend on it.</p>
+<p>To make this concrete, consumer repositories need the registry configuration in <code class="docutils literal notranslate"><span class="pre">.bazelrc</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>common --registry=https://raw.githubusercontent.com/eclipse-score/bazel_registry/main/
+common --registry=https://bcr.bazel.build
+</pre></div>
+</div>
+<p>With that in place, <code class="docutils literal notranslate"><span class="pre">MODULE.bazel</span></code> can declare dependencies with Bazel’s normal module mechanism such as <code class="docutils literal notranslate"><span class="pre">bazel_dep(...)</span></code>. The S-CORE registry is then used for first-party modules, while the Bazel Central Registry remains available for public dependencies. The official <a class="reference external" href="https://bazel.build/external/module">Bazel modules documentation</a> is the best reference for the <code class="docutils literal notranslate"><span class="pre">MODULE.bazel</span></code> syntax itself.</p>
+<p>That split is important for keeping the documentation maintainable. This infrastructure guide explains where modules are published, how consumers discover them, and how Bazel is pointed at the registry. The mechanics for adding or updating module versions stay in the <a class="reference external" href="https://github.com/eclipse-score/bazel_registry/blob/main/README.md">registry README</a>, while module-specific API and usage details stay with the module’s own source repository.</p>
+<p><strong>Biggest gap</strong>: there is no short, shared pattern for explaining how to consume registry-published S-CORE modules across repositories.</p>
+</section>
+</section>
+<section id="post-release-communication-response">
+<h2>8.5 Post-Release Communication &amp; Response ⚪<a class="headerlink" href="#post-release-communication-response" title="Link to this heading">#</a></h2>
+<p><em>Infrastructure for communicating and managing consumer-facing response once issues in distributed artifacts have been identified.</em></p>
+<ul class="simple">
+<li><p>Dependency analysis, license interpretation, and continuous SBOM monitoring belong in <a class="reference internal" href="06-compliance-infrastructure.html"><span class="std std-doc">chapter 6</span></a>.</p></li>
+<li><p>This chapter focuses on what happens on the consumer-facing release side once those issues are known.</p></li>
+<li><p><strong>Biggest gap</strong>: no shared advisory and remediation communication model is defined for S-CORE deliverables.</p></li>
+</ul>
+<section id="consumer-advisories">
+<h3>8.5.1 Consumer Advisories ⚪<a class="headerlink" href="#consumer-advisories" title="Link to this heading">#</a></h3>
+<p><em>Communicating post-release issues to downstream consumers in a clear and durable way.</em></p>
+<ul class="simple">
+<li><p>Consumers need a clear advisory path once a relevant issue has been confirmed.</p></li>
+<li><p><strong>Biggest gap</strong>: there is no shared advisory model for communicating issues affecting S-CORE releases.</p></li>
+</ul>
+</section>
+<section id="affected-remediated-versions">
+<h3>8.5.2 Affected &amp; Remediated Versions ⚪<a class="headerlink" href="#affected-remediated-versions" title="Link to this heading">#</a></h3>
+<p><em>Explaining which released versions are affected and which versions contain remediation.</em></p>
+<ul class="simple">
+<li><p>Consumer communication should eventually link affected versions, remediated versions, and the relevant release metadata.</p></li>
+<li><p><strong>Biggest gap</strong>: version-level remediation guidance is not yet standardized across S-CORE releases.</p></li>
+</ul>
+</section>
+<section id="supporting-evidence">
+<h3>8.5.3 Supporting Evidence ⚪<a class="headerlink" href="#supporting-evidence" title="Link to this heading">#</a></h3>
+<p><em>Linking advisories back to the evidence that supports them.</em></p>
+<ul class="simple">
+<li><p>Advisories are stronger when they can reference release notes, SBOMs, provenance, and other supporting material already produced elsewhere in the infrastructure flow, including the scoped compliance evidence described in <a class="reference internal" href="06-compliance-infrastructure.html"><span class="std std-doc">chapter 6</span></a>.</p></li>
+<li><p><strong>Biggest gap</strong>: there is no shared pattern for linking consumer advisories back to the supporting release evidence.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="07-automation-integration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">7 Automation Infrastructure &amp; Continuous Integration (CI) 🔴</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="09-documentation-infrastructure.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">9 Documentation &amp; Traceability 🟠</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverable-types">8.1 Deliverable Types 🟠</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-deliverables">8.1.1 Source Deliverables 🟡</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prebuilt-deliverables">8.1.2 Prebuilt Deliverables 🟠</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#image-deliverables">8.1.3 Image Deliverables 🔴</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-channels">8.2 Distribution Channels 🟠</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#release-publishing">8.2.1 Release Publishing 🟠</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registry-based-distribution">8.2.2 Registry-Based Distribution 🟢</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mirrors-replication">8.2.3 Mirrors &amp; Replication 🔴</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#release-metadata">8.3 Release Metadata 🟠</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#versioning-tagging">8.3.1 Versioning &amp; Tagging 🟡</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compliance-traceability-metadata">8.3.2 Compliance &amp; Traceability Metadata 🔴</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consumer-access">8.4 Consumer Access ⚪</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discoverability">8.4.1 Discoverability ⚪</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retention-availability-rollback">8.4.2 Retention, Availability &amp; Rollback ⚪</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consumer-guidance">8.4.3 Consumer Guidance 🔴</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#post-release-communication-response">8.5 Post-Release Communication &amp; Response ⚪</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consumer-advisories">8.5.1 Consumer Advisories ⚪</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#affected-remediated-versions">8.5.2 Affected &amp; Remediated Versions ⚪</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supporting-evidence">8.5.3 Supporting Evidence ⚪</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/eclipse-score/infrastructure/edit/main/docs/explanation/08-artifact-distribution.md">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.20.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
