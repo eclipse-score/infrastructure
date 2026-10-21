@@ -1,0 +1,320 @@
+:root {
+    --score-header: #2d1942;
+    --score-accent: #7c4daa;
+    --score-accent-soft: #a382c5;
+}
+
+.landing-hero {
+    margin: 0 0 2rem;
+    padding: 1.5rem 1.6rem;
+    border: 1px solid rgba(124, 77, 170, 0.18);
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at top right, rgba(163, 130, 197, 0.18), transparent 38%),
+        linear-gradient(135deg, rgba(45, 25, 66, 0.05), rgba(124, 77, 170, 0.08));
+}
+
+.landing-kicker {
+    margin: 0 0 0.45rem;
+    color: #643899;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.landing-hero h2 {
+    margin: 0 0 0.7rem;
+    font-size: 2rem;
+    line-height: 1.15;
+}
+
+.landing-lead {
+    margin: 0;
+    max-width: 48rem;
+    font-size: 1.05rem;
+    line-height: 1.65;
+}
+
+.landing-grid {
+    display: grid;
+    gap: 1rem;
+    margin: 1rem 0 2rem;
+}
+
+.landing-grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.landing-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.landing-card {
+    padding: 1.1rem 1.1rem 1rem;
+    border: 1px solid rgba(45, 25, 66, 0.12);
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 10px 24px rgba(45, 25, 66, 0.04);
+}
+
+.landing-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.55rem;
+    color: var(--score-header);
+    font-size: 1.05rem;
+}
+
+.landing-card p,
+.landing-card ul {
+    margin-bottom: 0;
+}
+
+.landing-card ul {
+    padding-left: 1.1rem;
+}
+
+.landing-card-compact p {
+    line-height: 1.5;
+}
+
+.landing-quick-links {
+    margin: 0 0 2rem;
+}
+
+.landing-quick-links h2 {
+    margin-bottom: 0.3rem;
+}
+
+.landing-section-label {
+    margin: 1.2rem 0 0.5rem;
+    color: var(--score-accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.landing-section-label:first-of-type {
+    margin-top: 0;
+}
+
+.landing-card-link {
+    display: block;
+    padding: 0.85rem 1rem 0.75rem;
+    border: 1px solid rgba(45, 25, 66, 0.10);
+    border-left: 3px solid var(--score-accent);
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(45, 25, 66, 0.04);
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.landing-card-link:hover,
+.landing-card-link:focus-visible {
+    border-left-color: #643899;
+    box-shadow: 0 6px 20px rgba(45, 25, 66, 0.10);
+    transform: translateY(-1px);
+    text-decoration: none;
+    color: inherit;
+}
+
+.landing-card-link:focus-visible {
+    outline: 2px solid var(--score-accent);
+    outline-offset: 2px;
+}
+
+.landing-card-link .landing-link-title {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0 0 0.2rem;
+    color: var(--score-header);
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.landing-card-link .landing-link-title::after {
+    content: "\2197";
+    flex-shrink: 0;
+    font-size: 0.8em;
+    color: var(--score-accent-soft);
+    transition: color 180ms ease;
+}
+
+.landing-card-link:hover .landing-link-title::after {
+    color: var(--score-accent);
+}
+
+.landing-card-link .landing-link-desc {
+    margin: 0;
+    color: #5f5f5f;
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+/* ── Maturity table ────────────────────────────────────────────────────── */
+
+/* ── Collapsible toggle: borderless CSS chevron, rotates on expand ─────── */
+.ch-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.45rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--score-accent-soft);
+    cursor: pointer;
+    transition: color 150ms ease;
+}
+
+.ch-toggle::before {
+    content: "";
+    display: block;
+    width: 0.38rem;
+    height: 0.38rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(-45deg) translate(1px, -1px);
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms ease;
+}
+
+.ch-toggle[aria-expanded="true"]::before {
+    transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.ch-toggle:hover,
+.ch-toggle:focus-visible {
+    color: var(--score-accent);
+    outline: none;
+}
+
+/* Chapter row: pointer cursor, centred flex in first cell */
+#chapter-map table tbody tr[data-chapter] {
+    cursor: pointer;
+}
+
+#chapter-map table tbody tr[data-chapter] td:first-child {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+/* Expanded sub-section rows: faint purple tint ties them to their chapter */
+#chapter-map table tbody tr.ch-open {
+    background: rgba(124, 77, 170, 0.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ch-toggle,
+    .ch-toggle::before { transition: none; }
+}
+
+#chapter-map table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+#chapter-map table thead tr {
+    border-bottom: 2px solid rgba(45, 25, 66, 0.15);
+}
+
+#chapter-map table thead th {
+    padding: 0.5rem 0.75rem;
+    color: var(--score-accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* All rows: left-bar colour lane */
+#chapter-map table tbody tr {
+    border-left: 3px solid transparent;
+    transition: background 120ms ease;
+}
+
+/* All cells: subtle bottom rule at td level (tr-level borders are unreliable in border-collapse) */
+#chapter-map table tbody tr td {
+    padding: 0.38rem 0.75rem;
+    vertical-align: top;
+    border-bottom: 1px solid rgba(45, 25, 66, 0.06);
+}
+
+/* Chapter rows: heavier weight, separator above — borders on td so collapse is deterministic */
+#chapter-map table tbody tr[data-chapter] {
+    background: rgba(45, 25, 66, 0.025);
+}
+
+#chapter-map table tbody tr[data-chapter] td {
+    border-top: 2px solid rgba(45, 25, 66, 0.10);
+    border-bottom: none;
+    padding-top: 0.55rem;
+    padding-bottom: 0.55rem;
+}
+
+#chapter-map table tbody tr[data-chapter] td:first-child {
+    font-weight: 600;
+}
+
+/* Section rows: indented to show hierarchy */
+#chapter-map table tbody tr:not([data-chapter]) td:first-child {
+    padding-left: 2.5rem;
+    color: rgba(45, 25, 66, 0.8);
+}
+
+/* Maturity column: centred, no-wrap, slightly larger emoji */
+#chapter-map table tbody tr td:nth-child(2) {
+    text-align: center;
+    white-space: nowrap;
+    font-size: 1.05rem;
+    width: 3.5rem;
+}
+
+/* Impact column: muted secondary text */
+#chapter-map table tbody tr td:nth-child(3) {
+    color: #4a4a5a;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+/* Left-bar colours by maturity — chapter rows only */
+#chapter-map table tbody tr[data-chapter][data-maturity="green"]  { border-left-color: #2e9e5b; }
+#chapter-map table tbody tr[data-chapter][data-maturity="yellow"] { border-left-color: #c9960a; }
+#chapter-map table tbody tr[data-chapter][data-maturity="orange"] { border-left-color: #d96c1a; }
+#chapter-map table tbody tr[data-chapter][data-maturity="red"]    { border-left-color: #c0332b; }
+#chapter-map table tbody tr[data-chapter][data-maturity="white"]  { border-left-color: rgba(45, 25, 66, 0.18); }
+
+/* Hover: very light tint matching the bar colour — chapter rows only */
+#chapter-map table tbody tr[data-chapter][data-maturity="green"]:hover  { background: rgba(46, 158, 91, 0.06); }
+#chapter-map table tbody tr[data-chapter][data-maturity="yellow"]:hover { background: rgba(201, 150, 10, 0.07); }
+#chapter-map table tbody tr[data-chapter][data-maturity="orange"]:hover { background: rgba(217, 108, 26, 0.07); }
+#chapter-map table tbody tr[data-chapter][data-maturity="red"]:hover    { background: rgba(192, 51, 43, 0.07); }
+#chapter-map table tbody tr[data-chapter][data-maturity="white"]:hover  { background: rgba(45, 25, 66, 0.04); }
+
+@media (prefers-reduced-motion: reduce) {
+    #chapter-map table tbody tr { transition: none; }
+}
+
+@media screen and (max-width: 900px) {
+    .landing-grid-2,
+    .landing-grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .landing-hero h2 {
+        font-size: 1.6rem;
+    }
+
+    .landing-card-link .landing-link-title {
+        font-size: 0.88rem;
+    }
+}
