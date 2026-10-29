@@ -28,4 +28,5 @@ writing-docs
 update-devcontainer
 manage-ci-secrets
 update-toolchain
+github-actions-secrets-from-forks
 :::
