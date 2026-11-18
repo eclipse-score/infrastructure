@@ -126,5 +126,9 @@
   {
     "version": "pr-79",
     "url": "https://eclipse-score.github.io/infrastructure/pr-79/"
+  },
+  {
+    "version": "pr-80",
+    "url": "https://eclipse-score.github.io/infrastructure/pr-80/"
   }
 ]
