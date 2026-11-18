@@ -228,6 +228,17 @@ For available plugins and `qemu_config.json` format, see the [Configuration Refe
 - KVM access (strongly recommended for performance)
 - QNX SDP 8.0 credentials (for toolchain download)
 
+### Set up credentials and license
+
+1. Put your myQNX credentials in `~/.netrc` (`machine qnx.com login <user> password <password>`) or export `SCORE_QNX_USER` and `SCORE_QNX_PASSWORD`. The repository's `.bazelrc` must register the `qnx_credential_helper.py` ([details](https://github.com/eclipse-score/toolchains_qnx#using-pre-packaged-qnx-80-sdp)).
+2. Obtain a QNX license ([details](https://github.com/eclipse-score/toolchains_qnx#where-to-obtain-the-qnx-80-sdp)). The QNX Software Center installs it to `~/.qnx/license/licenses`, but the toolchain expects it at `/opt/score_qnx/license/licenses`:
+
+   ```bash
+   sudo mkdir -p /opt/score_qnx/license
+   sudo ln -s ~/.qnx/license/licenses /opt/score_qnx/license/licenses
+   ls -L /opt/score_qnx/license/licenses   # must succeed
+   ```
+
 ### Add to your workspace
 
 In `MODULE.bazel`:
@@ -290,6 +301,30 @@ Run:
 ```bash
 bazel test //path/to:my_test_qnx --config=qnx-x86_64
 ```
+
+### Run existing tests without wrapping them
+
+To run plain `cc_test` and `rust_test` targets in QEMU, set `--run_under` once on your repository's QNX configs in `.bazelrc`:
+
+```
+test:score-qnx-x86_64 --run_under=@score_qnx_unit_tests//src:run_under_qnx
+test:score-qnx-aarch64 --run_under=@score_qnx_unit_tests//src:run_under_qnx
+```
+
+Then run:
+
+```bash
+bazel test //path/to:my_test --config=score-qnx-x86_64
+```
+
+Without `--run_under`, Bazel tries to execute the QNX binary on the host and the test fails. Use `--test_tag_filters` to keep tests that must not run in QEMU (for example ITF integration tests) out of the run.
+
+### Troubleshoot
+
+- `You don't have a valid license for this product`: the license is missing or expired, or the `/opt/score_qnx/license/licenses` symlink is dangling.
+- Tests are very slow or time out: check access to `/dev/kvm` and raise `--test_timeout`.
+
+For interactive shell, GDB debugging and excluding single test cases, see the [qnx_unit_tests README](https://github.com/eclipse-score/qnx_unit_tests/blob/main/README.md).
 
 ### How it works
 
