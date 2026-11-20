@@ -684,6 +684,19 @@
 <li><p>QNX SDP 8.0 credentials (for toolchain download)</p></li>
 </ul>
 </section>
+<section id="set-up-credentials-and-license">
+<h3>Set up credentials and license<a class="headerlink" href="#set-up-credentials-and-license" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Put your myQNX credentials in <code class="docutils literal notranslate"><span class="pre">~/.netrc</span></code> (<code class="docutils literal notranslate"><span class="pre">machine</span> <span class="pre">qnx.com</span> <span class="pre">login</span> <span class="pre">&lt;user&gt;</span> <span class="pre">password</span> <span class="pre">&lt;password&gt;</span></code>) or export <code class="docutils literal notranslate"><span class="pre">SCORE_QNX_USER</span></code> and <code class="docutils literal notranslate"><span class="pre">SCORE_QNX_PASSWORD</span></code>. The repository’s <code class="docutils literal notranslate"><span class="pre">.bazelrc</span></code> must register the <code class="docutils literal notranslate"><span class="pre">qnx_credential_helper.py</span></code> (<a class="reference external" href="https://github.com/eclipse-score/toolchains_qnx#using-pre-packaged-qnx-80-sdp">details</a>).</p></li>
+<li><p>Obtain a QNX license (<a class="reference external" href="https://github.com/eclipse-score/toolchains_qnx#where-to-obtain-the-qnx-80-sdp">details</a>). The QNX Software Center installs it to <code class="docutils literal notranslate"><span class="pre">~/.qnx/license/licenses</span></code>, but the toolchain expects it at <code class="docutils literal notranslate"><span class="pre">/opt/score_qnx/license/licenses</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/score_qnx/license
+sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>~/.qnx/license/licenses<span class="w"> </span>/opt/score_qnx/license/licenses
+ls<span class="w"> </span>-L<span class="w"> </span>/opt/score_qnx/license/licenses<span class="w">   </span><span class="c1"># must succeed</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
 <section id="add-to-your-workspace">
 <h3>Add to your workspace<a class="headerlink" href="#add-to-your-workspace" title="Link to this heading">#</a></h3>
 <p>In <code class="docutils literal notranslate"><span class="pre">MODULE.bazel</span></code>:</p>
@@ -739,6 +752,27 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bazel<span class="w"> </span><span class="nb">test</span><span class="w"> </span>//path/to:my_test_qnx<span class="w"> </span>--config<span class="o">=</span>qnx-x86_64
 </pre></div>
 </div>
+</section>
+<section id="run-existing-tests-without-wrapping-them">
+<h3>Run existing tests without wrapping them<a class="headerlink" href="#run-existing-tests-without-wrapping-them" title="Link to this heading">#</a></h3>
+<p>To run plain <code class="docutils literal notranslate"><span class="pre">cc_test</span></code> and <code class="docutils literal notranslate"><span class="pre">rust_test</span></code> targets in QEMU, set <code class="docutils literal notranslate"><span class="pre">--run_under</span></code> once on your repository’s QNX configs in <code class="docutils literal notranslate"><span class="pre">.bazelrc</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="p">:</span><span class="n">score</span><span class="o">-</span><span class="n">qnx</span><span class="o">-</span><span class="n">x86_64</span> <span class="o">--</span><span class="n">run_under</span><span class="o">=</span><span class="nd">@score_qnx_unit_tests</span><span class="o">//</span><span class="n">src</span><span class="p">:</span><span class="n">run_under_qnx</span>
+<span class="n">test</span><span class="p">:</span><span class="n">score</span><span class="o">-</span><span class="n">qnx</span><span class="o">-</span><span class="n">aarch64</span> <span class="o">--</span><span class="n">run_under</span><span class="o">=</span><span class="nd">@score_qnx_unit_tests</span><span class="o">//</span><span class="n">src</span><span class="p">:</span><span class="n">run_under_qnx</span>
+</pre></div>
+</div>
+<p>Then run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bazel<span class="w"> </span><span class="nb">test</span><span class="w"> </span>//path/to:my_test<span class="w"> </span>--config<span class="o">=</span>score-qnx-x86_64
+</pre></div>
+</div>
+<p>Without <code class="docutils literal notranslate"><span class="pre">--run_under</span></code>, Bazel tries to execute the QNX binary on the host and the test fails. Use <code class="docutils literal notranslate"><span class="pre">--test_tag_filters</span></code> to keep tests that must not run in QEMU (for example ITF integration tests) out of the run.</p>
+</section>
+<section id="troubleshoot">
+<h3>Troubleshoot<a class="headerlink" href="#troubleshoot" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">You</span> <span class="pre">don't</span> <span class="pre">have</span> <span class="pre">a</span> <span class="pre">valid</span> <span class="pre">license</span> <span class="pre">for</span> <span class="pre">this</span> <span class="pre">product</span></code>: the license is missing or expired, or the <code class="docutils literal notranslate"><span class="pre">/opt/score_qnx/license/licenses</span></code> symlink is dangling.</p></li>
+<li><p>Tests are very slow or time out: check access to <code class="docutils literal notranslate"><span class="pre">/dev/kvm</span></code> and raise <code class="docutils literal notranslate"><span class="pre">--test_timeout</span></code>.</p></li>
+</ul>
+<p>For interactive shell, GDB debugging and excluding single test cases, see the <a class="reference external" href="https://github.com/eclipse-score/qnx_unit_tests/blob/main/README.md">qnx_unit_tests README</a>.</p>
 </section>
 <section id="how-it-works">
 <h3>How it works<a class="headerlink" href="#how-it-works" title="Link to this heading">#</a></h3>
@@ -846,9 +880,12 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-qnx-unit-tests">Advanced: QNX unit tests</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-credentials-and-license">Set up credentials and license</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-to-your-workspace">Add to your workspace</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-a-test-target">Wrap a test target</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-bazelrc">Configure <code class="docutils literal notranslate"><span class="pre">.bazelrc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-existing-tests-without-wrapping-them">Run existing tests without wrapping them</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshoot">Troubleshoot</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">How it works</a></li>
 </ul>
 </li>
